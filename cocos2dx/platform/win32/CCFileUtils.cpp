@@ -156,6 +156,40 @@ unsigned char* CCFileUtils::getFileData(const char* pszFileName, const char* psz
         fclose(fp);
     } while (0);
 
+    // jpg, png, jpeg와 같은 이미지 파일을 못찾아서 열지 못한 경우는 노티를 띄우는 대신
+    // not found image를 보여준다
+    if (! pBuffer && isPopupNotify()) {
+        bool load_not_found = false;
+        // get extension
+        string filename(pszFileName);
+        int dot_idx = filename.find_last_of('.');
+        if(dot_idx != std::string::npos) {
+            string ext = filename.substr(dot_idx);
+            if(ext == ".png" || ext == ".jpg" || ext == ".jpeg") {
+                load_not_found = true;
+            }
+        }
+
+        if(load_not_found == true) {
+            const char *not_found_img = "not_found.png";
+            do
+            {
+                // read the file from hardware
+                FILE *fp = fopen(not_found_img, pszMode);
+                CC_BREAK_IF(!fp);
+
+                fseek(fp,0,SEEK_END);
+                *pSize = ftell(fp);
+                fseek(fp,0,SEEK_SET);
+                pBuffer = new unsigned char[*pSize];
+                *pSize = fread(pBuffer,sizeof(unsigned char), *pSize,fp);
+                fclose(fp);
+            } while (0);  
+            //not found log 출력
+            CCLOGCONSOLE("Not Found Image '%s'", pszFileName);
+        }
+    }
+
     if (! pBuffer && isPopupNotify())
     {
         std::string title = "Notification";

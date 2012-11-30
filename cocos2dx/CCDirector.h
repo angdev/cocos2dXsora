@@ -74,6 +74,8 @@ class CCTouchDispatcher;
 class CCKeypadDispatcher;
 class CCAccelerometer;
 
+class CCConsoleLayer;
+
 /**
 @brief Class that creates and handle the main Window and manages how
 and when to execute the Scenes.
@@ -287,6 +289,9 @@ public:
     /** enables/disables OpenGL depth test */
     void setDepthTest(bool bOn);
 
+    /** enables/disables scissor test */
+    void setScissorTest(bool bOn);
+
     virtual void mainLoop(void) = 0;
 
     /** The size in pixels of the surface. It could be different than the screen size.
@@ -407,6 +412,12 @@ protected:
     
     // CCEGLViewProtocol will recreate stats labels to fit visible rect
     friend class CCEGLViewProtocol;
+
+#if CC_CONSOLE
+    void showConsole();
+    void createConsole();
+    CCConsoleLayer *m_pConsoleLayer;
+#endif
 };
 
 /** 

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="support">
+      <UniqueIdentifier>{80cc826a-ee39-4a09-acf9-37f3fdba7468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cbes">
+      <UniqueIdentifier>{34e253ff-4768-41e5-9460-f1f8dc81e8f2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>support</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="unittest1.cpp" />
+    <ClCompile Include="game_object_test.cpp">
+      <Filter>cbes</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

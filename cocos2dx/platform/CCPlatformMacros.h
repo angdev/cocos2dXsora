@@ -31,6 +31,9 @@
 #include "CCPlatformConfig.h"
 #include "CCPlatformDefine.h"
 
+//콘솔 로그 함수 정의된 파일
+#include "glconsole/GLConsoleLog.h"
+
 /**
  * define a create function for a specific type, such as CCLayer
  * @__TYPE__ class type to add create(), such as CCLayer

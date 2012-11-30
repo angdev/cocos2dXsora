@@ -94,6 +94,12 @@
     <Filter Include="draw_nodes">
       <UniqueIdentifier>{1179d205-d065-49f0-8457-bc4c3f1d0cb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="glconsole">
+      <UniqueIdentifier>{471130ab-510e-4e72-b434-fdc5279ee8ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cvar">
+      <UniqueIdentifier>{19e0df98-6b68-4049-85b7-d6d7d0a4ba8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\base_nodes\CCAtlasNode.cpp">
@@ -436,6 +442,48 @@
     </ClCompile>
     <ClCompile Include="..\shaders\CCGLProgram.cpp">
       <Filter>shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glconsole\CCConsoleKeyboard.cpp">
+      <Filter>glconsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glconsole\CCConsoleLayer.cpp">
+      <Filter>glconsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glconsole\GLConsole.cpp">
+      <Filter>glconsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glconsole\GLConsoleFunction.cpp">
+      <Filter>glconsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glconsole\GLConsoleLog.cpp">
+      <Filter>glconsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glconsole\GLFont.cpp">
+      <Filter>glconsole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\CVar.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\CVarParse.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\cvars_tinyxml.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\cvars_tinyxmlerror.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\cvars_tinyxmlparser.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\Timestamp.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\Trie.cpp">
+      <Filter>cvar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CVars\TrieNode.cpp">
+      <Filter>cvar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -886,6 +934,51 @@
     </ClInclude>
     <ClInclude Include="..\shaders\CCGLProgram.h">
       <Filter>shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\CCConsoleKeyboard.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\CCConsoleLayer.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\GLColor.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\GLConsole.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\GLConsoleFunction.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\GLConsoleLog.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glconsole\GLFont.h">
+      <Filter>glconsole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\CVar.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\CVarMapIO.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\cvars_tinyxml.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\CVarVectorIO.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\CVarVersion.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\Timestamp.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\Trie.h">
+      <Filter>cvar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CVars\TrieNode.h">
+      <Filter>cvar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

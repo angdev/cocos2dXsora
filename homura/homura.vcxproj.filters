@@ -1,0 +1,101 @@
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="support">
+      <UniqueIdentifier>{c2691894-be4e-48bf-b4be-d336b9edef30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cbes">
+      <UniqueIdentifier>{7ef1bcd2-5f0c-45f8-b967-76eee8f79b7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="layer">
+      <UniqueIdentifier>{0f72e3bc-97f9-46a9-a053-d8da8c609e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component">
+      <UniqueIdentifier>{62f5908c-5cfe-49e0-8804-043ffd0dff0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\drawable">
+      <UniqueIdentifier>{fee7b678-d6bd-4eeb-8434-7cf15430d578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\logic">
+      <UniqueIdentifier>{3e37a9b7-56f2-4577-b1f5-f88b94d3825a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="component\phy">
+      <UniqueIdentifier>{68b06fcf-5fcd-4f99-bb58-cfb4c8dd87d9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="game_component.cpp">
+      <Filter>cbes</Filter>
+    </ClCompile>
+    <ClCompile Include="game_message.cpp">
+      <Filter>cbes</Filter>
+    </ClCompile>
+    <ClCompile Include="game_object.cpp">
+      <Filter>cbes</Filter>
+    </ClCompile>
+    <ClCompile Include="game_world.cpp">
+      <Filter>cbes</Filter>
+    </ClCompile>
+    <ClCompile Include="game_console.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="hello_world_scene.cpp">
+      <Filter>layer</Filter>
+    </ClCompile>
+    <ClCompile Include="drawable_component.cpp">
+      <Filter>component\drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="logic_component.cpp">
+      <Filter>component\logic</Filter>
+    </ClCompile>
+    <ClCompile Include="phy_component.cpp">
+      <Filter>component\phy</Filter>
+    </ClCompile>
+    <ClCompile Include="game_object_factory.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="app_macros.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="game_component.h">
+      <Filter>cbes</Filter>
+    </ClInclude>
+    <ClInclude Include="game_message.h">
+      <Filter>cbes</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object.h">
+      <Filter>cbes</Filter>
+    </ClInclude>
+    <ClInclude Include="game_world.h">
+      <Filter>cbes</Filter>
+    </ClInclude>
+    <ClInclude Include="message_handler.h">
+      <Filter>cbes</Filter>
+    </ClInclude>
+    <ClInclude Include="game_globals.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="game_console.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="hello_world_scene.h">
+      <Filter>layer</Filter>
+    </ClInclude>
+    <ClInclude Include="drawable_component.h">
+      <Filter>component\drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="logic_component.h">
+      <Filter>component\logic</Filter>
+    </ClInclude>
+    <ClInclude Include="phy_component.h">
+      <Filter>component\phy</Filter>
+    </ClInclude>
+    <ClInclude Include="game_object_factory.h" />
+  </ItemGroup>
+</Project>

@@ -56,6 +56,10 @@ THE SOFTWARE.
 #include "CCEGLView.h"
 #include <string>
 
+#if CC_CONSOLE
+#include "glconsole/CCConsoleLayer.h"
+#endif
+
 /**
  Position of the FPS
  
@@ -155,6 +159,10 @@ bool CCDirector::init(void)
     // create autorelease pool
     CCPoolManager::sharedPoolManager()->push();
 
+#if CC_CONSOLE
+	//console
+	m_pConsoleLayer = NULL;
+#endif
     return true;
 }
     
@@ -183,6 +191,10 @@ CCDirector::~CCDirector(void)
     CC_SAFE_DELETE(m_pLastUpdate);
     // delete fps string
     delete []m_pszFPS;
+
+#if CC_CONSOLE
+	CC_SAFE_RELEASE(m_pConsoleLayer);
+#endif
 
     s_SharedDirector = NULL;
 }
@@ -241,6 +253,10 @@ void CCDirector::drawScene(void)
     {
         showStats();
     }
+
+#if CC_CONSOLE
+    showConsole();
+#endif
 
     kmGLPopMatrix();
 
@@ -306,7 +322,9 @@ void CCDirector::setOpenGLView(CCEGLView *pobOpenGLView)
         m_obWinSizeInPoints = m_pobOpenGLView->getDesignResolutionSize();
         
         createStatsLabel();
-        
+#if CC_CONSOLE
+        createConsole();
+#endif
         if (m_pobOpenGLView)
         {
             setGLDefaultValues();
@@ -430,6 +448,19 @@ void CCDirector::setDepthTest(bool bOn)
     else
     {
         glDisable(GL_DEPTH_TEST);
+    }
+    CHECK_GL_ERROR_DEBUG();
+}
+
+void CCDirector::setScissorTest(bool bOn)
+{
+    if (bOn)
+    {
+        glEnable(GL_SCISSOR_TEST);
+    }
+    else
+    {
+        glDisable(GL_SCISSOR_TEST);
     }
     CHECK_GL_ERROR_DEBUG();
 }
@@ -762,6 +793,27 @@ void CCDirector::showStats(void)
     
     g_uNumberOfDraws = 0;
 }
+
+#if CC_CONSOLE
+void CCDirector::showConsole()
+{
+    float dt = m_fDeltaTime;
+	m_pConsoleLayer->update(dt);
+	m_pConsoleLayer->visit();
+}
+#endif
+
+#if CC_CONSOLE
+void CCDirector::createConsole()
+{
+    if( m_pConsoleLayer && m_pConsoleLayer )
+    {
+        CC_SAFE_RELEASE_NULL(m_pConsoleLayer);
+    }
+    m_pConsoleLayer = CCConsoleLayer::create();
+	m_pConsoleLayer->retain();
+}
+#endif
 
 void CCDirector::calculateMPF()
 {

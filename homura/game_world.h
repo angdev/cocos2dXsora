@@ -1,0 +1,38 @@
+﻿// Ŭnicode please
+#pragma once
+
+#include "game_globals.h"
+
+struct GameMessage;
+struct DelayedGameMessage;
+class GameObject;
+class GameObjectFactory;
+
+typedef std::shared_ptr<GameObject> GameObjectPtr;
+typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
+
+class GameWorld {
+public:
+    GameWorld();
+    ~GameWorld();
+
+public:
+    void Update(float dt);
+    void OnMessage(GameMessage *msg);
+    void OnMessage(GameMessage *msg, float delay);
+
+public:
+    //GameObject Handling
+    //id를 리턴함.
+    int AddObject(GameObject *obj, kObjectType type);
+    GameObject* GetObject(const int &id);
+    
+private:
+    typedef std::list<DelayedGameMessagePtr> DelayedMessageListType;
+    DelayedMessageListType delayed_msg_list_;
+
+private:
+    typedef std::map<kObjectType, std::vector<GameObjectPtr> > GameObjectTable;
+    GameObjectTable game_object_table_;
+
+};

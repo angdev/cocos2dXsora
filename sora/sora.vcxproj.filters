@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="sora_stdafx.h" />
+    <ClInclude Include="utf8\checked.h">
+      <Filter>utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8\core.h">
+      <Filter>utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8\unchecked.h">
+      <Filter>utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml\tinyxml.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml\tinystr.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="data_file.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="sora.h" />
+    <ClInclude Include="arch.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="assert_include.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="logger.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="mem.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="shared_object.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="string_hash.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="string_util.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="template_lib.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="template_lib.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="typelist.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="uncopyable.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="array_include.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="random_include.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="shared_ptr_include.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="tuple_include.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="unordered_map_include.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="angle.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math_helper.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_helper.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="class_attribute.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="class_dict.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="data_define.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="data_helper.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="data_init.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="default_data_file.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="stage_header.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="struct_version_converter.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+    <ClInclude Include="utf8.h">
+      <Filter>utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="xml_node.h">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="xml_reader.h">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="xml_writer.h">
+      <Filter>xml</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="globals.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_data.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_reader.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_writer.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_frame.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_prototype.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_node.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_manager.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_parser.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="file_helper.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_resource.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="ani_globals.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="crc32.h">
+      <Filter>base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="sora_stdafx.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinystr.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxml.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="logger.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="mem.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="string_hash.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="string_util.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="angle.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="math_helper.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_helper.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="class_attribute.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="class_dict.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="data_define.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="data_helper.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="data_init.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="struct_version_converter.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="xml_node.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml_reader.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml_writer.cpp">
+      <Filter>xml</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_data.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_reader.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_writer.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_node.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_frame.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_prototype.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_manager.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_parser.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="file_helper.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_resource.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="crc32.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="base">
+      <UniqueIdentifier>{223ee3cf-ed08-425b-9a79-b3d675d06b35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{ae2756f8-79c3-458e-8616-8cb5e8d253bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{05b18a50-0cee-4120-be16-2712376f5e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utf8">
+      <UniqueIdentifier>{4d72e577-dd03-401d-b399-378d04da0781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="xml">
+      <UniqueIdentifier>{2c26b5da-35bb-4a33-98d0-c159f37a90f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rtti">
+      <UniqueIdentifier>{f4c3da1c-b12f-4b22-ba9c-06627b47deaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{ce81d1ab-c7a6-4ac4-aac8-4bbb2dc5fb8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{382b91c3-bbf3-4c8d-ae93-4cf37adea814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ani">
+      <UniqueIdentifier>{bc0a3cfb-6136-4e09-94f0-aaae63d62e77}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

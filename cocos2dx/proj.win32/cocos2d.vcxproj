@@ -20,10 +20,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -59,7 +61,7 @@
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(ProjectDir)..;$(ProjectDir)..\platform\win32;$(ProjectDir)..\platform\third_party\win32\iconv;$(ProjectDir)..\platform\third_party\win32\zlib;$(ProjectDir)..\platform\third_party\win32\libpng;$(ProjectDir)..\platform\third_party\win32\libjpeg;$(ProjectDir)..\platform\third_party\win32\libtiff;$(ProjectDir)..\platform\third_party\win32\libxml2;$(ProjectDir)..\platform\third_party\win32\pthread;$(ProjectDir)..\platform\third_party\win32\OGLES;..\include;$(ProjectDir)..\kazmath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
+      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -67,6 +69,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
@@ -103,6 +106,7 @@ xcopy /Y /Q "$(ProjectDir)..\platform\third_party\win32\libraries\*.*" "$(OutDir
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreLinkEvent>
       <Command>if not exist "$(OutDir)" mkdir "$(OutDir)"
@@ -139,6 +143,14 @@ xcopy /Y /Q "$(ProjectDir)..\platform\third_party\win32\libraries\*.*" "$(OutDir
     <ClCompile Include="..\cocoa\CCSet.cpp" />
     <ClCompile Include="..\cocoa\CCString.cpp" />
     <ClCompile Include="..\cocoa\CCZone.cpp" />
+    <ClCompile Include="..\CVars\CVar.cpp" />
+    <ClCompile Include="..\CVars\CVarParse.cpp" />
+    <ClCompile Include="..\CVars\cvars_tinyxml.cpp" />
+    <ClCompile Include="..\CVars\cvars_tinyxmlerror.cpp" />
+    <ClCompile Include="..\CVars\cvars_tinyxmlparser.cpp" />
+    <ClCompile Include="..\CVars\Timestamp.cpp" />
+    <ClCompile Include="..\CVars\Trie.cpp" />
+    <ClCompile Include="..\CVars\TrieNode.cpp" />
     <ClCompile Include="..\draw_nodes\CCDrawingPrimitives.cpp" />
     <ClCompile Include="..\draw_nodes\CCDrawNode.cpp" />
     <ClCompile Include="..\effects\CCGrabber.cpp" />
@@ -156,6 +168,12 @@ xcopy /Y /Q "$(ProjectDir)..\platform\third_party\win32\libraries\*.*" "$(OutDir
     <ClCompile Include="..\actions\CCActionProgressTimer.cpp" />
     <ClCompile Include="..\actions\CCActionTiledGrid.cpp" />
     <ClCompile Include="..\actions\CCActionTween.cpp" />
+    <ClCompile Include="..\glconsole\CCConsoleKeyboard.cpp" />
+    <ClCompile Include="..\glconsole\CCConsoleLayer.cpp" />
+    <ClCompile Include="..\glconsole\GLConsole.cpp" />
+    <ClCompile Include="..\glconsole\GLConsoleFunction.cpp" />
+    <ClCompile Include="..\glconsole\GLConsoleLog.cpp" />
+    <ClCompile Include="..\glconsole\GLFont.cpp" />
     <ClCompile Include="..\label_nodes\CCLabelAtlas.cpp" />
     <ClCompile Include="..\label_nodes\CCLabelBMFont.cpp" />
     <ClCompile Include="..\label_nodes\CCLabelTTF.cpp" />
@@ -259,6 +277,14 @@ xcopy /Y /Q "$(ProjectDir)..\platform\third_party\win32\libraries\*.*" "$(OutDir
     <ClInclude Include="..\cocoa\CCSet.h" />
     <ClInclude Include="..\cocoa\CCString.h" />
     <ClInclude Include="..\cocoa\CCZone.h" />
+    <ClInclude Include="..\CVars\CVar.h" />
+    <ClInclude Include="..\CVars\CVarMapIO.h" />
+    <ClInclude Include="..\CVars\cvars_tinyxml.h" />
+    <ClInclude Include="..\CVars\CVarVectorIO.h" />
+    <ClInclude Include="..\CVars\CVarVersion.h" />
+    <ClInclude Include="..\CVars\Timestamp.h" />
+    <ClInclude Include="..\CVars\Trie.h" />
+    <ClInclude Include="..\CVars\TrieNode.h" />
     <ClInclude Include="..\draw_nodes\CCDrawingPrimitives.h" />
     <ClInclude Include="..\draw_nodes\CCDrawNode.h" />
     <ClInclude Include="..\effects\CCGrabber.h" />
@@ -276,6 +302,13 @@ xcopy /Y /Q "$(ProjectDir)..\platform\third_party\win32\libraries\*.*" "$(OutDir
     <ClInclude Include="..\actions\CCActionProgressTimer.h" />
     <ClInclude Include="..\actions\CCActionTiledGrid.h" />
     <ClInclude Include="..\actions\CCActionTween.h" />
+    <ClInclude Include="..\glconsole\CCConsoleKeyboard.h" />
+    <ClInclude Include="..\glconsole\CCConsoleLayer.h" />
+    <ClInclude Include="..\glconsole\GLColor.h" />
+    <ClInclude Include="..\glconsole\GLConsole.h" />
+    <ClInclude Include="..\glconsole\GLConsoleFunction.h" />
+    <ClInclude Include="..\glconsole\GLConsoleLog.h" />
+    <ClInclude Include="..\glconsole\GLFont.h" />
     <ClInclude Include="..\include\ccConfig.h" />
     <ClInclude Include="..\include\CCEventType.h" />
     <ClInclude Include="..\include\ccMacros.h" />

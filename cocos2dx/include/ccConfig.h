@@ -274,4 +274,14 @@ To enable set it to a value different than 0. Disabled by default.
 #define CC_LUA_ENGINE_DEBUG 0
 #endif
 
+
+/** Use quake stype devel console, but support only win32 */
+#ifndef CC_CONSOLE
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#define CC_CONSOLE 1
+#else
+#define CC_CONSOLE 0
+#endif
+#endif
+
 #endif // __CCCONFIG_H__

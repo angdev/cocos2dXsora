@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ani.h" />
+    <ClInclude Include="ani_data.h" />
+    <ClInclude Include="ani_frame.h" />
+    <ClInclude Include="ani_globals.h" />
+    <ClInclude Include="ani_manager.h" />
+    <ClInclude Include="ani_node.h" />
+    <ClInclude Include="ani_parser.h" />
+    <ClInclude Include="ani_prototype.h" />
+    <ClInclude Include="ani_reader.h" />
+    <ClInclude Include="ani_resource.h" />
+    <ClInclude Include="ani_writer.h" />
+    <ClInclude Include="crc32.h" />
+    <ClInclude Include="file_helper.h" />
+    <ClInclude Include="globals.h" />
+    <ClInclude Include="sora.h" />
+    <ClInclude Include="angle.h" />
+    <ClInclude Include="class_attribute.h" />
+    <ClInclude Include="class_dict.h" />
+    <ClInclude Include="data_define.h" />
+    <ClInclude Include="data_file.h" />
+    <ClInclude Include="data_helper.h" />
+    <ClInclude Include="data_init.h" />
+    <ClInclude Include="default_data_file.h" />
+    <ClInclude Include="gl_helper.h" />
+    <ClInclude Include="sora_stdafx.h" />
+    <ClInclude Include="arch.h" />
+    <ClInclude Include="array_include.h" />
+    <ClInclude Include="assert_include.h" />
+    <ClInclude Include="logger.h" />
+    <ClInclude Include="math_helper.h" />
+    <ClInclude Include="mem.h" />
+    <ClInclude Include="random_include.h" />
+    <ClInclude Include="shared_object.h" />
+    <ClInclude Include="shared_ptr_include.h" />
+    <ClInclude Include="singleton.h" />
+    <ClInclude Include="stage_header.h" />
+    <ClInclude Include="string_hash.h" />
+    <ClInclude Include="string_util.h" />
+    <ClInclude Include="struct_version_converter.h" />
+    <ClInclude Include="template_lib.h" />
+    <ClInclude Include="template_lib.hpp" />
+    <ClInclude Include="tuple_include.h" />
+    <ClInclude Include="typelist.h" />
+    <ClInclude Include="uncopyable.h" />
+    <ClInclude Include="unordered_map_include.h" />
+    <ClInclude Include="utf8.h" />
+    <ClInclude Include="vector.h" />
+    <ClInclude Include="vertex.h" />
+    <ClInclude Include="xml_node.h" />
+    <ClInclude Include="xml_reader.h" />
+    <ClInclude Include="xml_writer.h" />
+    <ClInclude Include="tinyxml\tinystr.h" />
+    <ClInclude Include="tinyxml\tinyxml.h" />
+    <ClInclude Include="utf8\checked.h" />
+    <ClInclude Include="utf8\core.h" />
+    <ClInclude Include="utf8\unchecked.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="angle.cpp" />
+    <ClCompile Include="ani.cpp" />
+    <ClCompile Include="ani_data.cpp" />
+    <ClCompile Include="ani_frame.cpp" />
+    <ClCompile Include="ani_manager.cpp" />
+    <ClCompile Include="ani_node.cpp" />
+    <ClCompile Include="ani_parser.cpp" />
+    <ClCompile Include="ani_prototype.cpp" />
+    <ClCompile Include="ani_reader.cpp" />
+    <ClCompile Include="ani_resource.cpp" />
+    <ClCompile Include="ani_writer.cpp" />
+    <ClCompile Include="class_attribute.cpp" />
+    <ClCompile Include="class_dict.cpp" />
+    <ClCompile Include="crc32.cpp" />
+    <ClCompile Include="data_define.cpp" />
+    <ClCompile Include="data_helper.cpp" />
+    <ClCompile Include="data_init.cpp" />
+    <ClCompile Include="file_helper.cpp" />
+    <ClCompile Include="gl_helper.cpp" />
+    <ClCompile Include="sora_stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="logger.cpp" />
+    <ClCompile Include="math_helper.cpp" />
+    <ClCompile Include="mem.cpp" />
+    <ClCompile Include="string_hash.cpp" />
+    <ClCompile Include="string_util.cpp" />
+    <ClCompile Include="struct_version_converter.cpp" />
+    <ClCompile Include="vertex.cpp" />
+    <ClCompile Include="xml_node.cpp" />
+    <ClCompile Include="xml_reader.cpp" />
+    <ClCompile Include="xml_writer.cpp" />
+    <ClCompile Include="tinyxml\tinystr.cpp" />
+    <ClCompile Include="tinyxml\tinyxml.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cocos2dx\proj.win32\cocos2d.vcxproj">
+      <Project>{98a51ba8-fc3a-415b-ac8f-8c7bd464e93e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\CocosDenshion\proj.win32\CocosDenshion.vcxproj">
+      <Project>{f8edd7fa-9a51-4e80-baeb-860825d2eac6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\external\Box2D\proj.win32\Box2D.vcxproj">
+      <Project>{929480e7-23c0-4df6-8456-096d71547116}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{174FDB9A-4F56-4658-8DAE-6667874FECC9}</ProjectGuid>
+    <RootNamespace>sora</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\cocos2dx\platform\third_party\win32\OGLES;$(ProjectDir)\..\external;$(ProjectDir);$(ProjectDir)\..\cocos2dx\platform\win32;$(ProjectDir)\..\cocos2dx\kazmath\include;$(ProjectDir)\..\cocos2dx\include;$(ProjectDir)\..\cocos2dx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>sora_stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251;4996;4819;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\cocos2dx\platform\third_party\win32\OGLES;$(ProjectDir)\..\external;$(ProjectDir);$(ProjectDir)\..\cocos2dx\platform\win32;$(ProjectDir)\..\cocos2dx\kazmath\include;$(ProjectDir)\..\cocos2dx\include;$(ProjectDir)\..\cocos2dx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>sora_stdafx.h</PrecompiledHeaderFile>
+      <DisableSpecificWarnings>4251;4996;4819;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="support">
+      <UniqueIdentifier>{4f395769-4e1d-4178-902a-f2f06fbab749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="rtti">
+      <UniqueIdentifier>{4dc4702a-8822-4bee-973d-6beb78d57ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{720daab1-af8b-4eff-8e34-d85f7c60ef43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ani">
+      <UniqueIdentifier>{ff24deb6-0b7d-4d47-bd82-ff96dcc610f7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="xml_util.h">
+      <Filter>rtti</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="angle_test.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="class_dict_test.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="class_attribute_test.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="file_helper_test.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="data_define_test.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="data_helper_test.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="xml_util.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="typelist_test.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="template_lib_test.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="mem_test.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="string_util_test.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="struct_version_converter_test.cpp">
+      <Filter>rtti</Filter>
+    </ClCompile>
+    <ClCompile Include="ani_reader_test.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="crc32_test.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
