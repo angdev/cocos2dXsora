@@ -11,25 +11,25 @@ namespace sora {;
 //아이패드르HD와 같이 못보는 이유는 HD는 컨테츠 스케일2배로 뻥튀기 하기 떄문
 //안드로이드의 경우는 가장 근접한 아이폰 스펙을 따라서 스케일링 하자
 typedef enum {
-	kAniDeviceSD,
-	kAniDeviceHD,
-	kAniDeviceIPad,
-	kAniDeviceIPadHD,
+    kAniDeviceSD,
+    kAniDeviceHD,
+    kAniDeviceIPad,
+    kAniDeviceIPadHD,
 } AniDeviceType;
 
 struct AniColor4ub {
-	AniColor4ub() : r(255), g(255), b(255), a(255) {}
-	AniColor4ub(unsigned char r, unsigned char g, unsigned char b, unsigned char a) 
-		: r(r), g(g), b(b), a(a) {}
-	AniColor4ub(const unsigned char d[4])
-		: r(d[0]), g(d[1]), b(d[2]), a(d[3]) {}
-    
+    AniColor4ub() : r(255), g(255), b(255), a(255) {}
+    AniColor4ub(unsigned char r, unsigned char g, unsigned char b, unsigned char a) 
+        : r(r), g(g), b(b), a(a) {}
+    AniColor4ub(const unsigned char d[4])
+        : r(d[0]), g(d[1]), b(d[2]), a(d[3]) {}
+
     union {
         struct {
-	        unsigned char r;
-	        unsigned char g;
-	        unsigned char b;
-	        unsigned char a;
+            unsigned char r;
+            unsigned char g;
+            unsigned char b;
+            unsigned char a;
         };
         unsigned char data[4];
     };

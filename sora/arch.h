@@ -22,9 +22,9 @@
 
 //android check
 #if (SR_IPHONE == 0) && (SR_WIN == 0)
-	#define SR_ANDROID 1
+#define SR_ANDROID 1
 #else
-	#define SR_ANDROID 0
+#define SR_ANDROID 0
 #endif
 
 //pch
@@ -35,9 +35,9 @@
 #endif
 
 #ifdef __cplusplus
-    #define SR_NS_BEGIN(NAMESPACE)     namespace NAMESPACE {
-    #define SR_NS_END(NAMESPACE)       }
+#define SR_NS_BEGIN(NAMESPACE)     namespace NAMESPACE {
+#define SR_NS_END(NAMESPACE)       }
 #else
-    #define SR_NS_BEGIN(NS)     
-    #define SR_NS_END(NS)       
+#define SR_NS_BEGIN(NS)     
+#define SR_NS_END(NS)       
 #endif 

@@ -32,39 +32,39 @@ typedef glm::detail::tvec3<unsigned char> vec3ub;
 typedef glm::detail::tvec4<unsigned char> vec4ub;
 
 struct Color4ub {
-  static vec4ub White() {
-    return vec4ub(255, 255, 255, 255);
-  }
-  static vec4ub Black() {
-    return vec4ub(0, 0, 0, 255);
-  }
-  static vec4ub Red() {
-    return vec4ub(255, 0, 0, 255);
-  }
-  static vec4ub Green() {
-    return vec4ub(0, 255, 0, 255);
-  }
-  static vec4ub Blue() {
-    return vec4ub(0, 0, 255, 255);
-  }
+    static vec4ub White() {
+        return vec4ub(255, 255, 255, 255);
+    }
+    static vec4ub Black() {
+        return vec4ub(0, 0, 0, 255);
+    }
+    static vec4ub Red() {
+        return vec4ub(255, 0, 0, 255);
+    }
+    static vec4ub Green() {
+        return vec4ub(0, 255, 0, 255);
+    }
+    static vec4ub Blue() {
+        return vec4ub(0, 0, 255, 255);
+    }
 };
 
 // glm에 없는 몇가지 함수 추가
 template<typename T>
 bool IsZeroVector(const glm::detail::tvec1<T> &v) {
-  return (v.x == 0);
+    return (v.x == 0);
 }
 template<typename T>
 bool IsZeroVector(const glm::detail::tvec2<T> &v) {
-  return (v.x == 0 && v.y == 0);  
+    return (v.x == 0 && v.y == 0);  
 }
 template<typename T>
 bool IsZeroVector(const glm::detail::tvec3<T> &v) {
-  return (v.x == 0 && v.y == 0 && v.z == 0);  
+    return (v.x == 0 && v.y == 0 && v.z == 0);  
 }
 template<typename T>
 bool IsZeroVector(const glm::detail::tvec4<T> &v) {
-  return (v.x == 0 && v.y == 0 && v.z == 0 && v.w == 0);  
+    return (v.x == 0 && v.y == 0 && v.z == 0 && v.w == 0);  
 }
 
 }

@@ -50,10 +50,10 @@ bool AniFrameData::operator!=(const AniFrameData &o) const {
 
 AniFrameCmd::AniFrameCmd()
     : cmd_type(kFrameCmd_None), res_id(0), z(0) {
-    static_assert(sizeof(mul_color) == 4, "");
-    mul_color = AniColor4ub(255, 255, 255, 255);
-    add_color = AniColor4ub(0, 0, 0, 0);
-    matrix = glm::mat3();
+        static_assert(sizeof(mul_color) == 4, "");
+        mul_color = AniColor4ub(255, 255, 255, 255);
+        add_color = AniColor4ub(0, 0, 0, 0);
+        matrix = glm::mat3();
 }
 
 bool AniFrameCmd::operator==(const AniFrameCmd &o) const {

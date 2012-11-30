@@ -23,72 +23,72 @@
 
 namespace sora {;
 Vertex CreateVertex(const glm::vec3 &pos, const glm::vec2 &texcoord) {
-  Vertex vert;
-  vert.set_pos(pos);
-  vert.set_texcoord(texcoord);
-  return vert;
+    Vertex vert;
+    vert.set_pos(pos);
+    vert.set_texcoord(texcoord);
+    return vert;
 }
 
 Vertex2D CreateVertex2D(float x, float y, float s, float t) {
-  Vertex2D vert;
-  vert.pos[0] = x;
-  vert.pos[1] = y;
-  vert.texcoord[0] = s;
-  vert.texcoord[1] = t;
-  return vert;
+    Vertex2D vert;
+    vert.pos[0] = x;
+    vert.pos[1] = y;
+    vert.texcoord[0] = s;
+    vert.texcoord[1] = t;
+    return vert;
 }
 
 ColorVertex3D CreateColorVertex3D(float x, float y, float z, const sora::vec4ub &color) {
-  ColorVertex3D vert;
-  vert.pos[0] = x;
-  vert.pos[1] = y;
-  vert.pos[2] = z;
-  vert.color = color;
-  return vert;
+    ColorVertex3D vert;
+    vert.pos[0] = x;
+    vert.pos[1] = y;
+    vert.pos[2] = z;
+    vert.color = color;
+    return vert;
 }
 
 VertexInfo::VertexInfo()
-  : vert_code(kVertexNone),
-  size(0),
-  pos_offset(-1),
-  pos_type(kTypeFloat),
-  pos_dim(0),
-  color_offset(-1),
-  color_type(kTypeFloat),
-  color_dim(0),
-  texcoord_offset(-1),
-  texcoord_type(kTypeFloat),
-  texcoord_dim(0),
-  normal_offset(-1),
-  normal_type(kTypeFloat),
-  normal_dim(0),
-  tangent_offset(-1),
-  tangent_type(kTypeFloat),
-  tangent_dim(0) { }
+    : vert_code(kVertexNone),
+    size(0),
+    pos_offset(-1),
+    pos_type(kTypeFloat),
+    pos_dim(0),
+    color_offset(-1),
+    color_type(kTypeFloat),
+    color_dim(0),
+    texcoord_offset(-1),
+    texcoord_type(kTypeFloat),
+    texcoord_dim(0),
+    normal_offset(-1),
+    normal_type(kTypeFloat),
+    normal_dim(0),
+    tangent_offset(-1),
+    tangent_type(kTypeFloat),
+    tangent_dim(0) { }
 
 const VertexInfo &VertexInfo::Info(VertexCode code) {
-  static bool run = false;
-  static std::array<VertexInfo, kVertexCodeCount> info_list;
-  if(run == false) {
-    run = true;
+    static bool run = false;
+    static std::array<VertexInfo, kVertexCodeCount> info_list;
+    if(run == false) {
+        run = true;
 
-    info_list[kVertex2D] = VertexInfoHolder<Vertex2D>::Get();
-    info_list[kVertex] = VertexInfoHolder<Vertex>::Get();
-    info_list[kVertexTangent] = VertexInfoHolder<TangentVertex>::Get();
-    info_list[kVertexPos2D] = VertexInfoHolder<glm::vec2>::Get();
-    info_list[kVertexPos3D] = VertexInfoHolder<glm::vec3>::Get();
-  }
-  return info_list[code];
+        info_list[kVertex2D] = VertexInfoHolder<Vertex2D>::Get();
+        info_list[kVertex] = VertexInfoHolder<Vertex>::Get();
+        info_list[kVertexTangent] = VertexInfoHolder<TangentVertex>::Get();
+        info_list[kVertexPos2D] = VertexInfoHolder<glm::vec2>::Get();
+        info_list[kVertexPos3D] = VertexInfoHolder<glm::vec3>::Get();
+    }
+    return info_list[code];
 }
 bool VertexInfo::operator==(const VertexInfo &o) const {
-  if(memcmp(this, &o, sizeof(VertexInfo)) == 0) {
-    return true;
-  } else {
-    return false;
-  }
+    if(memcmp(this, &o, sizeof(VertexInfo)) == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 bool VertexInfo::operator!=(const VertexInfo &o) const {
-  return !(*this == o);
+    return !(*this == o);
 }
 
 } //namespace sora
