@@ -2,13 +2,13 @@
 #pragma once
 
 typedef enum {
-  kGameCompPlayer,
-  kGameCompItem,
-  kGameCompBullet,
-  kGameCompEnemy,
-  kGameCompPhy,
-  kGameCompDrawable, //일단 넣기
-} GameCompType;
+  kCompPlayer,
+  kCompItem,
+  kCompBullet,
+  kCompEnemy,
+  kCompPhy,
+  kCompDrawable, //일단 넣기
+} CompType;
 
 typedef enum {
 

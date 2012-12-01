@@ -12,7 +12,7 @@ public:
     virtual ~DrawableComponent() { }
 
 public:
-    virtual GameCompType type() const { return kGameCompDrawable; }
+    virtual CompType type() const { return kCompDrawable; }
 
     //지금은 setter를 둔다.
     cocos2d::CCLayer *layer() { return layer_; }
