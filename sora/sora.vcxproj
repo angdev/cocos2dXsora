@@ -22,9 +22,11 @@
     <ClInclude Include="ani_reader.h" />
     <ClInclude Include="ani_resource.h" />
     <ClInclude Include="ani_writer.h" />
+    <ClInclude Include="class_type.h" />
     <ClInclude Include="crc32.h" />
     <ClInclude Include="file_helper.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="property.h" />
     <ClInclude Include="sora.h" />
     <ClInclude Include="angle.h" />
     <ClInclude Include="class_attribute.h" />

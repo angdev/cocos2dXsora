@@ -165,6 +165,12 @@
     <ClInclude Include="crc32.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="class_type.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="property.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sora_stdafx.cpp" />

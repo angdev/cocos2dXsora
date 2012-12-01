@@ -92,6 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="string_code_dictionary.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="xml_util.h" />
   </ItemGroup>
@@ -99,11 +100,13 @@
     <ClCompile Include="ani_reader_test.cpp" />
     <ClCompile Include="class_attribute_test.cpp" />
     <ClCompile Include="class_dict_test.cpp" />
+    <ClCompile Include="class_type_test.cpp" />
     <ClCompile Include="crc32_test.cpp" />
     <ClCompile Include="data_define_test.cpp" />
     <ClCompile Include="data_helper_test.cpp" />
     <ClCompile Include="file_helper_test.cpp" />
     <ClCompile Include="mem_test.cpp" />
+    <ClCompile Include="property_test.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
