@@ -110,5 +110,11 @@
     <Filter Include="phy_comp">
       <UniqueIdentifier>{74308af6-7573-41a7-87f4-78a4a3dcff3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="etc_ui">
+      <UniqueIdentifier>{7a57b045-1dfe-4764-8666-ccfba97d5356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game_ui">
+      <UniqueIdentifier>{4d299d51-5881-40f9-ad85-f398dbcbe35e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

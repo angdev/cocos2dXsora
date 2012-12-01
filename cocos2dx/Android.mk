@@ -131,10 +131,21 @@ touch_dispatcher/CCTouchDispatcher.cpp \
 touch_dispatcher/CCTouchHandler.cpp \
 touch_dispatcher/CCTouch.cpp
 
+LOCAL_SRC_FILES += \
+CVars/CVar.cpp  \
+CVars/CVarParse.cpp \
+CVars/cvars_tinyxml.cpp \
+CVars/cvars_tinyxmlerror.cpp    \
+CVars/cvars_tinyxmlparser.cpp   \
+CVars/TrieNode.cpp  \
+CVars/Trie.cpp  \
+CVars/Timestamp.cpp
+
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                     $(LOCAL_PATH)/include \
                     $(LOCAL_PATH)/kazmath/include \
-                    $(LOCAL_PATH)/platform/android
+                    $(LOCAL_PATH)/platform/android  \
+                    $(LOCAL_PATH)/CVars
 
 
 LOCAL_EXPORT_LDLIBS := -llog\
@@ -158,6 +169,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES += cocos_libtiff_static
 
 # define the macro to compile through support/zip_support/ioapi.c                
 LOCAL_CFLAGS := -DUSE_FILE32API
+LOCAL_CXXFLAGS := -fexceptions
 LOCAL_EXPORT_CFLAGS := -DUSE_FILE32API
 
 include $(BUILD_STATIC_LIBRARY)

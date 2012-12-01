@@ -2,6 +2,10 @@
 #include "sora_stdafx.h"
 #include "file_helper.h"
 
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
+
 using namespace cocos2d;
 using namespace std;
 

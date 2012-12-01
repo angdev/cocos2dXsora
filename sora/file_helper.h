@@ -1,6 +1,11 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#if SR_USE_PCH == 0
+#include <string>
+#include <vector>
+#endif
+
 namespace sora {;
 
 class FileHelper {

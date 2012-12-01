@@ -1,7 +1,13 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#if SR_USE_PCH == 0
 #include "game_globals.h"
+#include <list>
+#include <map>
+#include <memory>
+#include <vector>
+#endif
 
 struct GameMessage;
 struct DelayedGameMessage;

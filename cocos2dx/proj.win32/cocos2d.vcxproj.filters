@@ -100,6 +100,9 @@
     <Filter Include="cvar">
       <UniqueIdentifier>{19e0df98-6b68-4049-85b7-d6d7d0a4ba8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="custom">
+      <UniqueIdentifier>{ebb1aadb-b0c4-46c0-b68d-304528c077bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\base_nodes\CCAtlasNode.cpp">

@@ -4,6 +4,10 @@
 #include "game_globals.h"
 #include <memory>
 
+#if SR_USE_PCH == 0
+#include <string>
+#endif
+
 //unique_ptr 삭제자 필요; 인클루드 해야하나..?
 /*
 #include "logic_component.h"

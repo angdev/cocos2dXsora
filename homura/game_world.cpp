@@ -5,6 +5,10 @@
 #include "game_component.h"
 #include "game_message.h"
 
+#if SR_USE_PCH == 0
+#include <algorithm>
+#endif
+
 template<typename ObjectPtr>
 struct ObjectIdCompare {
     ObjectIdCompare(int id) : id(id) {}

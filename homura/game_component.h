@@ -3,6 +3,10 @@
 
 #include "message_handler.h"
 
+#if SR_USE_PCH == 0
+#include "game_globals.h"
+#endif
+
 class GameObject;
 struct GameMessage;
 

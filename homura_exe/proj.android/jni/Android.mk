@@ -43,6 +43,7 @@ LOCAL_SRC_FILES += \
     ../../../sora/xml_node.cpp  \
     ../../../sora/xml_writer.cpp  \
     ../../../sora/xml_reader.cpp  \
+    ../../../sora/file_helper.cpp
                    
 # homura           
 LOCAL_SRC_FILES += \
@@ -61,6 +62,7 @@ LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../../    \
     $(LOCAL_PATH)/../../../    \
     $(LOCAL_PATH)/../../../sora    \
+    $(LOCAL_PATH)/../../../homura    \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 

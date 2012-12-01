@@ -16,6 +16,7 @@
 #include <vector>
 
 #include "CVars/CVar.h"
+#include "CCPlatformDefine.h"
 #include "platform/win32/CCPlatformDefine.h"
 
 class TrieNode;

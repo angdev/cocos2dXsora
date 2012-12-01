@@ -1,4 +1,4 @@
-�?/ Ŭnicode please
+﻿// Ŭnicode please
 #include "stdafx.h"
 #include "game_component.h"
 #include "game_message.h"
