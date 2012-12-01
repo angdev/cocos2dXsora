@@ -6,14 +6,14 @@
 #include "cocos2d.h"
 
 //Drawable component들의 base class
-class DrawableComponent : public GameComponent
-{
+class DrawableComponent : public GameComponent {
 public:
- 
     DrawableComponent(GameObject *obj) : GameComponent(obj) { }
     virtual ~DrawableComponent() { }
 
 public:
+    virtual GameCompType type() const { return kGameCompDrawable; }
+
     //지금은 setter를 둔다.
     cocos2d::CCLayer *layer() { return layer_; }
     cocos2d::CCLayer *set_layer(cocos2d::CCLayer *layer);
@@ -24,8 +24,7 @@ private:
 
 
 //일단 그냥 스프라이트 그리는 클래스 추가
-class SimpleSpriteDrawableComponent : public DrawableComponent
-{
+class SimpleSpriteDrawableComponent : public DrawableComponent {
 public:
     SimpleSpriteDrawableComponent(GameObject *obj, const std::string &sprite_name);
 

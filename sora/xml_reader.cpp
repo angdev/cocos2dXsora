@@ -22,7 +22,7 @@ public:
 	XmlReaderError *GetError();
 private:
 	void Parse(XmlNode *self, TiXmlNode *node);
-	std::auto_ptr<XmlReaderError> error_;
+	std::unique_ptr<XmlReaderError> error_;
 };
 
 bool XmlReaderImpl::IsErrorOccur() const {
@@ -47,7 +47,7 @@ bool XmlReaderImpl::Read(XmlNode *root, const char *content) {
 		const char *errorMsg = doc.ErrorDesc();
 		int row = doc.ErrorRow();
 		int col = doc.ErrorCol();
-		error_ = auto_ptr<XmlReaderError>(new XmlReaderError(errorMsg, row, col));
+		error_ = unique_ptr<XmlReaderError>(new XmlReaderError(errorMsg, row, col));
 		return false;
 	}
 
@@ -101,8 +101,7 @@ void XmlReaderImpl::Parse(XmlNode *self, TiXmlNode *node) {
 
 /////////////////////////////////////////////
 XmlReader::XmlReader()
-	: impl_(NULL) {
-		impl_ = auto_ptr<XmlReaderImpl>(new XmlReaderImpl());
+	: impl_(new XmlReaderImpl()) {
 }
 XmlReader::~XmlReader() {
 }

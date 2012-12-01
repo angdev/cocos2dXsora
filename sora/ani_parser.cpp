@@ -82,7 +82,7 @@ AniPrototype AniParser::LoadByteData(const std::vector<unsigned char> &data, boo
 		*retcode = true;
 	}
 
-    auto_ptr<AniReader> reader(AniReader::ByteVersion());
+    unique_ptr<AniReader> reader(AniReader::ByteVersion());
 	if(data.empty() == true) {
 		if(retcode != NULL) {
 			*retcode = false;
@@ -103,7 +103,7 @@ AniPrototype AniParser::LoadXmlData(const std::vector<unsigned char> &data, bool
 		*retcode = true;
 	}
 
-    auto_ptr<AniReader> reader(AniReader::XmlVersion());
+    unique_ptr<AniReader> reader(AniReader::XmlVersion());
     SR_ASSERT(reader.get() != NULL);
 	if(data.empty() == true) {
 		if(retcode != NULL) {

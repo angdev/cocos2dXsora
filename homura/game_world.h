@@ -24,7 +24,7 @@ public:
 public:
     //GameObject Handling
     //id를 리턴함.
-    int AddObject(GameObject *obj, kObjectType type);
+    int AddObject(GameObject *obj, ObjectType type);
     GameObject* GetObject(const int &id);
     
 private:
@@ -32,7 +32,7 @@ private:
     DelayedMessageListType delayed_msg_list_;
 
 private:
-    typedef std::map<kObjectType, std::vector<GameObjectPtr> > GameObjectTable;
+    typedef std::map<ObjectType, std::vector<GameObjectPtr> > GameObjectTable;
     GameObjectTable game_object_table_;
 
 };

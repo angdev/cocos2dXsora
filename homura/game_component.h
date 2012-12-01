@@ -11,6 +11,7 @@ public:
     explicit GameComponent(GameObject *obj);
 	virtual ~GameComponent();
 
+    virtual GameCompType type() const = 0;
 	virtual void Update(float dt) = 0;
 	virtual void InitMsgHandler() = 0;
 

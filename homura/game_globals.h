@@ -8,8 +8,8 @@ typedef enum {
   kGameCompEnemy,
   kGameCompPhy,
   kGameCompDrawable, //일단 넣기
-} kCompType;
+} GameCompType;
 
 typedef enum {
 
-} kObjectType;
+} ObjectType;

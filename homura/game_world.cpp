@@ -53,7 +53,7 @@ void GameWorld::OnMessage(GameMessage *msg, float delay) {
     delayed_msg_list_.push_back(msg_tuple);
 }
 
-int GameWorld::AddObject(GameObject *obj, kObjectType type) {
+int GameWorld::AddObject(GameObject *obj, ObjectType type) {
     //같은 id를 가진 객체가 있는지 확인
     auto iter_begin = game_object_table_[type].begin();
     auto iter_end = game_object_table_[type].end();

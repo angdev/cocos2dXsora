@@ -32,7 +32,7 @@ public:
     bool IsErrorOccur() const;
     XmlReaderError *GetError();
 private:
-    std::auto_ptr<XmlReaderImpl> impl_;
+    std::unique_ptr<XmlReaderImpl> impl_;
 };
 
 

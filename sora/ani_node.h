@@ -83,7 +83,7 @@ protected:
 private:
 	cocos2d::ccColor3B color_;
 	unsigned char alpha_;
-	std::auto_ptr<Ani> ani_;
+	std::unique_ptr<Ani> ani_;
 
 	//알패를 적용하기 위해서 어쨋든 rt는 거쳐야한다
 	cocos2d::CCRenderTexture *rt_;

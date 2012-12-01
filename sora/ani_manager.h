@@ -34,8 +34,8 @@ public:
 private:
     std::map<std::string, AniPrototype> ani_dict_;
 
-    std::auto_ptr<AniParser> byte_parser_;
-    std::auto_ptr<AniParser> xml_parser_;	
+    std::unique_ptr<AniParser> byte_parser_;
+    std::unique_ptr<AniParser> xml_parser_;	
 
     AniPrototype *LoadXmlFile(const std::string &file);
     AniPrototype *LoadByteFile(const std::string &file);

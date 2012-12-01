@@ -34,7 +34,7 @@ struct DelayedGameMessage {
     void Update(float dt);
 
 private:
-	std::auto_ptr<GameMessage> msg;
+	std::unique_ptr<GameMessage> msg;
     float remain_time_;	//얼마나 시간이 지난뒤에 처리할 것인가
 };
 
