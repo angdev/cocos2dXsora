@@ -181,8 +181,6 @@ void HelloWorld::draw() {
     CCLayer::draw();
 
 #if CC_ENABLE_BOX2D_INTEGRATION
-    CCGLProgram *prog =  CCShaderCache::sharedShaderCache()->programForKey(kCCShader_Position_uColor);
-    prog->use();
     ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
 
     kmGLPushMatrix();
