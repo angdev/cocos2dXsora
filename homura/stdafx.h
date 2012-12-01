@@ -26,6 +26,10 @@
 #include <windows.h>
 #include <tchar.h>
 
+//c++11
+#include "sora/array_include.h"
+#include "sora/shared_ptr_include.h"
+#include "sora/unordered_map_include.h"
 
 #include "game_globals.h"
 

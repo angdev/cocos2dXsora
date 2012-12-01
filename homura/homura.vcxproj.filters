@@ -43,6 +43,9 @@
     <ClCompile Include="GLES-Render.cpp">
       <Filter>phy_comp</Filter>
     </ClCompile>
+    <ClCompile Include="main_menu_layer.cpp">
+      <Filter>layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -95,6 +98,9 @@
     </ClInclude>
     <ClInclude Include="GLES-Render.h">
       <Filter>phy_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="main_menu_layer.h">
+      <Filter>layer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

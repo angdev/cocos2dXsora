@@ -10,6 +10,7 @@
 #include "sora/data_helper.h"
 
 #include "homura/hello_world_scene.h"
+#include "homura/main_menu_layer.h"
 
 USING_NS_CC;
 
@@ -70,11 +71,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
 
     // create a scene. it's an autorelease object
-    CCScene *pScene = HelloWorld::scene();
-
+    //CCScene *scene = HelloWorld::scene();
+    CCScene *scene = MainMenuLayer::scene();
 
     // run
-    pDirector->runWithScene(pScene);
+    pDirector->runWithScene(scene);
 
     return true;
 }
