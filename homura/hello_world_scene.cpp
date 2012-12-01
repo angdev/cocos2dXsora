@@ -28,7 +28,7 @@ HelloWorld::~HelloWorld() {
 CCScene* HelloWorld::scene() {
     // 'scene' is an autorelease object
     CCScene *scene = CCScene::create();
-
+    scene->setTag(kSceneHelloWorld);
     // 'layer' is an autorelease object
     HelloWorld *layer = HelloWorld::create();
 

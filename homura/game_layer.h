@@ -1,7 +1,7 @@
 ﻿// Ŭnicode please
 #pragma once
 
-class GLESDebugDraw;
+
 
 class GameLayer : public cocos2d::CCLayer {
 public:
@@ -23,9 +23,6 @@ public:
     void update(float dt);
 
 private:
-    std::unique_ptr<b2World> world_;
-    std::unique_ptr<GLESDebugDraw> debug_draw_;
-
-    bool InitPhy();
+    std::unique_ptr<GameWorld> world_;
     void AddNewBodyAtPosition(const cocos2d::CCPoint &p);
 };

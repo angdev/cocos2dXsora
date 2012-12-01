@@ -38,4 +38,4 @@ px_height_(1280),
 mt_to_ut_scale_(kUnitToMeterRatio) {
 }
 
-SR_NS_END()
+SR_NS_END(sora)

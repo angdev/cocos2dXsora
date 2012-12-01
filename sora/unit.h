@@ -48,4 +48,4 @@ public:
     float ut_to_mt_scale() const { return 1.0f / mt_to_ut_scale_; }
 };
 
-SR_NS_END()
+SR_NS_END(sora)

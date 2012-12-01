@@ -43,11 +43,11 @@
     <ClCompile Include="GLES-Render.cpp">
       <Filter>phy_comp</Filter>
     </ClCompile>
-    <ClCompile Include="main_menu_layer.cpp">
-      <Filter>layer</Filter>
-    </ClCompile>
     <ClCompile Include="game_layer.cpp">
-      <Filter>layer</Filter>
+      <Filter>game_ui</Filter>
+    </ClCompile>
+    <ClCompile Include="main_menu_layer.cpp">
+      <Filter>etc_ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -102,11 +102,11 @@
     <ClInclude Include="GLES-Render.h">
       <Filter>phy_comp</Filter>
     </ClInclude>
-    <ClInclude Include="main_menu_layer.h">
-      <Filter>layer</Filter>
-    </ClInclude>
     <ClInclude Include="game_layer.h">
-      <Filter>layer</Filter>
+      <Filter>game_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="main_menu_layer.h">
+      <Filter>etc_ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

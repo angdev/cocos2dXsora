@@ -21,7 +21,7 @@ bool MainMenuLayer::init() {
 
     //타이틀 로고 
     CCSize win_size = CCDirector::sharedDirector()->getVisibleSize();
-    CCSprite *logo = CCSprite::spriteWithFile("logo.png");
+    CCSprite *logo = CCSprite::create("logo.png");
     this->addChild(logo);
     float logo_y = win_size.height-logo->getContentSize().height/2.0f - 30;
     CCPoint logo_pos = ccp(win_size.width/2.0f, logo_y);
@@ -63,6 +63,7 @@ cocos2d::CCScene *MainMenuLayer::scene() {
     CCScene *scene = CCScene::create();
     MainMenuLayer *layer = MainMenuLayer::create();
     scene->addChild(layer);
+    scene->setTag(kSceneMainMenu);
     return scene;
 }
 
