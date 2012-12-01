@@ -1,4 +1,4 @@
-cocos2d-x 
+﻿한글테스틀ㅇㄴㄹㅇ후후 돌아가나 cocos2d-x 
 ==================
 
 [cocos2d-x][1] is a multi-platform 2D game engine in C++, based on [cocos2d-iphone][2] and licensed under MIT.
