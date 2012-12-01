@@ -34,6 +34,6 @@ public class HelloCpp extends Cocos2dxActivity{
 	}
 	
     static {
-         System.loadLibrary("hellocpp");
+         System.loadLibrary("homura");
     }
 }
