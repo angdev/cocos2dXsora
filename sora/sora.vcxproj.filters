@@ -30,9 +30,6 @@
     <ClInclude Include="logger.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="mem.h">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="shared_object.h">
       <Filter>base</Filter>
     </ClInclude>
@@ -174,6 +171,9 @@
     <ClInclude Include="string_code_dictionary.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="mem.h">
+      <Filter>mem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sora_stdafx.cpp" />
@@ -190,9 +190,6 @@
       <Filter>tinyxml</Filter>
     </ClCompile>
     <ClCompile Include="logger.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
-    <ClCompile Include="mem.cpp">
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="string_hash.cpp">
@@ -276,6 +273,9 @@
     <ClCompile Include="crc32.cpp">
       <Filter>base</Filter>
     </ClCompile>
+    <ClCompile Include="mem.cpp">
+      <Filter>mem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="base">
@@ -304,6 +304,9 @@
     </Filter>
     <Filter Include="ani">
       <UniqueIdentifier>{bc0a3cfb-6136-4e09-94f0-aaae63d62e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mem">
+      <UniqueIdentifier>{cd7bbdc8-917e-4d69-bb6e-baf09a4521a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

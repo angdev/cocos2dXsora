@@ -10,9 +10,9 @@ class DummyClass {
 };
 
 namespace sora_test {;
-TEST_CLASS(KKGetDictKeyListTest) {
+TEST_CLASS(TemplateLibTest) {
 public:
-    TEST_METHOD(test) {
+    TEST_METHOD(TestGetDictKeyList) {
 	    map<string, int> dict;
 	    dict["a"] = 1;
 	    dict["fdsfd"] = 2;
@@ -27,11 +27,8 @@ public:
 	    it = find(keySet.begin(), keySet.end(), string("432"));
 	    Assert::IsTrue(it != keySet.end());
     }
-};
 
-TEST_CLASS(KKEraseKeyFromAssocContainerTest) {
-public:
-    TEST_METHOD(test) {
+    TEST_METHOD(TestEraseKeyFromAssocContainer) {
 	    map<int, DummyClass*> dict;
 	    DummyClass *p1 = new DummyClass();
 	    DummyClass *p2 = new DummyClass();
@@ -61,11 +58,7 @@ public:
 	    Assert::AreEqual(0, (int)dict.size());
     }
 
-};
-
-TEST_CLASS(KKEraseSecondPtrFromAssocContainerTest) {
-public:
-    TEST_METHOD(test) {
+    TEST_METHOD(TestEraseSecondPtrFromAssocContainer) {
 	    map<int, DummyClass*> dict;
 	    DummyClass *p1 = new DummyClass();
 	    DummyClass *p2 = new DummyClass();
@@ -97,11 +90,8 @@ public:
 	    EraseSecondPtrFromAssocContainer(target, dict);
 	    Assert::AreEqual(0, (int)dict.size());
     }
-};
 
-TEST_CLASS(IUErasePtrFromSeqContainerTest) {
-public:
-    TEST_METHOD(test) {
+    TEST_METHOD(TestErasePtrFromSeqContainer) {
 	    list<DummyClass*> dict;
 	    DummyClass *p1 = new DummyClass();
 	    DummyClass *p2 = new DummyClass();
@@ -134,11 +124,7 @@ public:
 	    Assert::AreEqual(0, (int)dict.size());
     }
 
-};
-
-TEST_CLASS(KKSafeDeleteTest) {
-public:
-    TEST_METHOD(test) {
+    TEST_METHOD(TestSafeDelete) {
 	    int *a = new int(1);
 	    SafeDelete(a);
 	    Assert::AreEqual(true, NULL == a);
@@ -146,7 +132,7 @@ public:
 	    int *b = new int[10];
 	    SafeDeleteArray(b);
 	    Assert::AreEqual(true, NULL == b);
-    }    
+    }
 };
-}
+}   //namespace sora_test
 

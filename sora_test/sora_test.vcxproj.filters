@@ -17,6 +17,9 @@
     <Filter Include="ani">
       <UniqueIdentifier>{ff24deb6-0b7d-4d47-bd82-ff96dcc610f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mem">
+      <UniqueIdentifier>{b46b3092-403e-45f6-8c34-55f90f06e821}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -60,9 +63,6 @@
     <ClCompile Include="template_lib_test.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="mem_test.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="string_util_test.cpp">
       <Filter>base</Filter>
     </ClCompile>
@@ -80,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="property_test.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="mem_test.cpp">
+      <Filter>mem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

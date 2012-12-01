@@ -21,7 +21,7 @@ namespace sora_test {;
 
 TEST_CLASS(TypeListTest) {
 public:
-    TEST_METHOD(test) {
+    TEST_METHOD(TestInit) {
         //typedef TYPELIST_1(int) type1;
         typedef TYPELIST_1(CheeseHeader) type1;
         typedef TYPELIST_2(int, char) type2;
@@ -29,13 +29,12 @@ public:
         type2 b;
     }
 
-    TEST_METHOD(TypeListLength) {
-        //XXX
-        //Assert::AreEqual(1, (int)(TypeListLength<TYPELIST_1(CheeseHeader)>::value));
-        //Assert::AreEqual(3, (int)(TypeListLength<SampleTypeList>::value));
+    TEST_METHOD(TestTypeListLength) {
+        Assert::AreEqual(1, (int)(TypeListLength<TYPELIST_1(CheeseHeader)>::value));
+        Assert::AreEqual(3, (int)(TypeListLength<SampleTypeList>::value));
     }
 
-    TEST_METHOD(TypeList, TypeListTypeAt) {
+    TEST_METHOD(TestTypeListTypeAt) {
         typedef TYPELIST_3(int, char, float) type3;
         Assert::IsTrue(typeid(int) == typeid(TypeListTypeAt<type3, 0>::Result));
         Assert::IsTrue(typeid(char) == typeid(TypeListTypeAt<type3, 1>::Result));
@@ -59,8 +58,6 @@ public:
 
     TEST(TypeList, a)
     {
-
-
     int a = EntityTypeGetter<SampleTypeList>::LeftNode::ClassHash();
     printf("%d\n", a);
     }
