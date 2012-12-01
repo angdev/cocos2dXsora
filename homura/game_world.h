@@ -13,8 +13,7 @@ struct GameMessage;
 struct DelayedGameMessage;
 class GameObject;
 class GameObjectFactory;
-
-class GLESDebugDraw;
+class PhyWorld;
 
 typedef std::shared_ptr<GameObject> GameObjectPtr;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
@@ -45,12 +44,8 @@ private:
 
     //box2d 관련 내용
 public:
-    const b2World *b2_world() const { return b2_world_.get(); }
-    b2World *b2_world() { return b2_world_.get(); }
-
+    b2World *b2_world();
+    PhyWorld *phy_world() { return phy_world_.get(); }
 private:
-    std::unique_ptr<b2World> b2_world_;
-    std::unique_ptr<GLESDebugDraw> debug_draw_;
-    bool InitPhysics();
-    void UpdatePhysics(float dt);
+    std::unique_ptr<PhyWorld> phy_world_;
 };

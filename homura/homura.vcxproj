@@ -101,6 +101,7 @@
     <ClCompile Include="logic_component.cpp" />
     <ClCompile Include="main_menu_layer.cpp" />
     <ClCompile Include="phy_component.cpp" />
+    <ClCompile Include="phy_world.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -125,6 +126,7 @@
     <ClInclude Include="main_menu_layer.h" />
     <ClInclude Include="message_handler.h" />
     <ClInclude Include="phy_component.h" />
+    <ClInclude Include="phy_world.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

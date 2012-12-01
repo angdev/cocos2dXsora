@@ -49,6 +49,9 @@
     <ClCompile Include="main_menu_layer.cpp">
       <Filter>etc_ui</Filter>
     </ClCompile>
+    <ClCompile Include="phy_world.cpp">
+      <Filter>phy_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="main_menu_layer.h">
       <Filter>etc_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="phy_world.h">
+      <Filter>phy_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
