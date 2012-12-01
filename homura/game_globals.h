@@ -2,17 +2,22 @@
 #pragma once
 
 typedef enum {
-  kCompPlayer,
-  kCompItem,
-  kCompBullet,
-  kCompEnemy,
-  kCompPhy,
-  kCompDrawable, //일단 넣기
+    kCompNull,
+
+    //logic comp. object type으로써도 사용가능
+    kCompPlayer,
+    kCompItem,
+    kCompBullet,
+    kCompEnemy,
+
+    //phy comp
+    kCompPhy,
+
+    //drawable comp
+    kCompDrawable, //일단 넣기
 } CompType;
 
-typedef enum {
-
-} ObjectType;
+typedef CompType ObjectType;
 
 //씬마다 고유번호 주기
 typedef enum {

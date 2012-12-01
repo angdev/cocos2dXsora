@@ -5,31 +5,33 @@ class GameObject;
 class GameWorld;
 class b2Fixture;
 
-struct CollisionTuple {
+class CollisionTuple {
+public:
 	CollisionTuple(GameObjectPtr &obj_a, 
 		GameObjectPtr &obj_b,
 		b2Fixture *fixture_a, 
 		b2Fixture *fixture_b,
 		const b2WorldManifold &world_manifold,
 		GameWorld *world);
-	CollisionTuple()
-		: fixture_a(NULL), fixture_b(NULL), world_(NULL) {}
-	
-	GameObjectPtr obj_a;
-	GameObjectPtr obj_b;
-	b2Fixture *fixture_a;
-	b2Fixture *fixture_b;
-	b2WorldManifold world_manifold;
 
-	bool operator==(const CollisionTuple &o) const;
+	CollisionTuple();
+
+public:
+    bool operator==(const CollisionTuple &o) const;
 	bool operator!=(const CollisionTuple &o) const;
 	bool operator<(const CollisionTuple &o) const;
 
-	//GameObjectPtr GetObj(int type) const;
+	GameObjectPtr GetObj(ObjectType type) const;
 
-	//bool IsMatch(int type1, int type2) const;
+    bool IsMatch(ObjectType type1, ObjectType type2) const;
 	GameObjectPtr GetOther(GameObject *obj) const;
 
 private:
-	GameWorld *world_;
+	GameObjectPtr obj_a_;
+	GameObjectPtr obj_b_;
+	b2Fixture *fixture_a_;
+	b2Fixture *fixture_b_;
+	b2WorldManifold world_manifold_;
+
+	GameWorld *world_;	
 };

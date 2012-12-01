@@ -60,3 +60,11 @@ void GameObject::set_phy_comp(PhyComponent *comp) {
     phy_comp_.reset(comp);
     comp->InitMsgHandler();
 }
+
+ObjectType GameObject::Type() const {
+    if(logic_comp_.get() == NULL) {
+        return kCompNull;
+    } else {
+        return logic_comp_->type();
+    }
+}

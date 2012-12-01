@@ -57,6 +57,8 @@ public:
 
     int id() const { return id_; }
 
+    ObjectType Type() const;
+
 private:
     std::string name_;
     GameWorld *world_;
