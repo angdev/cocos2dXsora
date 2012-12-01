@@ -86,3 +86,5 @@ tools/jenkins_scripts/mac/android/userconf.ini
 cvars.xml
 .glconsole_settings
 cocos2d-html5-tests
+
+lint.xml
