@@ -22,45 +22,52 @@ AppDelegate::~AppDelegate()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-  // RTTI 초기화. 가장 빨리 하는게 정신 건강에 좋다
-  init_generated_data();
-  
+    // RTTI 초기화. 가장 빨리 하는게 정신 건강에 좋다
+    init_generated_data();
+
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
 
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
-	//pDirector->setProjection(kCCDirectorProjection2D);
-	CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
-    
-	if (screenSize.height > 768)
-	{
-		CCFileUtils::sharedFileUtils()->setResourceDirectory("ipadhd");
+    pDirector->setProjection(kCCDirectorProjection2D);
+    CCSize screenSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+
+    if (screenSize.height > 768)
+    {
+        CCFileUtils::sharedFileUtils()->setResourceDirectory("ipadhd");
         pDirector->setContentScaleFactor(1536.0f/kDesignResolutionSize_height);
-	}
+    }
     else if (screenSize.height > 320)
     {
         CCFileUtils::sharedFileUtils()->setResourceDirectory("ipad");
         pDirector->setContentScaleFactor(768.0f/kDesignResolutionSize_height);
     }
-	else
+    else
     {
-		CCFileUtils::sharedFileUtils()->setResourceDirectory("iphone");
+        CCFileUtils::sharedFileUtils()->setResourceDirectory("iphone");
         pDirector->setContentScaleFactor(320.0f/kDesignResolutionSize_height);
     }
-	
-    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(kDesignResolutionSize_width, kDesignResolutionSize_height, kResolutionNoBorder);
-    
+
+    //CCEGLView::sharedOpenGLView()->setDesignResolutionSize(kDesignResolutionSize_width, kDesignResolutionSize_height, kResolutionNoBorder);
+
+    //안드로이드로 맞출 기본 해상도
+    //작업은 720*1280을 기본으로 한다
+    CCFileUtils::sharedFileUtils()->setResourceDirectory("720");
+    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(720, 1280, kResolutionNoBorder);
+    pDirector->setContentScaleFactor(1.0f);
+
+
     // turn on display FPS
     pDirector->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
 
-    #if CC_CONSOLE
-	//게임콘솔 설정. director보다 나중에 초기화되야하니까 여기에서 처리하자
+#if CC_CONSOLE
+    //게임콘솔 설정. director보다 나중에 초기화되야하니까 여기에서 처리하자
     //전역변수로 초기화까지 한방에 해버리면 순서 통제가 안되서 여기에 따로둠
-	GameConsole::Init();
-    #endif
+    GameConsole::Init();
+#endif
 
     // create a scene. it's an autorelease object
     CCScene *pScene = HelloWorld::scene();

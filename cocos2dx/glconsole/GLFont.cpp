@@ -17,8 +17,9 @@ cocos2d::CCSprite *font_sprite = NULL;
 
 //float font_scale_x = 1.0f * 0.5f * 0.5;
 //float font_scale_y = 1.0f * 0.5f;
-const float font_scale_x = 1.0f * 1.0f * 0.5f;
-const float font_scale_y = 1.0f * 1.0f * 0.5f;
+const float font_scale = 0.5f;
+const float font_scale_x = 1.0f * 1.0f * 0.5f * font_scale;
+const float font_scale_y = 1.0f * 1.0f * 0.5f * font_scale;
 
 //sys font 옮겨온거
 void GLFont::GetCharacterCoord(unsigned char ch, int *x, int *y) 

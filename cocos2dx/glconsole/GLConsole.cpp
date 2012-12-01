@@ -18,6 +18,8 @@
 #include "GLConsoleFunction.h"
 #include "CCConsoleKeyboard.h"
 
+#include "CCDirector.h"
+
 using namespace std;
 using namespace cocos2d;
 
@@ -620,7 +622,7 @@ inline void GLConsole::RenderConsole()
 		
 
 		//get the width and heigtht of the viewport
-		glGetIntegerv(GL_VIEWPORT, &m_Viewport.x );
+        glGetIntegerv(GL_VIEWPORT, &m_Viewport.x );
 		
 		//reset matrices and switch to ortho view
         CCDirector::sharedDirector()->setDepthTest(false);
