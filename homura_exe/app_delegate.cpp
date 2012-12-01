@@ -11,6 +11,7 @@
 
 #include "homura/hello_world_scene.h"
 #include "homura/main_menu_layer.h"
+#include "homura/game_layer.h"
 
 USING_NS_CC;
 
@@ -72,7 +73,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //CCScene *scene = HelloWorld::scene();
+
     CCScene *scene = MainMenuLayer::scene();
+
+    //게임을 바로 시작할떄 쓰기
+    //CCScene *scene = GameLayer::scene();
 
     // run
     pDirector->runWithScene(scene);

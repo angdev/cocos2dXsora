@@ -91,6 +91,7 @@
     <ClCompile Include="drawable_component.cpp" />
     <ClCompile Include="game_component.cpp" />
     <ClCompile Include="game_console.cpp" />
+    <ClCompile Include="game_layer.cpp" />
     <ClCompile Include="game_message.cpp" />
     <ClCompile Include="game_object.cpp" />
     <ClCompile Include="game_object_factory.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="collision_tuple.h" />
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
+    <ClInclude Include="game_layer.h" />
     <ClInclude Include="game_object_factory.h" />
     <ClInclude Include="game_component.h" />
     <ClInclude Include="game_console.h" />

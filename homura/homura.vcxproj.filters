@@ -46,6 +46,9 @@
     <ClCompile Include="main_menu_layer.cpp">
       <Filter>layer</Filter>
     </ClCompile>
+    <ClCompile Include="game_layer.cpp">
+      <Filter>layer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -100,6 +103,9 @@
       <Filter>phy_comp</Filter>
     </ClInclude>
     <ClInclude Include="main_menu_layer.h">
+      <Filter>layer</Filter>
+    </ClInclude>
+    <ClInclude Include="game_layer.h">
       <Filter>layer</Filter>
     </ClInclude>
   </ItemGroup>

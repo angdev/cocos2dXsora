@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "main_menu_layer.h"
 
+#include "game_layer.h"
+
 using namespace std;
 using namespace cocos2d;
 //using namespace sora;
@@ -65,7 +67,9 @@ cocos2d::CCScene *MainMenuLayer::scene() {
 }
 
 void MainMenuLayer::OnPlayCallback(cocos2d::CCObject *sender) {
-    CCLOG("On Play");
+    //CCLOG("On Play");
+    CCScene *game_scene = GameLayer::scene();
+    CCDirector::sharedDirector()->replaceScene(game_scene);
 }
 void MainMenuLayer::OnLabCallback(cocos2d::CCObject *sender) {
     CCLOG("On Lab");
