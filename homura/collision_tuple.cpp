@@ -9,20 +9,14 @@
 
 using namespace std;
 
-int ToHashCode(unsigned ptr1, unsigned ptr2) {
-	int code1 = (ptr1 % 29) * 7 + (ptr2 % 13);
-	return code1;
-}
-
 CollisionTuple::CollisionTuple(GameObjectPtr &obj_a,
 	GameObjectPtr &obj_b, 
 	b2Fixture *fixture_a, 
 	b2Fixture *fixture_b, 
 	const b2WorldManifold &world_manifold,
 	GameWorld *world)
-	: world_(world), world_manifold(world_manifold)
-{
-	IUASSERT(obj_a.get() != obj_b.get());
+	: world_(world), world_manifold(world_manifold) {
+	SR_ASSERT(obj_a.get() != obj_b.get());
 	if(obj_a.get() < obj_b.get()) {
 		this->obj_a = obj_a;
 		this->obj_b = obj_b;
@@ -36,8 +30,7 @@ CollisionTuple::CollisionTuple(GameObjectPtr &obj_a,
 	}
 }
 
-bool CollisionTuple::operator==(const CollisionTuple &o) const
-{
+bool CollisionTuple::operator==(const CollisionTuple &o) const {
 	if(obj_a != o.obj_a) {
 		return false;
 	}
@@ -52,24 +45,16 @@ bool CollisionTuple::operator==(const CollisionTuple &o) const
 	}
 	return true;
 }
-bool CollisionTuple::operator!=(const CollisionTuple &o) const 
-{
+
+bool CollisionTuple::operator!=(const CollisionTuple &o) const {
 	return !(*this == o); 
 }
-/*
-bool CollisionTuple::operator<(const CollisionTuple &o) const 
-{
-	if(*this == o) {
-		return false;
-	}
-	//int code1 = ToHashCode((unsigned)obj_a.get(), (unsigned)obj_b.get());
-	//int code2 = ToHashCode((unsigned)o.obj_a.get(), (unsigned)o.obj_b.get());
-	int code1 = (int)fixture_a;
-	int code2 = (int)fixture_b;
-	//IUASSERT(code1 != code2 && "not valid hash code");
-	return code1 < code2;
+
+bool CollisionTuple::operator<(const CollisionTuple &o) const {
+    int a = reinterpret_cast<int>(obj_a.get());
+    int b = reinterpret_cast<int>(obj_b.get());
+    return a < b;
 }
-*/
 
 /*
 bool CollisionTuple::IsMatch(int type1, int type2) const
@@ -103,12 +88,12 @@ GameObjectPtr CollisionTuple::GetObj(int type) const {
 }
 */
 
-GameObject *CollisionTuple::GetOther(GameObject *obj) const
+GameObjectPtr CollisionTuple::GetOther(GameObject *obj) const
 {
 	if(obj_a.get() == obj) {
-		return obj_b.get();
+		return obj_b;
 	} else if(obj_b.get() == obj) {
-		return obj_a.get();
+		return obj_a;
 	} else {
 		return NULL;
 	}
