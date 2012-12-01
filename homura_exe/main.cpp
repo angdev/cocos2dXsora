@@ -6,14 +6,16 @@
 
 using namespace cocos2d;
 
-//int main(int argc, char *argv[])
+int main(int argc, char *argv[])
+/*
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                        HINSTANCE hPrevInstance,
                        LPTSTR    lpCmdLine,
                        int       nCmdShow)
+                       */
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+    //UNREFERENCED_PARAMETER(hPrevInstance);
+    //UNREFERENCED_PARAMETER(lpCmdLine);
 
     // create the application instance
     AppDelegate app;

@@ -35,7 +35,7 @@
 #endif
 
 #ifdef __cplusplus
-#define SR_NS_BEGIN(NAMESPACE)     namespace NAMESPACE {
+#define SR_NS_BEGIN(NAMESPACE)     namespace NAMESPACE {;
 #define SR_NS_END(NAMESPACE)       }
 #else
 #define SR_NS_BEGIN(NS)     

@@ -1,7 +1,7 @@
 ﻿// Ŭnicode please
 #pragma once
 
-class b2Vec2;
+struct b2Vec2;
 
 SR_NS_BEGIN(sora);
 

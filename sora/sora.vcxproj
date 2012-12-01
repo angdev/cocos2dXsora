@@ -58,6 +58,7 @@
     <ClInclude Include="tuple_include.h" />
     <ClInclude Include="typelist.h" />
     <ClInclude Include="uncopyable.h" />
+    <ClInclude Include="unit.h" />
     <ClInclude Include="unordered_map_include.h" />
     <ClInclude Include="utf8.h" />
     <ClInclude Include="vector.h" />
@@ -101,6 +102,7 @@
     <ClCompile Include="string_hash.cpp" />
     <ClCompile Include="string_util.cpp" />
     <ClCompile Include="struct_version_converter.cpp" />
+    <ClCompile Include="unit.cpp" />
     <ClCompile Include="vertex.cpp" />
     <ClCompile Include="xml_node.cpp" />
     <ClCompile Include="xml_reader.cpp" />
