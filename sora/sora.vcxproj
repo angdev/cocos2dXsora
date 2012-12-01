@@ -49,6 +49,7 @@
     <ClInclude Include="shared_ptr_include.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="stage_header.h" />
+    <ClInclude Include="string_code_dictionary.h" />
     <ClInclude Include="string_hash.h" />
     <ClInclude Include="string_util.h" />
     <ClInclude Include="struct_version_converter.h" />

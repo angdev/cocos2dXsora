@@ -171,6 +171,9 @@
     <ClInclude Include="property.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="string_code_dictionary.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sora_stdafx.cpp" />

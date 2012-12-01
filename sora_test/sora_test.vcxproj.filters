@@ -28,9 +28,6 @@
     <ClInclude Include="xml_util.h">
       <Filter>rtti</Filter>
     </ClInclude>
-    <ClInclude Include="string_code_dictionary.h">
-      <Filter>base</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="angle_test.cpp">
