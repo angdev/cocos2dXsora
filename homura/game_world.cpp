@@ -30,6 +30,12 @@ void GameWorld::Update(float dt) {
     for(auto it : obj_table_) {
         it.second->Update(dt);
     }
+
+    //지연된 객체 삭제 처리
+    for(auto obj : request_remove_list_) {
+        RemoveObject(obj);
+    }
+    request_remove_list_.clear();
 }
 
 void GameWorld::OnMessage(GameMessage *msg) {
@@ -85,4 +91,27 @@ bool GameWorld::IsExist(int id, ObjectType type) const {
     auto end = range_ret.second;
     return IsExist(begin, end, 
         [&](GameObjectTable::iterator::value_type o) { return o.second->id() == id; });
+}
+
+bool GameWorld::RemoveObject(GameObjectPtr obj) {
+    auto type = obj->Type();
+    auto range_ret = obj_table_.equal_range(type);
+    auto begin = range_ret.first;
+    auto end = range_ret.second;
+    auto found = std::find_if(begin, end, 
+        [&](GameObjectTable::iterator::value_type o) { return o.second == obj; });
+    if(found == end) {
+        return false;
+    }
+    obj_table_.erase(found);
+    return true;
+}
+bool GameWorld::RequestRemoveObject(GameObjectPtr obj) {
+    auto found = std::find(request_remove_list_.begin(), request_remove_list_.end(), obj);
+    if(found == request_remove_list_.end()) {
+        request_remove_list_.push_back(obj);
+        return true;
+    } else {
+        return false;
+    }
 }

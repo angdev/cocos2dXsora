@@ -1,6 +1,8 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#include "collision_tuple.h"
+
 class GLESDebugDraw;
 class GameWorld;
 
@@ -23,6 +25,8 @@ private:
     void InitGround(b2World *world);
 
     void UpdateCollision();
+    std::vector<CollisionTuple> GetCollisionList();
+    void HandleCollision(CollisionTuple &collision);
 
 private:
     std::unique_ptr<b2World> b2_world_;

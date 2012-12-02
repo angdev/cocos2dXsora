@@ -26,6 +26,9 @@ public:
     bool IsMatch(ObjectType type1, ObjectType type2) const;
 	GameObjectPtr GetOther(GameObject *obj) const;
 
+    GameObjectPtr obj_a() { return obj_a_; }
+    GameObjectPtr obj_b() { return obj_b_; }
+
 private:
 	GameObjectPtr obj_a_;
 	GameObjectPtr obj_b_;

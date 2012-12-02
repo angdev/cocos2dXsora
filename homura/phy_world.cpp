@@ -6,6 +6,7 @@
 #include "GLES-Render.h"
 #include "collision_tuple.h"
 #include "game_object.h"
+#include "game_world.h"
 
 using namespace std;
 using namespace sora;
@@ -99,10 +100,15 @@ void PhyWorld::Update(float dt) {
     // generally best to keep the time step and iterations fixed.
     b2_world_->Step(dt, velocityIterations, positionIterations);
 
-    UpdateCollision();
+    vector<CollisionTuple> collision_list = GetCollisionList();
+    for(auto collision : collision_list) {
+        HandleCollision(collision);
+    }
 }
 
-void PhyWorld::UpdateCollision() {
+std::vector<CollisionTuple> PhyWorld::GetCollisionList() {
+    vector<CollisionTuple> collision_tuple_list;
+
     //충돌정보 얻기
     for(b2Contact *c = b2_world()->GetContactList() ; c ; c = c->GetNext()) {
 		b2Contact *contact = c;
@@ -132,9 +138,8 @@ void PhyWorld::UpdateCollision() {
 
 		//물체 2개로 충돌 튜플 만들기. 충돌 튜플은 중복되면 안됨
 		GameWorld *world = game_world_;
-        /*
-		GameObjectPtr &objptr_a = world->Get(obj1->id());
-		GameObjectPtr &objptr_b = world->Get(obj2->id());
+		GameObjectPtr &objptr_a = world->FindObject(obj1->id());
+		GameObjectPtr &objptr_b = world->FindObject(obj2->id());
 		b2Fixture *fixture_a = contact->GetFixtureA();
 		b2Fixture *fixture_b = contact->GetFixtureB();
 		b2WorldManifold manifold;
@@ -146,8 +151,22 @@ void PhyWorld::UpdateCollision() {
 			fixture_b, 
 			manifold, 
 			world);
-
-		collision_tuple_set.push_back(collision_t);
-        */
+		collision_tuple_list.push_back(collision_t);
 	}
+    return collision_tuple_list;
+}
+
+void PhyWorld::HandleCollision(CollisionTuple &collision) {
+    //테스트 객체 2개 충돌시 삭제
+    if(collision.IsMatch(kCompNull, kCompNull)) {
+        //먼저 생긴걸 지운다
+        GameObjectPtr obj_a = collision.obj_a();
+        GameObjectPtr obj_b = collision.obj_b();
+
+        GameObjectPtr first = obj_a->id() < obj_b->id() ? obj_a : obj_b;
+
+        //객체를 지우기. world에서 지우는 함수를 사용해서 바로 지우면
+        //게임 로직이 붕괴할 가능성이 있다. update종료후 지워지도록한다
+        game_world_->RequestRemoveObject(first);
+    }
 }

@@ -41,6 +41,9 @@ public:
     bool IsExist(int id) const;
     bool IsExist(int id, ObjectType type) const;
 
+    bool RemoveObject(GameObjectPtr obj);
+    bool RequestRemoveObject(GameObjectPtr obj);
+
     template<typename Functor, typename Iter>
     GameObjectPtr FindObject(Iter begin, Iter end, Functor func);
     template<typename Functor, typename Iter>
@@ -49,6 +52,8 @@ public:
 private:
     typedef std::list<DelayedGameMessagePtr> DelayedMessageListType;
     DelayedMessageListType delayed_msg_list_;
+
+    std::vector<GameObjectPtr> request_remove_list_;
 
 private:
     GameObjectTable obj_table_;
