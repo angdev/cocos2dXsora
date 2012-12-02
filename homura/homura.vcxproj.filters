@@ -52,6 +52,9 @@
     <ClCompile Include="option_layer.cpp">
       <Filter>etc_ui</Filter>
     </ClCompile>
+    <ClCompile Include="character_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="option_layer.h">
       <Filter>etc_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="character_component.h">
+      <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

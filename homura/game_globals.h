@@ -11,6 +11,7 @@ typedef enum {
     kCompItem,
     kCompBullet,
     kCompEnemy,
+    kCompAI,    //그냥 AI를 가지는 객체 (Player, Enemy에 들어갈 예정)
 
     //phy comp
     kCompPhy,

@@ -6,6 +6,7 @@
 #include "game_object.h"
 #include "drawable_component.h"
 #include "phy_component.h"
+#include "character_component.h"
 #include "sora/unit.h"
 
 #if SR_USE_PCH == 0
@@ -28,7 +29,6 @@ GameObject *GameObjectFactory::Create(const TestSpriteObjectHeader &header) {
 }
 
 GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    
     b2Body *body = CreateCollisionBox(ut_pos, 8/2, 8/2);
 
     //적당히 스프라이트 시트에서 일단 하나 가져옴.
@@ -41,7 +41,28 @@ GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
 
-    world_->AddObject(obj, kCompBullet);
+    world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
+GameObject *GameObjectFactory::CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
+    //Temp
+    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+
+    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    sprite->setScale(0.2f);
+    
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LogicComponent *logic = new AICharacterComponent(obj);
+    
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+
+    world_->AddObject(obj, obj->Type());
 
     return obj;
 }
@@ -86,7 +107,7 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
     
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;    
+    fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);

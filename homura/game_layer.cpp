@@ -80,6 +80,10 @@ bool GameLayer::init() {
     //플레이어 초기화
     GameObjectFactory factory(world_.get());
     player_ = factory.CreateDemoObj(glm::vec2(300, 300), simple_layer_);
+    
+    //AI 테스트용
+    factory.CreateDemoEnemy(glm::vec2(500, 500), simple_layer_);
+
     return true;
 }
 
@@ -131,6 +135,8 @@ void GameLayer::AddNewBodyAtPosition(const CCPoint &p) {
 }
 
 void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
+    if(player_ == NULL)
+        return;
     b2Body *player_body = player_->phy_comp()->main_body();
     b2Vec2 player_position = player_body->GetPosition() + b2Vec2(Unit::ToMeterFromUnit(dx), Unit::ToMeterFromUnit(dy));
     player_body->SetTransform(player_position, player_body->GetAngle());

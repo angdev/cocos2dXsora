@@ -23,6 +23,7 @@ public:
     //TODO
     //나중에 Create 오버로딩할 예정 (구조체 헤더 이용)
     GameObject *CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
+    GameObject *CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
     GameObject *CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
 
 private:

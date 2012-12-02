@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
     <ClCompile Include="debug_config.cpp" />
     <ClCompile Include="drawable_component.cpp" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h" />
+    <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_tuple.h" />
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
