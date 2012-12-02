@@ -46,4 +46,5 @@ void AICharacterComponent::AIUpdate(float dt) {
     body_pos.y += sora::Unit::ToMeterFromUnit(1.0f);
 
     body->SetTransform(body_pos, body->GetAngle());
+    body->SetAwake(true);
 }
