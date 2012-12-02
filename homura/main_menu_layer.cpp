@@ -24,6 +24,8 @@ bool MainMenuLayer::init() {
         return false;
     }
 
+    this->setKeypadEnabled(true);
+
     //타이틀 로고 
     CCSize win_size = CCDirector::sharedDirector()->getVisibleSize();
     CCSprite *logo = CCSprite::create("logo.png");
@@ -94,6 +96,7 @@ void MainMenuLayer::OnHelpCallback(cocos2d::CCObject *sender) {
 void MainMenuLayer::OnCreditCallback(cocos2d::CCObject *sender) {
     CCLOG("On Credit");
 }
-void MainMenuLayer::OnBackCallback(cocos2d::CCObject *sender) {
-    CCLOG("Exit");
+
+void MainMenuLayer::keyBackClicked() {
+    exit(0);
 }

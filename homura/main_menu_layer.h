@@ -22,5 +22,6 @@ private:
     virtual void OnStroyCallback(cocos2d::CCObject *sender);
     virtual void OnHelpCallback(cocos2d::CCObject *sender);
     virtual void OnCreditCallback(cocos2d::CCObject *sender);
-    virtual void OnBackCallback(cocos2d::CCObject *sender);
+
+    virtual void keyBackClicked();
 };

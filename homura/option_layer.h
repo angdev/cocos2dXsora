@@ -15,4 +15,5 @@ public:
 
     virtual bool init();
     void OnBack(cocos2d::CCObject *sender);
+    virtual void keyBackClicked() { OnBack(NULL); }
 };

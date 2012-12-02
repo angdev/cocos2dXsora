@@ -24,6 +24,8 @@ bool OptionLayer::init() {
         return false;
     }
     
+    this->setKeypadEnabled(true);
+
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 
