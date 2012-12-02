@@ -4,9 +4,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>support</Filter>
     </ClCompile>
-    <ClCompile Include="hello_world_scene.cpp">
-      <Filter>layer</Filter>
-    </ClCompile>
     <ClCompile Include="logic_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
@@ -62,9 +59,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>support</Filter>
-    </ClInclude>
-    <ClInclude Include="hello_world_scene.h">
-      <Filter>layer</Filter>
     </ClInclude>
     <ClInclude Include="logic_component.h">
       <Filter>logic_comp</Filter>

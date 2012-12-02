@@ -9,7 +9,6 @@
 #include "sora/data_define.h"
 #include "sora/data_helper.h"
 
-#include "homura/hello_world_scene.h"
 #include "homura/main_menu_layer.h"
 #include "homura/game_layer.h"
 

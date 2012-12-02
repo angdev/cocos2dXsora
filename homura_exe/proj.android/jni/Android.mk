@@ -53,7 +53,6 @@ LOCAL_SRC_FILES += \
     ../../../homura/game_message.cpp  \
     ../../../homura/game_object.cpp  \
     ../../../homura/game_world.cpp  \
-    ../../../homura/hello_world_scene.cpp  \
     ../../../homura/game_object_factory.cpp \
     ../../../homura/drawable_component.cpp  \
     ../../../homura/main_menu_layer.cpp \
