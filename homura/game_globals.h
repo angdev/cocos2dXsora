@@ -1,6 +1,8 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#include <memory>
+
 typedef enum {
     kCompNull,
 

@@ -8,12 +8,7 @@ SinglePhyComponent *PhyComponent::SinglePhy(GameObject *obj, b2Body *body) {
     return new SinglePhyComponent(obj, body);
 }
 
-void SinglePhyComponent::Update(float dt) {
-}
-
-void SinglePhyComponent::InitMsgHandler() {
-}
-
+////////////////////////////////////////
 SinglePhyComponent::SinglePhyComponent(GameObject *obj, b2Body *body)
 : PhyComponent(obj),
 body_(body) {
@@ -21,5 +16,27 @@ body_(body) {
 }
 
 SinglePhyComponent::~SinglePhyComponent() {
+    if(body_ != NULL) {
+        b2World *world = body_->GetWorld();
+        world->DestroyBody(body_);
+        body_ = NULL;
+    }
+}
 
+void SinglePhyComponent::Update(float dt) {
+}
+
+void SinglePhyComponent::InitMsgHandler() {
+}
+
+void SinglePhyComponent::set_main_body(b2Body *body) {
+    //remove prev
+    if(body_ != NULL) {
+        b2World *world = body_->GetWorld();
+        world->DestroyBody(body_);
+        body_ = NULL;
+    }
+
+    body_ = body;
+    body_->SetUserData(obj());
 }

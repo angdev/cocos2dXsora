@@ -8,45 +8,33 @@
 //Drawable component들의 base class
 class DrawableComponent : public GameComponent {
 public:
-    DrawableComponent(GameObject *obj) : GameComponent(obj) { }
+    DrawableComponent(GameObject *obj, cocos2d::CCNode *parent);
     virtual ~DrawableComponent() { }
 
-public:
     virtual CompType type() const { return kCompDrawable; }
 
+public:
     //지금은 setter를 둔다.
-    cocos2d::CCLayer *layer() { return layer_; }
-    cocos2d::CCLayer *set_layer(cocos2d::CCLayer *layer);
-
+    cocos2d::CCNode *parent() { return parent_; }
 private:
-    cocos2d::CCLayer *layer_;
+    cocos2d::CCNode *parent_;
 };
 
 
-//일단 그냥 스프라이트 그리는 클래스 추가
-class SimpleSpriteDrawableComponent : public DrawableComponent {
+//일단 그냥 CCNode 그리는 클래스 추가
+//sprite가 아니라 node로 한 이유는 범용성을 위해서
+class NodeDrawableComponent : public DrawableComponent {
 public:
-    SimpleSpriteDrawableComponent(GameObject *obj, const std::string &sprite_name);
-
-    void InitWithRegister();
-
-public:
-    //sprite 초기화를 문자열로 해야할 듯 하지만 일단 둔다.
-    cocos2d::CCSprite *sprite() { return sprite_; }
-    cocos2d::CCSprite *set_sprite(cocos2d::CCSprite *sprite);
-
+    NodeDrawableComponent(GameObject *obj, cocos2d::CCNode *parent, cocos2d::CCNode *node_);
+    virtual ~NodeDrawableComponent();
 
 public:
     //가상 함수 구현
-    void Update(float dt) {}
-    void InitMsgHandler() {}
-
-    void OnRegisterSprite() { }
+    virtual void Update(float dt);
+    virtual void InitMsgHandler();
 
 private:
-    std::string sprite_name_;
-    cocos2d::CCSprite *sprite_;
-
+    cocos2d::CCNode *node_;
 };
 
 #endif

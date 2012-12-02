@@ -13,47 +13,29 @@
 using namespace std;
 using namespace cocos2d;
 
-template<typename ObjectPtr>
-struct ObjectIdCompare {
-    ObjectIdCompare(int id) : id(id) {}
-    int id;
-    bool operator()(const ObjectPtr &obj) { return (obj->id() == id); }
-};
-
-template<typename ObjectPtr>
-struct ObjectNameCompare {
-    ObjectNameCompare(const std::string &name) : name(name) {}
-    std::string name;
-    bool operator()(const ObjectPtr &obj) { return (obj->name() == name); }
-};
-
 GameWorld::GameWorld() {
     phy_world_ = std::move(unique_ptr<PhyWorld>(new PhyWorld(this)));
 }
 
 GameWorld::~GameWorld() {
+    obj_table_.clear();
 }
 
 void GameWorld::Update(float dt) {
     //TODO
     phy_world_->Update(dt);
 
-    //게임 오브젝트 돌면서 Update 호출
-    for(auto table_iter : game_object_table_) {
-        for(auto vec_iter : table_iter.second) {
-            //컴포넌트 업데이트
-            vec_iter->Update(dt);
-        }
+    //TODO
+    //게임 오브젝트 돌면서 Update 호출. 우선순위 통제 필요하면 적절히 처리하기
+    for(auto it : obj_table_) {
+        it.second->Update(dt);
     }
 }
 
 void GameWorld::OnMessage(GameMessage *msg) {
     //TODO
-    for(auto table_iter : game_object_table_) {
-        for(auto vec_iter : table_iter.second) {
-            //컴포넌트 업데이트
-            vec_iter->OnMessage(msg);
-        }
+    for(auto it : obj_table_) {
+        it.second->OnMessage(msg);
     }
 }
 
@@ -65,33 +47,42 @@ void GameWorld::OnMessage(GameMessage *msg, float delay) {
 
 int GameWorld::AddObject(GameObject *obj, ObjectType type) {
     //같은 id를 가진 객체가 있는지 확인
-    auto iter_begin = game_object_table_[type].begin();
-    auto iter_end = game_object_table_[type].end();
-    auto find_iter = std::find_if(iter_begin, iter_end,
-        [&obj](GameObjectPtr &ptr) {
-        if(obj->id() == ptr->id())
-            return true;
-        return false;
-    });
-
-    if(find_iter != game_object_table_[type].end())
-        return -1;
+    if(IsExist(obj->id()) == true) {
+        return 0;
+    }
     
-    game_object_table_[type].push_back(GameObjectPtr(obj));
+    obj_table_.insert(make_pair(type, GameObjectPtr(obj)));
     return obj->id();
 }
 
-GameObject* GameWorld::GetObject(const int &id) {
-    for(auto table_iter : game_object_table_) {
-        for(auto vec_iter : table_iter.second) {
-            if(vec_iter->id() == id)
-                return vec_iter.get();
-        }
-    }
+GameObjectPtr GameWorld::FindObject(int id, ObjectType type) {
+    auto range_ret = obj_table_.equal_range(type);
+    auto begin = range_ret.first;
+    auto end = range_ret.second;
+    return FindObject(begin, end, 
+        [&](GameObjectTable::iterator::value_type o) { return o.second->id() == id; });
+}
 
-    return 0;
+GameObjectPtr GameWorld::FindObject(int id) {
+    //같은 id를 가진 객체가 있는지 확인
+    auto end = obj_table_.end();
+    return FindObject(obj_table_.begin(), end, 
+        [&](GameObjectTable::iterator::value_type o) { return o.second->id() == id; });
 }
 
 b2World *GameWorld::b2_world() {
     return phy_world_->b2_world();
+}
+
+bool GameWorld::IsExist(int id) const {
+    auto end = obj_table_.end();
+    return IsExist(obj_table_.begin(), end, 
+        [&](GameObjectTable::iterator::value_type o) { return o.second->id() == id; });
+}
+bool GameWorld::IsExist(int id, ObjectType type) const {
+    auto range_ret = obj_table_.equal_range(type);
+    auto begin = range_ret.first;
+    auto end = range_ret.second;
+    return IsExist(begin, end, 
+        [&](GameObjectTable::iterator::value_type o) { return o.second->id() == id; });
 }

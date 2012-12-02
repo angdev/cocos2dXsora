@@ -19,6 +19,9 @@ typedef std::shared_ptr<GameObject> GameObjectPtr;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 
 class GameWorld {
+private:
+    typedef std::multimap<ObjectType, GameObjectPtr> GameObjectTable;
+
 public:
     GameWorld();
     ~GameWorld();
@@ -32,15 +35,23 @@ public:
     //GameObject Handling
     //id를 리턴함.
     int AddObject(GameObject *obj, ObjectType type);
-    GameObject* GetObject(const int &id);
-    
+
+    GameObjectPtr FindObject(int id);
+    GameObjectPtr FindObject(int id, ObjectType type);
+    bool IsExist(int id) const;
+    bool IsExist(int id, ObjectType type) const;
+
+    template<typename Functor, typename Iter>
+    GameObjectPtr FindObject(Iter begin, Iter end, Functor func);
+    template<typename Functor, typename Iter>
+    bool IsExist(Iter begin, Iter end, Functor func) const;
+
 private:
     typedef std::list<DelayedGameMessagePtr> DelayedMessageListType;
     DelayedMessageListType delayed_msg_list_;
 
 private:
-    typedef std::map<ObjectType, std::vector<GameObjectPtr> > GameObjectTable;
-    GameObjectTable game_object_table_;
+    GameObjectTable obj_table_;
 
     //box2d 관련 내용
 public:
@@ -49,3 +60,20 @@ public:
 private:
     std::unique_ptr<PhyWorld> phy_world_;
 };
+
+
+template<typename Functor, typename Iter>
+GameObjectPtr GameWorld::FindObject(Iter begin, Iter end, Functor func) {
+    auto found = std::find_if(begin, end, func);
+    if(found != end) {
+        return found->second;
+    } else {
+        static GameObjectPtr empty;
+        return empty;
+    }
+}
+template<typename Functor, typename Iter>
+bool GameWorld::IsExist(Iter begin, Iter end, Functor func) const {
+    auto found = std::find_if(begin, end, func);
+    return (found != end);
+}

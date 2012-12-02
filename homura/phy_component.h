@@ -9,6 +9,8 @@ class SinglePhyComponent;
 class PhyComponent : public GameComponent {
 public:
     virtual b2Body *main_body() = 0;
+    virtual void set_main_body(b2Body *body) = 0;
+
     virtual ~PhyComponent() {}
 protected:
     PhyComponent(GameObject *obj) : GameComponent(obj) { }
@@ -29,7 +31,7 @@ public:
 
     virtual CompType type() const { return kCompSinglePhy; }
     virtual b2Body *main_body() { return body_; }
-
+    virtual void set_main_body(b2Body *body);
 private:
     b2Body *body_;
     

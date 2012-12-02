@@ -19,10 +19,11 @@ public:
     virtual void ccTouchesCancelled(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
 
 public:
-    void draw();
     void update(float dt);
 
 private:
     std::unique_ptr<GameWorld> world_;
     void AddNewBodyAtPosition(const cocos2d::CCPoint &p);
+
+    cocos2d::CCLayer *simple_layer_;
 };

@@ -32,7 +32,9 @@ void GameObject::Update(float dt) {
         drawable_comp_.get(),
     };
     for(auto it = comp_arr.begin(), e = comp_arr.end() ; it != e ; ++it) {
-        (*it)->Update(dt);
+        if(*it != NULL) {
+            (*it)->Update(dt);
+        }
     }
 }
 
@@ -44,7 +46,9 @@ void GameObject::OnMessage(GameMessage *msg) {
         drawable_comp_.get(),
     };
     for(auto it = comp_arr.begin(), e = comp_arr.end() ; it != e ; ++it) {
-        (*it)->OnMessage(msg);
+        if(*it != NULL) {
+            (*it)->OnMessage(msg);
+        }
     }
 }
 
