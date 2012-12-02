@@ -18,8 +18,8 @@ public:
 
 public:
     virtual void ccTouchesEnded(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
-    virtual void ccTouchBegan(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
-    virtual void ccTouchMoved(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
+    virtual void ccTouchesBegan(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
+    virtual void ccTouchesMoved(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
     virtual void ccTouchesCancelled(cocos2d::CCSet *touches, cocos2d::CCEvent *event);
 
 public:
@@ -27,7 +27,10 @@ public:
 
 private:
     std::unique_ptr<GameWorld> world_;
+    GameObject *player_;
+
     void AddNewBodyAtPosition(const cocos2d::CCPoint &p);
+    void MoveBodyByDelta(const float &dx, const float &dy);
 
     cocos2d::CCLayer *simple_layer_;
 };
