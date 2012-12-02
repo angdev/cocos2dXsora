@@ -26,6 +26,7 @@ public:
     GameObject *CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
 
 private:
+    b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);
     GameWorld *world_;
 };
 
