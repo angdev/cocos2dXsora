@@ -6,6 +6,10 @@
 #include "logic_component.h"
 #include "phy_component.h"
 
+#if SR_USE_PCH == 0
+#include <array>
+#endif
+
 using namespace std;
 
 int GameObject::next_id_ = 1;

@@ -1,6 +1,10 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#if SR_USE_PCH == 0
+#include <Box2D/Box2D.h>
+#endif
+
 class GameObject;
 class GameWorld;
 class b2Fixture;

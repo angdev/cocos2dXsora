@@ -1,6 +1,10 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#if SR_USE_PCH == 0
+#include "glm/glm.hpp"
+#endif
+
 struct b2Vec2;
 
 SR_NS_BEGIN(sora);

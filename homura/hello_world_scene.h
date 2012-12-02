@@ -1,8 +1,12 @@
 ﻿#ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
-class GLESDebugDraw;
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
 
+class GLESDebugDraw;
+class b2World;
 
 class HelloWorld : public cocos2d::CCLayer {
 public:

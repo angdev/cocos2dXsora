@@ -2,6 +2,10 @@
 #include "stdafx.h"
 #include "phy_component.h"
 
+#if SR_USE_PCH == 0
+#include "Box2D/Box2D.h"
+#endif
+
 using namespace std;
 
 SinglePhyComponent *PhyComponent::SinglePhy(GameObject *obj, b2Body *body) {

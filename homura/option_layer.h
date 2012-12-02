@@ -1,6 +1,10 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
+
 class OptionLayer : public cocos2d::CCLayer {
 public:
     OptionLayer();

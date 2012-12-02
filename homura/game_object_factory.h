@@ -5,6 +5,11 @@
 #include "game_object.h"
 #include "data_define.h"
 
+#if SR_USE_PCH == 0
+#include <glm/glm.hpp>
+#include "cocos2d.h"
+#endif
+
 class GameObject;
 class GameWorld;
 

@@ -8,6 +8,7 @@
 
 #if SR_USE_PCH == 0
 #include <algorithm>
+#include "cocos2d.h"
 #endif
 
 using namespace std;

@@ -2,6 +2,10 @@
 #include "sora_stdafx.h"
 #include "unit.h"
 
+#if SR_USE_PCH == 0
+#include "Box2D/Box2D.h"
+#endif
+
 SR_NS_BEGIN(sora);
 
 glm::vec2 Unit::ToUnitFromMeter(const b2Vec2 &mt_p) {

@@ -9,7 +9,7 @@
 #include "sora/unit.h"
 
 #include "GLES-Render.h"
-
+#include "Box2D/Box2D.h"
 #include "draw_nodes/CCDrawingPrimitives.h"
 
 USING_NS_CC;

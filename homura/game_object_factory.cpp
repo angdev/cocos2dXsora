@@ -8,6 +8,10 @@
 #include "phy_component.h"
 #include "sora/unit.h"
 
+#if SR_USE_PCH == 0
+#include <Box2D/Box2D.h>
+#endif
+
 USING_NS_CC;
 using namespace sora;
 using namespace std;

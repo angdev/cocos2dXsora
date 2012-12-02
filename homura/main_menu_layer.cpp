@@ -5,6 +5,10 @@
 #include "game_layer.h"
 #include "option_layer.h"
 
+#if SR_USE_PCH == 0
+#include <array>
+#endif
+
 using namespace std;
 using namespace cocos2d;
 //using namespace sora;

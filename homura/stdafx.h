@@ -18,6 +18,7 @@
 #include <queue>
 #include <vector>
 #include <map>
+#include <array>
 
 #include "cocos2d.h"
 #include "Box2D/Box2D.h"

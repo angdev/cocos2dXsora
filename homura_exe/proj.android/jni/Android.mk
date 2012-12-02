@@ -43,7 +43,8 @@ LOCAL_SRC_FILES += \
     ../../../sora/xml_node.cpp  \
     ../../../sora/xml_writer.cpp  \
     ../../../sora/xml_reader.cpp  \
-    ../../../sora/file_helper.cpp
+    ../../../sora/file_helper.cpp   \
+    ../../../sora/unit.cpp  \
                    
 # homura           
 LOCAL_SRC_FILES += \
@@ -52,7 +53,18 @@ LOCAL_SRC_FILES += \
     ../../../homura/game_message.cpp  \
     ../../../homura/game_object.cpp  \
     ../../../homura/game_world.cpp  \
-    ../../../homura/hello_world_scene.cpp  
+    ../../../homura/hello_world_scene.cpp  \
+    ../../../homura/game_object_factory.cpp \
+    ../../../homura/drawable_component.cpp  \
+    ../../../homura/main_menu_layer.cpp \
+    ../../../homura/option_layer.cpp    \
+    ../../../homura/game_layer.cpp  \
+    ../../../homura/logic_component.cpp \
+    ../../../homura/collision_tuple.cpp \
+    ../../../homura/GLES-Render.cpp \
+    ../../../homura/phy_component.cpp   \
+    ../../../homura/phy_world.cpp
+    
                    
 # homura_exe
 LOCAL_SRC_FILES += ../../app_delegate.cpp \
@@ -63,6 +75,7 @@ LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../../../    \
     $(LOCAL_PATH)/../../../sora    \
     $(LOCAL_PATH)/../../../homura    \
+    $(LOCAL_PATH)/../../../external    \
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 

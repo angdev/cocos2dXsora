@@ -7,8 +7,10 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <algorithm>
 #endif
 
+class b2World;
 struct GameMessage;
 struct DelayedGameMessage;
 class GameObject;

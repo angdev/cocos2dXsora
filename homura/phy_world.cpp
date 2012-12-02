@@ -138,8 +138,8 @@ std::vector<CollisionTuple> PhyWorld::GetCollisionList() {
 
 		//물체 2개로 충돌 튜플 만들기. 충돌 튜플은 중복되면 안됨
 		GameWorld *world = game_world_;
-		GameObjectPtr &objptr_a = world->FindObject(obj1->id());
-		GameObjectPtr &objptr_b = world->FindObject(obj2->id());
+		GameObjectPtr objptr_a = world->FindObject(obj1->id());
+		GameObjectPtr objptr_b = world->FindObject(obj2->id());
 		b2Fixture *fixture_a = contact->GetFixtureA();
 		b2Fixture *fixture_b = contact->GetFixtureB();
 		b2WorldManifold manifold;

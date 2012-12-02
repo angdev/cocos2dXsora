@@ -1,7 +1,11 @@
 ﻿// Ŭnicode please
 #pragma once
 
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
 
+class GameWorld;
 
 class GameLayer : public cocos2d::CCLayer {
 public:
