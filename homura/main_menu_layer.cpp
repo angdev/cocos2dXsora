@@ -3,6 +3,7 @@
 #include "main_menu_layer.h"
 
 #include "game_layer.h"
+#include "option_layer.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -76,7 +77,9 @@ void MainMenuLayer::OnLabCallback(cocos2d::CCObject *sender) {
     CCLOG("On Lab");
 }
 void MainMenuLayer::OnOptionCallback(cocos2d::CCObject *sender) {
-    CCLOG("On Option");
+    //CCLOG("On Option");
+    CCScene *opt_scene = OptionLayer::Scene();
+    CCDirector::sharedDirector()->replaceScene(opt_scene);
 }
 void MainMenuLayer::OnStroyCallback(cocos2d::CCObject *sender) {
     CCLOG("On Story");
@@ -86,4 +89,7 @@ void MainMenuLayer::OnHelpCallback(cocos2d::CCObject *sender) {
 }
 void MainMenuLayer::OnCreditCallback(cocos2d::CCObject *sender) {
     CCLOG("On Credit");
+}
+void MainMenuLayer::OnBackCallback(cocos2d::CCObject *sender) {
+    CCLOG("Exit");
 }

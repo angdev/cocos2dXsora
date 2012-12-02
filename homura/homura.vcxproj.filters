@@ -52,6 +52,9 @@
     <ClCompile Include="phy_world.cpp">
       <Filter>phy_comp</Filter>
     </ClCompile>
+    <ClCompile Include="option_layer.cpp">
+      <Filter>etc_ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="phy_world.h">
       <Filter>phy_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="option_layer.h">
+      <Filter>etc_ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

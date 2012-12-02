@@ -100,6 +100,7 @@
     <ClCompile Include="hello_world_scene.cpp" />
     <ClCompile Include="logic_component.cpp" />
     <ClCompile Include="main_menu_layer.cpp" />
+    <ClCompile Include="option_layer.cpp" />
     <ClCompile Include="phy_component.cpp" />
     <ClCompile Include="phy_world.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -125,6 +126,7 @@
     <ClInclude Include="logic_component.h" />
     <ClInclude Include="main_menu_layer.h" />
     <ClInclude Include="message_handler.h" />
+    <ClInclude Include="option_layer.h" />
     <ClInclude Include="phy_component.h" />
     <ClInclude Include="phy_world.h" />
     <ClInclude Include="stdafx.h" />
