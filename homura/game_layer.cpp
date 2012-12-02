@@ -80,7 +80,6 @@ bool GameLayer::init() {
     //플레이어 초기화
     GameObjectFactory factory(world_.get());
     player_ = factory.CreateDemoObj(glm::vec2(300, 300), simple_layer_);
-
     return true;
 }
 
