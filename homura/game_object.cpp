@@ -22,28 +22,30 @@ GameObject::~GameObject() {
 
 //컴포넌트 순회할 수 있게 배열 같은 걸로 뱉는거 만들어야할듯.
 void GameObject::Update(float dt) {
-
     //우선순위는 어떻게 되나?
-    if(phy_comp_.get() != NULL)
-        phy_comp_->Update(dt);
-
-    if(logic_comp_.get() != NULL)
-        logic_comp_->Update(dt);
     
-    if(drawable_comp_.get() != NULL)
-        drawable_comp_->Update(dt);
+    //고정크기 배열, 혹은 그것과 유사한것을 배치해서 쓸데없는
+    //malloc를 없애자
+    std::array<GameComponent*, 3> comp_arr = {
+        phy_comp_.get(),
+        logic_comp_.get(),
+        drawable_comp_.get(),
+    };
+    for(auto it = comp_arr.begin(), e = comp_arr.end() ; it != e ; ++it) {
+        (*it)->Update(dt);
+    }
 }
 
 void GameObject::OnMessage(GameMessage *msg) {
- 
-    if(phy_comp_.get() != NULL)
-        phy_comp_->OnMessage(msg);
-
-    if(logic_comp_.get() != NULL)
-        logic_comp_->OnMessage(msg);
-
-    if(drawable_comp_.get() != NULL)
-        drawable_comp_->OnMessage(msg);
+    //쓸데없는 malloc을 줄이기 위해서 고정크기 배열 사용
+    std::array<GameComponent*, 3> comp_arr = {
+        phy_comp_.get(),
+        logic_comp_.get(),
+        drawable_comp_.get(),
+    };
+    for(auto it = comp_arr.begin(), e = comp_arr.end() ; it != e ; ++it) {
+        (*it)->OnMessage(msg);
+    }
 }
 
 void GameObject::set_drawable_comp(DrawableComponent *comp) {

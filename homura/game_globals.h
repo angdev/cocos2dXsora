@@ -12,6 +12,7 @@ typedef enum {
 
     //phy comp
     kCompPhy,
+    kCompSinglePhy,     //b2Body 1개로 구성되는 물리 객체. 물리객체의 구조가 복잡해질 경우를 대비해서 뺴놓긴햇다
 
     //drawable comp
     kCompDrawable, //일단 넣기
