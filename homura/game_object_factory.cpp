@@ -6,9 +6,11 @@
 #include "game_object.h"
 #include "drawable_component.h"
 #include "phy_component.h"
-#include "character_component.h"
+#include "ai_character_component.h"
 #include "bullet_component.h"
 #include "sora/unit.h"
+
+#include "data_define.h"
 
 #if SR_USE_PCH == 0
 #include <Box2D/Box2D.h>
@@ -64,7 +66,8 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new BulletComponent(obj);
+    BulletComponent *logic = new BulletComponent(obj);
+    logic->set_dir_vec(glm::vec2(header.dir_x, header.dir_y));
 
     assert(logic && "Need BulletComponent");
 

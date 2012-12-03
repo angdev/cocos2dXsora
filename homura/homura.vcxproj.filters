@@ -52,14 +52,17 @@
     <ClCompile Include="option_layer.cpp">
       <Filter>etc_ui</Filter>
     </ClCompile>
-    <ClCompile Include="character_component.cpp">
-      <Filter>logic_comp</Filter>
-    </ClCompile>
     <ClCompile Include="bullet_component.cpp">
-      <Filter>logic_comp</Filter>
+      <Filter>logic_comp\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="character_component.cpp">
+      <Filter>logic_comp\character</Filter>
     </ClCompile>
     <ClCompile Include="player_component.cpp">
-      <Filter>logic_comp</Filter>
+      <Filter>logic_comp\player</Filter>
+    </ClCompile>
+    <ClCompile Include="ai_character_component.cpp">
+      <Filter>logic_comp\character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,14 +126,17 @@
     <ClInclude Include="option_layer.h">
       <Filter>etc_ui</Filter>
     </ClInclude>
-    <ClInclude Include="character_component.h">
-      <Filter>logic_comp</Filter>
-    </ClInclude>
     <ClInclude Include="bullet_component.h">
-      <Filter>logic_comp</Filter>
+      <Filter>logic_comp\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="character_component.h">
+      <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="player_component.h">
-      <Filter>logic_comp</Filter>
+      <Filter>logic_comp\player</Filter>
+    </ClInclude>
+    <ClInclude Include="ai_character_component.h">
+      <Filter>logic_comp\character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,15 @@
     </Filter>
     <Filter Include="game_ui">
       <UniqueIdentifier>{4d299d51-5881-40f9-ad85-f398dbcbe35e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic_comp\bullet">
+      <UniqueIdentifier>{90fd481f-1c93-4090-882d-d5eac04e01a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic_comp\character">
+      <UniqueIdentifier>{ed756557-40aa-428a-a0ec-b9b3eb9f2d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic_comp\player">
+      <UniqueIdentifier>{cc487ca0-1239-4733-94b2-85f1ab5e49b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

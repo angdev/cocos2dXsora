@@ -49,3 +49,15 @@ public:
 	//파괴될 id의 객체
 	int obj_id;
 };
+
+//게임 객체를 이동시켜달라고 요청할 때 사용하는 메시지
+//msg에 들어온 값만큼 이동시켜줌.
+struct MoveMessage : public GameMessage {
+private:
+    MoveMessage() {}
+public:
+    static MoveMessage Create(glm::vec2 vec2);
+    MoveMessage *Clone() const { return new MoveMessage(); }
+
+    glm::vec2 vec2;
+};

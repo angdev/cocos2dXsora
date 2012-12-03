@@ -91,8 +91,6 @@ bool GameLayer::init() {
     return true;
 }
 
-
-
 void GameLayer::update(float dt) {
     world_->Update(dt);
 }
@@ -141,9 +139,15 @@ void GameLayer::AddNewBodyAtPosition(const CCPoint &p) {
 void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //TODO
     //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
+    
+    //메시지 보내기
+    player_->OnMessage(&MoveMessage::Create(glm::vec2(dx, dy)));
+
+    /*
     b2Body *player_body = player_->phy_comp()->main_body();
     b2Vec2 player_position = player_body->GetPosition() + b2Vec2(Unit::ToMeterFromUnit(dx), Unit::ToMeterFromUnit(dy));
     player_body->SetTransform(player_position, player_body->GetAngle());
     //계속 awake 꺼지는거 신경 쓰여서 걍 추가해둠. 필요는 없지만 =ㅅ=
     player_body->SetAwake(true);
+    */
 }
