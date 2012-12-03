@@ -50,6 +50,8 @@ public:
 	int obj_id;
 };
 
+//Physics Component Messages
+
 //게임 객체를 이동시켜달라고 요청할 때 사용하는 메시지
 //msg에 들어온 값만큼 이동시켜줌.
 struct MoveMessage : public GameMessage {
@@ -61,3 +63,34 @@ public:
 
     glm::vec2 vec2;
 };
+
+//End Physics Component Messages
+
+
+//Character Component Messages
+
+struct ApplyDamageMessage : public GameMessage {
+private:
+    ApplyDamageMessage() {}
+public:
+    static ApplyDamageMessage Create(float damage);
+    ApplyDamageMessage *Clone() const { return new ApplyDamageMessage(); }
+
+    float damage;
+};
+
+//End Character Component Messages
+
+//Bullet Component Messages
+
+struct DamageObjectMessage : public GameMessage {
+private:
+    DamageObjectMessage() {}
+public:
+    static DamageObjectMessage Create(GameObject *obj);
+    DamageObjectMessage *Clone() const { return new DamageObjectMessage(); }
+
+    GameObject *obj;
+};
+
+//End Bullet Component Messages

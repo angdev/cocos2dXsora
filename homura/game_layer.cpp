@@ -82,7 +82,9 @@ bool GameLayer::init() {
     //플레이어 초기화
     GameObjectFactory factory(world_.get());
     player_ = factory.CreateDemoObj(glm::vec2(300, 300), simple_layer_);
-    
+    static_cast<CharacterComponent*>(player_->logic_comp())->set_hit_point(100);
+
+
     //AI 테스트용
     GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), simple_layer_);
     //캐스팅 방식 말고 메시지 방식을 쓰던지 생성할 때만 잘 처리하던지 해야함. 일단은 캐스팅.

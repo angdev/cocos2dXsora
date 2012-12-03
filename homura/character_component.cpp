@@ -29,15 +29,20 @@ void CharacterComponent::Update(float dt) {
     }
 }
 
-void CharacterComponent::ApplyDamage(float damage) {
-    cocos2d::CCLog("%f", hit_point_);
-    hit_point_ -= damage;
+void CharacterComponent::InitMsgHandler() {
+    RegisterMsgFunc(this, &CharacterComponent::OnDestroyMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnApplyDamage);
 }
 
-void CharacterComponent::OnDestroy(DestroyMessage *msg) {
+void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
     cocos2d::CCLog("%d destroied", msg->obj_id);
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(msg->obj_id));
+}
+
+void CharacterComponent::OnApplyDamage(ApplyDamageMessage *msg) {
+    hit_point_ -= msg->damage;
+    cocos2d::CCLog("%f", hit_point_);
 }
 
 //CharacterComponent

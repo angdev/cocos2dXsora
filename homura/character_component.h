@@ -6,6 +6,7 @@
 #include "game_globals.h"
 
 struct DestroyMessage;
+struct ApplyDamageMessage;
 
 //캐릭터가 가지는 수치를 header가지고 만들어줄 수 있게 하려고 함.
 class CharacterComponent : public LogicComponent {
@@ -22,8 +23,10 @@ public:
     //TODO
     //Need implementation
     void ApplyDamage(float damage);
-    virtual void InitMsgHandler() { RegisterMsgFunc(this, &CharacterComponent::OnDestroy); }
-    void OnDestroy(DestroyMessage *msg);
+
+    virtual void InitMsgHandler();
+    void OnDestroyMessage(DestroyMessage *msg);
+    void OnApplyDamage(ApplyDamageMessage *msg);
 
 public:
     cocos2d::CCNode *layer() { return layer_; }

@@ -13,16 +13,26 @@ public:
     //temp 이 컴포넌트의 하위 컴포넌트는 없나?
     virtual CompType type() const { return kCompBullet; }
     virtual void Update(float dt);
-    virtual void InitMsgHandler() { }
+    virtual void InitMsgHandler();
+
+    //메세지 처리 함수들
+public:
+    void OnDamageObjectMessage(DamageObjectMessage *msg);
+    void OnDestroyMessage(DestroyMessage *msg);
 
     //get/setter
 public:
     glm::vec2 dir_vec() { return dir_vec_px_; }
     void set_dir_vec(const glm::vec2& dir_vec_px) { dir_vec_px_ = dir_vec_px; }
 
+    //데미지 설정 함수. 일단 둔다.
+    void set_damage(float damage) { damage_ = damage; }
+
 private:
     //단위는 px
     glm::vec2 dir_vec_px_;
+    //데미지
+    float damage_;
 };
 
 #endif

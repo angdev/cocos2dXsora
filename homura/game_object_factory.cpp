@@ -59,6 +59,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     BulletComponent *logic = new BulletComponent(obj);
+    logic->set_damage(10);
     logic->set_dir_vec(glm::vec2(header.dir_x, header.dir_y));
 
     assert(logic && "Need BulletComponent");
@@ -87,7 +88,7 @@ GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, co
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, kCompCombatPlane);
+    world_->AddObject(obj, obj->Type());
 
     return obj;
 }
@@ -125,11 +126,13 @@ GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::C
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LogicComponent *logic = new CombatPlaneComponent(obj, parent);
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
 
     //아무것도 아닌거로 일단 설정. 이것은 그냥 그자리에 적절히 존재할뿐이라는 의미
-    world_->AddObject(obj, kCompNull);
+    world_->AddObject(obj, obj->Type());
 
     return obj;
 }

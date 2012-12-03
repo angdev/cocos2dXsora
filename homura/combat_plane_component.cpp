@@ -26,6 +26,7 @@ void CombatPlaneComponent::Update(float dt) {
 }
 
 void CombatPlaneComponent::InitMsgHandler() {
+    CharacterComponent::InitMsgHandler();
     //TODO
 }
 

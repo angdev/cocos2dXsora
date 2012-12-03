@@ -12,7 +12,7 @@ public:
     virtual ~CombatPlaneComponent();
 
 public:
-    virtual CompType type() const { return kCompEnemy; }
+    virtual CompType type() const { return kCompCombatPlane; }
 	virtual void Update(float dt);
 	virtual void InitMsgHandler();
 

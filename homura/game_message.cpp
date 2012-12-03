@@ -4,6 +4,18 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+DamageObjectMessage DamageObjectMessage::Create(GameObject *obj) {
+    DamageObjectMessage msg;
+    msg.obj = obj;
+    return msg;
+}
+
+ApplyDamageMessage ApplyDamageMessage::Create(float damage) {
+    ApplyDamageMessage msg;
+    msg.damage = damage;
+    return msg;
+}
+
 MoveMessage MoveMessage::Create(glm::vec2 vec2) {
     MoveMessage msg;
     msg.vec2 = vec2;
