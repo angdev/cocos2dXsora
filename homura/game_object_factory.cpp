@@ -46,6 +46,34 @@ GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d
     return obj;
 }
 
+GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &header, cocos2d::CCNode *parent) {
+    
+    //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
+    CCSprite *sprite = CCSprite::create(header.sprite_name.c_str());
+    sprite->setPosition(ccp(header.x, header.y));
+    CCRect sprite_box = sprite->boundingBox();
+
+    //TODO
+    //Test 필요
+    CCLog("%f %f", sprite_box.getMinX(), sprite_box.getMaxY());
+
+    b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
+        sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
+    
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LogicComponent *logic = 0; /* TODO: BulletComponent */
+
+    assert(logic && "Need BulletComponent");
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+
+    return obj;
+}
+
 GameObject *GameObjectFactory::CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
     //Temp
     b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));

@@ -8,3 +8,11 @@
 STRUCT_NEW_BEGIN(TestSpriteObjectHeader, 1)
     STRUCT_VAR_STRING(sprite_name)
 STRUCT_END()
+
+STRUCT_NEW_BEGIN(TestBulletObjectHeader, 1)
+    STRUCT_VAR_INT(from_id) //발사한 녀석의 id
+    STRUCT_VAR_FLOAT(x)
+    STRUCT_VAR_FLOAT(y)
+    STRUCT_VAR_STRING(sprite_name)  //스프라이트 시트 쓸 때는?
+    STRUCT_VAR_FLOAT(damage)
+STRUCT_END()
