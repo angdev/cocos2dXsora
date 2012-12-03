@@ -10,8 +10,8 @@
 #include <random>
 #include "sora/unit.h"
 
-CharacterComponent::CharacterComponent(GameObject *obj) 
-    : LogicComponent(obj) {
+CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
+    : LogicComponent(obj), layer_(layer) {
 
 }
 

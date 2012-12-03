@@ -5,9 +5,6 @@
 
 /////////////////////////////////////////////
 // 니가 쓸거는 여기부터 선언 가능함. 위의 내장용을 참고해서 만들면됨ㅋ
-STRUCT_NEW_BEGIN(TestSpriteObjectHeader, 1)
-    STRUCT_VAR_STRING(sprite_name)
-STRUCT_END()
 
 STRUCT_NEW_BEGIN(TestBulletObjectHeader, 1)
     STRUCT_VAR_INT(from_id) //발사한 녀석의 id

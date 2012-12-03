@@ -90,6 +90,7 @@
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
+    <ClCompile Include="combat_plane_component.cpp" />
     <ClCompile Include="debug_config.cpp" />
     <ClCompile Include="drawable_component.cpp" />
     <ClCompile Include="game_component.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_tuple.h" />
+    <ClInclude Include="combat_plane_component.h" />
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
     <ClInclude Include="game_layer.h" />

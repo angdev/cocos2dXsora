@@ -43,7 +43,7 @@ void SinglePhyComponent::OnMoveMessage(MoveMessage *msg) {
     vec2.y += Unit::ToMeterFromUnit(msg->vec2.y);
 
     body_->SetTransform(vec2, body_->GetAngle());
-    body_->SetAwake(true);
+    //body_->SetAwake(true);
 }
 
 void SinglePhyComponent::set_main_body(b2Body *body) {

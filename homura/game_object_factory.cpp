@@ -7,6 +7,7 @@
 #include "drawable_component.h"
 #include "phy_component.h"
 #include "ai_character_component.h"
+#include "combat_plane_component.h"
 #include "bullet_component.h"
 #include "sora/unit.h"
 
@@ -19,17 +20,6 @@
 USING_NS_CC;
 using namespace sora;
 using namespace std;
-
-GameObject *GameObjectFactory::Create(const TestSpriteObjectHeader &header) {
-    GameObject *obj = new GameObject(world_);
-
-    //SimpleSpriteDrawableComponent *sprite_comp = new SimpleSpriteDrawableComponent(obj, "HelloWorld.png");
-    //CCSprite* sprite = sprite_comp->sprite();
-
-    //obj->set_drawable_comp(sprite_comp);
-
-    return obj;
-}
 
 GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
     b2Body *body = CreateCollisionBox(ut_pos, 8/2, 8/2);
@@ -52,13 +42,15 @@ GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d
 GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &header, cocos2d::CCNode *parent) {
     
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
-    CCSprite *sprite = CCSprite::create(header.sprite_name.c_str());
+    //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
+    CCSprite *sprite = CCSprite::create("bullet_sheet.png", CCRectMake(80, 150, 8, 8));
+    sprite->setScale(2.0f);
     sprite->setPosition(ccp(header.x, header.y));
     CCRect sprite_box = sprite->boundingBox();
 
     //TODO
     //Test 필요
-    CCLog("%f %f", sprite_box.getMinX(), sprite_box.getMaxY());
+    //CCLog("%f %f", sprite_box.getMinX(), sprite_box.getMaxY());
 
     b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
         sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
@@ -76,6 +68,26 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     obj->set_logic_comp(logic);
 
     world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
+GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
+    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+
+    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    sprite->setScale(0.2f);
+
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LogicComponent *logic = new CombatPlaneComponent(obj, parent);
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+
+    world_->AddObject(obj, kCompCombatPlane);
 
     return obj;
 }
@@ -141,6 +153,8 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
     
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
+    // 충돌 체크용으로만 사용.
+    fixtureDef.isSensor = true;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;

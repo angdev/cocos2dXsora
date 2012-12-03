@@ -64,6 +64,9 @@
     <ClCompile Include="ai_character_component.cpp">
       <Filter>logic_comp\character</Filter>
     </ClCompile>
+    <ClCompile Include="combat_plane_component.cpp">
+      <Filter>logic_comp\character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -136,6 +139,9 @@
       <Filter>logic_comp\player</Filter>
     </ClInclude>
     <ClInclude Include="ai_character_component.h">
+      <Filter>logic_comp\character</Filter>
+    </ClInclude>
+    <ClInclude Include="combat_plane_component.h">
       <Filter>logic_comp\character</Filter>
     </ClInclude>
   </ItemGroup>

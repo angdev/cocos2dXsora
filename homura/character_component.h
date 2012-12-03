@@ -10,7 +10,7 @@ struct DestroyMessage;
 //캐릭터가 가지는 수치를 header가지고 만들어줄 수 있게 하려고 함.
 class CharacterComponent : public LogicComponent {
 public:
-    CharacterComponent(GameObject *obj);
+    CharacterComponent(GameObject *obj, cocos2d::CCNode *layer = 0);
     virtual ~CharacterComponent();
 
 public:
@@ -26,11 +26,13 @@ public:
     void OnDestroy(DestroyMessage *msg);
 
 public:
+    cocos2d::CCNode *layer() { return layer_; }
     float hit_point() const { return hit_point_; }
     void set_hit_point(float hit_point) { hit_point_ = hit_point; }
 
 private:
     float hit_point_;
+    cocos2d::CCNode *layer_;
 
 };
 

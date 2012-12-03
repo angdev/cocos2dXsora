@@ -88,6 +88,9 @@ bool GameLayer::init() {
     //캐스팅 방식 말고 메시지 방식을 쓰던지 생성할 때만 잘 처리하던지 해야함. 일단은 캐스팅.
     static_cast<CharacterComponent*>(obj_ai->logic_comp())->set_hit_point(100);
 
+    //전투기 테스트
+    factory.CreateDemoCombatPlane(glm::vec2(400, 400), simple_layer_);
+
     return true;
 }
 
