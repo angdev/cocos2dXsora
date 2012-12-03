@@ -7,6 +7,7 @@
 #include "drawable_component.h"
 #include "phy_component.h"
 #include "character_component.h"
+#include "bullet_component.h"
 #include "sora/unit.h"
 
 #if SR_USE_PCH == 0
@@ -63,7 +64,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = 0; /* TODO: BulletComponent */
+    LogicComponent *logic = new BulletComponent;
 
     assert(logic && "Need BulletComponent");
 

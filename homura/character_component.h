@@ -11,6 +11,12 @@ public:
     CharacterComponent(GameObject *obj);
     virtual ~CharacterComponent();
 
+public:
+    //데미지 처리
+    //TODO
+    //Need implementation
+    void ApplyDamage(float damage);
+
 private:
 
 };
