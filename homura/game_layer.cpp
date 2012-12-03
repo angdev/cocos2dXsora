@@ -77,6 +77,12 @@ bool GameLayer::init() {
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
 
+    //플레이어 초기화
+    GameObjectFactory factory(world_.get());
+    player_ = factory.CreateDemoObj(glm::vec2(300, 300), simple_layer_);
+    
+    //AI 테스트용
+    factory.CreateDemoEnemy(glm::vec2(500, 500), simple_layer_);
 
     return true;
 }
@@ -88,6 +94,7 @@ void GameLayer::update(float dt) {
 }
 
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
+    /*
     CCSetIterator it;
     CCTouch* touch;
     for( it = touches->begin(); it != touches->end(); it++)  {
@@ -98,11 +105,25 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
         CCPoint location = touch->getLocation();
         AddNewBodyAtPosition(location);
     }
+    */
 }
 
-void GameLayer::ccTouchBegan(CCSet *touches, CCEvent *event) {
+void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
 }
-void GameLayer::ccTouchMoved(CCSet *touches, CCEvent *event) {
+void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
+    //객체 이동 테스트
+    CCSetIterator it;
+    CCTouch *touch;
+    for( it = touches->begin(); it != touches->end(); it++) {
+        touch = static_cast<CCTouch*>(*it);
+        if(!touch) {
+            break;
+        }
+        CCPoint location = touch->getLocation();
+        CCPoint prev_location = touch->getPreviousLocation();
+        //CCLog("%f %f", location.x - prev_location.x, location.y - prev_location.y);
+        MoveBodyByDelta(location.x - prev_location.x, location.y - prev_location.y);
+    }
 }
 void GameLayer::ccTouchesCancelled(CCSet *touches, CCEvent *event) {
 }
@@ -111,4 +132,14 @@ void GameLayer::AddNewBodyAtPosition(const CCPoint &p) {
     glm::vec2 ut_pos(p.x, p.y);
     GameObjectFactory factory(world_.get());
     factory.CreateDemoObj(ut_pos, simple_layer_);
+}
+
+void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
+    //TODO
+    //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
+    b2Body *player_body = player_->phy_comp()->main_body();
+    b2Vec2 player_position = player_body->GetPosition() + b2Vec2(Unit::ToMeterFromUnit(dx), Unit::ToMeterFromUnit(dy));
+    player_body->SetTransform(player_position, player_body->GetAngle());
+    //계속 awake 꺼지는거 신경 쓰여서 걍 추가해둠. 필요는 없지만 =ㅅ=
+    player_body->SetAwake(true);
 }

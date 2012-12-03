@@ -19,10 +19,15 @@ public:
 
 public:
     //단순 스프라이트를 가지는 게임 객체 생성
-    GameObject* Create(const TestSpriteObjectHeader &header);
+    GameObject *Create(const TestSpriteObjectHeader &header);
+    //TODO
+    //나중에 Create 오버로딩할 예정 (구조체 헤더 이용)
+    GameObject *CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
+    GameObject *CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
     GameObject *CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
 
 private:
+    b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);
     GameWorld *world_;
 };
 

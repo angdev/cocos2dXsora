@@ -50,7 +50,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\sora;$(ProjectDir)\..\external\;$(SolutionDir)\;$(ProjectDir)\..\cocos2dx;$(ProjectDir)\..\cocos2dx\include;$(ProjectDir)\..\cocos2dx\kazmath\include;$(ProjectDir)\..\cocos2dx\platform\win32;$(ProjectDir)\..\cocos2dx\platform\third_party\win32\OGLES;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\sora;$(ProjectDir)..\external\;$(SolutionDir);$(ProjectDir)..\cocos2dx;$(ProjectDir)..\cocos2dx\include;$(ProjectDir)..\cocos2dx\kazmath\include;$(ProjectDir)..\cocos2dx\platform\win32;$(ProjectDir)..\cocos2dx\platform\third_party\win32\OGLES;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>

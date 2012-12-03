@@ -50,12 +50,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\sora;$(ProjectDir)\..\external\;$(SolutionDir)\;$(ProjectDir)\..\cocos2dx;$(ProjectDir)\..\cocos2dx\include;$(ProjectDir)\..\cocos2dx\kazmath\include;$(ProjectDir)\..\cocos2dx\platform\win32;$(ProjectDir)\..\cocos2dx\platform\third_party\win32\OGLES;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\sora;$(ProjectDir)..\external\;$(SolutionDir);$(ProjectDir)..\cocos2dx;$(ProjectDir)..\cocos2dx\include;$(ProjectDir)..\cocos2dx\kazmath\include;$(ProjectDir)..\cocos2dx\platform\win32;$(ProjectDir)..\cocos2dx\platform\third_party\win32\OGLES;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
-      <DisableSpecificWarnings>4251;4819</DisableSpecificWarnings>
+      <AdditionalOptions>/MP</AdditionalOptions>
+      <DisableSpecificWarnings>4251;4819;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
     <ClCompile Include="debug_config.cpp" />
     <ClCompile Include="drawable_component.cpp" />
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h" />
+    <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_tuple.h" />
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
