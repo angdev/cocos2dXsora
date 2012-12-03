@@ -10,6 +10,8 @@
 #include "phy_component.h"
 #include "game_object_factory.h"
 
+#include "character_component.h"
+
 using namespace std;
 using namespace sora;
 using namespace cocos2d;
@@ -82,7 +84,9 @@ bool GameLayer::init() {
     player_ = factory.CreateDemoObj(glm::vec2(300, 300), simple_layer_);
     
     //AI 테스트용
-    factory.CreateDemoEnemy(glm::vec2(500, 500), simple_layer_);
+    GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), simple_layer_);
+    //캐스팅 방식 말고 메시지 방식을 쓰던지 생성할 때만 잘 처리하던지 해야함. 일단은 캐스팅.
+    static_cast<CharacterComponent*>(obj_ai->logic_comp())->set_hit_point(100);
 
     return true;
 }

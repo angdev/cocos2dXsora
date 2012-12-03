@@ -5,6 +5,8 @@
 #include "logic_component.h"
 #include "game_globals.h"
 
+struct DestroyMessage;
+
 //캐릭터가 가지는 수치를 header가지고 만들어줄 수 있게 하려고 함.
 class CharacterComponent : public LogicComponent {
 public:
@@ -20,6 +22,8 @@ public:
     //TODO
     //Need implementation
     void ApplyDamage(float damage);
+    virtual void InitMsgHandler() { RegisterMsgFunc(this, &CharacterComponent::OnDestroy); }
+    void OnDestroy(DestroyMessage *msg);
 
 public:
     float hit_point() const { return hit_point_; }
@@ -41,7 +45,7 @@ public:
     virtual CompType type() const { return kCompAI; }
     //일단 그냥 돌아다니게 한다 - AI 작성은 어떻게 할 것인가?
 	virtual void Update(float dt);
-    virtual void InitMsgHandler() { }
+    virtual void InitMsgHandler() { CharacterComponent::InitMsgHandler(); }
 
 private:
     void AIUpdate(float dt);
