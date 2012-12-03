@@ -11,3 +11,6 @@ BulletComponent::~BulletComponent() {
 
 }
 
+void BulletComponent::Update(float dt) {
+    //TODO
+}

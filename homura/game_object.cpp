@@ -45,9 +45,9 @@ void GameObject::Update(float dt) {
 void GameObject::OnMessage(GameMessage *msg) {
     //쓸데없는 malloc을 줄이기 위해서 고정크기 배열 사용
     std::array<GameComponent*, 3> comp_arr = {
-        phy_comp_.get(),
-        logic_comp_.get(),
         drawable_comp_.get(),
+        phy_comp_.get(),
+        logic_comp_.get()
     };
     for(auto it = comp_arr.begin(), e = comp_arr.end() ; it != e ; ++it) {
         if(*it != NULL) {
