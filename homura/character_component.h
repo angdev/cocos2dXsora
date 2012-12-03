@@ -12,12 +12,21 @@ public:
     virtual ~CharacterComponent();
 
 public:
+    //Character 공통의 Update 처리
+    //하위 녀석들은 이 함수를 호출한다.
+    virtual void Update(float dt);
+
     //데미지 처리
     //TODO
     //Need implementation
     void ApplyDamage(float damage);
 
+public:
+    float hit_point() const { return hit_point_; }
+    void set_hit_point(float hit_point) { hit_point_ = hit_point; }
+
 private:
+    float hit_point_;
 
 };
 

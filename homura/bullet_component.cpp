@@ -7,7 +7,7 @@ BulletComponent::BulletComponent(GameObject *obj)
 
 }
 
-BulletComponent::~~BulletComponent() {
+BulletComponent::~BulletComponent() {
 
 }
 

@@ -55,6 +55,12 @@
     <ClCompile Include="character_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
+    <ClCompile Include="bullet_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="player_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -118,6 +124,12 @@
       <Filter>etc_ui</Filter>
     </ClInclude>
     <ClInclude Include="character_component.h">
+      <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet_component.h">
+      <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="player_component.h">
       <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>

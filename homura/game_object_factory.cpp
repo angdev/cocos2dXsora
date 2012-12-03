@@ -64,13 +64,15 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new BulletComponent;
+    LogicComponent *logic = new BulletComponent(obj);
 
     assert(logic && "Need BulletComponent");
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
+
+    world_->AddObject(obj, obj->Type());
 
     return obj;
 }
