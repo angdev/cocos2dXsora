@@ -46,6 +46,12 @@ LOCAL_SRC_FILES += \
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/..
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/..    \
-    $(LOCAL_PATH)/../../cocos2dx
+    $(LOCAL_PATH)/../../cocos2dx    \
+    $(LOCAL_PATH)/../../cocos2dx/include    \
+    $(LOCAL_PATH)/../../cocos2dx/kazmath/include    \
+    $(LOCAL_PATH)/../../cocos2dx/platform    \
+    $(LOCAL_PATH)/../../cocos2dx/platform/android    \
+    $(LOCAL_PATH)/../../external/Box2D  \
+    $(LOCAL_PATH)/../../external  \
                                  
 include $(BUILD_STATIC_LIBRARY)
