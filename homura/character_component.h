@@ -8,6 +8,10 @@
 struct DestroyMessage;
 struct ApplyDamageMessage;
 
+namespace cocos2d {;
+class CCNode;
+}
+
 //캐릭터가 가지는 수치를 header가지고 만들어줄 수 있게 하려고 함.
 class CharacterComponent : public LogicComponent {
 public:

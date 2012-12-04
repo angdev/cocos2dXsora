@@ -7,6 +7,7 @@
 
 class GameWorld;
 class GameStage;
+class GameObject;
 
 class GameLayer : public cocos2d::CCLayer {
 public:

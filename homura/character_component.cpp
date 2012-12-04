@@ -6,9 +6,12 @@
 #include "game_message.h"
 #include "game_world.h"
 
-//
 #include <random>
 #include "sora/unit.h"
+
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
 
 CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
     : LogicComponent(obj), layer_(layer) {

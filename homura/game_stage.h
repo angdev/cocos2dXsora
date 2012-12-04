@@ -2,7 +2,9 @@
 #ifndef __GAME_STAGE_H__
 #define __GAME_STAGE_H__
 
-#include "stdafx.h"
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
 
 class GameWorld;
 

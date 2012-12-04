@@ -2,6 +2,10 @@
 #include "stdafx.h"
 #include "game_stage.h"
 
+#if SR_USE_PCH == 0
+#include "cocos2d.h"
+#endif
+
 USING_NS_CC;
 
 GameStage::GameStage(GameWorld *world)

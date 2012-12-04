@@ -62,7 +62,15 @@ LOCAL_SRC_FILES += \
     ../../../homura/collision_tuple.cpp \
     ../../../homura/GLES-Render.cpp \
     ../../../homura/phy_component.cpp   \
-    ../../../homura/phy_world.cpp
+    ../../../homura/phy_world.cpp   \
+    ../../../homura/ai_character_component.cpp   \
+    ../../../homura/bullet_component.cpp   \
+    ../../../homura/character_component.cpp   \
+    ../../../homura/combat_plane_component.cpp   \
+    ../../../homura/debug_config.cpp   \
+    ../../../homura/game_stage_factory.cpp   \
+    ../../../homura/player_component.cpp   \
+    ../../../homura/game_stage.cpp  \
     
                    
 # homura_exe
