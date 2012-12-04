@@ -41,7 +41,7 @@ void CombatPlaneComponent::Attack(float dt) {
 
     TestBulletObjectHeader header;
     header.dir_x = 0;
-    header.dir_y = 4;
+    header.dir_y = 10;
 
     //일단 직접 접근.
     //메시지로 리턴값을 보낼 수 있을까?

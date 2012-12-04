@@ -10,7 +10,7 @@ class GameWorld;
 struct StageScheduleObject {
     //단위는 second
     float delayed_time_;
-    GameObjectPtr obj;
+    GameObject* obj;
 };
 
 class GameStage {

@@ -86,16 +86,19 @@ bool GameLayer::init() {
     //플레이어 초기화
     GameObjectFactory factory(world_.get());
     player_ = factory.CreateDemoPlayer(glm::vec2(300, 300), stage_->layer());
+    //체력 설정은 임시. (생성시에 초기화할 것)
     static_cast<CharacterComponent*>(player_->logic_comp())->set_hit_point(100);
     /*
     //AI 테스트용
     GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), stage_->layer());
     //캐스팅 방식 말고 메시지 방식을 쓰던지 생성할 때만 잘 처리하던지 해야함. 일단은 캐스팅.
     static_cast<CharacterComponent*>(obj_ai->logic_comp())->set_hit_point(100);
+    */
 
     //전투기 테스트
-    factory.CreateDemoCombatPlane(glm::vec2(400, 400), stage_->layer());
-    */
+    GameObject* plane = factory.CreateDemoCombatPlane(glm::vec2(400, 400), stage_->layer());
+    static_cast<CharacterComponent*>(plane->logic_comp())->set_hit_point(100);
+    
     return true;
 }
 

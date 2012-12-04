@@ -23,13 +23,16 @@ using namespace sora;
 using namespace std;
 
 GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    b2Body *body = CreateCollisionBox(ut_pos, 8/2, 8/2);
-
+    
     //적당히 스프라이트 시트에서 일단 하나 가져옴.
-    CCSprite *sprite = CCSprite::create("bullet_sheet.png", CCRectMake(80, 150, 8, 8));
-    sprite->setScale(2.0f);
+    CCSprite *sprite = CCSprite::create("circle_bullet.png");
+    sprite->setScale(0.2f);
     GameObject *obj = new GameObject(world_);
     
+    //스프라이트로부터 박스 만들기 분리?
+    CCRect rect = sprite->boundingBox();
+    b2Body *body = CreateCollisionBox(ut_pos, rect.size.width/2, rect.size.height/2);
+
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     obj->set_drawable_comp(drawable);
@@ -44,14 +47,10 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
     //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
-    CCSprite *sprite = CCSprite::create("bullet_sheet.png", CCRectMake(80, 150, 8, 8));
-    sprite->setScale(2.0f);
+    CCSprite *sprite = CCSprite::create("circle_bullet.png");
+    sprite->setScale(0.2f);
     sprite->setPosition(ccp(header.x, header.y));
     CCRect sprite_box = sprite->boundingBox();
-
-    //TODO
-    //Test 필요
-    //CCLog("%f %f", sprite_box.getMinX(), sprite_box.getMaxY());
 
     b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
         sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
@@ -63,9 +62,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     logic->set_damage(10);
     logic->set_dir_vec(glm::vec2(header.dir_x, header.dir_y));
     logic->set_from_enemy(header.from_enemy);
-
-    assert(logic && "Need BulletComponent");
-
+    
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
@@ -76,7 +73,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
 }
 
 GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);
@@ -143,7 +140,7 @@ GameObject *GameObjectFactory::CreateDemoPlayer(const glm::vec2 &ut_pos, cocos2d
     //일단 그냥 뿌린다 - 전투기 객체랑 다를 바 없음
     //테스트용으로 조작할 걸 만드는게 목적
     GameObject *obj = new GameObject(world_);
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);
@@ -176,7 +173,7 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
     b2PolygonShape dynamicBox;
     //총알 크기만한 박스 생성
     //크기로 b2Body 만들어주는거 있어도 될듯.
-    dynamicBox.SetAsBox(Unit::ToMeterFromUnit(half_width_px*2), Unit::ToMeterFromUnit(half_height_px*2));//These are mid points for our 1m box
+    dynamicBox.SetAsBox(Unit::ToMeterFromUnit(half_width_px), Unit::ToMeterFromUnit(half_height_px));//These are mid points for our 1m box
     
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;

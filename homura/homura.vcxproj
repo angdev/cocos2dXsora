@@ -100,6 +100,7 @@
     <ClCompile Include="game_object.cpp" />
     <ClCompile Include="game_object_factory.cpp" />
     <ClCompile Include="game_stage.cpp" />
+    <ClCompile Include="game_stage_factory.cpp" />
     <ClCompile Include="game_world.cpp" />
     <ClCompile Include="GLES-Render.cpp" />
     <ClCompile Include="logic_component.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="game_message.h" />
     <ClInclude Include="game_object.h" />
     <ClInclude Include="game_stage.h" />
+    <ClInclude Include="game_stage_factory.h" />
     <ClInclude Include="game_world.h" />
     <ClInclude Include="GLES-Render.h" />
     <ClInclude Include="logic_component.h" />

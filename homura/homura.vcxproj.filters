@@ -70,6 +70,9 @@
     <ClCompile Include="game_stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="game_stage_factory.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -148,6 +151,9 @@
       <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="game_stage.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="game_stage_factory.h">
       <Filter>stage</Filter>
     </ClInclude>
   </ItemGroup>
