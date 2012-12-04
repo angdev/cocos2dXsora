@@ -3,6 +3,7 @@
 
 #if SR_USE_PCH == 0
 #include "sora/shared_ptr_include.h"
+#include "glm/glm.hpp"
 #endif
 
 struct GameMessage;
@@ -58,10 +59,10 @@ struct MoveMessage : public GameMessage {
 private:
     MoveMessage() {}
 public:
-    static MoveMessage Create(glm::vec2 vec2);
+    static MoveMessage Create(const glm::vec2 &vec);
     MoveMessage *Clone() const { return new MoveMessage(); }
 
-    glm::vec2 vec2;
+    glm::vec2 vec;
 };
 
 //End Physics Component Messages
@@ -100,7 +101,7 @@ struct SetDirectionMessage : public GameMessage {
 private:
     SetDirectionMessage() {}
 public:
-    static SetDirectionMessage Create(glm::vec2 direction);
+    static SetDirectionMessage Create(const glm::vec2 &direction);
     SetDirectionMessage *Clone() const { return new SetDirectionMessage(); }
 
     glm::vec2 direction;

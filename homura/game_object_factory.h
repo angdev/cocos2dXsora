@@ -10,13 +10,14 @@
 #include "cocos2d.h"
 #endif
 
+class b2Body;
 class GameObject;
 class GameWorld;
 
 class GameObjectFactory {
 public:
     explicit GameObjectFactory(GameWorld *world) { world_ = world; }
-
+    
 public:
     //TODO
     //나중에 Create 오버로딩할 예정 (구조체 헤더 이용)

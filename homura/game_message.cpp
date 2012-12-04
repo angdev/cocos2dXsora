@@ -4,7 +4,7 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
-SetDirectionMessage SetDirectionMessage::Create(glm::vec2 direction) {
+SetDirectionMessage SetDirectionMessage::Create(const glm::vec2 &direction) {
     SetDirectionMessage msg;
     msg.direction = direction;
     return msg;
@@ -24,9 +24,9 @@ ApplyDamageMessage ApplyDamageMessage::Create(float damage, bool from_enemy) {
     return msg;
 }
 
-MoveMessage MoveMessage::Create(glm::vec2 vec2) {
+MoveMessage MoveMessage::Create(const glm::vec2 &vec) {
     MoveMessage msg;
-    msg.vec2 = vec2;
+    msg.vec = vec;
     return msg;
 }
 

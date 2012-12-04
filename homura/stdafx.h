@@ -23,7 +23,7 @@
 #include "cocos2d.h"
 #include "Box2D/Box2D.h"
 //#include "sora/sora.h"
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:

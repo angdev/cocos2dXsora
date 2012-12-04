@@ -11,3 +11,7 @@
 #include "CppUnitTest.h"
 
 // TODO: reference additional headers your program requires here
+
+#include <glm/glm.hpp>
+#include "cocos2d.h"
+#include "Box2D/Box2D.h"

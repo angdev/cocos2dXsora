@@ -39,8 +39,8 @@ void SinglePhyComponent::InitMsgHandler() {
 void SinglePhyComponent::OnMoveMessage(MoveMessage *msg) {
     //msg에 들어오는 값은 px임.    
     b2Vec2 vec2 = body_->GetPosition();
-    vec2.x += Unit::ToMeterFromUnit(msg->vec2.x);
-    vec2.y += Unit::ToMeterFromUnit(msg->vec2.y);
+    vec2.x += Unit::ToMeterFromUnit(msg->vec.x);
+    vec2.y += Unit::ToMeterFromUnit(msg->vec.y);
 
     body_->SetTransform(vec2, body_->GetAngle());
     //body_->SetAwake(true);
