@@ -18,6 +18,7 @@ public:
     //메세지 처리 함수들
 public:
     void OnDamageObjectMessage(DamageObjectMessage *msg);
+    void OnSetDirectionMessage(SetDirectionMessage *msg);
     void OnDestroyMessage(DestroyMessage *msg);
 
     //get/setter

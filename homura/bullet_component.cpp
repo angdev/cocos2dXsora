@@ -21,6 +21,7 @@ BulletComponent::~BulletComponent() {
 
 void BulletComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &BulletComponent::OnDamageObjectMessage);
+    RegisterMsgFunc(this, &BulletComponent::OnSetDirectionMessage);
     RegisterMsgFunc(this, &BulletComponent::OnDestroyMessage);
 }
 
@@ -38,6 +39,10 @@ void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
     if(apply_msg.applied) {
         OnMessage(&DestroyMessage::Create(obj()->id()));
     }
+}
+
+void BulletComponent::OnSetDirectionMessage(SetDirectionMessage *msg) {
+    dir_vec_px_ = msg->direction;
 }
 
 void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {

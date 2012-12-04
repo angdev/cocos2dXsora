@@ -4,6 +4,12 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+SetDirectionMessage SetDirectionMessage::Create(glm::vec2 direction) {
+    SetDirectionMessage msg;
+    msg.direction = direction;
+    return msg;
+}
+
 DamageObjectMessage DamageObjectMessage::Create(GameObject *obj) {
     DamageObjectMessage msg;
     msg.obj = obj;

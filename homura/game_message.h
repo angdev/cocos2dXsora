@@ -96,4 +96,14 @@ public:
     GameObject *obj;
 };
 
+struct SetDirectionMessage : public GameMessage {
+private:
+    SetDirectionMessage() {}
+public:
+    static SetDirectionMessage Create(glm::vec2 direction);
+    SetDirectionMessage *Clone() const { return new SetDirectionMessage(); }
+
+    glm::vec2 direction;
+};
+
 //End Bullet Component Messages

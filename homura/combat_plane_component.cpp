@@ -40,8 +40,15 @@ void CombatPlaneComponent::Attack(float dt) {
     attack_timer_ = 0;
 
     TestBulletObjectHeader header;
-    header.dir_x = 0;
-    header.dir_y = 10;
+
+    float look_angle = obj()->phy_comp()->main_body()->GetAngle();
+    //각도로부터 벡터 만들기
+    //cocos2dx랑 box2d 각도 기준점이 다름.
+    glm::vec2 look_vector(glm::cos(look_angle + M_PI/2), glm::sin(look_angle + M_PI/2));
+    cocos2d::CCLog("%f %f %f", look_angle, look_vector.x, look_vector.y);
+    //방향과 속력은 분리해야 함.
+    header.dir_x = look_vector.x * /* speed */ 30;
+    header.dir_y = look_vector.y * /* speed */ 30;
 
     //일단 직접 접근.
     //메시지로 리턴값을 보낼 수 있을까?

@@ -74,6 +74,8 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
 
 GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
     b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
+    //바라보는 방향 등 생성을 적절히 해야함
+    body->SetTransform(body->GetPosition(), M_PI/6);
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);
@@ -95,7 +97,7 @@ GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, co
 GameObject *GameObjectFactory::CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
     //Temp
     b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
-
+    
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);
     
@@ -186,4 +188,3 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
 
     return body;
 }
-
