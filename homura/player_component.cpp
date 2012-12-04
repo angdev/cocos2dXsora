@@ -12,7 +12,7 @@ PlayerComponent::~PlayerComponent() {
 }
 
 void PlayerComponent::Update(float dt) {
-
+    CharacterComponent::Update(dt);
 }
 
 void PlayerComponent::InitMsgHandler() {

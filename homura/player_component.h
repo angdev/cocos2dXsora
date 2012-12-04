@@ -14,6 +14,7 @@ public:
 	virtual void Update(float dt);
     virtual void InitMsgHandler();
 
+    virtual bool IsEnemy() { return false; }
 private:
 
 };

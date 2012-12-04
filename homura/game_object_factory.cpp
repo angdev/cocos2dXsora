@@ -8,6 +8,7 @@
 #include "phy_component.h"
 #include "ai_character_component.h"
 #include "combat_plane_component.h"
+#include "player_component.h"
 #include "bullet_component.h"
 #include "sora/unit.h"
 
@@ -138,6 +139,28 @@ GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::C
     return obj;
 }
 
+GameObject *GameObjectFactory::CreateDemoPlayer(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
+    //일단 그냥 뿌린다 - 전투기 객체랑 다를 바 없음
+    //테스트용으로 조작할 걸 만드는게 목적
+    GameObject *obj = new GameObject(world_);
+    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+
+    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    sprite->setScale(0.2f);
+
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LogicComponent *logic = new PlayerComponent(obj, parent);
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+
+    world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
 b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float half_width_px, float half_height_px) {
     // Define the dynamic body.
     //Set up a 1m squared box in the physics world
@@ -166,3 +189,4 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
 
     return body;
 }
+

@@ -27,6 +27,9 @@ public:
     GameObject *CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
     GameObject *CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
 
+    //Player 객체를 테스트 용도로 생성할 수 있게 둔다.
+    GameObject *CreateDemoPlayer(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
+
 private:
     b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);
     GameWorld *world_;
