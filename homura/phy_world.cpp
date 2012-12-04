@@ -8,6 +8,9 @@
 #include "game_object.h"
 #include "game_world.h"
 
+//temp
+#include "character_component.h"
+
 using namespace std;
 using namespace sora;
 using namespace cocos2d;
@@ -168,5 +171,29 @@ void PhyWorld::HandleCollision(CollisionTuple &collision) {
         //객체를 지우기. world에서 지우는 함수를 사용해서 바로 지우면
         //게임 로직이 붕괴할 가능성이 있다. update종료후 지워지도록한다
         game_world_->RequestRemoveObject(first);
+    }
+
+    /* AI 없앨 예정
+    //테스트 Null이 AI에 닿으면 AI 체력을 깎음.
+    else if(collision.IsMatch(kCompNull, kCompAI)) {
+        GameObjectPtr obj_a = collision.obj_a();
+
+        GameObjectPtr obj_ai = (obj_a->Type() == kCompAI)? obj_a : collision.obj_b();
+        static_cast<CharacterComponent*>(obj_ai->logic_comp())->ApplyDamage(1);
+    }
+    */
+
+    //Player를 잠시 전투기로 놔봤음
+    else if(collision.IsMatch(kCompBullet, /*kCompNull*/ kCompCombatPlane)) {
+        GameObjectPtr obj_a = collision.obj_a();
+        
+        if(obj_a->Type() == kCompBullet) {
+            obj_a->OnMessage(&DamageObjectMessage::Create(
+                collision.obj_b().get()));
+        }
+        else {
+            collision.obj_b()->OnMessage(&DamageObjectMessage::Create(
+                obj_a.get()));
+        }
     }
 }

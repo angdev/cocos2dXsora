@@ -33,6 +33,12 @@ public:
     virtual void Update(float dt);
     virtual void InitMsgHandler();
 
+    //메시지 함수들
+public:
+    void OnMoveMessage(MoveMessage *msg);
+
+public:
+
     virtual CompType type() const { return kCompSinglePhy; }
     virtual b2Body *main_body() { return body_; }
     virtual void set_main_body(b2Body *body);

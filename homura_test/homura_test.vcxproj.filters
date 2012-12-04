@@ -7,6 +7,9 @@
     <Filter Include="cbes">
       <UniqueIdentifier>{34e253ff-4768-41e5-9460-f1f8dc81e8f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="factory">
+      <UniqueIdentifier>{fb3a4e50-ef33-4228-974b-e637fc312f50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -23,6 +26,9 @@
     <ClCompile Include="unittest1.cpp" />
     <ClCompile Include="game_object_test.cpp">
       <Filter>cbes</Filter>
+    </ClCompile>
+    <ClCompile Include="factory_test.cpp">
+      <Filter>factory</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

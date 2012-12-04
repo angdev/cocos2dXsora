@@ -4,6 +4,32 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+SetDirectionMessage SetDirectionMessage::Create(glm::vec2 direction) {
+    SetDirectionMessage msg;
+    msg.direction = direction;
+    return msg;
+}
+
+DamageObjectMessage DamageObjectMessage::Create(GameObject *obj) {
+    DamageObjectMessage msg;
+    msg.obj = obj;
+    return msg;
+}
+
+ApplyDamageMessage ApplyDamageMessage::Create(float damage, bool from_enemy) {
+    ApplyDamageMessage msg;
+    msg.damage = damage;
+    msg.from_enemy = from_enemy;
+    msg.applied = false;
+    return msg;
+}
+
+MoveMessage MoveMessage::Create(glm::vec2 vec2) {
+    MoveMessage msg;
+    msg.vec2 = vec2;
+    return msg;
+}
+
 DestroyMessage DestroyMessage::Create(int obj_id) {
 	DestroyMessage msg;
 	msg.obj_id = obj_id;

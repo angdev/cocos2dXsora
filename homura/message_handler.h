@@ -36,16 +36,16 @@ private:
 	MemberFunc func_;
 };
 
-class TypeInfo {
+class TypeInfo_ {
 public:
-	explicit TypeInfo(const std::type_info &info) : typeinfo_(info) {}
-	bool operator<(const TypeInfo &o) const {
+	explicit TypeInfo_(const std::type_info &info) : typeinfo_(info) {}
+	bool operator<(const TypeInfo_ &o) const {
 		return typeinfo_.before(o.typeinfo_) != 0;
 	}
-	bool operator==(const TypeInfo &o) const {
+	bool operator==(const TypeInfo_ &o) const {
 		return (typeinfo_ == o.typeinfo_);
 	}
-	bool operator!=(const TypeInfo &o) const {
+	bool operator!=(const TypeInfo_ &o) const {
 		return (typeinfo_ != o.typeinfo_);
 	}
 private:
@@ -64,7 +64,7 @@ public:
 		handler_list_.clear();
 	}
 	void HandleMsg(const GameMessage *msg) {
-		Handlers::iterator it = handler_list_.find(TypeInfo(typeid(*msg)));
+		Handlers::iterator it = handler_list_.find(TypeInfo_(typeid(*msg)));
 		if(it != handler_list_.end()) {
 			it->second->Exec(msg);
 		}
@@ -72,10 +72,10 @@ public:
 
 	template<typename T, class MsgT>
 	void RegisterMessageFunc(T *obj, void (T::*mem_fun)(MsgT*)) {
-        TypeInfo code(typeid(MsgT));
+        TypeInfo_ code(typeid(MsgT));
 		handler_list_[code] = new MemberFunctionHandler<T, MsgT>(obj, mem_fun);
 	}
 private:
-	typedef std::map<TypeInfo, HandlerFunctionBase*> Handlers;
+	typedef std::map<TypeInfo_, HandlerFunctionBase*> Handlers;
 	Handlers handler_list_;
 };
