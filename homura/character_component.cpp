@@ -27,6 +27,8 @@ void CharacterComponent::Update(float dt) {
         //OnDestroy -> drawable comp에서 터짐 처리 -> logic comp에서 world에 삭제 요청 보냄.
         //우선순위는 drawable > logic
     }
+
+    //바라보는 방향에 따라서 스프라이트 회전
 }
 
 void CharacterComponent::InitMsgHandler() {

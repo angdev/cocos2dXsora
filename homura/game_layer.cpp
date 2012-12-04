@@ -3,6 +3,7 @@
 #include "game_layer.h"
 
 #include "game_world.h"
+#include "game_stage.h"
 #include "sora/unit.h"
 
 #include "game_object.h"
@@ -71,27 +72,30 @@ bool GameLayer::init() {
 
     world_ = std::move(unique_ptr<GameWorld>(new GameWorld()));
 
-    simple_layer_ = CCLayer::create();
-    this->addChild(simple_layer_);
+    stage_ = new GameStage(world_.get());
+    if(!stage_->Init()) {
+        return false;
+    }
+    this->addChild(stage_->layer());
 
     //물리 디버깅용
     PhyDebugLayer *phy_debug_layer = new PhyDebugLayer(world_->b2_world());
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
-
+    
     //플레이어 초기화
     GameObjectFactory factory(world_.get());
-    player_ = factory.CreateDemoPlayer(glm::vec2(300, 300), simple_layer_);
+    player_ = factory.CreateDemoPlayer(glm::vec2(300, 300), stage_->layer());
     static_cast<CharacterComponent*>(player_->logic_comp())->set_hit_point(100);
-    
+    /*
     //AI 테스트용
-    GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), simple_layer_);
+    GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), stage_->layer());
     //캐스팅 방식 말고 메시지 방식을 쓰던지 생성할 때만 잘 처리하던지 해야함. 일단은 캐스팅.
     static_cast<CharacterComponent*>(obj_ai->logic_comp())->set_hit_point(100);
 
     //전투기 테스트
-    factory.CreateDemoCombatPlane(glm::vec2(400, 400), simple_layer_);
-
+    factory.CreateDemoCombatPlane(glm::vec2(400, 400), stage_->layer());
+    */
     return true;
 }
 
@@ -137,7 +141,7 @@ void GameLayer::ccTouchesCancelled(CCSet *touches, CCEvent *event) {
 void GameLayer::AddNewBodyAtPosition(const CCPoint &p) {
     glm::vec2 ut_pos(p.x, p.y);
     GameObjectFactory factory(world_.get());
-    factory.CreateDemoObj(ut_pos, simple_layer_);
+    factory.CreateDemoObj(ut_pos, stage_->layer());
 }
 
 void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {

@@ -6,6 +6,7 @@
 #endif
 
 class GameWorld;
+class GameStage;
 
 class GameLayer : public cocos2d::CCLayer {
 public:
@@ -32,5 +33,8 @@ private:
     void AddNewBodyAtPosition(const cocos2d::CCPoint &p);
     void MoveBodyByDelta(const float &dx, const float &dy);
 
+    //이거 대신 스테이지가 들어감
     cocos2d::CCLayer *simple_layer_;
+
+    GameStage *stage_;
 };

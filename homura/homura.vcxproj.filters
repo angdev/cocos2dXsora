@@ -67,6 +67,9 @@
     <ClCompile Include="combat_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
     </ClCompile>
+    <ClCompile Include="game_stage.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -144,6 +147,9 @@
     <ClInclude Include="combat_plane_component.h">
       <Filter>logic_comp\character</Filter>
     </ClInclude>
+    <ClInclude Include="game_stage.h">
+      <Filter>stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cbes">
@@ -178,6 +184,9 @@
     </Filter>
     <Filter Include="logic_comp\player">
       <UniqueIdentifier>{cc487ca0-1239-4733-94b2-85f1ab5e49b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stage">
+      <UniqueIdentifier>{0c3a7ae0-50a6-48ec-8b40-6f90f81209cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

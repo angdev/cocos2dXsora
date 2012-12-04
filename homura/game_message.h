@@ -69,6 +69,7 @@ public:
 
 //Character Component Messages
 
+
 struct ApplyDamageMessage : public GameMessage {
 private:
     ApplyDamageMessage() {}
