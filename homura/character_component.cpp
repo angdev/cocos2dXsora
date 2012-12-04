@@ -41,7 +41,10 @@ void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
 }
 
 void CharacterComponent::OnApplyDamage(ApplyDamageMessage *msg) {
+    if(msg->from_enemy && IsEnemy())
+        return;
     hit_point_ -= msg->damage;
+    msg->applied = true;
     cocos2d::CCLog("%f", hit_point_);
 }
 

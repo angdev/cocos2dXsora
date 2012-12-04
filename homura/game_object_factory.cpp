@@ -61,6 +61,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     BulletComponent *logic = new BulletComponent(obj);
     logic->set_damage(10);
     logic->set_dir_vec(glm::vec2(header.dir_x, header.dir_y));
+    logic->set_from_enemy(header.from_enemy);
 
     assert(logic && "Need BulletComponent");
 

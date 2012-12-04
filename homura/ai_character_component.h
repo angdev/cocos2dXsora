@@ -1,4 +1,5 @@
 ﻿// Ŭnicode please
+/* 삭제 예정 클래스 */
 #ifndef __AI_CHARACTER_COMPONENT_H__
 #define __AI_CHARACTER_COMPONENT_H__
 
@@ -16,6 +17,9 @@ public:
     //일단 그냥 돌아다니게 한다 - AI 작성은 어떻게 할 것인가?
 	virtual void Update(float dt);
     virtual void InitMsgHandler() { CharacterComponent::InitMsgHandler(); }
+
+public:
+    virtual bool IsEnemy() { return true; }
 
 private:
     void AIUpdate(float dt);

@@ -27,12 +27,16 @@ public:
 
     //데미지 설정 함수. 일단 둔다.
     void set_damage(float damage) { damage_ = damage; }
+    
+    void set_from_enemy(bool from_enemy) { from_enemy_ = from_enemy; }
+    bool from_enemy() { return from_enemy_; }
 
 private:
     //단위는 px
     glm::vec2 dir_vec_px_;
     //데미지
     float damage_;
+    bool from_enemy_;
 };
 
 #endif

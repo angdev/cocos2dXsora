@@ -6,8 +6,13 @@
 
 class PlayerComponent : public CharacterComponent {
 public:
-    PlayerComponent(GameObject *obj);
+    PlayerComponent(GameObject *obj, cocos2d::CCNode *layer);
     ~PlayerComponent();
+
+public:
+    virtual CompType type() const { return kCompPlayer; }
+	virtual void Update(float dt);
+    virtual void InitMsgHandler();
 
 private:
 

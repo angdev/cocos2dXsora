@@ -29,6 +29,9 @@ public:
     void OnApplyDamage(ApplyDamageMessage *msg);
 
 public:
+    //적, 아군 타입 구별. 일단 그냥 사용.
+    virtual bool IsEnemy() = 0;
+
     cocos2d::CCNode *layer() { return layer_; }
     float hit_point() const { return hit_point_; }
     void set_hit_point(float hit_point) { hit_point_ = hit_point; }

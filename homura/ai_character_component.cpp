@@ -1,9 +1,7 @@
 ﻿// Ŭnicode please
 #include "stdafx.h"
 #include "ai_character_component.h"
-
 #include "game_object.h"
-#include "phy_component.h"
 #include "sora/unit.h"
 
 AICharacterComponent::AICharacterComponent(GameObject *obj)

@@ -16,6 +16,9 @@ public:
 	virtual void Update(float dt);
 	virtual void InitMsgHandler();
 
+public:
+    virtual bool IsEnemy() { return true; }
+
 private:
     void Attack(float dt);
     //설정할 수 있도록 하자.

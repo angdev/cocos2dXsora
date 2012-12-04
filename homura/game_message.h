@@ -73,10 +73,12 @@ struct ApplyDamageMessage : public GameMessage {
 private:
     ApplyDamageMessage() {}
 public:
-    static ApplyDamageMessage Create(float damage);
+    static ApplyDamageMessage Create(float damage, bool from_enemy);
     ApplyDamageMessage *Clone() const { return new ApplyDamageMessage(); }
 
     float damage;
+    bool from_enemy;
+    bool applied;
 };
 
 //End Character Component Messages

@@ -10,9 +10,11 @@ DamageObjectMessage DamageObjectMessage::Create(GameObject *obj) {
     return msg;
 }
 
-ApplyDamageMessage ApplyDamageMessage::Create(float damage) {
+ApplyDamageMessage ApplyDamageMessage::Create(float damage, bool from_enemy) {
     ApplyDamageMessage msg;
     msg.damage = damage;
+    msg.from_enemy = from_enemy;
+    msg.applied = false;
     return msg;
 }
 

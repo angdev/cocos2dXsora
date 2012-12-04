@@ -7,7 +7,7 @@
 // 니가 쓸거는 여기부터 선언 가능함. 위의 내장용을 참고해서 만들면됨ㅋ
 
 STRUCT_NEW_BEGIN(TestBulletObjectHeader, 1)
-    STRUCT_VAR_INT(from_id) //발사한 녀석의 id
+    STRUCT_VAR_BOOL(from_enemy)
     STRUCT_VAR_FLOAT(x)
     STRUCT_VAR_FLOAT(y)
     STRUCT_VAR_FLOAT(dir_x)

@@ -10,7 +10,7 @@
 using namespace sora;
 
 BulletComponent::BulletComponent(GameObject *obj)
-    : LogicComponent(obj), dir_vec_px_(0, 0) {
+    : LogicComponent(obj), dir_vec_px_(0, 0), from_enemy_(false) {
 
 }
 
@@ -31,8 +31,13 @@ void BulletComponent::Update(float dt) {
 }
 
 void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
-    msg->obj->OnMessage(&ApplyDamageMessage::Create(damage_));
-    OnMessage(&DestroyMessage::Create(obj()->id()));
+    ApplyDamageMessage *apply_msg = &ApplyDamageMessage::Create(damage_, from_enemy_);
+    msg->obj->OnMessage(apply_msg);
+    
+    //리턴값. 맞았는가에 대한 체크
+    if(apply_msg->applied) {
+        OnMessage(&DestroyMessage::Create(obj()->id()));
+    }
 }
 
 void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
