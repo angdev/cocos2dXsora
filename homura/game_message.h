@@ -8,6 +8,7 @@
 
 struct GameMessage;
 struct DelayedGameMessage;
+struct PhyBodyInfo;
 
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 typedef std::shared_ptr<GameMessage> GameMessagePtr;
@@ -65,6 +66,18 @@ public:
     glm::vec2 vec;
 };
 
+struct GetPhyBodyInfoMessage : public GameMessage {
+private:
+    GetPhyBodyInfoMessage() {}
+public:
+    static GetPhyBodyInfoMessage Create(PhyBodyInfo *info);
+    GetPhyBodyInfoMessage *Clone() const { return new GetPhyBodyInfoMessage(); }
+
+    PhyBodyInfo *phy_body_info;
+    //body_info가 제대로 들어갔는지 확인하기 위한 변수
+    bool is_ret;
+};
+
 //End Physics Component Messages
 
 
@@ -97,14 +110,5 @@ public:
     GameObject *obj;
 };
 
-struct SetDirectionMessage : public GameMessage {
-private:
-    SetDirectionMessage() {}
-public:
-    static SetDirectionMessage Create(const glm::vec2 &direction);
-    SetDirectionMessage *Clone() const { return new SetDirectionMessage(); }
-
-    glm::vec2 direction;
-};
 
 //End Bullet Component Messages

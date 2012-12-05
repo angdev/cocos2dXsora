@@ -4,9 +4,10 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
-SetDirectionMessage SetDirectionMessage::Create(const glm::vec2 &direction) {
-    SetDirectionMessage msg;
-    msg.direction = direction;
+GetPhyBodyInfoMessage GetPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
+    GetPhyBodyInfoMessage msg;
+    msg.phy_body_info = info;
+    msg.is_ret = false;
     return msg;
 }
 

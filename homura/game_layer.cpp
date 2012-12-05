@@ -96,6 +96,7 @@ bool GameLayer::init() {
     */
 
     //전투기 테스트
+    
     GameObject* plane = factory.CreateDemoCombatPlane(glm::vec2(400, 400), stage_->layer());
     static_cast<CharacterComponent*>(plane->logic_comp())->set_hit_point(100);
     

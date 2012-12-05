@@ -54,14 +54,17 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
 
     b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
         sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
+    body->SetTransform(body->GetPosition(), header.angle_rad);
+
+    CCLog("%f", header.angle_rad);
     
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     BulletComponent *logic = new BulletComponent(obj);
-    logic->set_damage(10);
-    logic->set_dir_vec(glm::vec2(header.dir_x, header.dir_y));
+    logic->set_damage(header.damage);
     logic->set_from_enemy(header.from_enemy);
+    logic->set_speed(header.speed);
     
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);

@@ -18,25 +18,23 @@ public:
     //메세지 처리 함수들
 public:
     void OnDamageObjectMessage(DamageObjectMessage *msg);
-    void OnSetDirectionMessage(SetDirectionMessage *msg);
     void OnDestroyMessage(DestroyMessage *msg);
 
     //get/setter
 public:
-    glm::vec2 dir_vec() { return dir_vec_px_; }
-    void set_dir_vec(const glm::vec2& dir_vec_px) { dir_vec_px_ = dir_vec_px; }
-
     //데미지 설정 함수. 일단 둔다.
     void set_damage(float damage) { damage_ = damage; }
+
+    //속력 설정 함수.
+    void set_speed(float speed) { speed_ = speed; }
     
     void set_from_enemy(bool from_enemy) { from_enemy_ = from_enemy; }
     bool from_enemy() { return from_enemy_; }
 
 private:
-    //단위는 px
-    glm::vec2 dir_vec_px_;
     //데미지
     float damage_;
+    float speed_;
     bool from_enemy_;
 };
 

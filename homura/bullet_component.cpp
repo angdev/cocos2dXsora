@@ -10,7 +10,7 @@
 using namespace sora;
 
 BulletComponent::BulletComponent(GameObject *obj)
-    : LogicComponent(obj), dir_vec_px_(0, 0), from_enemy_(false) {
+    : LogicComponent(obj), speed_(0), damage_(0), from_enemy_(false) {
 
 }
 
@@ -21,14 +21,23 @@ BulletComponent::~BulletComponent() {
 
 void BulletComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &BulletComponent::OnDamageObjectMessage);
-    RegisterMsgFunc(this, &BulletComponent::OnSetDirectionMessage);
     RegisterMsgFunc(this, &BulletComponent::OnDestroyMessage);
 }
 
 void BulletComponent::Update(float dt) {
     //TODO
     //일단 방향 정해진대로 날아가도록만 하였다
-    obj()->OnMessage(&MoveMessage::Create(dir_vec_px_));
+    PhyBodyInfo body_info;
+    GetPhyBodyInfoMessage msg = GetPhyBodyInfoMessage::Create(&body_info);
+    obj()->OnMessage(&msg);
+
+    if(!msg.is_ret)
+        return;
+
+    glm::vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
+    velocity_vec *= speed_;
+
+    obj()->OnMessage(&MoveMessage::Create(velocity_vec));
 }
 
 void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
@@ -39,10 +48,6 @@ void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
     if(apply_msg.applied) {
         OnMessage(&DestroyMessage::Create(obj()->id()));
     }
-}
-
-void BulletComponent::OnSetDirectionMessage(SetDirectionMessage *msg) {
-    dir_vec_px_ = msg->direction;
 }
 
 void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
