@@ -28,16 +28,16 @@ void BulletComponent::Update(float dt) {
     //TODO
     //일단 방향 정해진대로 날아가도록만 하였다
     PhyBodyInfo body_info;
-    GetPhyBodyInfoMessage msg = GetPhyBodyInfoMessage::Create(&body_info);
-    obj()->OnMessage(&msg);
+    GetPhyBodyInfoMessage body_info_msg = GetPhyBodyInfoMessage::Create(&body_info);
+    obj()->OnMessage(&body_info_msg);
 
-    if(!msg.is_ret)
+    if(!body_info_msg.is_ret)
         return;
 
     glm::vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
     velocity_vec *= speed_;
-    MoveMessage msg = MoveMessage::Create(dir_vec_px_);
-    obj()->OnMessage(&msg);
+    MoveMessage move_msg = MoveMessage::Create(velocity_vec);
+    obj()->OnMessage(&move_msg);
 }
 
 void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
