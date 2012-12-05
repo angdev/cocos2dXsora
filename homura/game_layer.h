@@ -31,7 +31,6 @@ private:
     std::unique_ptr<GameWorld> world_;
     GameObject *player_;
 
-    void AddNewBodyAtPosition(const cocos2d::CCPoint &p);
     void MoveBodyByDelta(const float &dx, const float &dy);
 
     //이거 대신 스테이지가 들어감

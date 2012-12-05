@@ -21,14 +21,10 @@ public:
 public:
     //TODO
     //나중에 Create 오버로딩할 예정 (구조체 헤더 이용)
-    GameObject *CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
-    //사실 총알이 가질 수 있는 요소가 꽤나 많다 -> header에 다 담기는 무리일 듯하니 따로 생성함수를?
-    GameObject *CreateDemoBullet(const TestBulletObjectHeader &header, cocos2d::CCNode *parent);
-    GameObject *CreateDemoCombatPlane(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
-    GameObject *CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
-
-    //Player 객체를 테스트 용도로 생성할 수 있게 둔다.
-    GameObject *CreateDemoPlayer(const glm::vec2 &ut_pos, cocos2d::CCNode *parent);
+    GameObject *Create(const TestPlayerObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const TestBulletObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
 
 private:
     b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);

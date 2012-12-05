@@ -71,13 +71,13 @@
       <Filter>stage</Filter>
     </ClCompile>
     <ClCompile Include="game_event.cpp">
-      <Filter>stage\event</Filter>
+      <Filter>event</Filter>
     </ClCompile>
     <ClCompile Include="game_event_handler.cpp">
-      <Filter>stage\event</Filter>
+      <Filter>event</Filter>
     </ClCompile>
     <ClCompile Include="game_trigger.cpp">
-      <Filter>stage\event</Filter>
+      <Filter>event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,13 +160,13 @@
       <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="game_event.h">
-      <Filter>stage\event</Filter>
+      <Filter>event</Filter>
     </ClInclude>
     <ClInclude Include="game_event_handler.h">
-      <Filter>stage\event</Filter>
+      <Filter>event</Filter>
     </ClInclude>
     <ClInclude Include="game_trigger.h">
-      <Filter>stage\event</Filter>
+      <Filter>event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,7 +206,7 @@
     <Filter Include="stage">
       <UniqueIdentifier>{0c3a7ae0-50a6-48ec-8b40-6f90f81209cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="stage\event">
+    <Filter Include="event">
       <UniqueIdentifier>{90cbdac0-1937-4fea-8f0a-5fc7600f0dab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

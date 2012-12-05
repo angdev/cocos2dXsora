@@ -63,6 +63,10 @@ int GameWorld::AddObject(GameObject *obj, ObjectType type) {
     return obj->id();
 }
 
+int GameWorld::AddObject(GameObject *obj) {
+    return AddObject(obj, obj->Type());
+}
+
 GameObjectPtr GameWorld::FindObject(int id, ObjectType type) {
     auto range_ret = obj_table_.equal_range(type);
     auto begin = range_ret.first;

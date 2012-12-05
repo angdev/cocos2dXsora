@@ -5,8 +5,8 @@
 #include "game_event.h"
 #include "game_trigger.h"
 
-GameEvent::GameEvent(GameTrigger *trigger) 
-    : start_time_(0), end_time_(0), trigger_(trigger), is_event_executed_(false) {
+GameEvent::GameEvent(GameStage *stage, GameTrigger *trigger = new NullTrigger()) 
+    : start_time_(0), end_time_(0), stage_(stage), trigger_(trigger), is_event_executed_(false) {
 
 }
 
@@ -25,16 +25,3 @@ void GameEvent::InvokeRun(float elapsed_time) {
 }
 
 //여기부터 새로운 게임 이벤트를 나열
-void CreateObjectEvent::Run() {
-
-    cocos2d::CCLog("Create Object Event");
-    int obj_id = obj_->world()->AddObject(obj_, obj_->Type());
-    
-    if(trigger()->Type() == kTriggerSpecificDestroy) {
-        static_cast<SpecificDestroyTrigger*>(trigger())->SetParams(obj_);
-    }
-
-    //
-    is_event_executed_ = true;
-    trigger()->set_valid(true);
-}

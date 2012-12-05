@@ -63,7 +63,7 @@ void CombatPlaneComponent::Attack(float dt) {
     header.sprite_name = "";
     
     GameObjectFactory factory(obj()->world());
-    factory.CreateDemoBullet(header, layer());
+    obj()->world()->AddObject(factory.Create(header, layer()));
 }
 
 void CombatPlaneComponent::Destroy() {

@@ -30,14 +30,30 @@ bool GameStage::Init() {
     factory_ = new GameObjectFactory(world_);
 
     //Test
-
-    CreateObjectEvent *evt = new CreateObjectEvent(new SpecificDestroyTrigger(), factory_->CreateDemoCombatPlane(
-        glm::vec2(400, 400), layer()));
+    
+    TestCombatPlaneObjectHeader combat_header;
+    combat_header.hit_point = 100;
+    combat_header.x = 100;
+    combat_header.y = 1000;
+    combat_header.sprite_name = "";
+    GameEvent *evt = MakeCreateObjectEvent(this, combat_header);
     stage_events_.push_back(evt);
 
-    CreateObjectEvent *evt_ = new CreateObjectEvent(new SpecificDestroyTrigger(), factory_->CreateDemoCombatPlane(
-        glm::vec2(200, 1000), layer()));
+    combat_header.x = 300;
+
+    GameEvent *evt_ = MakeCreateObjectEvent(this, combat_header, new SpecificDestroyTrigger());
     stage_events_.push_back(evt_);
+    
+
+    TestBulletObjectHeader bullet_header;
+    bullet_header.x = 100;
+    bullet_header.y = 100;
+    bullet_header.angle_rad = M_PI/2;
+    bullet_header.speed = 10;
+    bullet_header.damage = 10;
+    GameEvent *evt__ = MakeCreateObjectEvent(this, bullet_header);
+    stage_events_.push_back(evt__);
+
     return true;
 }
 

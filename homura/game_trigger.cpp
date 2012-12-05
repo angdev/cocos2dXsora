@@ -39,18 +39,15 @@ TriggerType SpecificDestroyTrigger::Type() {
     return kTriggerSpecificDestroy;
 }
 
-void SpecificDestroyTrigger::SetParams(GameObject* obj) {
-
-    cocos2d::CCLog("trg/obj id : %d", obj->id());
-
-    id_ = obj->id();
-    world_ = obj->world();
-    //오브젝트를 들고 있으면 참조할 수도 있으니 일단 이렇게 한다.
-}
 
 bool SpecificDestroyTrigger::CheckFunc() {
     if(NULL == world_->FindObject(id_)) {
         return true;
     }
     return false;
+}
+
+void SpecificDestroyTrigger::SetParams(GameObject *obj) {
+    world_ = obj->world();
+    id_ = obj->id();
 }

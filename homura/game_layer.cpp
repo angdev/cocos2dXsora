@@ -145,12 +145,6 @@ void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
 void GameLayer::ccTouchesCancelled(CCSet *touches, CCEvent *event) {
 }
 
-void GameLayer::AddNewBodyAtPosition(const CCPoint &p) {
-    glm::vec2 ut_pos(p.x, p.y);
-    GameObjectFactory factory(world_.get());
-    factory.CreateDemoObj(ut_pos, stage_->layer());
-}
-
 void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //TODO
     //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
