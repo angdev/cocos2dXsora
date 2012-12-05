@@ -5,5 +5,5 @@
 #if SR_WIN
 #include <memory>
 #else
-#include <tr1/memory>
+#include <memory>
 #endif

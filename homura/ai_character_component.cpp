@@ -4,6 +4,8 @@
 #include "game_object.h"
 #include "sora/unit.h"
 
+#include "game_message.h"
+
 AICharacterComponent::AICharacterComponent(GameObject *obj)
     : CharacterComponent(obj) {
 
@@ -24,6 +26,7 @@ void AICharacterComponent::AIUpdate(float dt) {
     if(NULL == o)
         return;
     
-    glm::vec2 vec2(0, 1);
-    o->OnMessage(&MoveMessage::Create(vec2));
+    glm::vec2 vec(0, 1);
+    MoveMessage msg = MoveMessage::Create(vec);
+    o->OnMessage(&msg);
 }

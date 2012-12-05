@@ -6,5 +6,5 @@
 #if SR_WIN
 #include <tuple>	//tr1tuple
 #else
-#include <tr1/tuple>
+#include <tuple>
 #endif

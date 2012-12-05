@@ -28,7 +28,8 @@ void BulletComponent::InitMsgHandler() {
 void BulletComponent::Update(float dt) {
     //TODO
     //일단 방향 정해진대로 날아가도록만 하였다
-    obj()->OnMessage(&MoveMessage::Create(dir_vec_px_));
+    MoveMessage msg = MoveMessage::Create(dir_vec_px_);
+    obj()->OnMessage(&msg);
 }
 
 void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
@@ -37,7 +38,8 @@ void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
     
     //리턴값. 맞았는가에 대한 체크
     if(apply_msg.applied) {
-        OnMessage(&DestroyMessage::Create(obj()->id()));
+        DestroyMessage msg = DestroyMessage::Create(obj()->id());
+        OnMessage(&msg);
     }
 }
 

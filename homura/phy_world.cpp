@@ -188,12 +188,11 @@ void PhyWorld::HandleCollision(CollisionTuple &collision) {
         GameObjectPtr obj_a = collision.obj_a();
         
         if(obj_a->Type() == kCompBullet) {
-            obj_a->OnMessage(&DamageObjectMessage::Create(
-                collision.obj_b().get()));
-        }
-        else {
-            collision.obj_b()->OnMessage(&DamageObjectMessage::Create(
-                obj_a.get()));
+            DamageObjectMessage msg = DamageObjectMessage::Create(collision.obj_b().get());
+            obj_a->OnMessage(&msg);
+        } else {
+            DamageObjectMessage msg = DamageObjectMessage::Create(obj_a.get());
+            collision.obj_b()->OnMessage(&msg);
         }
     }
 }

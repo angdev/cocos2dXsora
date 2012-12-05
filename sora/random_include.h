@@ -5,5 +5,5 @@
 #if SR_WIN
 #include <random>
 #else
-#include <tr1/random>
+#include <random>
 #endif

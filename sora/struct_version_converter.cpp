@@ -7,7 +7,6 @@
 
 using namespace std;
 using namespace sora;
-using namespace std::tr1;
 
 std::vector<StructConverterParam> StructVersionConverter::converter_list_;
 std::vector<StructConverterParam> &StructVersionConverter::GetConverterList()
