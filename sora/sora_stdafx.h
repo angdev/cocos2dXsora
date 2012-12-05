@@ -1,6 +1,9 @@
 ﻿// Ŭnicode please
 // pch를 지원하지 않는 환경에서도 인클루드한게 통쨰로 인클루드 하는걸 방지하기위해서 이런식으로 처리했다
 #include "arch.h"
+
+#ifdef __cplusplus
+
 // assert는 거의 전역에서 쓰니까
 #include "assert_include.h"
 
@@ -46,4 +49,10 @@
 
 #include "globals.h"
 
+#endif  // SR_USE_PCH
+
+#endif  // __cplusplus
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
 #endif

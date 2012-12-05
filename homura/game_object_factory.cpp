@@ -98,8 +98,6 @@ GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, co
 
 
 GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    const float ptm_ratio = kUnitToMeterRatio;
-    
     b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
 
     // 적절히 스프라이트 생성하기

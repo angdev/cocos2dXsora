@@ -36,8 +36,8 @@ void BulletComponent::Update(float dt) {
 
     glm::vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
     velocity_vec *= speed_;
-
-    obj()->OnMessage(&MoveMessage::Create(velocity_vec));
+    MoveMessage msg = MoveMessage::Create(dir_vec_px_);
+    obj()->OnMessage(&msg);
 }
 
 void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
@@ -46,7 +46,8 @@ void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
     
     //리턴값. 맞았는가에 대한 체크
     if(apply_msg.applied) {
-        OnMessage(&DestroyMessage::Create(obj()->id()));
+        DestroyMessage msg = DestroyMessage::Create(obj()->id());
+        OnMessage(&msg);
     }
 }
 

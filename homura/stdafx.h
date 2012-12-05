@@ -25,10 +25,12 @@
 //#include "sora/sora.h"
 #include <glm/glm.hpp>
 
+#if SR_WIN
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>
 #include <tchar.h>
+#endif
 
 //c++11
 #include "sora/array_include.h"

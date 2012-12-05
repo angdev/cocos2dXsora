@@ -156,7 +156,8 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
     
     //메시지 보내기
-    player_->OnMessage(&MoveMessage::Create(glm::vec2(dx, dy)));
+    MoveMessage msg = MoveMessage::Create(glm::vec2(dx, dy));
+    player_->OnMessage(&msg);
 
     /*
     b2Body *player_body = player_->phy_comp()->main_body();

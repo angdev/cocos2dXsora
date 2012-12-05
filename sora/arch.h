@@ -4,7 +4,7 @@
 //platform check macro
 //cocos2d의 내장 기능을 써도 되는데 그것을 쓰면 프로젝트자체에서 Macro 설정을 해야되서
 //귀찮아 -_- 그래서 독립 파일로 인클루드해도 돌아가도록 만들엇다
-#if __APPLE__
+#ifdef __APPLE__
 //iphone check
 //#import <Availability.h>
 //#if __IPHONE_2_0

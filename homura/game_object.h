@@ -44,7 +44,7 @@ public:
     void ToggleEnable() { enable_ = !enable_; }
     void Enable() { enable_ = true; }
     void Disable() { enable_ = false; }
-    bool set_enable(bool b) { enable_ = b; }
+    void set_enable(bool b) { enable_ = b; }
 
     void set_drawable_comp(DrawableComponent *comp);
     DrawableComponent* drawable_comp() { return drawable_comp_.get(); }
