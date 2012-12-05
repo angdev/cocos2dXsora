@@ -1,6 +1,7 @@
 ﻿// Ŭnicode please
 #include "stdafx.h"
 #include "player_component.h"
+#include "game_object.h"
 
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer) {
@@ -17,4 +18,8 @@ void PlayerComponent::Update(float dt) {
 
 void PlayerComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
+}
+
+void PlayerComponent::Destroy() {
+    obj()->ToggleEnable();
 }

@@ -20,6 +20,9 @@ public:
     virtual bool IsEnemy() { return true; }
 
 private:
+    void Destroy();
+
+private:
     void Attack(float dt);
     //설정할 수 있도록 하자.
     const float attack_cool_down_;

@@ -16,6 +16,7 @@ public:
 
     virtual bool IsEnemy() { return false; }
 private:
+    void Destroy();
 
 };
 

@@ -65,3 +65,8 @@ void CombatPlaneComponent::Attack(float dt) {
     GameObjectFactory factory(obj()->world());
     factory.CreateDemoBullet(header, layer());
 }
+
+void CombatPlaneComponent::Destroy() {
+    GameWorld *world = obj()->world();
+    world->RequestRemoveObject(world->FindObject(obj()->id()));
+}

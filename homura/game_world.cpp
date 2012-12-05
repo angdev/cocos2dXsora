@@ -29,7 +29,8 @@ void GameWorld::Update(float dt) {
     //TODO
     //게임 오브젝트 돌면서 Update 호출. 우선순위 통제 필요하면 적절히 처리하기
     for(auto it : obj_table_) {
-        it.second->Update(dt);
+        if(it.second->IsEnabled())
+            it.second->Update(dt);
     }
 
     //지연된 객체 삭제 처리

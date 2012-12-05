@@ -39,8 +39,7 @@ void CharacterComponent::InitMsgHandler() {
 
 void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
     cocos2d::CCLog("%d destroied", msg->obj_id);
-    GameWorld *world = obj()->world();
-    world->RequestRemoveObject(world->FindObject(msg->obj_id));
+    Destroy();
 }
 
 void CharacterComponent::OnApplyDamage(ApplyDamageMessage *msg) {

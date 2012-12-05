@@ -184,7 +184,7 @@ void PhyWorld::HandleCollision(CollisionTuple &collision) {
     */
 
     //Player를 잠시 전투기로 놔봤음
-    else if(collision.IsMatch(kCompBullet, /*kCompNull*/ kCompCombatPlane)) {
+    else if(collision.IsMatch(kCompBullet, /*kCompNull*/ kCompPlayer)) {
         GameObjectPtr obj_a = collision.obj_a();
         
         if(obj_a->Type() == kCompBullet) {

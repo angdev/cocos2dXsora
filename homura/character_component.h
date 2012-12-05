@@ -41,6 +41,9 @@ public:
     void set_hit_point(float hit_point) { hit_point_ = hit_point; }
 
 private:
+    virtual void Destroy() = 0;
+
+private:
     float hit_point_;
     cocos2d::CCNode *layer_;
 
