@@ -9,7 +9,9 @@
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "platform/ios/CCGL.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "platform/android/CCGL.h
+#include "platform/android/CCGL.h"
+#else
+#error "unknown"
 #endif
 
 namespace sora {;

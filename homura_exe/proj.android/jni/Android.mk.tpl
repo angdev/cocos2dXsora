@@ -12,30 +12,8 @@ LOCAL_CPPFLAGS   +=  -fpermissive -Winvalid-offsetof
                    
 # homura           
 LOCAL_SRC_FILES += \
-../../../homura/ai_character_component.cpp  \
-../../../homura/bullet_component.cpp  \
-../../../homura/character_component.cpp  \
-../../../homura/collision_tuple.cpp  \
-../../../homura/combat_plane_component.cpp  \
-../../../homura/debug_config.cpp  \
-../../../homura/drawable_component.cpp  \
-../../../homura/game_component.cpp  \
-../../../homura/game_console.cpp  \
-../../../homura/game_layer.cpp  \
-../../../homura/game_message.cpp  \
-../../../homura/game_object.cpp  \
-../../../homura/game_object_factory.cpp  \
-../../../homura/game_stage.cpp  \
-../../../homura/game_stage_factory.cpp  \
-../../../homura/game_world.cpp  \
-../../../homura/GLES-Render.cpp  \
-../../../homura/logic_component.cpp  \
-../../../homura/main_menu_layer.cpp  \
-../../../homura/option_layer.cpp  \
-../../../homura/phy_component.cpp  \
-../../../homura/phy_world.cpp  \
-../../../homura/player_component.cpp  \
-
+{% for cpp_file in filelist %}../../../homura/{{ cpp_file }}  \
+{% endfor %}
                    
 # homura_exe
 LOCAL_SRC_FILES += ../../app_delegate.cpp \
