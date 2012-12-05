@@ -6,7 +6,6 @@
 #include "game_object.h"
 #include "drawable_component.h"
 #include "phy_component.h"
-#include "ai_character_component.h"
 #include "combat_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
@@ -97,26 +96,6 @@ GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, co
     return obj;
 }
 
-GameObject *GameObjectFactory::CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    //Temp
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
-    
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
-    sprite->setScale(0.2f);
-    
-    GameObject *obj = new GameObject(world_);
-    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
-    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new AICharacterComponent(obj);
-    
-    obj->set_drawable_comp(drawable);
-    obj->set_phy_comp(phy);
-    obj->set_logic_comp(logic);
-
-    world_->AddObject(obj, obj->Type());
-
-    return obj;
-}
 
 GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
     const float ptm_ratio = kUnitToMeterRatio;

@@ -86,7 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ai_character_component.cpp" />
+    <ClCompile Include="add_object_event.cpp" />
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
@@ -109,13 +109,14 @@
     <ClCompile Include="phy_component.cpp" />
     <ClCompile Include="phy_world.cpp" />
     <ClCompile Include="player_component.cpp" />
+    <ClCompile Include="stage_event.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ai_character_component.h" />
+    <ClInclude Include="add_object_event.h" />
     <ClInclude Include="app_macros.h" />
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="character_component.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="phy_component.h" />
     <ClInclude Include="phy_world.h" />
     <ClInclude Include="player_component.h" />
+    <ClInclude Include="stage_event.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
