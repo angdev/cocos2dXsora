@@ -1,7 +1,10 @@
 ﻿// Ŭnicode please
 #include "stdafx.h"
 #include "game_stage.h"
-#include "stage_event.h"
+#include "game_event.h"
+#include "game_trigger.h"
+
+#include "game_object_factory.h"
 
 #if SR_USE_PCH == 0
 #include "cocos2d.h"
@@ -10,7 +13,7 @@
 USING_NS_CC;
 
 GameStage::GameStage(GameWorld *world)
-    : world_(world), is_sorted_(0), elapsed_time_(0), layer_(0) {
+    : world_(world), elapsed_time_(0), current_event_(0), layer_(0) {
 
 }
 
@@ -24,37 +27,33 @@ bool GameStage::Init() {
     if(NULL == layer_)
         return false;
 
+    factory_ = new GameObjectFactory(world_);
+
+    //Test
+
+    CreateObjectEvent *evt = new CreateObjectEvent(new SpecificDestroyTrigger(), factory_->CreateDemoCombatPlane(
+        glm::vec2(400, 400), layer()));
+    stage_events_.push_back(evt);
+
+    CreateObjectEvent *evt_ = new CreateObjectEvent(new SpecificDestroyTrigger(), factory_->CreateDemoCombatPlane(
+        glm::vec2(200, 1000), layer()));
+    stage_events_.push_back(evt_);
     return true;
 }
 
-void GameStage::AddEvent(const StageEvent &sche_obj) {
-    stage_events_.push_back(sche_obj);
-    is_sorted_ = false;
-}
-
-void GameStage::SortEvent() {
-    //TODO
-    //Test
-
-    std::sort(stage_events_.begin(), stage_events_.end(), 
-        [](const StageEvent &e1, const StageEvent &e2) -> bool {
-            if(e1.start_time() < e2.start_time()) {
-                return true;
-            }
-            return false;
-    });
-
-    is_sorted_ = true;
+void GameStage::AddEvent(GameEvent *event) {
+    stage_events_.push_back(event);
 }
 
 void GameStage::Update(float dt) {
-    if(!is_sorted_)
-        SortEvent();
 
     //스케쥴 돌면서 시간 지나면 실행
     elapsed_time_ += dt;
-    
-    if (!stage_events_.empty()) {
-        //스테이지 스케쥴 실행
+    if(current_event_ < stage_events_.size()) {
+        if(!stage_events_[current_event_]->is_event_executed())
+            stage_events_[current_event_]->InvokeRun(elapsed_time_);
+        if(stage_events_[current_event_]->IsEnd()) {
+            current_event_++;
+        }
     }
 }

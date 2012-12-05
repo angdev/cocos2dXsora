@@ -7,7 +7,10 @@
 #endif
 
 class GameWorld;
-class StageEvent;
+class GameEvent;
+
+//Test
+class GameObjectFactory;
 
 class GameStage {
 public:
@@ -19,8 +22,8 @@ public:
     void Update(float dt);
 
 public:
-    void AddEvent(const StageEvent &sche_obj);
-    void SortEvent();
+    void AddEvent(GameEvent *event);
+    //void SortEvent();
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }
@@ -29,11 +32,13 @@ public:
 private:
     GameWorld *world_;
     cocos2d::CCLayer *layer_;
-
+    
+    GameObjectFactory *factory_;
+    
     //스케쥴 리스트가 소팅되었는지 검사
-    bool is_sorted_;
     float elapsed_time_;
-    typedef std::vector<StageEvent> StageEventVector;
+    unsigned int current_event_;
+    typedef std::vector<GameEvent*> StageEventVector;
     StageEventVector stage_events_;
 };
 

@@ -83,11 +83,13 @@ bool GameLayer::init() {
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
     
+    /*
     //플레이어 초기화
     GameObjectFactory factory(world_.get());
     player_ = factory.CreateDemoPlayer(glm::vec2(300, 300), stage_->layer());
+    */
     //체력 설정은 임시. (생성시에 초기화할 것)
-    static_cast<CharacterComponent*>(player_->logic_comp())->set_hit_point(100);
+    //static_cast<CharacterComponent*>(player_->logic_comp())->set_hit_point(100);
     /*
     //AI 테스트용
     GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), stage_->layer());
@@ -96,15 +98,16 @@ bool GameLayer::init() {
     */
 
     //전투기 테스트
-    
+    /*
     GameObject* plane = factory.CreateDemoCombatPlane(glm::vec2(400, 1200), stage_->layer());
     static_cast<CharacterComponent*>(plane->logic_comp())->set_hit_point(100);
-    
+    */
     return true;
 }
 
 void GameLayer::update(float dt) {
     world_->Update(dt);
+    stage_->Update(dt);
 }
 
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {

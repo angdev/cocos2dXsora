@@ -36,6 +36,10 @@ typedef enum {
     kSceneHelloWorld,
 } SceneType;
 
+typedef enum {
+    kTriggerNull,
+    kTriggerSpecificDestroy,
+} TriggerType;
 
 //너무 뻔한 typedef와 클래스 선언은 전역범위에서 쓰기 쉽도록 여기에 선언
 class GameObject;

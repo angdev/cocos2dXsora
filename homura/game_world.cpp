@@ -58,7 +58,7 @@ int GameWorld::AddObject(GameObject *obj, ObjectType type) {
     if(IsExist(obj->id()) == true) {
         return 0;
     }
-    
+
     obj_table_.insert(make_pair(type, GameObjectPtr(obj)));
     return obj->id();
 }

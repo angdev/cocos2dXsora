@@ -37,7 +37,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
@@ -69,7 +69,7 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
@@ -91,7 +91,7 @@ GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, co
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
@@ -115,7 +115,7 @@ GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::C
     obj->set_logic_comp(logic);
 
     //아무것도 아닌거로 일단 설정. 이것은 그냥 그자리에 적절히 존재할뿐이라는 의미
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
@@ -137,7 +137,7 @@ GameObject *GameObjectFactory::CreateDemoPlayer(const glm::vec2 &ut_pos, cocos2d
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }

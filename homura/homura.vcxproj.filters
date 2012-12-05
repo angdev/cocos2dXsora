@@ -70,10 +70,13 @@
     <ClCompile Include="game_stage_factory.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="stage_event.cpp">
+    <ClCompile Include="game_event.cpp">
       <Filter>stage\event</Filter>
     </ClCompile>
-    <ClCompile Include="add_object_event.cpp">
+    <ClCompile Include="game_event_handler.cpp">
+      <Filter>stage\event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_trigger.cpp">
       <Filter>stage\event</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,10 +159,13 @@
     <ClInclude Include="game_stage_factory.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="stage_event.h">
+    <ClInclude Include="game_event.h">
       <Filter>stage\event</Filter>
     </ClInclude>
-    <ClInclude Include="add_object_event.h">
+    <ClInclude Include="game_event_handler.h">
+      <Filter>stage\event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_trigger.h">
       <Filter>stage\event</Filter>
     </ClInclude>
   </ItemGroup>
