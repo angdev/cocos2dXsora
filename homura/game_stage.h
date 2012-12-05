@@ -7,13 +7,7 @@
 #endif
 
 class GameWorld;
-
-//이 구조체에 게임 스테이지에 실행될 스케쥴을 삽입.
-struct StageScheduleObject {
-    //단위는 second
-    float delayed_time_;
-    GameObject* obj;
-};
+class StageEvent;
 
 class GameStage {
 public:
@@ -22,7 +16,11 @@ public:
 
 public:
     bool Init();
-    void Update(float dt) { }
+    void Update(float dt);
+
+public:
+    void AddEvent(const StageEvent &sche_obj);
+    void SortEvent();
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }
@@ -32,7 +30,11 @@ private:
     GameWorld *world_;
     cocos2d::CCLayer *layer_;
 
-    std::vector<StageScheduleObject> stage_schedules_;
+    //스케쥴 리스트가 소팅되었는지 검사
+    bool is_sorted_;
+    float elapsed_time_;
+    typedef std::vector<StageEvent> StageEventVector;
+    StageEventVector stage_events_;
 };
 
 #endif
