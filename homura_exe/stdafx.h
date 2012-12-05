@@ -21,13 +21,15 @@
 //#include "sora/sora.h"
 #include "glm/glm.hpp"
 
+#if SR_WIN
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>
 #include <tchar.h>
+#endif  //SR_WIN
 
 
 #include "homura/game_globals.h"
 
 
-#endif
+#endif  //SR_USE_PCH
