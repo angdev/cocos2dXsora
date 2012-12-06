@@ -57,7 +57,7 @@ void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
     world->RequestRemoveObject(world->FindObject(msg->obj_id));
 }
 
-void BulletComponent::OnBoundCheckMessage( BoundCheckMessage *msg ) {
+void BulletComponent::OnBoundCheckMessage(BoundCheckMessage *msg) {
     PhyBodyInfo body_info;
     GetPhyBodyInfoMessage phy_body_msg = GetPhyBodyInfoMessage::Create(&body_info);
     obj()->OnMessage(&phy_body_msg);
@@ -65,6 +65,9 @@ void BulletComponent::OnBoundCheckMessage( BoundCheckMessage *msg ) {
     if(!phy_body_msg.is_ret) {
         return;
     }
+
+    body_info.x = sora::Unit::ToUnitFromMeter(body_info.x);
+    body_info.y = sora::Unit::ToUnitFromMeter(body_info.y);
 
     if(body_info.x > msg->window_size.width || body_info.x < 0
         || body_info.y > msg->window_size.height || body_info.y < 0) {

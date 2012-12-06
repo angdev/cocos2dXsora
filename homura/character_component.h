@@ -33,8 +33,8 @@ public:
     void OnApplyDamage(ApplyDamageMessage *msg);
 
 public:
-    //적, 아군 타입 구별. 일단 그냥 사용.
-    virtual bool IsEnemy() = 0;
+    void set_is_enemy(bool is_enemy) { is_enemy_ = is_enemy; }
+    bool is_enemy() { return is_enemy_; }
 
     cocos2d::CCNode *layer() { return layer_; }
     float hit_point() const { return hit_point_; }
@@ -44,6 +44,7 @@ private:
     virtual void Destroy() = 0;
 
 private:
+    bool is_enemy_;
     float hit_point_;
     cocos2d::CCNode *layer_;
 

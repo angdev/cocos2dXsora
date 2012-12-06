@@ -14,7 +14,7 @@
 #endif
 
 CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
-    : LogicComponent(obj), layer_(layer) {
+    : LogicComponent(obj), layer_(layer), is_enemy_(false) {
 
 }
 
@@ -44,7 +44,7 @@ void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
 }
 
 void CharacterComponent::OnApplyDamage(ApplyDamageMessage *msg) {
-    if(msg->from_enemy && IsEnemy())
+    if(msg->from_enemy == is_enemy())
         return;
     hit_point_ -= msg->damage;
     msg->applied = true;

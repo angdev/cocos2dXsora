@@ -59,7 +59,7 @@ void CombatPlaneComponent::Attack(float dt) {
     header.y = Unit::ToUnitFromMeter(body_info.y);
 
     header.damage = 10;
-    header.from_enemy = IsEnemy();  //IsEnemy 필요없을지도?
+    header.from_enemy = is_enemy();  //IsEnemy 필요없을지도?
     header.sprite_name = "";
     
     GameObjectFactory factory(obj()->world());

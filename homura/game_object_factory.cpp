@@ -81,7 +81,7 @@ GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header
     
     b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
     //바라보는 방향 등 생성을 적절히 해야함
-    body->SetTransform(body->GetPosition(), M_PI);
+    body->SetTransform(body->GetPosition(), header.angle);
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);
@@ -89,11 +89,12 @@ GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new CombatPlaneComponent(obj, parent);
+    CombatPlaneComponent *logic = new CombatPlaneComponent(obj, parent);
 
     //temp
     //객체 마다 header로 걍 초기화하는거 넣을 것.
-    static_cast<CombatPlaneComponent*>(logic)->set_hit_point(header.hit_point);
+    logic->set_hit_point(header.hit_point);
+    logic->set_is_enemy(header.is_enemy);
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);

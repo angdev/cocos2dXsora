@@ -25,6 +25,8 @@ STRUCT_NEW_BEGIN(TestBulletObjectHeader, 1)
 STRUCT_END()
 
 STRUCT_NEW_BEGIN(TestCombatPlaneObjectHeader, 1)
+    STRUCT_VAR_BOOL(is_enemy)
+    STRUCT_VAR_FLOAT(angle)
     STRUCT_VAR_FLOAT(x)
     STRUCT_VAR_FLOAT(y)
     STRUCT_VAR_FLOAT(hit_point)

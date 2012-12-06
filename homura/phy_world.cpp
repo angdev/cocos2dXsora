@@ -173,18 +173,9 @@ void PhyWorld::HandleCollision(CollisionTuple &collision) {
         game_world_->RequestRemoveObject(first);
     }
 
-    /* AI 없앨 예정
-    //테스트 Null이 AI에 닿으면 AI 체력을 깎음.
-    else if(collision.IsMatch(kCompNull, kCompAI)) {
-        GameObjectPtr obj_a = collision.obj_a();
-
-        GameObjectPtr obj_ai = (obj_a->Type() == kCompAI)? obj_a : collision.obj_b();
-        static_cast<CharacterComponent*>(obj_ai->logic_comp())->ApplyDamage(1);
-    }
-    */
-
-    //Player를 잠시 전투기로 놔봤음
-    else if(collision.IsMatch(kCompBullet, /*kCompNull*/ kCompPlayer)) {
+    
+    else if(collision.IsMatch(kCompBullet, /*kCompNull*/ kCompPlayer)
+        || collision.IsMatch(kCompBullet, kCompCombatPlane)) {
         GameObjectPtr obj_a = collision.obj_a();
         
         if(obj_a->Type() == kCompBullet) {
