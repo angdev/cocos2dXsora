@@ -18,10 +18,13 @@ bool GameEvent::IsEnd() {
     return trigger_->Check();
 }
 
-void GameEvent::InvokeRun(float elapsed_time) {
-    cocos2d::CCLog("event start");
-    if(elapsed_time > start_time_ && !is_event_executed_)
+bool GameEvent::InvokeRun(float elapsed_time) {
+    if(elapsed_time > start_time_ && !is_event_executed_) {
+        cocos2d::CCLog("event start");
         Run();
+        return true;
+    }
+    return false;
 }
 
 //여기부터 새로운 게임 이벤트를 나열

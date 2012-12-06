@@ -16,7 +16,7 @@ public:
     virtual ~GameEvent();
 
 public:
-    void InvokeRun(float elapsed_time);
+    bool InvokeRun(float elapsed_time);
     //이벤트&트리거가 끝났는가?
     bool IsEnd();
 

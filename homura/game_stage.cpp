@@ -3,6 +3,7 @@
 #include "game_stage.h"
 #include "game_event.h"
 #include "game_trigger.h"
+#include "game_event_handler.h"
 
 #include "game_object_factory.h"
 
@@ -30,20 +31,28 @@ bool GameStage::Init() {
     factory_ = new GameObjectFactory(world_);
 
     //Test
-    
+    //EventGroup #1
+    GameEventHandler *evt_hnd = new GameEventHandler();
+
+    //Event 1
     TestCombatPlaneObjectHeader combat_header;
     combat_header.hit_point = 100;
     combat_header.x = 100;
     combat_header.y = 1000;
     combat_header.sprite_name = "";
-    GameEvent *evt = MakeCreateObjectEvent(this, combat_header);
-    stage_events_.push_back(evt);
-
-    combat_header.x = 300;
-
-    GameEvent *evt_ = MakeCreateObjectEvent(this, combat_header, new SpecificDestroyTrigger());
-    stage_events_.push_back(evt_);
+    GameEvent *evt1 = MakeCreateObjectEvent(this, combat_header);
+    evt_hnd->AddEvent(evt1);
     
+    combat_header.x = 300;
+    //Event 2
+    GameEvent *evt2 = MakeCreateObjectEvent(this, combat_header, new SpecificDestroyTrigger());
+    evt_hnd->AddEvent(evt2);
+
+    AddEventHandler(evt_hnd);
+    
+    //EventGroup #2
+    //Event 1
+    GameEventHandler *evt_hnd2 = new GameEventHandler();
 
     TestBulletObjectHeader bullet_header;
     bullet_header.x = 100;
@@ -51,25 +60,26 @@ bool GameStage::Init() {
     bullet_header.angle_rad = M_PI/2;
     bullet_header.speed = 10;
     bullet_header.damage = 10;
-    GameEvent *evt__ = MakeCreateObjectEvent(this, bullet_header);
-    stage_events_.push_back(evt__);
+    GameEvent *evt3 = MakeCreateObjectEvent(this, bullet_header);
+    evt_hnd2->AddEvent(evt3);
+
+    AddEventHandler(evt_hnd2);
 
     return true;
 }
 
-void GameStage::AddEvent(GameEvent *event) {
-    stage_events_.push_back(event);
+void GameStage::AddEventHandler(GameEventHandler *event_handler) {
+    event_handlers_.push_back(GameEventHandlerPtr(event_handler));
 }
 
 void GameStage::Update(float dt) {
 
     //스케쥴 돌면서 시간 지나면 실행
     elapsed_time_ += dt;
-    if(current_event_ < stage_events_.size()) {
-        if(!stage_events_[current_event_]->is_event_executed())
-            stage_events_[current_event_]->InvokeRun(elapsed_time_);
-        if(stage_events_[current_event_]->IsEnd()) {
+    if(current_event_ < event_handlers_.size()) {
+        if(!event_handlers_[current_event_]->all_executed())
+            event_handlers_[current_event_]->Run(elapsed_time_);
+        if(event_handlers_[current_event_]->IsEnd())
             current_event_++;
-        }
     }
 }

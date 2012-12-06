@@ -91,7 +91,8 @@ GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     LogicComponent *logic = new CombatPlaneComponent(obj, parent);
 
-    //temp 객체 마다 header로 걍 초기화하는거 넣을 것.
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
     static_cast<CombatPlaneComponent*>(logic)->set_hit_point(header.hit_point);
 
     obj->set_drawable_comp(drawable);

@@ -7,7 +7,8 @@
 #endif
 
 class GameWorld;
-class GameEvent;
+class GameEventHandler;
+typedef std::shared_ptr<GameEventHandler> GameEventHandlerPtr;
 
 //Test
 class GameObjectFactory;
@@ -22,7 +23,7 @@ public:
     void Update(float dt);
 
 public:
-    void AddEvent(GameEvent *event);
+    void AddEventHandler(GameEventHandler *event_handler);
     //void SortEvent();
 
 public:
@@ -38,8 +39,8 @@ private:
     //스케쥴 리스트가 소팅되었는지 검사
     float elapsed_time_;
     unsigned int current_event_;
-    typedef std::vector<GameEvent*> StageEventVector;
-    StageEventVector stage_events_;
+    typedef std::vector<GameEventHandlerPtr> GameEventHandlers;
+    GameEventHandlers event_handlers_;
 };
 
 #endif
