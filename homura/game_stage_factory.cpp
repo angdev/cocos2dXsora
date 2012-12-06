@@ -11,9 +11,3 @@ GameStageFactory::GameStageFactory(GameWorld *world) : world_(world) {
 GameStageFactory::~GameStageFactory() {
 
 }
-
-GameStage *GameStageFactory::CreateTestStage() {
-    GameStage *stage = new GameStage(world_);
-
-    return stage;
-}

@@ -4,6 +4,7 @@
 #include "game_event.h"
 #include "game_trigger.h"
 #include "game_event_handler.h"
+#include "game_layer.h"
 
 #include "game_object_factory.h"
 
@@ -31,6 +32,7 @@ bool GameStage::Init() {
     factory_ = new GameObjectFactory(world_);
 
     //Test
+
     //EventGroup #1
     GameEventHandler *evt_hnd = new GameEventHandler();
 
@@ -45,7 +47,7 @@ bool GameStage::Init() {
     
     combat_header.x = 300;
     //Event 2
-    GameEvent *evt2 = MakeCreateObjectEvent(this, combat_header, new SpecificDestroyTrigger());
+    GameEvent *evt2 = MakeCreateObjectEvent(this, combat_header);
     evt_hnd->AddEvent(evt2);
 
     AddEventHandler(evt_hnd);
@@ -64,7 +66,7 @@ bool GameStage::Init() {
     evt_hnd2->AddEvent(evt3);
 
     AddEventHandler(evt_hnd2);
-
+    
     return true;
 }
 

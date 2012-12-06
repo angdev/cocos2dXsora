@@ -34,7 +34,8 @@ GameObject *GameObjectFactory::Create( const TestPlayerObjectHeader &header, coc
 
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new PlayerComponent(obj, parent);
+    PlayerComponent *logic = new PlayerComponent(obj, parent);
+    logic->set_hit_point(header.hit_point);
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
@@ -56,8 +57,6 @@ GameObject *GameObjectFactory::Create( const TestBulletObjectHeader &header, coc
     b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
         sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
     body->SetTransform(body->GetPosition(), header.angle_rad);
-
-    CCLog("%f", header.angle_rad);
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);

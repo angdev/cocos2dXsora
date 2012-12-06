@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "player_component.h"
 #include "game_object.h"
+#include "game_world.h"
 
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer) {
@@ -21,5 +22,5 @@ void PlayerComponent::InitMsgHandler() {
 }
 
 void PlayerComponent::Destroy() {
-    obj()->ToggleEnable();
+    obj()->Disable();
 }

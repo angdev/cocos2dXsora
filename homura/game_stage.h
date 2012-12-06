@@ -36,7 +36,6 @@ private:
     
     GameObjectFactory *factory_;
     
-    //스케쥴 리스트가 소팅되었는지 검사
     float elapsed_time_;
     unsigned int current_event_;
     typedef std::vector<GameEventHandlerPtr> GameEventHandlers;

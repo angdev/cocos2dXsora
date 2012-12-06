@@ -47,7 +47,7 @@ private:
 };
 
 GameLayer::GameLayer()
-: simple_layer_(NULL) {
+: simple_layer_(NULL), player_(NULL) {
 }
 
 GameLayer::~GameLayer() {
@@ -71,58 +71,58 @@ bool GameLayer::init() {
     scheduleUpdate();
 
     world_ = std::move(unique_ptr<GameWorld>(new GameWorld()));
+    factory_ = new GameObjectFactory(world_.get());
 
     stage_ = new GameStage(world_.get());
     if(!stage_->Init()) {
         return false;
     }
+
     this->addChild(stage_->layer());
+
+    set_player(CreatePlayer());
 
     //물리 디버깅용
     PhyDebugLayer *phy_debug_layer = new PhyDebugLayer(world_->b2_world());
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
     
-    /*
-    //플레이어 초기화
-    GameObjectFactory factory(world_.get());
-    player_ = factory.CreateDemoPlayer(glm::vec2(300, 300), stage_->layer());
-    */
-    //체력 설정은 임시. (생성시에 초기화할 것)
-    //static_cast<CharacterComponent*>(player_->logic_comp())->set_hit_point(100);
-    /*
-    //AI 테스트용
-    GameObject *obj_ai = factory.CreateDemoEnemy(glm::vec2(500, 500), stage_->layer());
-    //캐스팅 방식 말고 메시지 방식을 쓰던지 생성할 때만 잘 처리하던지 해야함. 일단은 캐스팅.
-    static_cast<CharacterComponent*>(obj_ai->logic_comp())->set_hit_point(100);
-    */
-
-    //전투기 테스트
-    /*
-    GameObject* plane = factory.CreateDemoCombatPlane(glm::vec2(400, 1200), stage_->layer());
-    static_cast<CharacterComponent*>(plane->logic_comp())->set_hit_point(100);
-    */
     return true;
 }
 
 void GameLayer::update(float dt) {
     world_->Update(dt);
+
+
+    //TODO
+    //스테이지 유효 체크
     stage_->Update(dt);
+
+    //플레이어 죽었나?
+    if(!player_->IsEnabled()) {
+        cocos2d::CCLog("Player die");
+        world_->RequestRemoveObject(world_->FindObject(player_->id()));
+        player_ = NULL;
+
+        set_player(CreatePlayer());
+    }
+
+}
+
+GameObject *GameLayer::player() {
+    return player_;
+}
+
+//이렇게 쓰는거 맞나..?
+void GameLayer::set_player(GameObject *player) {
+    if(player_ != NULL)
+        world_->RequestRemoveObject(world_->FindObject(player_->id()));
+    player_ = player;
+    world_->AddObject(player_);
 }
 
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
-    /*
-    CCSetIterator it;
-    CCTouch* touch;
-    for( it = touches->begin(); it != touches->end(); it++)  {
-        touch = (CCTouch*)(*it);
-        if(!touch) {
-            break;
-        }
-        CCPoint location = touch->getLocation();
-        AddNewBodyAtPosition(location);
-    }
-    */
+
 }
 
 void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
@@ -160,4 +160,19 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //계속 awake 꺼지는거 신경 쓰여서 걍 추가해둠. 필요는 없지만 =ㅅ=
     player_body->SetAwake(true);
     */
+}
+
+GameObject *GameLayer::CreatePlayer() {
+    //플레이어 초기화
+    //set stage 함수를 두고 플레이어를 여기서 초기화.
+    //플레이어 정보는 여기서 들고 있기 때문.
+
+    TestPlayerObjectHeader player_header;
+    player_header.x = 350;
+    player_header.y = 100;
+    player_header.hit_point = 100;
+    player_header.sprite_name = "";
+    GameObject* init_player = factory_->Create(player_header, stage_->layer());
+
+    return init_player;
 }

@@ -11,7 +11,6 @@ public:
     virtual ~GameStageFactory();
 
 public:
-    GameStage *CreateTestStage();
 
 private:
     GameWorld *world_;
