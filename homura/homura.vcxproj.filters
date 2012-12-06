@@ -76,12 +76,17 @@
     <ClCompile Include="game_trigger.cpp">
       <Filter>event</Filter>
     </ClCompile>
-    <ClCompile Include="bound_check_component.cpp" />
     <ClCompile Include="laser_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
     </ClCompile>
     <ClCompile Include="combat_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
+    </ClCompile>
+    <ClCompile Include="game_event_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="bound_check_component.cpp">
+      <Filter>logic_comp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,12 +174,17 @@
     <ClInclude Include="game_trigger.h">
       <Filter>event</Filter>
     </ClInclude>
-    <ClInclude Include="bound_check_component.h" />
     <ClInclude Include="laser_plane_component.h">
       <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="combat_plane_component.h">
       <Filter>logic_comp\character</Filter>
+    </ClInclude>
+    <ClInclude Include="game_event_component.h">
+      <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="bound_check_component.h">
+      <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,7 @@
 #include "player_component.h"
 #include "bullet_component.h"
 #include "bound_check_component.h"
+#include "game_event_component.h"
 #include "sora/unit.h"
 
 #include "data_define.h"
@@ -135,6 +136,15 @@ GameObject * GameObjectFactory::Create( const BoundCheckObjectHeader &header) {
     obj->set_logic_comp(logic);
 
    return obj;
+}
+
+GameObject * GameObjectFactory::Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
+                                       GameEventHandlerPtr game_event_handler_) {
+    GameObject *obj = new GameObject(world_);
+    GameEventComponent *logic = new GameEventComponent(obj, event_id, next_events, game_event_handler_);
+    obj->set_logic_comp(logic);
+
+    return obj;
 }
 
 b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float half_width_px, float half_height_px) {

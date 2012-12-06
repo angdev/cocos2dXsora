@@ -126,3 +126,17 @@ public:
 };
 
 //End Bound Check Component Messages
+
+//Game Event Component Messages
+
+struct BeginEventMessage : public GameMessage {
+private:
+    BeginEventMessage() {}
+public:
+    static BeginEventMessage Create(int event_id);
+    BeginEventMessage *Clone() const { return new BeginEventMessage(); }
+
+    int event_id;
+};
+
+//End Game Event Component Messages

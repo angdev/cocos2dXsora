@@ -4,6 +4,12 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+BeginEventMessage BeginEventMessage::Create( int event_id ) {
+    BeginEventMessage msg;
+    msg.event_id = event_id;
+    return msg;
+}
+
 BoundCheckMessage BoundCheckMessage::Create(cocos2d::CCSize size) {
     BoundCheckMessage msg;
     msg.window_size = size;

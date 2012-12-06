@@ -13,6 +13,12 @@
 class b2Body;
 class GameObject;
 class GameWorld;
+class GameEventHandler;
+
+typedef unsigned int EventID;
+typedef std::vector<EventID> NextEvents;
+typedef std::shared_ptr<NextEvents> NextEventsPtr;
+typedef std::shared_ptr<GameEventHandler> GameEventHandlerPtr;
 
 class GameObjectFactory {
 public:
@@ -28,6 +34,8 @@ public:
 
     //가상의 게임 객체들 (로직)
     GameObject *Create(const BoundCheckObjectHeader &header);
+    GameObject *Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
+        GameEventHandlerPtr game_event_handler_);
 
 private:
     b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);
