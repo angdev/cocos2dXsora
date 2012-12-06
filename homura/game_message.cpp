@@ -4,6 +4,12 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+BoundCheckMessage BoundCheckMessage::Create(cocos2d::CCSize size) {
+    BoundCheckMessage msg;
+    msg.window_size = size;
+    return msg;
+}
+
 GetPhyBodyInfoMessage GetPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
     GetPhyBodyInfoMessage msg;
     msg.phy_body_info = info;

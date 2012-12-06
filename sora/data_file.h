@@ -36,3 +36,8 @@ STRUCT_NEW_BEGIN(DemoObjectHeader, 1)
     STRUCT_VAR_FLOAT(y)
     STRUCT_VAR_STRING(sprite_name)  //스프라이트 시트 쓸 때는?
 STRUCT_END()    
+
+
+//로직 객체들
+STRUCT_NEW_BEGIN(BoundCheckObjectHeader, 1)
+STRUCT_END()

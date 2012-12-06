@@ -80,6 +80,11 @@ bool GameLayer::init() {
 
     this->addChild(stage_->layer());
 
+    //경계 체크 로직 초기화
+    BoundCheckObjectHeader bound_check_header;
+    world_->AddObject(factory_->Create(bound_check_header));
+
+
     set_player(CreatePlayer());
 
     //물리 디버깅용

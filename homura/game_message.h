@@ -112,3 +112,17 @@ public:
 
 
 //End Bullet Component Messages
+
+//Bound Check Component Messages
+
+struct BoundCheckMessage : public GameMessage {
+private:
+    BoundCheckMessage() {}
+public:
+    static BoundCheckMessage Create(cocos2d::CCSize size);
+    BoundCheckMessage *Clone() const { return new BoundCheckMessage(); }
+
+    cocos2d::CCSize window_size;
+};
+
+//End Bound Check Component Messages

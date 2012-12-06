@@ -26,6 +26,9 @@ public:
     GameObject *Create(const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
 
+    //가상의 게임 객체들 (로직)
+    GameObject *Create(const BoundCheckObjectHeader &header);
+
 private:
     b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);
     GameWorld *world_;

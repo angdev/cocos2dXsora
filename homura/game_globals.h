@@ -14,6 +14,9 @@ typedef enum {
     kCompCombatPlane,   //전투기
     kCompAI,    //그냥 AI를 가지는 객체 (Player, Enemy에 들어갈 예정)
 
+    //가상의 객체를 위한 컴포넌트
+    kCompBoundCheck,
+
     //phy comp
     kCompPhy,
     kCompSinglePhy,     //b2Body 1개로 구성되는 물리 객체. 물리객체의 구조가 복잡해질 경우를 대비해서 뺴놓긴햇다

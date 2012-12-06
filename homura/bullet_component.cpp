@@ -22,6 +22,7 @@ BulletComponent::~BulletComponent() {
 void BulletComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &BulletComponent::OnDamageObjectMessage);
     RegisterMsgFunc(this, &BulletComponent::OnDestroyMessage);
+    RegisterMsgFunc(this, &BulletComponent::OnBoundCheckMessage);
 }
 
 void BulletComponent::Update(float dt) {
@@ -54,4 +55,20 @@ void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
 void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(msg->obj_id));
+}
+
+void BulletComponent::OnBoundCheckMessage( BoundCheckMessage *msg ) {
+    PhyBodyInfo body_info;
+    GetPhyBodyInfoMessage phy_body_msg = GetPhyBodyInfoMessage::Create(&body_info);
+    obj()->OnMessage(&phy_body_msg);
+
+    if(!phy_body_msg.is_ret) {
+        return;
+    }
+
+    if(body_info.x > msg->window_size.width || body_info.x < 0
+        || body_info.y > msg->window_size.height || body_info.y < 0) {
+            DestroyMessage destroy_msg = DestroyMessage::Create(obj()->id());
+            obj()->OnMessage(&destroy_msg);
+    }
 }

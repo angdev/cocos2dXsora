@@ -9,6 +9,7 @@
 #include "combat_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
+#include "bound_check_component.h"
 #include "sora/unit.h"
 
 #include "data_define.h"
@@ -125,6 +126,14 @@ GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d:
     //world_->AddObject(obj, obj->Type());
 
     return obj;
+}
+
+GameObject * GameObjectFactory::Create( const BoundCheckObjectHeader &header) {
+    GameObject *obj = new GameObject(world_);
+    BoundCheckComponent *logic = new BoundCheckComponent(obj, CCDirector::sharedDirector()->getWinSize());
+    obj->set_logic_comp(logic);
+
+   return obj;
 }
 
 b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float half_width_px, float half_height_px) {

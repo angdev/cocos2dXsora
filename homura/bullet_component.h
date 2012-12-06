@@ -19,6 +19,7 @@ public:
 public:
     void OnDamageObjectMessage(DamageObjectMessage *msg);
     void OnDestroyMessage(DestroyMessage *msg);
+    void OnBoundCheckMessage(BoundCheckMessage *msg);
 
     //get/setter
 public:
