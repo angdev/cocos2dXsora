@@ -42,6 +42,7 @@ void CharacterComponent::Update(float dt) {
 void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnDestroyMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
 }
 
 void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
@@ -88,6 +89,13 @@ void CharacterComponent::RequestRecovery() {
     obj()->world()->OnMessage(&req_recovery_msg);
     
     return;
+}
+
+void CharacterComponent::OnOutOfBoundMessage( OutOfBoundMessage *msg ) {
+    //이전 위치로 되돌림
+    b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
+    MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
+    obj()->OnMessage(&move_msg);
 }
 
 //CharacterComponent

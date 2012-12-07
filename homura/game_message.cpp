@@ -31,9 +31,10 @@ BeginEventMessage BeginEventMessage::Create(int event_id) {
     return msg;
 }
 
-BoundCheckMessage BoundCheckMessage::Create(cocos2d::CCSize size) {
-    BoundCheckMessage msg;
-    msg.window_size = size;
+OutOfBoundMessage OutOfBoundMessage::Create(const b2Vec2 &prev_pos, const b2Vec2 &current_pos) {
+    OutOfBoundMessage msg;
+    msg.prev_pos = prev_pos;
+    msg.current_pos = current_pos;
     return msg;
 }
 
@@ -59,7 +60,7 @@ CollideBulletMessage CollideBulletMessage::Create(GameObject *bullet, float dama
     return msg;
 }
 
-MoveMessage MoveMessage::Create(const glm::vec2 &vec) {
+MoveMessage MoveMessage::Create( const b2Vec2 &vec ) {
     MoveMessage msg;
     msg.vec = vec;
     return msg;

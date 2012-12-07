@@ -32,6 +32,8 @@ public:
     void OnDestroyMessage(DestroyMessage *msg);
     void OnCollideBulletMessage(CollideBulletMessage *msg);
     virtual void CollideBullet(CollideBulletMessage *msg);
+    //캐릭터 컴포넌트를 가진 녀석들은 밖에 못 나가도록 막는다
+    void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
 public:
     void set_is_enemy(bool is_enemy) { is_enemy_ = is_enemy; }

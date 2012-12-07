@@ -62,10 +62,10 @@ struct MoveMessage : public GameMessage {
 private:
     MoveMessage() {}
 public:
-    static MoveMessage Create(const glm::vec2 &vec);
+    static MoveMessage Create(const b2Vec2 &vec);
     MoveMessage *Clone() const { return new MoveMessage(); }
 
-    glm::vec2 vec;
+    b2Vec2 vec;
 };
 
 struct SetAngleMessage : public GameMessage {
@@ -153,14 +153,15 @@ public:
 
 //Bound Check Component Messages
 
-struct BoundCheckMessage : public GameMessage {
+struct OutOfBoundMessage : public GameMessage {
 private:
-    BoundCheckMessage() {}
+    OutOfBoundMessage() {}
 public:
-    static BoundCheckMessage Create(cocos2d::CCSize size);
-    BoundCheckMessage *Clone() const { return new BoundCheckMessage(); }
+    static OutOfBoundMessage Create(const b2Vec2 &prev_pos, const b2Vec2 &current_pos);
+    OutOfBoundMessage *Clone() const { return new OutOfBoundMessage(); }
 
-    cocos2d::CCSize window_size;
+    b2Vec2 prev_pos;
+    b2Vec2 current_pos;
 };
 
 //End Bound Check Component Messages

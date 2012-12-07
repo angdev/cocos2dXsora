@@ -86,7 +86,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bound_check_component.cpp" />
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
@@ -121,7 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h" />
-    <ClInclude Include="bound_check_component.h" />
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_tuple.h" />

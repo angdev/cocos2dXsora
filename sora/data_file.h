@@ -42,8 +42,5 @@ STRUCT_END()
 
 
 //로직 객체들
-STRUCT_NEW_BEGIN(BoundCheckObjectHeader, 1)
-STRUCT_END()
-
 STRUCT_NEW_BEGIN(GameEventObjectHeader, 1)
 STRUCT_END()

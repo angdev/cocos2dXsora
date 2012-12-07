@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "phy_component.h"
 #include "sora/unit.h"
+#include "game_object.h"
 
 #if SR_USE_PCH == 0
 #include "Box2D/Box2D.h"
@@ -9,6 +10,8 @@
 
 using namespace std;
 using namespace sora;
+
+USING_NS_CC;
 
 SinglePhyComponent *PhyComponent::SinglePhy(GameObject *obj, b2Body *body) {
     return new SinglePhyComponent(obj, body);
@@ -43,6 +46,15 @@ void SinglePhyComponent::OnMoveMessage(MoveMessage *msg) {
     b2Vec2 vec2 = body_->GetPosition();
     vec2.x += Unit::ToMeterFromUnit(msg->vec.x);
     vec2.y += Unit::ToMeterFromUnit(msg->vec.y);
+
+    //경계 체크
+    CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+    if(vec2.x > Unit::ToMeterFromUnit(win_size.width) || vec2.x < 0 
+        || vec2.y > Unit::ToMeterFromUnit(win_size.height) || vec2.y < 0) {
+        OutOfBoundMessage out_msg = OutOfBoundMessage::Create(body_->GetPosition(), vec2);
+        obj()->OnMessage(&out_msg);
+        return;
+    }
 
     body_->SetTransform(vec2, body_->GetAngle());
     //body_->SetAwake(true);

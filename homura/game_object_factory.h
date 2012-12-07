@@ -33,7 +33,6 @@ public:
     GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
 
     //가상의 게임 객체들 (로직)
-    GameObject *Create(const BoundCheckObjectHeader &header);
     GameObject *Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
         GameEventHandlerPtr game_event_handler_);
 
