@@ -2,7 +2,6 @@
 #include "sora/arch.h"
 #include "sora/assert_include.h"
 
-#include "sora/shared_ptr_include.h"
 #include "game_globals.h"
 
 #if SR_USE_PCH
@@ -33,8 +32,9 @@
 #endif
 
 //c++11
-#include "sora/array_include.h"
-#include "sora/unordered_map_include.h"
+#include <array>
+#include <tuple>
+#include <unordered_map>
 
 
 #endif

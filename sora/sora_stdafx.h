@@ -32,6 +32,12 @@
 #include <set>
 #include <string>
 
+#include <array>
+#include <tuple>
+#include <random>
+#include <unordered_map>
+#include <unordered_set>
+
 #include "tinyxml/tinyxml.h"
 #include <Box2D/Box2D.h>
 #include "cocos2d.h"
@@ -40,12 +46,6 @@
 #include "glm/glm.hpp"
 
 #include "assert_include.h"
-
-#include "array_include.h"
-#include "tuple_include.h"
-#include "random_include.h"
-#include "shared_ptr_include.h"
-#include "unordered_map_include.h"
 
 #include "globals.h"
 

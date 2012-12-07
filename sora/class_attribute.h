@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "shared_ptr_include.h"
 
 struct BaseData;
 

@@ -5,7 +5,7 @@
 #include <vector>
 #include "class_dict.h"
 #include "string_hash.h"
-#include "shared_ptr_include.h"
+
 
 struct BaseData;
 typedef std::shared_ptr<BaseData> BaseDataPtr;

@@ -1,7 +1,6 @@
 ﻿// Ŭnicode please
 #pragma once
 
-#include "shared_ptr_include.h"
 #include "stage_header.h"
 #include "assert_include.h"
 

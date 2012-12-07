@@ -22,7 +22,7 @@
 #define SORA_VERTEX_H_
 
 #include "vector.h"
-#include "array_include.h"
+#include <array>
 //#include "glm/type_vec.hpp"
 
 #if SR_USE_PCH == 0
