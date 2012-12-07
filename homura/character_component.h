@@ -43,6 +43,7 @@ public:
 
 private:
     virtual void Destroy() = 0;
+    void RequestRecovery();
 
 private:
     bool is_enemy_;

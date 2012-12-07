@@ -29,7 +29,7 @@ void BulletComponent::Update(float dt) {
     //TODO
     //일단 방향 정해진대로 날아가도록만 하였다
     PhyBodyInfo body_info;
-    GetPhyBodyInfoMessage body_info_msg = GetPhyBodyInfoMessage::Create(&body_info);
+    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
     obj()->OnMessage(&body_info_msg);
 
     if(!body_info_msg.is_ret)
@@ -61,7 +61,7 @@ void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
 
 void BulletComponent::OnBoundCheckMessage(BoundCheckMessage *msg) {
     PhyBodyInfo body_info;
-    GetPhyBodyInfoMessage phy_body_msg = GetPhyBodyInfoMessage::Create(&body_info);
+    RequestPhyBodyInfoMessage phy_body_msg = RequestPhyBodyInfoMessage::Create(&body_info);
     obj()->OnMessage(&phy_body_msg);
 
     if(!phy_body_msg.is_ret) {

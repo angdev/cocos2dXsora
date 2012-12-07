@@ -40,7 +40,7 @@ void CombatPlaneComponent::Attack(float dt) {
     attack_timer_ = 0;
 
     PhyBodyInfo body_info;
-    GetPhyBodyInfoMessage msg = GetPhyBodyInfoMessage::Create(&body_info);
+    RequestPhyBodyInfoMessage msg = RequestPhyBodyInfoMessage::Create(&body_info);
     obj()->OnMessage(&msg);
 
     if(!msg.is_ret)

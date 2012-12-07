@@ -10,6 +10,8 @@ struct GameMessage;
 struct DelayedGameMessage;
 struct PhyBodyInfo;
 
+class CharacterComponent;
+
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 typedef std::shared_ptr<GameMessage> GameMessagePtr;
 
@@ -76,12 +78,12 @@ public:
     float angle;
 };
 
-struct GetPhyBodyInfoMessage : public GameMessage {
+struct RequestPhyBodyInfoMessage : public GameMessage {
 private:
-    GetPhyBodyInfoMessage() {}
+    RequestPhyBodyInfoMessage() {}
 public:
-    static GetPhyBodyInfoMessage Create(PhyBodyInfo *info);
-    GetPhyBodyInfoMessage *Clone() const { return new GetPhyBodyInfoMessage(); }
+    static RequestPhyBodyInfoMessage Create(PhyBodyInfo *info);
+    RequestPhyBodyInfoMessage *Clone() const { return new RequestPhyBodyInfoMessage(); }
 
     PhyBodyInfo *phy_body_info;
     //body_info가 제대로 들어갔는지 확인하기 위한 변수
@@ -90,7 +92,32 @@ public:
 
 //End Physics Component Messages
 
+//Player Component Messages
 
+
+//End Player Component Messages
+
+//이거랑 플레이어 가져다 쓰는거랑 성능차는?
+struct RequestPlayerPositionMessage : public GameMessage {
+private:
+    RequestPlayerPositionMessage() {}
+public:
+    static RequestPlayerPositionMessage Create(b2Vec2 *position);
+    RequestPlayerPositionMessage *Clone() const { return new RequestPlayerPositionMessage(); }
+
+    b2Vec2 *position;
+    bool is_ret;
+};
+
+struct RequestRecoveryMessage : public GameMessage {
+private:
+    RequestRecoveryMessage() {}
+public:
+    static RequestRecoveryMessage Create(CharacterComponent *char_comp);
+    RequestRecoveryMessage *Clone() const { return new RequestRecoveryMessage(); }
+
+    CharacterComponent *char_comp;
+};
 //Character Component Messages
 
 

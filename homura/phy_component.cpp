@@ -52,7 +52,7 @@ void SinglePhyComponent::OnSetAngleMessage( SetAngleMessage *msg ) {
     body_->SetTransform(body_->GetPosition(), msg->angle);
 }
 
-void SinglePhyComponent::OnGetPhyBodyInfoMessage(GetPhyBodyInfoMessage *msg) {
+void SinglePhyComponent::OnGetPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg) {
     msg->phy_body_info->angle_rad = body_->GetAngle();
 
     b2Vec2 body_pos = body_->GetPosition();
