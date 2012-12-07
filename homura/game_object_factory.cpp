@@ -110,7 +110,6 @@ GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header
 //헤더는 의미없음. 그냥 넣어둔거.
 GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d::CCNode *parent ) {
     glm::vec2 obj_pos(header.x, header.y);
-    
     b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
 
     // 적절히 스프라이트 생성하기

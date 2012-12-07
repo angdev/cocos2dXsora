@@ -6,7 +6,6 @@
 #include <map>
 #include <memory>
 #include <typeinfo>
-#include "sora/shared_ptr_include.h"
 #include "game_message.h"
 
 struct GameMessage;

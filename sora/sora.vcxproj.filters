@@ -54,21 +54,6 @@
     <ClInclude Include="uncopyable.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="array_include.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="random_include.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="shared_ptr_include.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="tuple_include.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="unordered_map_include.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="angle.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -289,9 +274,6 @@
     </Filter>
     <Filter Include="render">
       <UniqueIdentifier>{ae2756f8-79c3-458e-8616-8cb5e8d253bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="inc">
-      <UniqueIdentifier>{05b18a50-0cee-4120-be16-2712376f5e76}</UniqueIdentifier>
     </Filter>
     <Filter Include="utf8">
       <UniqueIdentifier>{4d72e577-dd03-401d-b399-378d04da0781}</UniqueIdentifier>

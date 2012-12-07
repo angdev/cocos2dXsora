@@ -39,14 +39,11 @@
     <ClInclude Include="gl_helper.h" />
     <ClInclude Include="sora_stdafx.h" />
     <ClInclude Include="arch.h" />
-    <ClInclude Include="array_include.h" />
     <ClInclude Include="assert_include.h" />
     <ClInclude Include="logger.h" />
     <ClInclude Include="math_helper.h" />
     <ClInclude Include="mem.h" />
-    <ClInclude Include="random_include.h" />
     <ClInclude Include="shared_object.h" />
-    <ClInclude Include="shared_ptr_include.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="stage_header.h" />
     <ClInclude Include="string_code_dictionary.h" />
@@ -55,11 +52,9 @@
     <ClInclude Include="struct_version_converter.h" />
     <ClInclude Include="template_lib.h" />
     <ClInclude Include="template_lib.hpp" />
-    <ClInclude Include="tuple_include.h" />
     <ClInclude Include="typelist.h" />
     <ClInclude Include="uncopyable.h" />
     <ClInclude Include="unit.h" />
-    <ClInclude Include="unordered_map_include.h" />
     <ClInclude Include="utf8.h" />
     <ClInclude Include="vector.h" />
     <ClInclude Include="vertex.h" />
