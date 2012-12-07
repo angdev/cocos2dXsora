@@ -7,13 +7,11 @@
 #endif
 
 class GameWorld;
+class GameEventHandler;
+typedef std::shared_ptr<GameEventHandler> GameEventHandlerPtr;
 
-//이 구조체에 게임 스테이지에 실행될 스케쥴을 삽입.
-struct StageScheduleObject {
-    //단위는 second
-    float delayed_time_;
-    GameObject* obj;
-};
+//Test
+class GameObjectFactory;
 
 class GameStage {
 public:
@@ -22,7 +20,11 @@ public:
 
 public:
     bool Init();
-    void Update(float dt) { }
+    void Update(float dt);
+
+public:
+    void AddEventHandler(GameEventHandler *event_handler);
+    //void SortEvent();
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }
@@ -31,8 +33,13 @@ public:
 private:
     GameWorld *world_;
     cocos2d::CCLayer *layer_;
-
-    std::vector<StageScheduleObject> stage_schedules_;
+    
+    GameObjectFactory *factory_;
+    
+    float elapsed_time_;
+    unsigned int current_event_;
+    typedef std::vector<GameEventHandlerPtr> GameEventHandlers;
+    GameEventHandlers event_handlers_;
 };
 
 #endif

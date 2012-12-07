@@ -44,7 +44,8 @@ void NodeDrawableComponent::Update(float dt) {
     glm::vec2 ut_pos = Unit::ToUnitFromMeter(mt_pos);
     float angle_deg = kmRadiansToDegrees(angle_rad);
     node_->setPosition(ccp(ut_pos.x, ut_pos.y));
-    node_->setRotation(-angle_deg);
+    //PhyComponent 참조 (회전 이유)
+    node_->setRotation(-angle_deg + 90);
 }
 
 void NodeDrawableComponent::InitMsgHandler() {

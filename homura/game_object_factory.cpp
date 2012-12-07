@@ -6,10 +6,11 @@
 #include "game_object.h"
 #include "drawable_component.h"
 #include "phy_component.h"
-#include "ai_character_component.h"
 #include "combat_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
+#include "bound_check_component.h"
+#include "game_event_component.h"
 #include "sora/unit.h"
 
 #include "data_define.h"
@@ -22,29 +23,33 @@ USING_NS_CC;
 using namespace sora;
 using namespace std;
 
-GameObject *GameObjectFactory::CreateDemoBullet(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    
-    //적당히 스프라이트 시트에서 일단 하나 가져옴.
-    CCSprite *sprite = CCSprite::create("circle_bullet.png");
-    sprite->setScale(0.2f);
+GameObject *GameObjectFactory::Create( const TestPlayerObjectHeader &header, cocos2d::CCNode *parent ) {
+    //테스트용으로 조작할 걸 만드는게 목적
     GameObject *obj = new GameObject(world_);
-    
-    //스프라이트로부터 박스 만들기 분리?
-    CCRect rect = sprite->boundingBox();
-    b2Body *body = CreateCollisionBox(ut_pos, rect.size.width/2, rect.size.height/2);
+
+    glm::vec2 obj_pos(header.x, header.y);
+    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
+
+    body->SetTransform(body->GetPosition(), header.angle_rad);
+
+    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    sprite->setScale(0.2f);
 
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    PlayerComponent *logic = new PlayerComponent(obj, parent);
+    logic->set_hit_point(header.hit_point);
+
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
 
-GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &header, cocos2d::CCNode *parent) {
-    
+GameObject *GameObjectFactory::Create( const TestBulletObjectHeader &header, cocos2d::CCNode *parent ) {
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
     //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
     CCSprite *sprite = CCSprite::create("circle_bullet.png");
@@ -54,28 +59,31 @@ GameObject *GameObjectFactory::CreateDemoBullet(const TestBulletObjectHeader &he
 
     b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
         sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
-    
+    body->SetTransform(body->GetPosition(), header.angle_rad);
+
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     BulletComponent *logic = new BulletComponent(obj);
-    logic->set_damage(10);
-    logic->set_dir_vec(glm::vec2(header.dir_x, header.dir_y));
+    logic->set_damage(header.damage);
     logic->set_from_enemy(header.from_enemy);
-    
+    logic->set_speed(header.speed);
+
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
 
-GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
+GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent ) {
+    glm::vec2 obj_pos(header.x, header.y);
+    
+    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
     //바라보는 방향 등 생성을 적절히 해야함
-    body->SetTransform(body->GetPosition(), M_PI/6);
+    body->SetTransform(body->GetPosition(), header.angle);
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);
@@ -83,40 +91,26 @@ GameObject *GameObjectFactory::CreateDemoCombatPlane(const glm::vec2 &ut_pos, co
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new CombatPlaneComponent(obj, parent);
+    CombatPlaneComponent *logic = new CombatPlaneComponent(obj, parent);
+
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
+    logic->set_hit_point(header.hit_point);
+    logic->set_is_enemy(header.is_enemy);
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
 
-GameObject *GameObjectFactory::CreateDemoEnemy(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    //Temp
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
-    
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
-    sprite->setScale(0.2f);
-    
-    GameObject *obj = new GameObject(world_);
-    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
-    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new AICharacterComponent(obj);
-    
-    obj->set_drawable_comp(drawable);
-    obj->set_phy_comp(phy);
-    obj->set_logic_comp(logic);
-
-    world_->AddObject(obj, obj->Type());
-
-    return obj;
-}
-
-GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+//헤더는 의미없음. 그냥 넣어둔거.
+GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d::CCNode *parent ) {
+    glm::vec2 obj_pos(header.x, header.y);
+    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
 
     // 적절히 스프라이트 생성하기
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
@@ -131,29 +125,24 @@ GameObject *GameObjectFactory::CreateDemoObj(const glm::vec2 &ut_pos, cocos2d::C
     obj->set_logic_comp(logic);
 
     //아무것도 아닌거로 일단 설정. 이것은 그냥 그자리에 적절히 존재할뿐이라는 의미
-    world_->AddObject(obj, obj->Type());
+    //world_->AddObject(obj, obj->Type());
 
     return obj;
 }
 
-GameObject *GameObjectFactory::CreateDemoPlayer(const glm::vec2 &ut_pos, cocos2d::CCNode *parent) {
-    //일단 그냥 뿌린다 - 전투기 객체랑 다를 바 없음
-    //테스트용으로 조작할 걸 만드는게 목적
+GameObject * GameObjectFactory::Create( const BoundCheckObjectHeader &header) {
     GameObject *obj = new GameObject(world_);
-    b2Body *body = CreateCollisionBox(ut_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
-
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
-    sprite->setScale(0.2f);
-
-    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
-    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new PlayerComponent(obj, parent);
-
-    obj->set_drawable_comp(drawable);
-    obj->set_phy_comp(phy);
+    BoundCheckComponent *logic = new BoundCheckComponent(obj, CCDirector::sharedDirector()->getWinSize());
     obj->set_logic_comp(logic);
 
-    world_->AddObject(obj, obj->Type());
+   return obj;
+}
+
+GameObject * GameObjectFactory::Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
+                                       GameEventHandlerPtr game_event_handler_) {
+    GameObject *obj = new GameObject(world_);
+    GameEventComponent *logic = new GameEventComponent(obj, event_id, next_events, game_event_handler_);
+    obj->set_logic_comp(logic);
 
     return obj;
 }
@@ -168,13 +157,13 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
 
     b2World *b2_world = world_->b2_world();
     b2Body *body = b2_world->CreateBody(&bodyDef);
-    
+
     // Define another box shape for our dynamic body.
     b2PolygonShape dynamicBox;
     //총알 크기만한 박스 생성
     //크기로 b2Body 만들어주는거 있어도 될듯.
     dynamicBox.SetAsBox(Unit::ToMeterFromUnit(half_width_px), Unit::ToMeterFromUnit(half_height_px));//These are mid points for our 1m box
-    
+
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
     // 충돌 체크용으로만 사용.

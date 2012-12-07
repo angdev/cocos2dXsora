@@ -10,6 +10,14 @@
 
 class SinglePhyComponent;
 
+struct PhyBodyInfo {
+    PhyBodyInfo() : x(0), y(0), angle_rad(0) {}
+
+    float x;
+    float y;
+    float angle_rad;
+};
+
 class PhyComponent : public GameComponent {
 public:
     virtual b2Body *main_body() = 0;
@@ -35,7 +43,10 @@ public:
 
     //메시지 함수들
 public:
+    //2개 묶어서 SetPhyBodyInfo로 해도 될듯
     void OnMoveMessage(MoveMessage *msg);
+    void OnSetAngleMessage(SetAngleMessage *msg);
+    void OnGetPhyBodyInfoMessage(GetPhyBodyInfoMessage *msg);
 
 public:
 

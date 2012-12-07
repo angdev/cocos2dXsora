@@ -36,6 +36,7 @@ public:
 public:
     //GameObject Handling
     //id를 리턴함.
+    int AddObject(GameObject *obj);
     int AddObject(GameObject *obj, ObjectType type);
 
     GameObjectPtr FindObject(int id);

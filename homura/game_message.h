@@ -8,6 +8,7 @@
 
 struct GameMessage;
 struct DelayedGameMessage;
+struct PhyBodyInfo;
 
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 typedef std::shared_ptr<GameMessage> GameMessagePtr;
@@ -65,19 +66,42 @@ public:
     glm::vec2 vec;
 };
 
+struct SetAngleMessage : public GameMessage {
+private:
+    SetAngleMessage() {}
+public:
+    static SetAngleMessage Create(float angle);
+    SetAngleMessage *Clone() const { return new SetAngleMessage(); }
+
+    float angle;
+};
+
+struct GetPhyBodyInfoMessage : public GameMessage {
+private:
+    GetPhyBodyInfoMessage() {}
+public:
+    static GetPhyBodyInfoMessage Create(PhyBodyInfo *info);
+    GetPhyBodyInfoMessage *Clone() const { return new GetPhyBodyInfoMessage(); }
+
+    PhyBodyInfo *phy_body_info;
+    //body_info가 제대로 들어갔는지 확인하기 위한 변수
+    bool is_ret;
+};
+
 //End Physics Component Messages
 
 
 //Character Component Messages
 
 
-struct ApplyDamageMessage : public GameMessage {
+struct CollideBulletMessage : public GameMessage {
 private:
-    ApplyDamageMessage() {}
+    CollideBulletMessage() {}
 public:
-    static ApplyDamageMessage Create(float damage, bool from_enemy);
-    ApplyDamageMessage *Clone() const { return new ApplyDamageMessage(); }
+    static CollideBulletMessage Create(GameObject *bullet, float damage, bool from_enemy);
+    CollideBulletMessage *Clone() const { return new CollideBulletMessage(); }
 
+    GameObject *bullet;
     float damage;
     bool from_enemy;
     bool applied;
@@ -97,14 +121,33 @@ public:
     GameObject *obj;
 };
 
-struct SetDirectionMessage : public GameMessage {
-private:
-    SetDirectionMessage() {}
-public:
-    static SetDirectionMessage Create(const glm::vec2 &direction);
-    SetDirectionMessage *Clone() const { return new SetDirectionMessage(); }
-
-    glm::vec2 direction;
-};
 
 //End Bullet Component Messages
+
+//Bound Check Component Messages
+
+struct BoundCheckMessage : public GameMessage {
+private:
+    BoundCheckMessage() {}
+public:
+    static BoundCheckMessage Create(cocos2d::CCSize size);
+    BoundCheckMessage *Clone() const { return new BoundCheckMessage(); }
+
+    cocos2d::CCSize window_size;
+};
+
+//End Bound Check Component Messages
+
+//Game Event Component Messages
+
+struct BeginEventMessage : public GameMessage {
+private:
+    BeginEventMessage() {}
+public:
+    static BeginEventMessage Create(int event_id);
+    BeginEventMessage *Clone() const { return new BeginEventMessage(); }
+
+    int event_id;
+};
+
+//End Game Event Component Messages

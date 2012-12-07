@@ -88,3 +88,4 @@ cvars.xml
 cocos2d-html5-tests
 
 lint.xml
+*.orig

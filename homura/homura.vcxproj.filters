@@ -61,17 +61,32 @@
     <ClCompile Include="player_component.cpp">
       <Filter>logic_comp\player</Filter>
     </ClCompile>
-    <ClCompile Include="ai_character_component.cpp">
-      <Filter>logic_comp\character</Filter>
-    </ClCompile>
-    <ClCompile Include="combat_plane_component.cpp">
-      <Filter>logic_comp\character</Filter>
-    </ClCompile>
     <ClCompile Include="game_stage.cpp">
       <Filter>stage</Filter>
     </ClCompile>
     <ClCompile Include="game_stage_factory.cpp">
       <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="game_event.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_event_handler.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_trigger.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="laser_plane_component.cpp">
+      <Filter>logic_comp\character</Filter>
+    </ClCompile>
+    <ClCompile Include="combat_plane_component.cpp">
+      <Filter>logic_comp\character</Filter>
+    </ClCompile>
+    <ClCompile Include="game_event_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="bound_check_component.cpp">
+      <Filter>logic_comp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,17 +159,32 @@
     <ClInclude Include="player_component.h">
       <Filter>logic_comp\player</Filter>
     </ClInclude>
-    <ClInclude Include="ai_character_component.h">
-      <Filter>logic_comp\character</Filter>
-    </ClInclude>
-    <ClInclude Include="combat_plane_component.h">
-      <Filter>logic_comp\character</Filter>
-    </ClInclude>
     <ClInclude Include="game_stage.h">
       <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="game_stage_factory.h">
       <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="game_event.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_event_handler.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_trigger.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="laser_plane_component.h">
+      <Filter>logic_comp\character</Filter>
+    </ClInclude>
+    <ClInclude Include="combat_plane_component.h">
+      <Filter>logic_comp\character</Filter>
+    </ClInclude>
+    <ClInclude Include="game_event_component.h">
+      <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="bound_check_component.h">
+      <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +223,9 @@
     </Filter>
     <Filter Include="stage">
       <UniqueIdentifier>{0c3a7ae0-50a6-48ec-8b40-6f90f81209cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event">
+      <UniqueIdentifier>{90cbdac0-1937-4fea-8f0a-5fc7600f0dab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
