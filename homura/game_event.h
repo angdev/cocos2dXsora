@@ -22,7 +22,7 @@ public:
 
 public:
     //void set_trigger(GameTrigger *trigger) { trigger_ = trigger; }
-    GameTrigger *trigger() { return trigger_; }
+    GameTrigger *trigger() { return trigger_.get(); }
     bool is_event_executed() { return is_event_executed_; }
     GameStage *stage() { return stage_; }
 
@@ -41,7 +41,7 @@ private:
     float end_time_;
 
     //후결 조건 (다음 이벤트가 실행될 조건)
-    GameTrigger *trigger_;
+    std::unique_ptr<GameTrigger> trigger_;
     GameStage *stage_;
 };
 

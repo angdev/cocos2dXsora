@@ -6,8 +6,8 @@
 #include "game_trigger.h"
 
 GameEvent::GameEvent(GameStage *stage, GameTrigger *trigger = new NullTrigger()) 
-    : start_time_(0), end_time_(0), stage_(stage), trigger_(trigger), is_event_executed_(false) {
-
+    : start_time_(0), end_time_(0), stage_(stage), is_event_executed_(false) {
+    trigger_ = std::move(std::unique_ptr<GameTrigger>(trigger));
 }
 
 GameEvent::~GameEvent() {
