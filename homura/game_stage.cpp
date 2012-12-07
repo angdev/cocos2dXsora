@@ -38,7 +38,7 @@ bool GameStage::Init() {
     GameEventHandler *evt_hnd0 = new GameEventHandler();
 
     TestCombatPlaneObjectHeader combat_header;
-    combat_header.angle = 0;
+    combat_header.angle = M_PI_2;
     combat_header.hit_point = 200;
     combat_header.x = 100;
     combat_header.y = 200;
@@ -50,12 +50,12 @@ bool GameStage::Init() {
     NextEventsPtr next_event_1(new NextEvents());
     next_event_1->push_back(2);
     world_->AddObject(factory_->Create(e_header, 1, next_event_1, GameEventHandlerPtr(evt_hnd0)));
-    
+     
     //EventGroup #1
     GameEventHandler *evt_hnd1 = new GameEventHandler();
 
     //Event 1
-    combat_header.angle = M_PI;
+    combat_header.angle = -M_PI_2;
     combat_header.is_enemy = true;
     combat_header.hit_point = 100;
     combat_header.x = 100;

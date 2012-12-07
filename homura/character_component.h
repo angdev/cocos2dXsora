@@ -6,7 +6,7 @@
 #include "game_globals.h"
 
 struct DestroyMessage;
-struct ApplyDamageMessage;
+struct CollideBulletMessage;
 
 namespace cocos2d {;
 class CCNode;
@@ -30,7 +30,8 @@ public:
 
     virtual void InitMsgHandler();
     void OnDestroyMessage(DestroyMessage *msg);
-    void OnApplyDamage(ApplyDamageMessage *msg);
+    void OnCollideBulletMessage(CollideBulletMessage *msg);
+    virtual void CollideBullet(CollideBulletMessage *msg);
 
 public:
     void set_is_enemy(bool is_enemy) { is_enemy_ = is_enemy; }

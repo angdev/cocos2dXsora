@@ -66,6 +66,16 @@ public:
     glm::vec2 vec;
 };
 
+struct SetAngleMessage : public GameMessage {
+private:
+    SetAngleMessage() {}
+public:
+    static SetAngleMessage Create(float angle);
+    SetAngleMessage *Clone() const { return new SetAngleMessage(); }
+
+    float angle;
+};
+
 struct GetPhyBodyInfoMessage : public GameMessage {
 private:
     GetPhyBodyInfoMessage() {}
@@ -84,13 +94,14 @@ public:
 //Character Component Messages
 
 
-struct ApplyDamageMessage : public GameMessage {
+struct CollideBulletMessage : public GameMessage {
 private:
-    ApplyDamageMessage() {}
+    CollideBulletMessage() {}
 public:
-    static ApplyDamageMessage Create(float damage, bool from_enemy);
-    ApplyDamageMessage *Clone() const { return new ApplyDamageMessage(); }
+    static CollideBulletMessage Create(GameObject *bullet, float damage, bool from_enemy);
+    CollideBulletMessage *Clone() const { return new CollideBulletMessage(); }
 
+    GameObject *bullet;
     float damage;
     bool from_enemy;
     bool applied;

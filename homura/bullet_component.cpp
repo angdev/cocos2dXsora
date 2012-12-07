@@ -42,14 +42,16 @@ void BulletComponent::Update(float dt) {
 }
 
 void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
-    ApplyDamageMessage apply_msg = ApplyDamageMessage::Create(damage_, from_enemy_);
-    msg->obj->OnMessage(&apply_msg);
     
+    CollideBulletMessage apply_msg = CollideBulletMessage::Create(obj(), damage_, from_enemy_);
+    msg->obj->OnMessage(&apply_msg);
+
     //리턴값. 맞았는가에 대한 체크
     if(apply_msg.applied) {
         DestroyMessage msg = DestroyMessage::Create(obj()->id());
         OnMessage(&msg);
     }
+
 }
 
 void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {

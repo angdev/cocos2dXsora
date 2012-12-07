@@ -24,12 +24,13 @@ using namespace sora;
 using namespace std;
 
 GameObject *GameObjectFactory::Create( const TestPlayerObjectHeader &header, cocos2d::CCNode *parent ) {
-    //일단 그냥 뿌린다 - 전투기 객체랑 다를 바 없음
     //테스트용으로 조작할 걸 만드는게 목적
     GameObject *obj = new GameObject(world_);
 
     glm::vec2 obj_pos(header.x, header.y);
     b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
+
+    body->SetTransform(body->GetPosition(), header.angle_rad);
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
     sprite->setScale(0.2f);

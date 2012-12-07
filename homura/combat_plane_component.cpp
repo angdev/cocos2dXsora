@@ -51,8 +51,8 @@ void CombatPlaneComponent::Attack(float dt) {
     float look_angle = body_info.angle_rad;
     //각도로부터 벡터 만들기
     //cocos2dx랑 box2d 각도 기준점이 다름.
-    header.angle_rad = body_info.angle_rad + M_PI/2;
-    //cocos2d::CCLog("%f %f %f", look_angle, look_vector.x, look_vector.y);
+    header.angle_rad = body_info.angle_rad;
+    cocos2d::CCLog("%f", look_angle);
     //방향과 속력은 분리해야 함 - 총알도 돌려야 함.
     header.speed = 30;
     header.x = Unit::ToUnitFromMeter(body_info.x);

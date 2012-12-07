@@ -35,7 +35,7 @@ void CharacterComponent::Update(float dt) {
 
 void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnDestroyMessage);
-    RegisterMsgFunc(this, &CharacterComponent::OnApplyDamage);
+    RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
 }
 
 void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
@@ -43,12 +43,17 @@ void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
     Destroy();
 }
 
-void CharacterComponent::OnApplyDamage(ApplyDamageMessage *msg) {
+void CharacterComponent::OnCollideBulletMessage(CollideBulletMessage *msg) {
+    CollideBullet(msg);
+}
+
+void CharacterComponent::CollideBullet(CollideBulletMessage *msg) {
     if(msg->from_enemy == is_enemy())
         return;
     hit_point_ -= msg->damage;
     msg->applied = true;
     cocos2d::CCLog("%f", hit_point_);
+
 }
 
 //CharacterComponent

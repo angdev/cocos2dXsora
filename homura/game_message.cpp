@@ -4,6 +4,13 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+
+SetAngleMessage SetAngleMessage::Create( float angle ) {
+    SetAngleMessage msg;
+    msg.angle = angle;
+    return msg;
+}
+
 BeginEventMessage BeginEventMessage::Create( int event_id ) {
     BeginEventMessage msg;
     msg.event_id = event_id;
@@ -29,8 +36,9 @@ DamageObjectMessage DamageObjectMessage::Create(GameObject *obj) {
     return msg;
 }
 
-ApplyDamageMessage ApplyDamageMessage::Create(float damage, bool from_enemy) {
-    ApplyDamageMessage msg;
+CollideBulletMessage CollideBulletMessage::Create(GameObject *bullet, float damage, bool from_enemy) {
+    CollideBulletMessage msg;
+    msg.bullet = bullet;
     msg.damage = damage;
     msg.from_enemy = from_enemy;
     msg.applied = false;

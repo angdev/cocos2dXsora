@@ -43,7 +43,9 @@ public:
 
     //메시지 함수들
 public:
+    //2개 묶어서 SetPhyBodyInfo로 해도 될듯
     void OnMoveMessage(MoveMessage *msg);
+    void OnSetAngleMessage(SetAngleMessage *msg);
     void OnGetPhyBodyInfoMessage(GetPhyBodyInfoMessage *msg);
 
 public:
