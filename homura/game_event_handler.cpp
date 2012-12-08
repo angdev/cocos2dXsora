@@ -20,7 +20,7 @@ void GameEventHandler::Run(float elapsed_time) {
     //그런 이벤트는 따로 빼야지
     all_executed_ = true;
     for(GameEventPtr event : events_) {
-        if(event->is_event_executed())
+        if(event->IsRun())
             continue;
 
         if(!event->InvokeRun(elapsed_time))

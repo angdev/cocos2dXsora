@@ -6,6 +6,7 @@
 #include "game_event_handler.h"
 #include "game_event_component.h"
 #include "game_layer.h"
+#include "game_action.h"
 
 #include "game_object_factory.h"
 
@@ -44,7 +45,8 @@ bool GameStage::Init() {
     combat_header.y = 200;
     combat_header.is_enemy = false;
     combat_header.sprite_name = "";
-    GameEvent *evt0 = MakeCreateObjectEvent(this, combat_header);
+    GameAction *act0 = MakeCreateObjectAction(combat_header);
+    GameEvent *evt0 = new GameEvent(this, act0, new NullTrigger);
     evt_hnd0->AddEvent(evt0);
     GameEventObjectHeader e_header;
     NextEventsPtr next_event_1(new NextEvents());
@@ -61,12 +63,14 @@ bool GameStage::Init() {
     combat_header.x = 100;
     combat_header.y = 1000;
     combat_header.sprite_name = "";
-    GameEvent *evt1 = MakeCreateObjectEvent(this, combat_header, new SpecificDestroyTrigger());
+    GameAction *act1 = MakeCreateObjectAction(combat_header);
+    GameEvent *evt1 = new GameEvent(this, act1, new NullTrigger);
     evt_hnd1->AddEvent(evt1);
     
     combat_header.x = 300;
     //Event 2
-    GameEvent *evt2 = MakeCreateObjectEvent(this, combat_header);
+    GameAction *act2 = MakeCreateObjectAction(combat_header);
+    GameEvent *evt2 = new GameEvent(this, act2, new SpecificDestroyTrigger());
     evt_hnd1->AddEvent(evt2);
     NextEventsPtr next_event_2(new NextEvents());
     next_event_2->push_back(3);
@@ -84,7 +88,8 @@ bool GameStage::Init() {
     bullet_header.angle_rad = 0;
     bullet_header.speed = 10;
     bullet_header.damage = 10;
-    GameEvent *evt3 = MakeCreateObjectEvent(this, bullet_header);
+    GameAction *act3 = MakeCreateObjectAction(bullet_header);
+    GameEvent *evt3 = new GameEvent(this, act3, new NullTrigger);
     evt_hnd2->AddEvent(evt3);
     NextEventsPtr next_event_3(new NextEvents());//Empty
 
