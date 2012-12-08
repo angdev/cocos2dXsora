@@ -12,7 +12,10 @@ GameEventHandler::~GameEventHandler() {
 }
 
 void GameEventHandler::AddEvent(GameEvent *event) {
-    events_.push_back(GameEventPtr(event));
+    //이벤트에 트리거, 액션 준비가 되어야 함.
+    if(event->is_action_set() && event->is_trigger_set()) {
+        events_.push_back(GameEventPtr(event));
+    }
 }
 
 void GameEventHandler::Run(float elapsed_time) {
