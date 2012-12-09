@@ -68,7 +68,7 @@ bool GameStage::Init() {
     GameTrigger *trg1 = new GameTrigger(this);
     GameAction *act1 = MakeCreateObjectAction(combat_header);
     trg1->set_action(act1);
-    trg1->set_condition(new NullCondition);
+    trg1->set_condition(new SpecificDestroyCondition);
     trg_hnd1->AddTrigger(trg1);
     
     combat_header.x = 300;

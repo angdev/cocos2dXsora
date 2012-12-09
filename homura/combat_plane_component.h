@@ -21,6 +21,10 @@ public:
 private:
     void Destroy();
 
+    //TEMP
+    //일단 막 움직임
+    void AIMove(float dt);
+
 private:
     void Attack(float dt);
     //설정할 수 있도록 하자.
