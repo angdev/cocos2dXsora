@@ -23,6 +23,8 @@ public:
     void Update(float dt);
 
 public:
+    bool IsCleared() { return is_cleared_; }
+    void set_is_cleared(bool is_cleared) { is_cleared_ = is_cleared; }
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }
@@ -35,6 +37,8 @@ private:
     GameObjectFactory *factory_;
     
     float elapsed_time_;
+
+    bool is_cleared_;
 };
 
 #endif

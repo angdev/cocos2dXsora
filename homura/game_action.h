@@ -75,4 +75,14 @@ CreateObjectAction<T> *MakeCreateObjectAction(const T &header) {
     return action;
 };
 
+
+class VictoryAction : public GameAction {
+public:
+    VictoryAction() {}
+    virtual ~VictoryAction() {}
+
+private:
+    void Run();
+};
+
 #endif

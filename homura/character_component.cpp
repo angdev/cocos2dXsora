@@ -59,7 +59,7 @@ void CharacterComponent::CollideBullet(CollideBulletMessage *msg) {
         return;
     hit_point_ -= msg->damage;
     msg->applied = true;
-    cocos2d::CCLog("%f", hit_point_);
+    //cocos2d::CCLog("%f", hit_point_);
 
 }
 

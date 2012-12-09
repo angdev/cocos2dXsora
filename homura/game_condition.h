@@ -24,9 +24,9 @@ private:
 };
 
 
-//여기 아래에 트리거들을 작성
+//여기 아래에 조건들을 작성
 
-//아무 조건 없는 빈 트리거
+//아무 조건 없는 빈 조건
 struct NullCondition : public GameCondition {
     virtual bool CheckFunc() { return true; }
     virtual ConditionType Type();

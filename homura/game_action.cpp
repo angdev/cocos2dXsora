@@ -16,3 +16,8 @@ void GameAction::InvokeRun() {
         return;
     Run();
 }
+
+void VictoryAction::Run() {
+    trigger()->stage()->set_is_cleared(true);
+    is_run_ = true;
+}

@@ -17,7 +17,7 @@
 USING_NS_CC;
 
 GameStage::GameStage(GameWorld *world)
-    : world_(world), elapsed_time_(0), layer_(0) {
+    : world_(world), elapsed_time_(0), layer_(0), is_cleared_(false) {
 
 }
 
@@ -97,11 +97,25 @@ bool GameStage::Init() {
     GameTrigger *trg3 = new GameTrigger(this);
     GameAction *act3 = MakeCreateObjectAction(bullet_header);
     trg3->set_action(act3);
-    trg3->set_condition(new NullCondition);
+    trg3->set_condition(new SpecificDestroyCondition());
     trg_hnd2->AddTrigger(trg3);
     NextTriggersPtr next_trigger_3(new NextTriggers());//Empty
-
+    next_trigger_3->push_back(4);
+    
     world_->AddObject(factory_->Create(e_header, 3, next_trigger_3, GameTriggerHandlerPtr(trg_hnd2)));
+
+    //EventGroup #3
+    //Victory
+
+    GameTrigger *trg4 = new GameTrigger(this);
+    GameAction *act4 = new VictoryAction();
+    trg4->set_action(act4);
+    trg4->set_condition(new NullCondition);
+    GameTriggerHandler *trg_hnd3 = new GameTriggerHandler();
+    trg_hnd3->AddTrigger(trg4);
+    NextTriggersPtr next_trigger_4(new NextTriggers());
+
+    world_->AddObject(factory_->Create(e_header, 4, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
 
     //1번부터 시작하라는 메시지를 보냄.
     BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(1);

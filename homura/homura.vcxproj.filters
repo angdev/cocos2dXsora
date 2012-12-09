@@ -77,19 +77,19 @@
       <Filter>phy_comp</Filter>
     </ClCompile>
     <ClCompile Include="game_action.cpp">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClCompile>
     <ClCompile Include="collision_manager.cpp">
       <Filter>phy_comp</Filter>
     </ClCompile>
     <ClCompile Include="game_condition.cpp">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClCompile>
     <ClCompile Include="game_trigger.cpp">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClCompile>
     <ClCompile Include="game_trigger_handler.cpp">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClCompile>
     <ClCompile Include="game_trigger_component.cpp">
       <Filter>logic_comp</Filter>
@@ -181,19 +181,19 @@
       <Filter>phy_comp</Filter>
     </ClInclude>
     <ClInclude Include="game_action.h">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClInclude>
     <ClInclude Include="collision_manager.h">
       <Filter>phy_comp</Filter>
     </ClInclude>
     <ClInclude Include="game_condition.h">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClInclude>
     <ClInclude Include="game_trigger.h">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClInclude>
     <ClInclude Include="game_trigger_handler.h">
-      <Filter>event</Filter>
+      <Filter>trigger</Filter>
     </ClInclude>
     <ClInclude Include="game_trigger_component.h">
       <Filter>logic_comp</Filter>
@@ -236,7 +236,7 @@
     <Filter Include="stage">
       <UniqueIdentifier>{0c3a7ae0-50a6-48ec-8b40-6f90f81209cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="event">
+    <Filter Include="trigger">
       <UniqueIdentifier>{90cbdac0-1937-4fea-8f0a-5fc7600f0dab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
