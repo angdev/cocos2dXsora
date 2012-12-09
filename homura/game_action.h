@@ -2,7 +2,7 @@
 #ifndef __GAME_ACTION_H__
 #define __GAME_ACTION_H__
 
-#include "game_event.h"
+#include "game_trigger.h"
 
 class GameAction {
 public:
@@ -13,8 +13,8 @@ public:
     void InvokeRun();
     
 public:
-    void set_event(GameEvent *event) { event_ = event; }
-    GameEvent *event() { return event_; }
+    void set_trigger(GameTrigger *trigger) { trigger_ = trigger; }
+    GameTrigger *trigger() { return trigger_; }
 
     bool IsRun() { return is_run_; }
 
@@ -25,7 +25,7 @@ private:
     virtual void Run() = 0;
 
 private:
-    GameEvent *event_;
+    GameTrigger *trigger_;
 };
 
 //여기부터 액션들 추가
@@ -50,18 +50,18 @@ private:
         cocos2d::CCLog("Create Object Event");
 
         //지연 생성
-        GameObjectFactory factory(event()->stage()->world());
+        GameObjectFactory factory(trigger()->stage()->world());
         //팩토리 수정해서 이렇게 씀, 유효성 검사?
-        GameObject* created_obj = factory.Create(header_, event()->stage()->layer());
-        event()->stage()->world()->AddObject(created_obj, created_obj->Type());
+        GameObject* created_obj = factory.Create(header_, trigger()->stage()->layer());
+        trigger()->stage()->world()->AddObject(created_obj, created_obj->Type());
 
-        if(event()->trigger()->Type() == kTriggerSpecificDestroy) {
-            static_cast<SpecificDestroyTrigger*>(event()->trigger())->SetParams(created_obj);
+        if(trigger()->condition()->Type() == kConditionSpecificDestroy) {
+            static_cast<SpecificDestroyCondition*>(trigger()->condition())->SetParams(created_obj);
         }
 
         //
         is_run_ = true;
-        event()->trigger()->set_valid(true);
+        trigger()->condition()->set_valid(true);
     }
 
 private:

@@ -2,52 +2,59 @@
 #ifndef __GAME_TRIGGER_H__
 #define __GAME_TRIGGER_H__
 
-struct GameTrigger {
+#include "game_stage.h"
+#include "game_world.h"
+
+class GameObject;
+class GameWorld;
+//조건을 확인하기 위한 클래스
+struct GameCondition;
+class GameAction;
+
+//GameTrigger = GameAction + GameCondition
+class GameTrigger {
 public:
-    GameTrigger();
+    GameTrigger(GameStage *stage);
     virtual ~GameTrigger();
 
-    bool Check();
-    virtual TriggerType Type() = 0;
+public:
+    bool InvokeRun(float elapsed_time);
+    //이벤트&트리거가 끝났는가?
+    bool IsEnd();
 
 public:
-    void set_valid(bool valid) { valid_ = valid; }
-    bool valid() { return valid_; }
+    void set_action(GameAction *action);
+    GameAction *action() { return action_.get(); }
+    void set_condition(GameCondition *condition);
+    GameCondition *condition() { return condition_.get(); }
+    bool IsRun();
+    GameStage *stage() { return stage_; }
 
-protected:
-    //이벤트가 먼저 실행되어야 후결 트리거 체크 가능
-    bool valid_;
-    bool complete_;
+    //시작, 끝 시간 set/getter
+    /*
+    */
+    
+    bool is_action_set() { return is_action_set_; }
+    bool is_condition_set() { return is_condition_set_; }
 
 private:
-    virtual bool CheckFunc() = 0;
+    
+    float start_time_;
+    float end_time_;
+
+    //실행되는 액션
+    std::unique_ptr<GameAction> action_;
+    //후결 조건 (다음 이벤트가 실행될 조건)
+    std::unique_ptr<GameCondition> condition_;
+
+    //동적 생성을 편하게 하기 위해서
+    //액션이 등록되었나
+    bool is_action_set_;
+    //트리거가 등록되었나
+    bool is_condition_set_;
+
+    GameStage *stage_;
 };
 
-
-//여기 아래에 트리거들을 작성
-
-//아무 조건 없는 빈 트리거
-struct NullTrigger : public GameTrigger {
-    virtual bool CheckFunc() { return true; }
-    virtual TriggerType Type();
-};
-
-//특정한 객체가 파괴되었을 때
-struct SpecificDestroyTrigger : public GameTrigger {
-private:
-    virtual bool CheckFunc();
-    
-    GameWorld *world_;
-    int id_;
-
-public:
-    SpecificDestroyTrigger() {}
-    
-public:
-    virtual TriggerType Type();
-    
-    void SetParams(GameObject *obj);
-
-};
 
 #endif

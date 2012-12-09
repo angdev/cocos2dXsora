@@ -25,9 +25,9 @@ SetAngleMessage SetAngleMessage::Create(float angle) {
     return msg;
 }
 
-BeginEventMessage BeginEventMessage::Create(int event_id) {
-    BeginEventMessage msg;
-    msg.event_id = event_id;
+BeginTriggerMessage BeginTriggerMessage::Create(int trigger_id) {
+    BeginTriggerMessage msg;
+    msg.trigger_id = trigger_id;
     return msg;
 }
 

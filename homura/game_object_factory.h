@@ -13,12 +13,12 @@
 class b2Body;
 class GameObject;
 class GameWorld;
-class GameEventHandler;
+class GameTriggerHandler;
 
-typedef unsigned int EventID;
-typedef std::vector<EventID> NextEvents;
-typedef std::shared_ptr<NextEvents> NextEventsPtr;
-typedef std::shared_ptr<GameEventHandler> GameEventHandlerPtr;
+typedef unsigned int TriggerID;
+typedef std::vector<TriggerID> NextTriggers;
+typedef std::shared_ptr<NextTriggers> NextTriggersPtr;
+typedef std::shared_ptr<GameTriggerHandler> GameTriggerHandlerPtr;
 
 class GameObjectFactory {
 public:
@@ -33,8 +33,8 @@ public:
     GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
 
     //가상의 게임 객체들 (로직)
-    GameObject *Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
-        GameEventHandlerPtr game_event_handler_);
+    GameObject *Create(const GameEventObjectHeader &header, TriggerID trigger_id, NextTriggersPtr next_triggers, 
+        GameTriggerHandlerPtr game_trigger_handler_);
 
 private:
     b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);

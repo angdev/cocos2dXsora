@@ -7,8 +7,8 @@
 #endif
 
 class GameWorld;
-class GameEventHandler;
-typedef std::shared_ptr<GameEventHandler> GameEventHandlerPtr;
+class GameTriggerHandler;
+typedef std::shared_ptr<GameTriggerHandler> GameTriggerHandlerPtr;
 
 //Test
 class GameObjectFactory;
@@ -23,8 +23,6 @@ public:
     void Update(float dt);
 
 public:
-    void AddEventHandler(GameEventHandler *event_handler);
-    //void SortEvent();
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }
@@ -37,9 +35,6 @@ private:
     GameObjectFactory *factory_;
     
     float elapsed_time_;
-    unsigned int current_event_;
-    typedef std::vector<GameEventHandlerPtr> GameEventHandlers;
-    GameEventHandlers event_handlers_;
 };
 
 #endif

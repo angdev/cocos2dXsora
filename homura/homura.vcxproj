@@ -97,15 +97,15 @@
     <ClCompile Include="game_action.cpp" />
     <ClCompile Include="game_component.cpp" />
     <ClCompile Include="game_console.cpp" />
-    <ClCompile Include="game_event_component.cpp" />
-    <ClCompile Include="game_event_handler.cpp" />
+    <ClCompile Include="game_trigger_component.cpp" />
+    <ClCompile Include="game_trigger_handler.cpp" />
     <ClCompile Include="game_layer.cpp" />
     <ClCompile Include="game_message.cpp" />
     <ClCompile Include="game_object.cpp" />
     <ClCompile Include="game_object_factory.cpp" />
     <ClCompile Include="game_stage.cpp" />
     <ClCompile Include="game_stage_factory.cpp" />
-    <ClCompile Include="game_trigger.cpp" />
+    <ClCompile Include="game_condition.cpp" />
     <ClCompile Include="game_world.cpp" />
     <ClCompile Include="GLES-Render.cpp" />
     <ClCompile Include="laser_plane_component.cpp" />
@@ -115,7 +115,7 @@
     <ClCompile Include="phy_component.cpp" />
     <ClCompile Include="phy_world.cpp" />
     <ClCompile Include="player_component.cpp" />
-    <ClCompile Include="game_event.cpp" />
+    <ClCompile Include="game_trigger.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -132,8 +132,8 @@
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
     <ClInclude Include="game_action.h" />
-    <ClInclude Include="game_event_component.h" />
-    <ClInclude Include="game_event_handler.h" />
+    <ClInclude Include="game_trigger_component.h" />
+    <ClInclude Include="game_trigger_handler.h" />
     <ClInclude Include="game_layer.h" />
     <ClInclude Include="game_object_factory.h" />
     <ClInclude Include="game_component.h" />
@@ -143,7 +143,7 @@
     <ClInclude Include="game_object.h" />
     <ClInclude Include="game_stage.h" />
     <ClInclude Include="game_stage_factory.h" />
-    <ClInclude Include="game_trigger.h" />
+    <ClInclude Include="game_condition.h" />
     <ClInclude Include="game_world.h" />
     <ClInclude Include="GLES-Render.h" />
     <ClInclude Include="laser_plane_component.h" />
@@ -154,7 +154,7 @@
     <ClInclude Include="phy_component.h" />
     <ClInclude Include="phy_world.h" />
     <ClInclude Include="player_component.h" />
-    <ClInclude Include="game_event.h" />
+    <ClInclude Include="game_trigger.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

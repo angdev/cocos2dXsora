@@ -67,23 +67,11 @@
     <ClCompile Include="game_stage_factory.cpp">
       <Filter>stage</Filter>
     </ClCompile>
-    <ClCompile Include="game_event.cpp">
-      <Filter>event</Filter>
-    </ClCompile>
-    <ClCompile Include="game_event_handler.cpp">
-      <Filter>event</Filter>
-    </ClCompile>
-    <ClCompile Include="game_trigger.cpp">
-      <Filter>event</Filter>
-    </ClCompile>
     <ClCompile Include="laser_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
     </ClCompile>
     <ClCompile Include="combat_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
-    </ClCompile>
-    <ClCompile Include="game_event_component.cpp">
-      <Filter>logic_comp</Filter>
     </ClCompile>
     <ClCompile Include="collision_handler.cpp">
       <Filter>phy_comp</Filter>
@@ -93,6 +81,18 @@
     </ClCompile>
     <ClCompile Include="collision_manager.cpp">
       <Filter>phy_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="game_condition.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_trigger.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_trigger_handler.cpp">
+      <Filter>event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_trigger_component.cpp">
+      <Filter>logic_comp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,23 +171,11 @@
     <ClInclude Include="game_stage_factory.h">
       <Filter>stage</Filter>
     </ClInclude>
-    <ClInclude Include="game_event.h">
-      <Filter>event</Filter>
-    </ClInclude>
-    <ClInclude Include="game_event_handler.h">
-      <Filter>event</Filter>
-    </ClInclude>
-    <ClInclude Include="game_trigger.h">
-      <Filter>event</Filter>
-    </ClInclude>
     <ClInclude Include="laser_plane_component.h">
       <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="combat_plane_component.h">
       <Filter>logic_comp\character</Filter>
-    </ClInclude>
-    <ClInclude Include="game_event_component.h">
-      <Filter>logic_comp</Filter>
     </ClInclude>
     <ClInclude Include="collision_handler.h">
       <Filter>phy_comp</Filter>
@@ -197,6 +185,18 @@
     </ClInclude>
     <ClInclude Include="collision_manager.h">
       <Filter>phy_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="game_condition.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_trigger.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_trigger_handler.h">
+      <Filter>event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_trigger_component.h">
+      <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

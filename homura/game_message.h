@@ -168,14 +168,14 @@ public:
 
 //Game Event Component Messages
 
-struct BeginEventMessage : public GameMessage {
+struct BeginTriggerMessage : public GameMessage {
 private:
-    BeginEventMessage() {}
+    BeginTriggerMessage() {}
 public:
-    static BeginEventMessage Create(int event_id);
-    BeginEventMessage *Clone() const { return new BeginEventMessage(); }
+    static BeginTriggerMessage Create(int trigger_id);
+    BeginTriggerMessage *Clone() const { return new BeginTriggerMessage(); }
 
-    int event_id;
+    int trigger_id;
 };
 
 //End Game Event Component Messages
