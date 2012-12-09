@@ -8,6 +8,7 @@ public:
     virtual ~GameCondition();
 
     bool Check();
+    void Reset();
     virtual ConditionType Type() = 0;
 
 public:
@@ -15,7 +16,7 @@ public:
     bool valid() { return valid_; }
 
 protected:
-    //이벤트가 먼저 실행되어야 후결 트리거 체크 가능
+    //액션이 먼저 실행되어야 후결 트리거 체크 가능
     bool valid_;
     bool complete_;
 

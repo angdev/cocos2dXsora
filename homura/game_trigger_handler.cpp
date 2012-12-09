@@ -14,6 +14,7 @@ GameTriggerHandler::~GameTriggerHandler() {
 void GameTriggerHandler::AddTrigger(GameTrigger *trigger) {
     //이벤트에 트리거, 액션 준비가 되어야 함.
     if(trigger->is_action_set() && trigger->is_condition_set()) {
+        trigger->set_trigger_handler(this);
         triggers_.push_back(GameTriggerPtr(trigger));
     }
 }
@@ -37,4 +38,15 @@ bool GameTriggerHandler::IsEnd() {
             return false;
     }
     return true;
+}
+
+void GameTriggerHandler::Reset() {
+    for(GameTriggerPtr trigger : triggers_) {
+        trigger->Reset();
+    }
+    all_executed_ = false;
+}
+
+void GameTriggerHandler::set_next_triggers(NextTriggers *next_triggers) {
+    next_triggers_.reset(next_triggers);
 }

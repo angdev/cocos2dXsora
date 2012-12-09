@@ -4,6 +4,9 @@
 
 #include "game_trigger.h"
 
+typedef unsigned int TriggerID;
+typedef std::vector<TriggerID> NextTriggers;
+
 class GameAction {
 public:
     GameAction();
@@ -17,15 +20,18 @@ public:
     GameTrigger *trigger() { return trigger_; }
 
     bool IsRun() { return is_run_; }
+    void Reset();
 
 protected:
-    bool is_run_;
+    //Run 끝에 넣을 것.
+    void EndRun();
 
 private:
     virtual void Run() = 0;
 
 private:
     GameTrigger *trigger_;
+    bool is_run_;
 };
 
 //여기부터 액션들 추가
@@ -36,6 +42,24 @@ public:
 
 private:
     void Run() {}
+};
+
+//몇 회 반복하고 특정 트리거로 넘어감.
+//구조적으로 좀 이상하지만 일단 이렇게 쓰도록 한다.
+class RepeatAction : public GameAction {
+public:
+    RepeatAction(unsigned int repeat_number, TriggerID next_trigger_id) : GameAction(),
+        repeat_number_(repeat_number), current_repeat_number_(0), next_trigger_id_(next_trigger_id) {}
+    virtual ~RepeatAction() {}
+
+private:
+    void Run();
+
+    //unique_ptr에서 옮길 때 포인터 형식으로 옮길 수는 없나?
+    TriggerID next_trigger_id_;
+    //현재 반복 횟수
+    unsigned int current_repeat_number_;
+    const unsigned int repeat_number_;
 };
 
 template <typename T>
@@ -59,9 +83,7 @@ private:
             static_cast<SpecificDestroyCondition*>(trigger()->condition())->SetParams(created_obj);
         }
 
-        //
-        is_run_ = true;
-        trigger()->condition()->set_valid(true);
+        EndRun();
     }
 
 private:

@@ -5,6 +5,7 @@
 #include "game_condition.h"
 #include "game_trigger.h"
 #include "game_action.h"
+#include "game_trigger_handler.h"
 
 GameTrigger::GameTrigger(GameStage *stage) 
     : start_time_(0), end_time_(0), stage_(stage), is_action_set_(false), is_condition_set_(false) {
@@ -22,7 +23,7 @@ bool GameTrigger::InvokeRun(float elapsed_time) {
     
     if(elapsed_time > start_time_ && !IsRun()) {
         if(action_->trigger() != NULL) {
-            cocos2d::CCLog("trigger start");
+            cocos2d::CCLog("trigger %d start", trigger_handler()->trigger_id());
             action_->InvokeRun();
             return true;
         }
@@ -54,6 +55,11 @@ void GameTrigger::set_condition( GameCondition *condition ) {
     else {
         condition_.reset(condition);
     }
+}
+
+void GameTrigger::Reset() {
+    action_->Reset();
+    condition_->Reset();
 }
 
 //여기부터 새로운 게임 이벤트를 나열

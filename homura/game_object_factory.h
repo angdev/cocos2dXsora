@@ -33,7 +33,7 @@ public:
     GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
 
     //가상의 게임 객체들 (로직)
-    GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggersPtr next_triggers, 
+    GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
         GameTriggerHandlerPtr game_trigger_handler_);
 
 private:

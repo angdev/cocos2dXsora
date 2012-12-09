@@ -5,8 +5,8 @@
 #include "game_object.h"
 #include "game_world.h"
 
-GameTriggerComponent::GameTriggerComponent(GameObject *obj, TriggerID trigger_id, NextTriggersPtr next_triggers, GameTriggerHandlerPtr game_trigger_handler) 
-    : LogicComponent(obj), elapsed_time_(0), trigger_id_(trigger_id), next_triggers_(next_triggers), game_trigger_handler_(game_trigger_handler), is_flag_on_(false) {
+GameTriggerComponent::GameTriggerComponent(GameObject *obj,  GameTriggerHandlerPtr game_trigger_handler) 
+    : LogicComponent(obj), elapsed_time_(0), game_trigger_handler_(game_trigger_handler), is_flag_on_(false) {
 
 }
 
@@ -30,7 +30,7 @@ void GameTriggerComponent::Update(float dt) {
 
     if(game_trigger_handler_->IsEnd()) {
         //월드에 다음 이벤트를 작동 시키는 메시지를 보냄.
-        for(int trigger_id : *next_triggers_) {
+        for(int trigger_id : *(game_trigger_handler_->next_triggers())) {
             BeginTriggerMessage msg = BeginTriggerMessage::Create(trigger_id);
             obj()->world()->OnMessage(&msg);
         }
@@ -45,6 +45,13 @@ void GameTriggerComponent::InitMsgHandler() {
 }
 
 void GameTriggerComponent::OnBeginTriggerMessage(BeginTriggerMessage *msg) {
-    if(msg->trigger_id == trigger_id_)
+    if(msg->trigger_id == game_trigger_handler_->trigger_id()) {
+        //트리거 초기화
+        Reset();
         is_flag_on_ = true;
+    }
+}
+
+void GameTriggerComponent::Reset() {
+    game_trigger_handler_->Reset();
 }

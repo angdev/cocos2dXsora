@@ -51,7 +51,7 @@ bool GameStage::Init() {
     trg0->set_condition(new NullCondition);
     trg_hnd0->AddTrigger(trg0);
     GameTriggerObjectHeader e_header;
-    NextTriggersPtr next_trigger_1(new NextTriggers());
+    NextTriggers *next_trigger_1 = new NextTriggers();
     next_trigger_1->push_back(2);
     world_->AddObject(factory_->Create(e_header, 1, next_trigger_1, GameTriggerHandlerPtr(trg_hnd0)));
      
@@ -78,7 +78,7 @@ bool GameStage::Init() {
     trg2->set_action(act2);
     trg2->set_condition(new SpecificDestroyCondition);
     trg_hnd1->AddTrigger(trg2);
-    NextTriggersPtr next_trigger_2(new NextTriggers());
+    NextTriggers *next_trigger_2 = new NextTriggers();
     next_trigger_2->push_back(3);
 
     world_->AddObject(factory_->Create(e_header, 2, next_trigger_2, GameTriggerHandlerPtr(trg_hnd1)));
@@ -88,20 +88,13 @@ bool GameStage::Init() {
     //Event 1
     GameTriggerHandler *trg_hnd2 = new GameTriggerHandler();
 
-    TestBulletObjectHeader bullet_header;
-    bullet_header.x = 600;
-    bullet_header.y = 1000;
-    bullet_header.angle_rad = 0;
-    bullet_header.speed = 10;
-    bullet_header.damage = 10;
     GameTrigger *trg3 = new GameTrigger(this);
-    GameAction *act3 = MakeCreateObjectAction(bullet_header);
+    GameAction *act3 = new RepeatAction(3, 4);
     trg3->set_action(act3);
-    trg3->set_condition(new SpecificDestroyCondition());
+    trg3->set_condition(new NullCondition);
     trg_hnd2->AddTrigger(trg3);
-    NextTriggersPtr next_trigger_3(new NextTriggers());//Empty
-    next_trigger_3->push_back(4);
-    
+    NextTriggers *next_trigger_3 = new NextTriggers();
+    next_trigger_3->push_back(2);
     world_->AddObject(factory_->Create(e_header, 3, next_trigger_3, GameTriggerHandlerPtr(trg_hnd2)));
 
     //EventGroup #3
@@ -113,14 +106,14 @@ bool GameStage::Init() {
     trg4->set_condition(new NullCondition);
     GameTriggerHandler *trg_hnd3 = new GameTriggerHandler();
     trg_hnd3->AddTrigger(trg4);
-    NextTriggersPtr next_trigger_4(new NextTriggers());
+    NextTriggers *next_trigger_4 = new NextTriggers();
 
     world_->AddObject(factory_->Create(e_header, 4, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
 
     //1번부터 시작하라는 메시지를 보냄.
     BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(1);
     world_->OnMessage(&begin_msg);
-
+    
     return true;
 }
 

@@ -29,6 +29,11 @@ bool GameCondition::Check() {
     }
 }
 
+void GameCondition::Reset() {
+    valid_ = false;
+    complete_ = false;
+}
+
 //여기부터 새로운 트리거들을 작성
 
 ConditionType NullCondition::Type() {
