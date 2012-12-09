@@ -1,10 +1,10 @@
 ﻿// Ŭnicode please
 #pragma once
 
-#include "collision_tuple.h"
 
 class GLESDebugDraw;
 class GameWorld;
+class CollisionManager;
 
 class PhyWorld {
 public:
@@ -24,13 +24,10 @@ private:
     void InitDebug(b2World *world);
     void InitGround(b2World *world);
 
-    void UpdateCollision();
-    std::vector<CollisionTuple> GetCollisionList();
-    void HandleCollision(CollisionTuple &collision);
-
 private:
     std::unique_ptr<b2World> b2_world_;
     std::unique_ptr<GLESDebugDraw> debug_draw_;
+    std::unique_ptr<CollisionManager> collision_mgr_;
 
     GameWorld *game_world_;
 };

@@ -8,6 +8,8 @@
 #include "game_object.h"
 #include "game_world.h"
 
+#include "collision_manager.h"
+
 //temp
 #include "character_component.h"
 
@@ -35,6 +37,8 @@ void PhyWorld::Init() {
 
     InitDebug(b2_world());
     //InitGround(b2_world());
+    
+    collision_mgr_.reset(new CollisionManager(game_world_, b2_world_.get()));
 }
 
 void PhyWorld::InitDebug(b2World *world) {
@@ -103,87 +107,5 @@ void PhyWorld::Update(float dt) {
     // generally best to keep the time step and iterations fixed.
     b2_world_->Step(dt, velocityIterations, positionIterations);
 
-    vector<CollisionTuple> collision_list = GetCollisionList();
-    for(auto collision : collision_list) {
-        HandleCollision(collision);
-    }
-}
-
-std::vector<CollisionTuple> PhyWorld::GetCollisionList() {
-    vector<CollisionTuple> collision_tuple_list;
-
-    //충돌정보 얻기
-    for(b2Contact *c = b2_world()->GetContactList() ; c ; c = c->GetNext()) {
-		b2Contact *contact = c;
-
-		if(contact->GetFixtureA()->GetBody()->GetUserData() == NULL) {
-			continue;
-		}
-		if(contact->GetFixtureB()->GetBody()->GetUserData() == NULL) {
-			continue;
-		}
-		if(contact->IsTouching() == false) {
-			continue;
-		}
-	
-		//같은 타입끼지의 충돌은 취급하지 않는다
-		//풍선과 풍선의 충돌은 관심 없잖아?
-		GameObject *obj1 = (GameObject*)contact->GetFixtureA()->GetBody()->GetUserData();
-		GameObject *obj2 = (GameObject*)contact->GetFixtureB()->GetBody()->GetUserData();
-		if(obj1 == NULL || obj2 == NULL) {
-			continue;
-		}
-
-		//둘중하나라도 꺼저잇으면 로직패스
-		if(obj1->IsEnabled() == false || obj2->IsEnabled() == false) {
-			continue;
-		}
-
-		//물체 2개로 충돌 튜플 만들기. 충돌 튜플은 중복되면 안됨
-		GameWorld *world = game_world_;
-		GameObjectPtr objptr_a = world->FindObject(obj1->id());
-		GameObjectPtr objptr_b = world->FindObject(obj2->id());
-		b2Fixture *fixture_a = contact->GetFixtureA();
-		b2Fixture *fixture_b = contact->GetFixtureB();
-		b2WorldManifold manifold;
-		contact->GetWorldManifold(&manifold);
-		CollisionTuple collision_t(
-			objptr_a, 
-			objptr_b, 
-			fixture_a, 
-			fixture_b, 
-			manifold, 
-			world);
-		collision_tuple_list.push_back(collision_t);
-	}
-    return collision_tuple_list;
-}
-
-void PhyWorld::HandleCollision(CollisionTuple &collision) {
-    //테스트 객체 2개 충돌시 삭제
-    if(collision.IsMatch(kCompNull, kCompNull)) {
-        //먼저 생긴걸 지운다
-        GameObjectPtr obj_a = collision.obj_a();
-        GameObjectPtr obj_b = collision.obj_b();
-
-        GameObjectPtr first = obj_a->id() < obj_b->id() ? obj_a : obj_b;
-
-        //객체를 지우기. world에서 지우는 함수를 사용해서 바로 지우면
-        //게임 로직이 붕괴할 가능성이 있다. update종료후 지워지도록한다
-        game_world_->RequestRemoveObject(first);
-    }
-
-    
-    else if(collision.IsMatch(kCompBullet, /*kCompNull*/ kCompPlayer)
-        || collision.IsMatch(kCompBullet, kCompCombatPlane)) {
-        GameObjectPtr obj_a = collision.obj_a();
-        
-        if(obj_a->Type() == kCompBullet) {
-            DamageObjectMessage msg = DamageObjectMessage::Create(collision.obj_b().get());
-            obj_a->OnMessage(&msg);
-        } else {
-            DamageObjectMessage msg = DamageObjectMessage::Create(obj_a.get());
-            collision.obj_b()->OnMessage(&msg);
-        }
-    }
+    collision_mgr_->Update();
 }

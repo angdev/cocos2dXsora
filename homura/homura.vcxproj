@@ -88,6 +88,8 @@
   <ItemGroup>
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="character_component.cpp" />
+    <ClCompile Include="collision_handler.cpp" />
+    <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
     <ClCompile Include="combat_plane_component.cpp" />
     <ClCompile Include="debug_config.cpp" />
@@ -122,6 +124,8 @@
     <ClInclude Include="app_macros.h" />
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="character_component.h" />
+    <ClInclude Include="collision_handler.h" />
+    <ClInclude Include="collision_manager.h" />
     <ClInclude Include="collision_tuple.h" />
     <ClInclude Include="combat_plane_component.h" />
     <ClInclude Include="drawable_component.h" />

@@ -34,3 +34,15 @@ private:
 	GameObject *obj_;
 	MessageHandler msg_handler_;
 };
+
+// 예제코드를 위해서만 존재하고 실제로는 사용하지 않는다.
+// null포인터로 대부분의 역할이 넘어가지니까 굳이 쓸 이유는 없다
+class NullComponent : public GameComponent {
+public:
+    explicit NullComponent(GameObject *obj) : GameComponent(obj) {}
+    ~NullComponent() {}
+
+    CompType type() const { return kCompNull; }
+    void Update(float dt) {}
+    void InitMsgHandler() {}
+};
