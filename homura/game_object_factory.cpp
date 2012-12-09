@@ -129,7 +129,7 @@ GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d:
     return obj;
 }
 
-GameObject * GameObjectFactory::Create(const GameEventObjectHeader &header, TriggerID trigger_id, NextTriggersPtr next_triggers, 
+GameObject * GameObjectFactory::Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggersPtr next_triggers, 
                                        GameTriggerHandlerPtr game_trigger_handler_) {
     GameObject *obj = new GameObject(world_);
     GameTriggerComponent *logic = new GameTriggerComponent(obj, trigger_id, next_triggers, game_trigger_handler_);

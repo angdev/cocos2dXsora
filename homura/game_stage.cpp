@@ -50,7 +50,7 @@ bool GameStage::Init() {
     trg0->set_action(act0);
     trg0->set_condition(new NullCondition);
     trg_hnd0->AddTrigger(trg0);
-    GameEventObjectHeader e_header;
+    GameTriggerObjectHeader e_header;
     NextTriggersPtr next_trigger_1(new NextTriggers());
     next_trigger_1->push_back(2);
     world_->AddObject(factory_->Create(e_header, 1, next_trigger_1, GameTriggerHandlerPtr(trg_hnd0)));
