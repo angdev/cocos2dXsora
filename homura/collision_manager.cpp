@@ -34,11 +34,23 @@ void CollisionManager::Update() {
     vector<CollisionTuple> collision_list = GetCollisionList();
     for(auto collision : collision_list) {
         //collion->comp type tuple
-        CompTypeTuple type_tuple(collision.obj_a()->Type(), collision.obj_b()->Type());
+        CompTypeTuple type_tuple_1(collision.obj_a()->Type(), collision.obj_b()->Type());
+        CompTypeTuple type_tuple_2(collision.obj_b()->Type(), collision.obj_a()->Type());
 
-        auto range = obj_handler_map_.equal_range(type_tuple);
-        for(auto it = range.first ; it != range.second ; ++it) {
+        set<CollisionHandler_Object_Object*> handler_set;
+
+        auto range_1 = obj_handler_map_.equal_range(type_tuple_1);
+        for(auto it = range_1.first ; it != range_1.second ; ++it) {
             CollisionHandler_Object_Object *handler = it->second;
+            handler_set.insert(handler);
+        }
+        auto range_2 = obj_handler_map_.equal_range(type_tuple_2);
+        for(auto it = range_2.first ; it != range_2.second ; ++it) {
+            CollisionHandler_Object_Object *handler = it->second;
+            handler_set.insert(handler);
+        }
+
+        for(auto handler : handler_set) {
             handler->OnCollision(collision);
         }
     }

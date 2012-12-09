@@ -9,14 +9,9 @@
 using namespace std;
 
 CompTypeTuple::CompTypeTuple(CompType a, CompType b)
- : type_a(kCompNull), type_b(kCompNull) {
-     if(a < b) {
-         type_a = a;
-         type_b = b;
-     } else {
-         type_a = b;
-         type_b = a;
-     }
+ : type_a(a), type_b(b) {
+     //대소관계로 type의 순서를 뒤집어 버리면 handler 함수 호출할때
+     //인자순서가 안맞을수 있다.
 }
 
 bool CompTypeTuple::IsMatch_AB(CompType a, CompType b) {
