@@ -80,11 +80,6 @@ bool GameLayer::init() {
 
     this->addChild(stage_->layer());
 
-    //경계 체크 로직 초기화
-    BoundCheckObjectHeader bound_check_header;
-    world_->AddObject(factory_->Create(bound_check_header));
-
-
     set_player(CreatePlayer());
 
     //물리 디버깅용
@@ -155,7 +150,8 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
     
     //메시지 보내기
-    MoveMessage msg = MoveMessage::Create(glm::vec2(dx, dy));
+    b2Vec2 vec2(dx, dy);
+    MoveMessage msg = MoveMessage::Create(vec2);
     player_->OnMessage(&msg);
 
     /*

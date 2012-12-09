@@ -22,20 +22,20 @@ BulletComponent::~BulletComponent() {
 void BulletComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &BulletComponent::OnDamageObjectMessage);
     RegisterMsgFunc(this, &BulletComponent::OnDestroyMessage);
-    RegisterMsgFunc(this, &BulletComponent::OnBoundCheckMessage);
+    RegisterMsgFunc(this, &BulletComponent::OnOutOfBoundMessage);
 }
 
 void BulletComponent::Update(float dt) {
     //TODO
     //일단 방향 정해진대로 날아가도록만 하였다
     PhyBodyInfo body_info;
-    GetPhyBodyInfoMessage body_info_msg = GetPhyBodyInfoMessage::Create(&body_info);
+    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
     obj()->OnMessage(&body_info_msg);
 
     if(!body_info_msg.is_ret)
         return;
 
-    glm::vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
+    b2Vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
     velocity_vec *= speed_;
     MoveMessage move_msg = MoveMessage::Create(velocity_vec);
     obj()->OnMessage(&move_msg);
@@ -59,21 +59,8 @@ void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
     world->RequestRemoveObject(world->FindObject(msg->obj_id));
 }
 
-void BulletComponent::OnBoundCheckMessage(BoundCheckMessage *msg) {
-    PhyBodyInfo body_info;
-    GetPhyBodyInfoMessage phy_body_msg = GetPhyBodyInfoMessage::Create(&body_info);
-    obj()->OnMessage(&phy_body_msg);
-
-    if(!phy_body_msg.is_ret) {
-        return;
-    }
-
-    body_info.x = sora::Unit::ToUnitFromMeter(body_info.x);
-    body_info.y = sora::Unit::ToUnitFromMeter(body_info.y);
-
-    if(body_info.x > msg->window_size.width || body_info.x < 0
-        || body_info.y > msg->window_size.height || body_info.y < 0) {
-            DestroyMessage destroy_msg = DestroyMessage::Create(obj()->id());
-            obj()->OnMessage(&destroy_msg);
-    }
+void BulletComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
+    //밖에 나가면 없애야지
+    DestroyMessage destroy_msg = DestroyMessage::Create(obj()->id());
+    obj()->OnMessage(&destroy_msg);
 }

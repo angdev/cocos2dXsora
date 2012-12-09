@@ -10,6 +10,8 @@ struct GameMessage;
 struct DelayedGameMessage;
 struct PhyBodyInfo;
 
+class CharacterComponent;
+
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 typedef std::shared_ptr<GameMessage> GameMessagePtr;
 
@@ -60,10 +62,10 @@ struct MoveMessage : public GameMessage {
 private:
     MoveMessage() {}
 public:
-    static MoveMessage Create(const glm::vec2 &vec);
+    static MoveMessage Create(const b2Vec2 &vec);
     MoveMessage *Clone() const { return new MoveMessage(); }
 
-    glm::vec2 vec;
+    b2Vec2 vec;
 };
 
 struct SetAngleMessage : public GameMessage {
@@ -76,12 +78,12 @@ public:
     float angle;
 };
 
-struct GetPhyBodyInfoMessage : public GameMessage {
+struct RequestPhyBodyInfoMessage : public GameMessage {
 private:
-    GetPhyBodyInfoMessage() {}
+    RequestPhyBodyInfoMessage() {}
 public:
-    static GetPhyBodyInfoMessage Create(PhyBodyInfo *info);
-    GetPhyBodyInfoMessage *Clone() const { return new GetPhyBodyInfoMessage(); }
+    static RequestPhyBodyInfoMessage Create(PhyBodyInfo *info);
+    RequestPhyBodyInfoMessage *Clone() const { return new RequestPhyBodyInfoMessage(); }
 
     PhyBodyInfo *phy_body_info;
     //body_info가 제대로 들어갔는지 확인하기 위한 변수
@@ -90,7 +92,32 @@ public:
 
 //End Physics Component Messages
 
+//Player Component Messages
 
+
+//End Player Component Messages
+
+//이거랑 플레이어 가져다 쓰는거랑 성능차는?
+struct RequestPlayerPositionMessage : public GameMessage {
+private:
+    RequestPlayerPositionMessage() {}
+public:
+    static RequestPlayerPositionMessage Create(b2Vec2 *position);
+    RequestPlayerPositionMessage *Clone() const { return new RequestPlayerPositionMessage(); }
+
+    b2Vec2 *position;
+    bool is_ret;
+};
+
+struct RequestRecoveryMessage : public GameMessage {
+private:
+    RequestRecoveryMessage() {}
+public:
+    static RequestRecoveryMessage Create(CharacterComponent *char_comp);
+    RequestRecoveryMessage *Clone() const { return new RequestRecoveryMessage(); }
+
+    CharacterComponent *char_comp;
+};
 //Character Component Messages
 
 
@@ -126,14 +153,15 @@ public:
 
 //Bound Check Component Messages
 
-struct BoundCheckMessage : public GameMessage {
+struct OutOfBoundMessage : public GameMessage {
 private:
-    BoundCheckMessage() {}
+    OutOfBoundMessage() {}
 public:
-    static BoundCheckMessage Create(cocos2d::CCSize size);
-    BoundCheckMessage *Clone() const { return new BoundCheckMessage(); }
+    static OutOfBoundMessage Create(const b2Vec2 &prev_pos, const b2Vec2 &current_pos);
+    OutOfBoundMessage *Clone() const { return new OutOfBoundMessage(); }
 
-    cocos2d::CCSize window_size;
+    b2Vec2 prev_pos;
+    b2Vec2 current_pos;
 };
 
 //End Bound Check Component Messages

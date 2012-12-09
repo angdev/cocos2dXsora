@@ -85,8 +85,8 @@
     <ClCompile Include="game_event_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
-    <ClCompile Include="bound_check_component.cpp">
-      <Filter>logic_comp</Filter>
+    <ClCompile Include="game_action.cpp">
+      <Filter>event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,8 +183,8 @@
     <ClInclude Include="game_event_component.h">
       <Filter>logic_comp</Filter>
     </ClInclude>
-    <ClInclude Include="bound_check_component.h">
-      <Filter>logic_comp</Filter>
+    <ClInclude Include="game_action.h">
+      <Filter>event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

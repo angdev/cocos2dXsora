@@ -5,26 +5,41 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
-SetAngleMessage SetAngleMessage::Create( float angle ) {
+RequestRecoveryMessage RequestRecoveryMessage::Create(CharacterComponent *char_comp) {
+    RequestRecoveryMessage msg;
+    msg.char_comp = char_comp;
+    return msg;
+}
+
+
+RequestPlayerPositionMessage RequestPlayerPositionMessage::Create(b2Vec2 *position) {
+    RequestPlayerPositionMessage msg;
+    msg.position = position;
+    msg.is_ret = false;
+    return msg;
+}
+
+SetAngleMessage SetAngleMessage::Create(float angle) {
     SetAngleMessage msg;
     msg.angle = angle;
     return msg;
 }
 
-BeginEventMessage BeginEventMessage::Create( int event_id ) {
+BeginEventMessage BeginEventMessage::Create(int event_id) {
     BeginEventMessage msg;
     msg.event_id = event_id;
     return msg;
 }
 
-BoundCheckMessage BoundCheckMessage::Create(cocos2d::CCSize size) {
-    BoundCheckMessage msg;
-    msg.window_size = size;
+OutOfBoundMessage OutOfBoundMessage::Create(const b2Vec2 &prev_pos, const b2Vec2 &current_pos) {
+    OutOfBoundMessage msg;
+    msg.prev_pos = prev_pos;
+    msg.current_pos = current_pos;
     return msg;
 }
 
-GetPhyBodyInfoMessage GetPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
-    GetPhyBodyInfoMessage msg;
+RequestPhyBodyInfoMessage RequestPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
+    RequestPhyBodyInfoMessage msg;
     msg.phy_body_info = info;
     msg.is_ret = false;
     return msg;
@@ -45,7 +60,7 @@ CollideBulletMessage CollideBulletMessage::Create(GameObject *bullet, float dama
     return msg;
 }
 
-MoveMessage MoveMessage::Create(const glm::vec2 &vec) {
+MoveMessage MoveMessage::Create( const b2Vec2 &vec ) {
     MoveMessage msg;
     msg.vec = vec;
     return msg;

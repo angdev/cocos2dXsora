@@ -4,7 +4,7 @@
 #include "game_world.h"
 #include "game_object.h"
 
-GameTrigger::GameTrigger() : complete_(false) {
+GameTrigger::GameTrigger() : valid_(false), complete_(false) {
 
 }
 

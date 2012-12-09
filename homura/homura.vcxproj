@@ -86,13 +86,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bound_check_component.cpp" />
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
     <ClCompile Include="combat_plane_component.cpp" />
     <ClCompile Include="debug_config.cpp" />
     <ClCompile Include="drawable_component.cpp" />
+    <ClCompile Include="game_action.cpp" />
     <ClCompile Include="game_component.cpp" />
     <ClCompile Include="game_console.cpp" />
     <ClCompile Include="game_event_component.cpp" />
@@ -121,13 +121,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h" />
-    <ClInclude Include="bound_check_component.h" />
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_tuple.h" />
     <ClInclude Include="combat_plane_component.h" />
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
+    <ClInclude Include="game_action.h" />
     <ClInclude Include="game_event_component.h" />
     <ClInclude Include="game_event_handler.h" />
     <ClInclude Include="game_layer.h" />

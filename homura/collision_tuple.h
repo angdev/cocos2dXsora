@@ -33,6 +33,8 @@ public:
     GameObjectPtr obj_a() { return obj_a_; }
     GameObjectPtr obj_b() { return obj_b_; }
 
+    b2WorldManifold world_manifold() { return world_manifold_; }
+
 private:
 	GameObjectPtr obj_a_;
 	GameObjectPtr obj_b_;

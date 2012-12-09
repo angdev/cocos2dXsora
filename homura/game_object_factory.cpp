@@ -9,7 +9,6 @@
 #include "combat_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
-#include "bound_check_component.h"
 #include "game_event_component.h"
 #include "sora/unit.h"
 
@@ -53,7 +52,7 @@ GameObject *GameObjectFactory::Create( const TestBulletObjectHeader &header, coc
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
     //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
     CCSprite *sprite = CCSprite::create("circle_bullet.png");
-    sprite->setScale(0.2f);
+    sprite->setScale(0.1f);
     sprite->setPosition(ccp(header.x, header.y));
     CCRect sprite_box = sprite->boundingBox();
 
@@ -81,12 +80,12 @@ GameObject *GameObjectFactory::Create( const TestBulletObjectHeader &header, coc
 GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent ) {
     glm::vec2 obj_pos(header.x, header.y);
     
-    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
+    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
-    sprite->setScale(0.2f);
+    sprite->setScale(0.1f);
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
@@ -128,14 +127,6 @@ GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d:
     //world_->AddObject(obj, obj->Type());
 
     return obj;
-}
-
-GameObject * GameObjectFactory::Create( const BoundCheckObjectHeader &header) {
-    GameObject *obj = new GameObject(world_);
-    BoundCheckComponent *logic = new BoundCheckComponent(obj, CCDirector::sharedDirector()->getWinSize());
-    obj->set_logic_comp(logic);
-
-   return obj;
 }
 
 GameObject * GameObjectFactory::Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
