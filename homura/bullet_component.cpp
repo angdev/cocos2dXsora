@@ -20,7 +20,7 @@ BulletComponent::~BulletComponent() {
 }
 
 void BulletComponent::InitMsgHandler() {
-    RegisterMsgFunc(this, &BulletComponent::OnDamageObjectMessage);
+    RegisterMsgFunc(this, &BulletComponent::OnBulletDamageObjectMessage);
     RegisterMsgFunc(this, &BulletComponent::OnDestroyMessage);
     RegisterMsgFunc(this, &BulletComponent::OnOutOfBoundMessage);
 }
@@ -41,7 +41,7 @@ void BulletComponent::Update(float dt) {
     obj()->OnMessage(&move_msg);
 }
 
-void BulletComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
+void BulletComponent::OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg) {
     
     CollideBulletMessage apply_msg = CollideBulletMessage::Create(obj(), damage_, from_enemy_);
     msg->obj->OnMessage(&apply_msg);

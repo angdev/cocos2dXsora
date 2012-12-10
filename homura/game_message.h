@@ -94,8 +94,29 @@ public:
 
 //Player Component Messages
 
+struct CollidePlaneMessage : public GameMessage {
+private:
+    CollidePlaneMessage() {}
+public:
+    static CollidePlaneMessage Create(GameObject *counter_obj);
+    CollidePlaneMessage *Clone() const { return new CollidePlaneMessage(); }
+
+    GameObject *counter_obj;
+};
 
 //End Player Component Messages
+
+//Character Component Messages
+//캐릭터 자체에 데미지를 주는 메시지
+struct DamageObjectMessage : public GameMessage {
+private:
+    DamageObjectMessage() {}
+public:
+    static DamageObjectMessage Create(float damage);
+    DamageObjectMessage *Clone() const { return new DamageObjectMessage(); }
+
+    float damage;
+};
 
 //이거랑 플레이어 가져다 쓰는거랑 성능차는?
 struct RequestPlayerPositionMessage : public GameMessage {
@@ -138,12 +159,13 @@ public:
 
 //Bullet Component Messages
 
-struct DamageObjectMessage : public GameMessage {
+//총알과 게임 객체와의 충돌했을 때, 총알에게 넘어가는 메시지
+struct BulletDamageObjectMessage : public GameMessage {
 private:
-    DamageObjectMessage() {}
+    BulletDamageObjectMessage() {}
 public:
-    static DamageObjectMessage Create(GameObject *obj);
-    DamageObjectMessage *Clone() const { return new DamageObjectMessage(); }
+    static BulletDamageObjectMessage Create(GameObject *obj);
+    BulletDamageObjectMessage *Clone() const { return new BulletDamageObjectMessage(); }
 
     GameObject *obj;
 };

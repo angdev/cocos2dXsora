@@ -53,7 +53,7 @@ void CollisionHandler_Object_Object::OnCollision(CollisionTuple &collision) {
     }
 }
 
-//////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 CollisionHandler_Bullet_PlayerPlane::CollisionHandler_Bullet_PlayerPlane() {
 }
 CollisionHandler_Bullet_PlayerPlane::~CollisionHandler_Bullet_PlayerPlane() {
@@ -69,6 +69,29 @@ const std::vector<CompTypeTuple> CollisionHandler_Bullet_PlayerPlane::GetCompTyp
 }
 
 void CollisionHandler_Bullet_PlayerPlane::OnCollision(GameObject *bullet, GameObject *etc, CollisionTuple &collision) {
-    DamageObjectMessage msg = DamageObjectMessage::Create(etc);
+    BulletDamageObjectMessage msg = BulletDamageObjectMessage::Create(etc);
     bullet->OnMessage(&msg);
+}
+
+//////////////////////////////////////////////////////////////////////////
+CollisionHandler_Player_Plane::CollisionHandler_Player_Plane() {
+
+}
+CollisionHandler_Player_Plane::~CollisionHandler_Player_Plane() {
+
+}
+
+const std::vector<CompTypeTuple> CollisionHandler_Player_Plane::GetCompTypeTupleList() const {
+    static vector<CompTypeTuple> tpl_list;
+    if(tpl_list.empty()) {
+        tpl_list.push_back(CompTypeTuple(kCompPlayer, kCompCombatPlane));
+    }
+    return tpl_list;
+}
+
+void CollisionHandler_Player_Plane::OnCollision(GameObject *player, GameObject *etc, CollisionTuple &collision) {
+    //박치기 데미지 (충돌 메시지를 만들어놓았지만 일단 바로 데미지 처리)
+    DamageObjectMessage msg = DamageObjectMessage::Create(10);
+    player->OnMessage(&msg);
+    etc->OnMessage(&msg);
 }
