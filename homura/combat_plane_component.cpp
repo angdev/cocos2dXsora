@@ -8,6 +8,8 @@
 
 #include "sora/unit.h"
 
+#include <random>
+
 using namespace sora;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
@@ -23,6 +25,7 @@ void CombatPlaneComponent::Update(float dt) {
     //TODO
     CharacterComponent::Update(dt);
     Attack(dt);
+    AIMove(dt);
 }
 
 void CombatPlaneComponent::InitMsgHandler() {
@@ -68,4 +71,17 @@ void CombatPlaneComponent::Attack(float dt) {
 void CombatPlaneComponent::Destroy() {
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(obj()->id()));
+}
+
+void CombatPlaneComponent::AIMove( float dt )
+{
+    static unsigned int temp_rnd_factor = 0;
+    std::default_random_engine rand_engine((unsigned int)time(0) + temp_rnd_factor++);
+    int dir_x = rand_engine() % 2 == 0? -1 : 1;
+    dir_x *= rand_engine() % 500;
+    rand_engine.seed((unsigned int)time(0) + temp_rnd_factor++);
+    int dir_y = rand_engine() % 2 == 0? -1 : 1;
+    dir_y *= rand_engine() % 500;
+    MoveMessage msg = MoveMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
+    obj()->OnMessage(&msg);
 }

@@ -107,6 +107,11 @@ void GameLayer::update(float dt) {
         set_player(CreatePlayer());
     }
 
+    //게임 클리어?
+    if(stage_->IsCleared()) {
+        EndStage();
+    }
+
 }
 
 GameObject *GameLayer::player() {
@@ -177,4 +182,8 @@ GameObject *GameLayer::CreatePlayer() {
     GameObject* init_player = factory_->Create(player_header, stage_->layer());
 
     return init_player;
+}
+
+void GameLayer::EndStage() {
+    CCLOG("Stage Clear");
 }

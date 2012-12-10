@@ -85,7 +85,7 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         // - world manifold 이용해서 충돌점과 normal vector 가져올 수 있음
         //일단 충돌면이 항상 x축이라고 가정
         float reflect_angle = (2 * M_PI - bullet_body_info.angle_rad + (player_body_info.angle_rad - M_PI_2));
-        cocos2d::CCLog("%f / %f : %f", player_body_info.angle_rad, bullet_body_info.angle_rad, reflect_angle);
+        //cocos2d::CCLog("%f / %f : %f", player_body_info.angle_rad, bullet_body_info.angle_rad, reflect_angle);
 
         SetAngleMessage angle_msg = SetAngleMessage::Create(reflect_angle);
         bullet->OnMessage(&angle_msg);
@@ -115,7 +115,7 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
     if(msg->char_comp->is_enemy() == is_enemy()) {
         float current_hit_point = msg->char_comp->hit_point();
         //회복량 때려박음
-        CCLOG("[recover]%f", current_hit_point + 0.2);
+        //CCLOG("[recover]%f", current_hit_point + 0.2);
         msg->char_comp->set_hit_point(current_hit_point + 0.2);
     }
 }

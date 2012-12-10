@@ -43,6 +43,7 @@ void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnDestroyMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnDamageObjectMessage);
 }
 
 void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
@@ -59,7 +60,7 @@ void CharacterComponent::CollideBullet(CollideBulletMessage *msg) {
         return;
     hit_point_ -= msg->damage;
     msg->applied = true;
-    cocos2d::CCLog("%f", hit_point_);
+    //cocos2d::CCLog("%f", hit_point_);
 
 }
 
@@ -96,6 +97,10 @@ void CharacterComponent::OnOutOfBoundMessage( OutOfBoundMessage *msg ) {
     b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
     MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
     obj()->OnMessage(&move_msg);
+}
+
+void CharacterComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
+    hit_point_ -= msg->damage;
 }
 
 //CharacterComponent

@@ -9,7 +9,8 @@
 #include "combat_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
-#include "game_event_component.h"
+#include "game_trigger_component.h"
+#include "game_trigger_handler.h"
 #include "sora/unit.h"
 
 #include "data_define.h"
@@ -129,10 +130,12 @@ GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d:
     return obj;
 }
 
-GameObject * GameObjectFactory::Create(const GameEventObjectHeader &header, EventID event_id, NextEventsPtr next_events, 
-                                       GameEventHandlerPtr game_event_handler_) {
+GameObject * GameObjectFactory::Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
+                                       GameTriggerHandlerPtr game_trigger_handler_) {
     GameObject *obj = new GameObject(world_);
-    GameEventComponent *logic = new GameEventComponent(obj, event_id, next_events, game_event_handler_);
+    game_trigger_handler_->set_next_triggers(next_triggers);
+    game_trigger_handler_->set_trigger_id(trigger_id);
+    GameTriggerComponent *logic = new GameTriggerComponent(obj, game_trigger_handler_);
     obj->set_logic_comp(logic);
 
     return obj;

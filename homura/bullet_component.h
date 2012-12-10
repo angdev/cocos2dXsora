@@ -17,7 +17,7 @@ public:
 
     //메세지 처리 함수들
 public:
-    void OnDamageObjectMessage(DamageObjectMessage *msg);
+    void OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg);
     void OnDestroyMessage(DestroyMessage *msg);
     void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 

@@ -1,10 +1,10 @@
 ﻿// Ŭnicode please
 #include "stdafx.h"
 #include "game_stage.h"
-#include "game_event.h"
 #include "game_trigger.h"
-#include "game_event_handler.h"
-#include "game_event_component.h"
+#include "game_condition.h"
+#include "game_trigger_handler.h"
+#include "game_trigger_component.h"
 #include "game_layer.h"
 #include "game_action.h"
 
@@ -17,7 +17,7 @@
 USING_NS_CC;
 
 GameStage::GameStage(GameWorld *world)
-    : world_(world), elapsed_time_(0), current_event_(0), layer_(0) {
+    : world_(world), elapsed_time_(0), layer_(0), is_cleared_(false) {
 
 }
 
@@ -36,7 +36,7 @@ bool GameStage::Init() {
     //Test
     
     //EventGroup #0
-    GameEventHandler *evt_hnd0 = new GameEventHandler();
+    GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
     TestCombatPlaneObjectHeader combat_header;
     combat_header.angle = M_PI_2;
@@ -45,18 +45,18 @@ bool GameStage::Init() {
     combat_header.y = 200;
     combat_header.is_enemy = false;
     combat_header.sprite_name = "";
-    GameEvent *evt0 = new GameEvent(this);
+    GameTrigger *trg0 = new GameTrigger(this);
     GameAction *act0 = MakeCreateObjectAction(combat_header);
-    evt0->set_action(act0);
-    evt0->set_trigger(new NullTrigger);
-    evt_hnd0->AddEvent(evt0);
-    GameEventObjectHeader e_header;
-    NextEventsPtr next_event_1(new NextEvents());
-    next_event_1->push_back(2);
-    world_->AddObject(factory_->Create(e_header, 1, next_event_1, GameEventHandlerPtr(evt_hnd0)));
+    trg0->set_action(act0);
+    trg0->set_condition(new NullCondition);
+    trg_hnd0->AddTrigger(trg0);
+    GameTriggerObjectHeader e_header;
+    NextTriggers *next_trigger_1 = new NextTriggers();
+    next_trigger_1->push_back(2);
+    world_->AddObject(factory_->Create(e_header, 1, next_trigger_1, GameTriggerHandlerPtr(trg_hnd0)));
      
     //EventGroup #1
-    GameEventHandler *evt_hnd1 = new GameEventHandler();
+    GameTriggerHandler *trg_hnd1 = new GameTriggerHandler();
 
     //Event 1
     combat_header.angle = -M_PI_2;
@@ -65,64 +65,58 @@ bool GameStage::Init() {
     combat_header.x = 100;
     combat_header.y = 1000;
     combat_header.sprite_name = "";
-    GameEvent *evt1 = new GameEvent(this);
+    GameTrigger *trg1 = new GameTrigger(this);
     GameAction *act1 = MakeCreateObjectAction(combat_header);
-    evt1->set_action(act1);
-    evt1->set_trigger(new NullTrigger);
-    evt_hnd1->AddEvent(evt1);
+    trg1->set_action(act1);
+    trg1->set_condition(new SpecificDestroyCondition);
+    trg_hnd1->AddTrigger(trg1);
     
     combat_header.x = 300;
     //Event 2
-    GameEvent *evt2 = new GameEvent(this);
+    GameTrigger *trg2 = new GameTrigger(this);
     GameAction *act2 = MakeCreateObjectAction(combat_header);
-    evt2->set_action(act2);
-    evt2->set_trigger(new SpecificDestroyTrigger);
-    evt_hnd1->AddEvent(evt2);
-    NextEventsPtr next_event_2(new NextEvents());
-    next_event_2->push_back(3);
+    trg2->set_action(act2);
+    trg2->set_condition(new SpecificDestroyCondition);
+    trg_hnd1->AddTrigger(trg2);
+    NextTriggers *next_trigger_2 = new NextTriggers();
+    next_trigger_2->push_back(3);
 
-    world_->AddObject(factory_->Create(e_header, 2, next_event_2, GameEventHandlerPtr(evt_hnd1)));
+    world_->AddObject(factory_->Create(e_header, 2, next_trigger_2, GameTriggerHandlerPtr(trg_hnd1)));
     
     
     //EventGroup #2
     //Event 1
-    GameEventHandler *evt_hnd2 = new GameEventHandler();
+    GameTriggerHandler *trg_hnd2 = new GameTriggerHandler();
 
-    TestBulletObjectHeader bullet_header;
-    bullet_header.x = 600;
-    bullet_header.y = 1000;
-    bullet_header.angle_rad = 0;
-    bullet_header.speed = 10;
-    bullet_header.damage = 10;
-    GameEvent *evt3 = new GameEvent(this);
-    GameAction *act3 = MakeCreateObjectAction(bullet_header);
-    evt3->set_action(act3);
-    evt3->set_trigger(new NullTrigger);
-    evt_hnd2->AddEvent(evt3);
-    NextEventsPtr next_event_3(new NextEvents());//Empty
+    GameTrigger *trg3 = new GameTrigger(this);
+    GameAction *act3 = new RepeatAction(3, 4);
+    trg3->set_action(act3);
+    trg3->set_condition(new NullCondition);
+    trg_hnd2->AddTrigger(trg3);
+    NextTriggers *next_trigger_3 = new NextTriggers();
+    next_trigger_3->push_back(2);
+    world_->AddObject(factory_->Create(e_header, 3, next_trigger_3, GameTriggerHandlerPtr(trg_hnd2)));
 
-    world_->AddObject(factory_->Create(e_header, 3, next_event_3, GameEventHandlerPtr(evt_hnd2)));
+    //EventGroup #3
+    //Victory
+
+    GameTrigger *trg4 = new GameTrigger(this);
+    GameAction *act4 = new VictoryAction();
+    trg4->set_action(act4);
+    trg4->set_condition(new NullCondition);
+    GameTriggerHandler *trg_hnd3 = new GameTriggerHandler();
+    trg_hnd3->AddTrigger(trg4);
+    NextTriggers *next_trigger_4 = new NextTriggers();
+
+    world_->AddObject(factory_->Create(e_header, 4, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
 
     //1번부터 시작하라는 메시지를 보냄.
-    BeginEventMessage begin_msg = BeginEventMessage::Create(1);
+    BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(1);
     world_->OnMessage(&begin_msg);
-
+    
     return true;
 }
 
-void GameStage::AddEventHandler(GameEventHandler *event_handler) {
-    event_handlers_.push_back(GameEventHandlerPtr(event_handler));
-}
-
 void GameStage::Update(float dt) {
-    /*
-    //스케쥴 돌면서 시간 지나면 실행
-    elapsed_time_ += dt;
-    if(current_event_ < event_handlers_.size()) {
-        if(!event_handlers_[current_event_]->all_executed())
-            event_handlers_[current_event_]->Run(elapsed_time_);
-        if(event_handlers_[current_event_]->IsEnd())
-            current_event_++;
-    }
-    */
+
 }

@@ -16,7 +16,7 @@ typedef enum {
     kCompAI,    //그냥 AI를 가지는 객체 (Player, Enemy에 들어갈 예정)
 
     //가상의 객체를 위한 컴포넌트
-    kCompGameEvent,
+    kCompGameTrigger,
     kCompBoundCheck,
 
     //phy comp
@@ -42,9 +42,9 @@ typedef enum {
 } SceneType;
 
 typedef enum {
-    kTriggerNull,
-    kTriggerSpecificDestroy,
-} TriggerType;
+    kConditionNull,
+    kConditionSpecificDestroy,
+} ConditionType;
 
 //너무 뻔한 typedef와 클래스 선언은 전역범위에서 쓰기 쉽도록 여기에 선언
 class GameObject;

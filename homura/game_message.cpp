@@ -5,6 +5,20 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+DamageObjectMessage DamageObjectMessage::Create(float damage) {
+    DamageObjectMessage msg;
+    msg.damage = damage;
+    return msg;
+}
+
+
+CollidePlaneMessage CollidePlaneMessage::Create(GameObject *counter_obj) {
+    CollidePlaneMessage msg;
+    msg.counter_obj = counter_obj;
+    return msg;
+}
+
+
 RequestRecoveryMessage RequestRecoveryMessage::Create(CharacterComponent *char_comp) {
     RequestRecoveryMessage msg;
     msg.char_comp = char_comp;
@@ -25,9 +39,9 @@ SetAngleMessage SetAngleMessage::Create(float angle) {
     return msg;
 }
 
-BeginEventMessage BeginEventMessage::Create(int event_id) {
-    BeginEventMessage msg;
-    msg.event_id = event_id;
+BeginTriggerMessage BeginTriggerMessage::Create(int trigger_id) {
+    BeginTriggerMessage msg;
+    msg.trigger_id = trigger_id;
     return msg;
 }
 
@@ -45,8 +59,8 @@ RequestPhyBodyInfoMessage RequestPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
     return msg;
 }
 
-DamageObjectMessage DamageObjectMessage::Create(GameObject *obj) {
-    DamageObjectMessage msg;
+BulletDamageObjectMessage BulletDamageObjectMessage::Create(GameObject *obj) {
+    BulletDamageObjectMessage msg;
     msg.obj = obj;
     return msg;
 }

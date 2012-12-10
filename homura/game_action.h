@@ -2,7 +2,10 @@
 #ifndef __GAME_ACTION_H__
 #define __GAME_ACTION_H__
 
-#include "game_event.h"
+#include "game_trigger.h"
+
+typedef unsigned int TriggerID;
+typedef std::vector<TriggerID> NextTriggers;
 
 class GameAction {
 public:
@@ -13,19 +16,22 @@ public:
     void InvokeRun();
     
 public:
-    void set_event(GameEvent *event) { event_ = event; }
-    GameEvent *event() { return event_; }
+    void set_trigger(GameTrigger *trigger) { trigger_ = trigger; }
+    GameTrigger *trigger() { return trigger_; }
 
     bool IsRun() { return is_run_; }
+    void Reset();
 
 protected:
-    bool is_run_;
+    //Run 끝에 넣을 것.
+    void EndRun();
 
 private:
     virtual void Run() = 0;
 
 private:
-    GameEvent *event_;
+    GameTrigger *trigger_;
+    bool is_run_;
 };
 
 //여기부터 액션들 추가
@@ -36,6 +42,24 @@ public:
 
 private:
     void Run() {}
+};
+
+//몇 회 반복하고 특정 트리거로 넘어감.
+//구조적으로 좀 이상하지만 일단 이렇게 쓰도록 한다.
+class RepeatAction : public GameAction {
+public:
+    RepeatAction(unsigned int repeat_number, TriggerID next_trigger_id) : GameAction(),
+        repeat_number_(repeat_number), current_repeat_number_(0), next_trigger_id_(next_trigger_id) {}
+    virtual ~RepeatAction() {}
+
+private:
+    void Run();
+
+    //unique_ptr에서 옮길 때 포인터 형식으로 옮길 수는 없나?
+    TriggerID next_trigger_id_;
+    //현재 반복 횟수
+    unsigned int current_repeat_number_;
+    const unsigned int repeat_number_;
 };
 
 template <typename T>
@@ -50,18 +74,16 @@ private:
         cocos2d::CCLog("Create Object Event");
 
         //지연 생성
-        GameObjectFactory factory(event()->stage()->world());
+        GameObjectFactory factory(trigger()->stage()->world());
         //팩토리 수정해서 이렇게 씀, 유효성 검사?
-        GameObject* created_obj = factory.Create(header_, event()->stage()->layer());
-        event()->stage()->world()->AddObject(created_obj, created_obj->Type());
+        GameObject* created_obj = factory.Create(header_, trigger()->stage()->layer());
+        trigger()->stage()->world()->AddObject(created_obj, created_obj->Type());
 
-        if(event()->trigger()->Type() == kTriggerSpecificDestroy) {
-            static_cast<SpecificDestroyTrigger*>(event()->trigger())->SetParams(created_obj);
+        if(trigger()->condition()->Type() == kConditionSpecificDestroy) {
+            static_cast<SpecificDestroyCondition*>(trigger()->condition())->SetParams(created_obj);
         }
 
-        //
-        is_run_ = true;
-        event()->trigger()->set_valid(true);
+        EndRun();
     }
 
 private:
@@ -73,6 +95,16 @@ template <typename T>
 CreateObjectAction<T> *MakeCreateObjectAction(const T &header) {
     CreateObjectAction<T> *action = new CreateObjectAction<T>(header);
     return action;
+};
+
+
+class VictoryAction : public GameAction {
+public:
+    VictoryAction() {}
+    virtual ~VictoryAction() {}
+
+private:
+    void Run();
 };
 
 #endif

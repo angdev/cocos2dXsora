@@ -19,7 +19,7 @@ public:
     virtual void CollideBullet(CollideBulletMessage *msg);
     void OnRequestPlayerPositionMessage(RequestPlayerPositionMessage *msg);
     void OnRequestRecoveryMessage(RequestRecoveryMessage *msg); //일단 플레이어는 항상 아군이라고 가정.
-
+    
 
 public:
     virtual bool is_enemy() { return false; }

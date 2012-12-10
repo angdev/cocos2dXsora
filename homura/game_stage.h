@@ -7,8 +7,8 @@
 #endif
 
 class GameWorld;
-class GameEventHandler;
-typedef std::shared_ptr<GameEventHandler> GameEventHandlerPtr;
+class GameTriggerHandler;
+typedef std::shared_ptr<GameTriggerHandler> GameTriggerHandlerPtr;
 
 //Test
 class GameObjectFactory;
@@ -23,8 +23,8 @@ public:
     void Update(float dt);
 
 public:
-    void AddEventHandler(GameEventHandler *event_handler);
-    //void SortEvent();
+    bool IsCleared() { return is_cleared_; }
+    void set_is_cleared(bool is_cleared) { is_cleared_ = is_cleared; }
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }
@@ -37,9 +37,8 @@ private:
     GameObjectFactory *factory_;
     
     float elapsed_time_;
-    unsigned int current_event_;
-    typedef std::vector<GameEventHandlerPtr> GameEventHandlers;
-    GameEventHandlers event_handlers_;
+
+    bool is_cleared_;
 };
 
 #endif

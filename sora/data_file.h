@@ -42,5 +42,5 @@ STRUCT_END()
 
 
 //로직 객체들
-STRUCT_NEW_BEGIN(GameEventObjectHeader, 1)
+STRUCT_NEW_BEGIN(GameTriggerObjectHeader, 1)
 STRUCT_END()

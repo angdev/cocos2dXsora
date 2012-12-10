@@ -21,6 +21,7 @@ public:
 
 public:
     void update(float dt);
+    void EndStage();
 
 public:
     GameObject *player();
