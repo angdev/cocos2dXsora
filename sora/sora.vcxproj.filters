@@ -162,6 +162,9 @@
     <ClInclude Include="unit.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="gb2shape_cache.h">
+      <Filter>phy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sora_stdafx.cpp" />
@@ -267,6 +270,9 @@
     <ClCompile Include="unit.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="gb2shape_cache.cpp">
+      <Filter>phy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="base">
@@ -295,6 +301,9 @@
     </Filter>
     <Filter Include="mem">
       <UniqueIdentifier>{cd7bbdc8-917e-4d69-bb6e-baf09a4521a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="phy">
+      <UniqueIdentifier>{aeec0eb3-402f-454b-85f0-49848404d929}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

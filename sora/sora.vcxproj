@@ -25,6 +25,7 @@
     <ClInclude Include="class_type.h" />
     <ClInclude Include="crc32.h" />
     <ClInclude Include="file_helper.h" />
+    <ClInclude Include="gb2shape_cache.h" />
     <ClInclude Include="globals.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="sora.h" />
@@ -86,6 +87,7 @@
     <ClCompile Include="data_helper.cpp" />
     <ClCompile Include="data_init.cpp" />
     <ClCompile Include="file_helper.cpp" />
+    <ClCompile Include="gb2shape_cache.cpp" />
     <ClCompile Include="gl_helper.cpp" />
     <ClCompile Include="sora_stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
