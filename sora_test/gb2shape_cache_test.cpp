@@ -12,7 +12,20 @@ public:
     TEST_METHOD(GB2ShapeCache_test){
         //CCFileUtils::sharedFileUtils()->setResourceDirectory("iphone");
         GB2ShapeCache *cache = GB2ShapeCache::sharedShapeCache();
-        cache->addShapesWithFile("physics_test.plist");
+
+        string path = "../sora_test/testdata/";
+        string filename = "physics_test.plist";
+        cache->addShapesWithFile(path + filename);
+
+        // 가짜 box2d 객체 만들어서 할당 시도
+        b2World world(b2Vec2(0, 0));
+
+        b2BodyDef body_def;
+        b2Body *body = world.CreateBody(&body_def);
+        string body_name = "birdcage01";
+        cache->addFixturesToBody(body, body_name.c_str());
+
+        
     } 
 };
 
