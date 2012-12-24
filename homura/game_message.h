@@ -68,6 +68,9 @@ public:
     b2Vec2 vec;
 };
 
+
+//이거 쓰지 말고 아래거 쓰기
+//지울 예정
 struct SetAngleMessage : public GameMessage {
 private:
     SetAngleMessage() {}
@@ -76,6 +79,16 @@ public:
     SetAngleMessage *Clone() const { return new SetAngleMessage(); }
 
     float angle;
+};
+
+struct SetPhyBodyInfoMessage : public GameMessage {
+private:
+    SetPhyBodyInfoMessage() {}
+public:
+    static SetPhyBodyInfoMessage Create(PhyBodyInfo *info);
+    SetPhyBodyInfoMessage *Clone() const { return new SetPhyBodyInfoMessage(); }
+
+    PhyBodyInfo *info;
 };
 
 struct RequestPhyBodyInfoMessage : public GameMessage {

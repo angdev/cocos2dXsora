@@ -34,7 +34,8 @@ void CharacterComponent::Update(float dt) {
 
     //캐릭터 컴포넌트를 가지는 녀석들은 플레이어 객체에 회복을 요청할 수 있다.
     //플레이어 빼고
-    if(type() != kCompPlayer) {
+    //이 부분 따로 빼야함 (쉴드 같은 녀석도 있어서)
+    if(type() != kCompPlayer && type() != kCompShield) {
         RequestRecovery();
     }
 }

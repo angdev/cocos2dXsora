@@ -94,6 +94,9 @@
     <ClCompile Include="game_trigger_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
+    <ClCompile Include="shield_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -196,6 +199,9 @@
       <Filter>trigger</Filter>
     </ClInclude>
     <ClInclude Include="game_trigger_component.h">
+      <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="shield_component.h">
       <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>

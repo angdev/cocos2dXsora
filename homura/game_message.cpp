@@ -4,6 +4,11 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+SetPhyBodyInfoMessage SetPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
+    SetPhyBodyInfoMessage msg;
+    msg.info = info;
+    return msg;
+}
 
 DamageObjectMessage DamageObjectMessage::Create(float damage) {
     DamageObjectMessage msg;

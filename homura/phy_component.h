@@ -46,7 +46,8 @@ public:
     //2개 묶어서 SetPhyBodyInfo로 해도 될듯
     void OnMoveMessage(MoveMessage *msg);
     void OnSetAngleMessage(SetAngleMessage *msg);
-    void OnGetPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg);
+    void OnRequestPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg);
+    void OnSetPhyBodyInfoMessage(SetPhyBodyInfoMessage *msg);
 
 public:
 
