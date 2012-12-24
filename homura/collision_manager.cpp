@@ -14,6 +14,7 @@ CollisionManager::CollisionManager(GameWorld *world, b2World *b2_world)
 : game_world_(world), b2_world_(b2_world) {
     // 어떤 것을 충돌처리할지 적절히 결정하기
     AddHandler(new CollisionHandler_Bullet_PlayerPlane());
+    AddHandler(new CollisionHandler_Player_Plane());
 }
 
 void CollisionManager::AddHandler(CollisionHandler_Object_Object *handler) {
