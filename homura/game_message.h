@@ -227,3 +227,16 @@ public:
 };
 
 //End Game Event Component Messages
+
+//아군 수 체크 메시지
+struct CheckForcesNumberMessage : public GameMessage {
+private:
+    CheckForcesNumberMessage() {}
+public:
+    static CheckForcesNumberMessage Create(bool is_enemy);
+    CheckForcesNumberMessage *Clone() const { return new CheckForcesNumberMessage(); }
+
+    //아군 수를 셀 때는 false, 적군 수를 셀 때는 true로 둔다
+    bool is_enemy;
+    int forces_number;
+};

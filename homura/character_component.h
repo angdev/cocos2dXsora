@@ -40,6 +40,8 @@ public:
     //그렇지 않으면 나중에 분리.
     void OnCreateShieldMessage(CreateShieldMessage *msg);
 
+    void OnCheckForcesNumberMessage(CheckForcesNumberMessage *msg);
+
 public:
     void set_is_enemy(bool is_enemy) { is_enemy_ = is_enemy; }
     bool is_enemy() { return is_enemy_; }

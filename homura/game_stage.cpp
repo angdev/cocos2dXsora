@@ -17,7 +17,7 @@
 USING_NS_CC;
 
 GameStage::GameStage(GameWorld *world)
-    : world_(world), elapsed_time_(0), layer_(0), is_cleared_(false) {
+    : world_(world), elapsed_time_(0), layer_(0), is_cleared_(false), is_game_over_(false) {
 
 }
 
@@ -118,5 +118,10 @@ bool GameStage::Init() {
 }
 
 void GameStage::Update(float dt) {
+    CheckForcesNumberMessage msg = CheckForcesNumberMessage::Create(false);
+    world_->OnMessage(&msg);
 
+    if(msg.forces_number == 0) {
+        is_game_over_ = true;
+    }
 }

@@ -113,6 +113,11 @@ void GameLayer::update(float dt) {
     if(stage_->IsCleared()) {
         EndStage();
     }
+    //게임 오버?
+    else if(stage_->IsGameOver()) {
+        //일단 끝냄
+        EndStage();
+    }
 
 }
 

@@ -48,6 +48,8 @@ public:
     bool RemoveObject(GameObjectPtr obj);
     bool RequestRemoveObject(GameObjectPtr obj);
 
+    template<typename Functor>
+    GameObjectPtr FindObject(Functor func);
     template<typename Functor, typename Iter>
     GameObjectPtr FindObject(Iter begin, Iter end, Functor func);
     template<typename Functor, typename Iter>
@@ -75,6 +77,16 @@ private:
 };
 
 
+template<typename Functor>
+GameObjectPtr GameWorld::FindObject(Functor func) {
+    auto found = std::find_if(obj_table_.begin(), obj_table_.end(), func);
+    if(found != end) {
+        return found->second;
+    } else {
+        static GameObjectPtr empty;
+        return empty;
+    }
+}
 template<typename Functor, typename Iter>
 GameObjectPtr GameWorld::FindObject(Iter begin, Iter end, Functor func) {
     auto found = std::find_if(begin, end, func);

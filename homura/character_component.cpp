@@ -47,6 +47,7 @@ void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnDamageObjectMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnCheckForcesNumberMessage);
 }
 
 void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
@@ -127,6 +128,12 @@ void CharacterComponent::OnCreateShieldMessage(CreateShieldMessage *msg) {
         //너무 파고드는게 많은 것 같다
         obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->layer()));
 
+    }
+}
+
+void CharacterComponent::OnCheckForcesNumberMessage(CheckForcesNumberMessage *msg) {
+    if(msg->is_enemy == is_enemy_) {
+        msg->forces_number++;
     }
 }
 

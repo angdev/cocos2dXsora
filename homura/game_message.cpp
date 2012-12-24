@@ -4,6 +4,14 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+
+CheckForcesNumberMessage CheckForcesNumberMessage::Create(bool is_enemy) {
+    CheckForcesNumberMessage msg;
+    msg.is_enemy = is_enemy;
+    msg.forces_number = 0;
+    return msg;
+}
+
 CreateShieldMessage CreateShieldMessage::Create(bool from_enemy) {
     CreateShieldMessage msg;
     msg.from_enemy = from_enemy;
