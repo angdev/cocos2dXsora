@@ -16,6 +16,7 @@ struct DelayedGameMessage;
 class GameObject;
 class GameObjectFactory;
 class PhyWorld;
+class GameStage;
 
 typedef std::shared_ptr<GameObject> GameObjectPtr;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
@@ -65,8 +66,12 @@ private:
 public:
     b2World *b2_world();
     PhyWorld *phy_world() { return phy_world_.get(); }
+    void set_stage(GameStage *stage) { stage_ = stage; }
+    GameStage *stage() { return stage_; }
+
 private:
     std::unique_ptr<PhyWorld> phy_world_;
+    GameStage *stage_;
 };
 
 

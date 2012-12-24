@@ -152,6 +152,19 @@ public:
 
     CharacterComponent *char_comp;
 };
+
+//쉴드를 생성하라는 메시지
+struct CreateShieldMessage : public GameMessage {
+private:
+    CreateShieldMessage() {}
+public:
+    static CreateShieldMessage Create(bool from_enemy);
+    CreateShieldMessage *Clone() const { return new CreateShieldMessage(); }
+
+    //적도 필살기를 쓸 수 있지 않을까하는 가능성을 위해.
+    bool from_enemy;
+};
+
 //Character Component Messages
 
 

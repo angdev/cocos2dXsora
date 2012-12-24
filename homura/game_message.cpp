@@ -4,6 +4,12 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+CreateShieldMessage CreateShieldMessage::Create(bool from_enemy) {
+    CreateShieldMessage msg;
+    msg.from_enemy = from_enemy;
+    return msg;
+}
+
 SetPhyBodyInfoMessage SetPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
     SetPhyBodyInfoMessage msg;
     msg.info = info;

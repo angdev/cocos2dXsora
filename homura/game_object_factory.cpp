@@ -9,6 +9,7 @@
 #include "combat_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
+#include "shield_component.h"
 #include "game_trigger_component.h"
 #include "game_trigger_handler.h"
 #include "sora/unit.h"
@@ -107,8 +108,25 @@ GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header
     return obj;
 }
 
+GameObject *GameObjectFactory::Create(const TestShieldHeader &header, cocos2d::CCNode *parent) {
+
+    glm::vec2 body_pos(header.x, header.y);
+    b2Body *body = CreateCollisionBox(body_pos, 50, 50);
+    
+    GameObject *obj = new GameObject(world_);
+    //Drawable은 아직 없음
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LogicComponent *logic = new ShieldComponent(obj);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+
+    return obj;
+}
+
+
+
 //헤더는 의미없음. 그냥 넣어둔거.
-GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d::CCNode *parent ) {
+GameObject *GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d::CCNode *parent ) {
     glm::vec2 obj_pos(header.x, header.y);
     b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
 
@@ -130,7 +148,7 @@ GameObject * GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d:
     return obj;
 }
 
-GameObject * GameObjectFactory::Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
+GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
                                        GameTriggerHandlerPtr game_trigger_handler_) {
     GameObject *obj = new GameObject(world_);
     game_trigger_handler_->set_next_triggers(next_triggers);

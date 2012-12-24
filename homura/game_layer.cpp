@@ -78,6 +78,8 @@ bool GameLayer::init() {
         return false;
     }
 
+    world_->set_stage(stage_);
+
     this->addChild(stage_->layer());
 
     set_player(CreatePlayer());

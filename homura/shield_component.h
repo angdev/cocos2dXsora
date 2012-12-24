@@ -6,7 +6,7 @@
 
 //쉴드에 필요한거 - 체력, 지속 시간, 쉴드 대상
 //몸빵해주는 캐릭이라고 생각
-class ShieldComponent : CharacterComponent {
+class ShieldComponent : public CharacterComponent {
 public:
     ShieldComponent(GameObject *obj);
     virtual ~ShieldComponent();

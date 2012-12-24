@@ -31,6 +31,7 @@ public:
     GameObject *Create(const TestBulletObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const TestShieldHeader &header, cocos2d::CCNode *parent);
 
     //가상의 게임 객체들 (로직)
     GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
