@@ -8,6 +8,8 @@
 struct DestroyMessage;
 struct CollideBulletMessage;
 
+class CharacterFSM;
+
 namespace cocos2d {;
 class CCNode;
 }
