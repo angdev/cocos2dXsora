@@ -40,7 +40,7 @@ void PlayerComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
 }
 
-void PlayerComponent::Destroy() {
+void PlayerComponent::AfterDestroy() {
     obj()->Disable();
 }
 

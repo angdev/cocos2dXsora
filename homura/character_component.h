@@ -24,6 +24,7 @@ public:
     //Character 공통의 Update 처리
     //하위 녀석들은 이 함수를 호출한다.
     virtual void Update(float dt);
+    void Destroy();
 
     //데미지 처리
     //TODO
@@ -31,7 +32,6 @@ public:
     void ApplyDamage(float damage);
 
     virtual void InitMsgHandler();
-    void OnDestroyMessage(DestroyMessage *msg);
     void OnCollideBulletMessage(CollideBulletMessage *msg);
     virtual void CollideBullet(CollideBulletMessage *msg);
     //캐릭터 컴포넌트를 가진 녀석들은 밖에 못 나가도록 막는다
@@ -57,7 +57,7 @@ public:
     CharacterFSM *char_fsm() { return char_fsm_.get(); }
 
 private:
-    virtual void Destroy() = 0;
+    virtual void AfterDestroy() = 0;
     void RequestRecovery();
 
 private:

@@ -22,7 +22,7 @@ public:
     void set_target_id(int target_id) { target_id_ = target_id; }
 
 private:
-    virtual void Destroy();
+    virtual void AfterDestroy();
 
 private:
     //쉴드 지속 시간

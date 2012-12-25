@@ -19,7 +19,7 @@ public:
 public:
     
 private:
-    void Destroy();
+    void AfterDestroy();
 
     //TEMP
     //일단 막 움직임

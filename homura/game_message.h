@@ -240,3 +240,16 @@ public:
     bool is_enemy;
     int forces_number;
 };
+
+//편대 관련 메시지
+
+//편대에 가입 요청
+struct RequestJoinFormationMessage : public GameMessage {
+private:
+    RequestJoinFormationMessage() {}
+public:
+    static RequestJoinFormationMessage Create(int id);
+    RequestJoinFormationMessage *Clone() const { return new RequestJoinFormationMessage(); }
+
+    int id;
+};

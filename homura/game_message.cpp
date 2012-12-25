@@ -5,6 +5,13 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+RequestJoinFormationMessage RequestJoinFormationMessage::Create(int id){
+    RequestJoinFormationMessage msg;
+    msg.id = id;
+    return msg;
+}
+
+
 CheckForcesNumberMessage CheckForcesNumberMessage::Create(bool is_enemy) {
     CheckForcesNumberMessage msg;
     msg.is_enemy = is_enemy;

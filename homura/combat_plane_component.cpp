@@ -25,7 +25,9 @@ void CombatPlaneComponent::Update(float dt) {
     //TODO
     CharacterComponent::Update(dt);
     Attack(dt);
-    AIMove(dt);
+    
+    //일단 편대로 움직임 제어를 넘긴다.
+    //AIMove(dt);
 }
 
 void CombatPlaneComponent::InitMsgHandler() {
@@ -68,9 +70,7 @@ void CombatPlaneComponent::Attack(float dt) {
     obj()->world()->AddObject(factory.Create(header, layer()));
 }
 
-void CombatPlaneComponent::Destroy() {
-    GameWorld *world = obj()->world();
-    world->RequestRemoveObject(world->FindObject(obj()->id()));
+void CombatPlaneComponent::AfterDestroy() {
 }
 
 void CombatPlaneComponent::AIMove( float dt )

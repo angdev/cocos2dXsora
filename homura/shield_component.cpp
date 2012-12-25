@@ -44,7 +44,5 @@ void ShieldComponent::Update(float dt) {
     
 }
 
-void ShieldComponent::Destroy() {
-    GameWorld *world = obj()->world();
-    world->RequestRemoveObject(world->FindObject(obj()->id()));
+void ShieldComponent::AfterDestroy() {
 }

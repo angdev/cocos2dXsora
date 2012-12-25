@@ -29,8 +29,7 @@ void CharacterComponent::Update(float dt) {
     //체력을 가지고 있으므로 이걸 처리
     if(hit_point_ <= 0) {
         //Destroy
-        DestroyMessage msg = DestroyMessage::Create(obj()->id());
-        obj()->OnMessage(&msg);
+        Destroy();
         //OnDestroy -> drawable comp에서 터짐 처리 -> logic comp에서 world에 삭제 요청 보냄.
         //우선순위는 drawable > logic
     }
@@ -47,16 +46,21 @@ void CharacterComponent::Update(float dt) {
 }
 
 void CharacterComponent::InitMsgHandler() {
-    RegisterMsgFunc(this, &CharacterComponent::OnDestroyMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnDamageObjectMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCheckForcesNumberMessage);
 }
 
-void CharacterComponent::OnDestroyMessage(DestroyMessage *msg) {
-    cocos2d::CCLog("%d destroied", msg->obj_id);
-    Destroy();
+void CharacterComponent::Destroy()
+{
+    GameWorld *world = obj()->world();
+    world->RequestRemoveObject(world->FindObject(obj()->id()));
+
+    DestroyMessage msg = DestroyMessage::Create(obj()->id());
+    world->OnMessage(&msg);
+
+    AfterDestroy();
 }
 
 void CharacterComponent::OnCollideBulletMessage(CollideBulletMessage *msg) {

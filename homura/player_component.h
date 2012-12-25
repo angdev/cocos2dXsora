@@ -24,7 +24,7 @@ public:
 public:
     virtual bool is_enemy() { return false; }
 private:
-    void Destroy();
+    void AfterDestroy();
 
 private:
     //반사 로직
