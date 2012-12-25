@@ -49,13 +49,20 @@ public:
     cocos2d::CCNode *layer() { return layer_; }
     float hit_point() const { return hit_point_; }
     void set_hit_point(float hit_point) { hit_point_ = hit_point; }
+    float max_hit_point() { return max_hit_point_; }
+    void set_max_hit_point(float max_hit_point) { max_hit_point_ = max_hit_point; }
+
+    CharacterFSM *char_fsm() { return char_fsm_.get(); }
 
 private:
     virtual void Destroy() = 0;
     void RequestRecovery();
 
 private:
+    std::unique_ptr<CharacterFSM> char_fsm_;
+
     bool is_enemy_;
+    float max_hit_point_;
     float hit_point_;
     cocos2d::CCNode *layer_;
 

@@ -7,6 +7,7 @@
 #include "game_world.h"
 #include "game_object_factory.h"
 #include "game_stage.h"
+#include "character_fsm.h"
 
 #include <random>
 #include "sora/unit.h"
@@ -17,7 +18,7 @@
 
 CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
     : LogicComponent(obj), layer_(layer), is_enemy_(false) {
-
+    char_fsm_ = std::move(std::unique_ptr<CharacterFSM>(new CharacterFSM(this)));
 }
 
 CharacterComponent::~CharacterComponent() {
@@ -33,6 +34,9 @@ void CharacterComponent::Update(float dt) {
         //OnDestroy -> drawable comp에서 터짐 처리 -> logic comp에서 world에 삭제 요청 보냄.
         //우선순위는 drawable > logic
     }
+
+    //fsm update
+    char_fsm_->Update(dt);
 
     //캐릭터 컴포넌트를 가지는 녀석들은 플레이어 객체에 회복을 요청할 수 있다.
     //플레이어 빼고

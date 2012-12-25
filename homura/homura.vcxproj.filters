@@ -97,6 +97,9 @@
     <ClCompile Include="shield_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
+    <ClCompile Include="character_fsm.cpp">
+      <Filter>logic_comp\character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -203,6 +206,9 @@
     </ClInclude>
     <ClInclude Include="shield_component.h">
       <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="character_fsm.h">
+      <Filter>logic_comp\character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
