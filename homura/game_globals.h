@@ -14,6 +14,7 @@ typedef enum {
     kCompCombatPlane,   //전투기
     kCompLaserPlane,
     kCompShield,    //쉴드
+    kCompFormation, //편대
     kCompAI,    //그냥 AI를 가지는 객체 (Player, Enemy에 들어갈 예정)
 
     //가상의 객체를 위한 컴포넌트

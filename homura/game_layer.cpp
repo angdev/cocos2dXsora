@@ -180,7 +180,7 @@ GameObject *GameLayer::CreatePlayer() {
     //set stage 함수를 두고 플레이어를 여기서 초기화.
     //플레이어 정보는 여기서 들고 있기 때문.
 
-    TestPlayerObjectHeader player_header;
+    PlayerObjectHeader player_header;
     player_header.angle_rad = M_PI_2;
     player_header.x = 350;
     player_header.y = 100;

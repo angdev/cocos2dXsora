@@ -34,8 +34,6 @@ public:
     virtual void InitMsgHandler();
     void OnCollideBulletMessage(CollideBulletMessage *msg);
     virtual void CollideBullet(CollideBulletMessage *msg);
-    //캐릭터 컴포넌트를 가진 녀석들은 밖에 못 나가도록 막는다
-    void OnOutOfBoundMessage(OutOfBoundMessage *msg);
     void OnDamageObjectMessage(DamageObjectMessage *msg);
     
     //쉴드는 캐릭터 컴포넌트를 상속받은 녀석이면 다 칠 수 있다고 가정

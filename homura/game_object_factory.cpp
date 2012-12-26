@@ -10,6 +10,7 @@
 #include "player_component.h"
 #include "bullet_component.h"
 #include "shield_component.h"
+#include "formation_component.h"
 #include "game_trigger_component.h"
 #include "game_trigger_handler.h"
 #include "sora/unit.h"
@@ -24,7 +25,7 @@ USING_NS_CC;
 using namespace sora;
 using namespace std;
 
-GameObject *GameObjectFactory::Create( const TestPlayerObjectHeader &header, cocos2d::CCNode *parent ) {
+GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d::CCNode *parent ) {
     //테스트용으로 조작할 걸 만드는게 목적
     GameObject *obj = new GameObject(world_);
 
@@ -50,7 +51,7 @@ GameObject *GameObjectFactory::Create( const TestPlayerObjectHeader &header, coc
     return obj;
 }
 
-GameObject *GameObjectFactory::Create( const TestBulletObjectHeader &header, cocos2d::CCNode *parent ) {
+GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d::CCNode *parent ) {
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
     //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
     CCSprite *sprite = CCSprite::create("circle_bullet.png");
@@ -79,7 +80,7 @@ GameObject *GameObjectFactory::Create( const TestBulletObjectHeader &header, coc
     return obj;
 }
 
-GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent ) {
+GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, cocos2d::CCNode *parent ) {
     glm::vec2 obj_pos(header.x, header.y);
     
     b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
@@ -108,7 +109,7 @@ GameObject *GameObjectFactory::Create( const TestCombatPlaneObjectHeader &header
     return obj;
 }
 
-GameObject *GameObjectFactory::Create(const TestShieldHeader &header, cocos2d::CCNode *parent) {
+GameObject *GameObjectFactory::Create(const ShieldHeader &header, cocos2d::CCNode *parent) {
 
     glm::vec2 body_pos(header.x, header.y);
     b2Body *body = CreateCollisionBox(body_pos, 50, 50);
@@ -126,7 +127,7 @@ GameObject *GameObjectFactory::Create(const TestShieldHeader &header, cocos2d::C
 
 
 //헤더는 의미없음. 그냥 넣어둔거.
-GameObject *GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d::CCNode *parent ) {
+GameObject *GameObjectFactory::Create(const ObjectHeader &header, cocos2d::CCNode *parent) {
     glm::vec2 obj_pos(header.x, header.y);
     b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
 
@@ -147,6 +148,16 @@ GameObject *GameObjectFactory::Create( const DemoObjectHeader &header, cocos2d::
 
     return obj;
 }
+
+
+GameObject *GameObjectFactory::Create(const FormationHeader &header) {
+    GameObject *obj = new GameObject(world_);
+    LogicComponent *logic = new FormationComponent(obj);
+    obj->set_logic_comp(logic);
+
+    return obj;
+}
+
 
 GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
                                        GameTriggerHandlerPtr game_trigger_handler_) {

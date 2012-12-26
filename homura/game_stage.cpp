@@ -32,13 +32,17 @@ bool GameStage::Init() {
         return false;
 
     factory_ = new GameObjectFactory(world_);
+    //편대 로직을 구현한 객체 삽입
+    FormationHeader formation_header;
+    GameObject *formation_obj = factory_->Create(formation_header);
+    world_->AddObject(formation_obj);
 
     //Test
     
     //EventGroup #0
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
-    TestCombatPlaneObjectHeader combat_header;
+    CombatPlaneObjectHeader combat_header;
     combat_header.angle = M_PI_2;
     combat_header.hit_point = 200;
     combat_header.x = 100;

@@ -47,7 +47,6 @@ void CharacterComponent::Update(float dt) {
 
 void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
-    RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnDamageObjectMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCheckForcesNumberMessage);
 }
@@ -104,13 +103,6 @@ void CharacterComponent::RequestRecovery() {
     return;
 }
 
-void CharacterComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
-    //이전 위치로 되돌림
-    b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
-    MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
-    obj()->OnMessage(&move_msg);
-}
-
 void CharacterComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
     hit_point_ -= msg->damage;
 }
@@ -127,7 +119,7 @@ void CharacterComponent::OnCreateShieldMessage(CreateShieldMessage *msg) {
 
         //팩토리를 가지고 메세지를 받아서 생성해주는 녀석으로 분리?
         GameObjectFactory factory(obj()->world());
-        TestShieldHeader header;
+        ShieldHeader header;
         header.x = body_info_msg.phy_body_info->x;
         header.y = body_info_msg.phy_body_info->y;
         header.hit_point = 100; //일단 고정

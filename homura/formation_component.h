@@ -22,6 +22,7 @@ public:
     virtual ~FormationComponent();
 
 public:
+    virtual CompType type() const { return kCompFormation; }
     virtual void Update(float dt);
     virtual void InitMsgHandler();
 

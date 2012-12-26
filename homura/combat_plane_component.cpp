@@ -51,7 +51,7 @@ void CombatPlaneComponent::Attack(float dt) {
     if(!msg.is_ret)
         return;
         
-    TestBulletObjectHeader header;
+    BulletObjectHeader header;
 
     float look_angle = body_info.angle_rad;
     //각도로부터 벡터 만들기
