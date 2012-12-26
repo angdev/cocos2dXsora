@@ -13,6 +13,7 @@
 #include "formation_component.h"
 #include "game_trigger_component.h"
 #include "game_trigger_handler.h"
+#include "character_fsm.h"
 #include "sora/unit.h"
 
 #include "data_define.h"
@@ -40,6 +41,7 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     PlayerComponent *logic = new PlayerComponent(obj, parent);
+    logic->set_max_hit_point(header.hit_point);
     logic->set_hit_point(header.hit_point);
 
     obj->set_drawable_comp(drawable);
@@ -94,10 +96,13 @@ GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, co
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     CombatPlaneComponent *logic = new CombatPlaneComponent(obj, parent);
+    logic->char_fsm()->set_ally_state(header.is_fall? kAllyFallState : kAllyNormalState);
 
     //temp
     //객체 마다 header로 걍 초기화하는거 넣을 것.
-    logic->set_hit_point(header.hit_point);
+    logic->set_max_hit_point(header.hit_point);
+    //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
+    logic->set_hit_point(header.is_fall? header.hit_point * 0.3f : header.hit_point);
     logic->set_is_enemy(header.is_enemy);
 
     obj->set_drawable_comp(drawable);

@@ -19,6 +19,7 @@ public:
     virtual void CollideBullet(CollideBulletMessage *msg);
     void OnRequestPlayerPositionMessage(RequestPlayerPositionMessage *msg);
     void OnRequestRecoveryMessage(RequestRecoveryMessage *msg); //일단 플레이어는 항상 아군이라고 가정.
+    void OnCollidePlaneMessage(CollidePlaneMessage *msg);   //박치기했을 때
 
 
 public:

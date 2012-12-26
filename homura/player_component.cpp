@@ -126,3 +126,14 @@ void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
     obj()->OnMessage(&move_msg);
 }
+
+void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
+    //일단 부딪힌 객체가 캐릭터 컴포넌트를 가지는게 보장되고 있음
+    CharacterComponent *counter_char_comp = static_cast<CharacterComponent*>(msg->counter_obj->logic_comp());
+    if(counter_char_comp->is_enemy() != is_enemy()) {
+        //데미지를 주자
+        DamageObjectMessage damage_msg = DamageObjectMessage::Create(1.0f);
+        msg->counter_obj->OnMessage(&damage_msg);
+        obj()->OnMessage(&damage_msg);
+    }
+}

@@ -44,11 +44,12 @@ bool GameStage::Init() {
 
     CombatPlaneObjectHeader combat_header;
     combat_header.angle = M_PI_2;
-    combat_header.hit_point = 200;
+    combat_header.hit_point = 100;
     combat_header.x = 100;
     combat_header.y = 200;
     combat_header.is_enemy = false;
     combat_header.sprite_name = "";
+    combat_header.is_fall = true;
     GameTrigger *trg0 = new GameTrigger(this);
     GameAction *act0 = MakeCreateObjectAction(combat_header);
     trg0->set_action(act0);
