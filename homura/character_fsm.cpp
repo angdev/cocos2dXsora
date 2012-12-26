@@ -26,6 +26,9 @@ void CharacterFSM::AllyFSMUpdate(float dt) {
     
     switch(ally_state_) {
     case kAllyFallState:
+        //그냥 화면 끝을 왔다갔다 거리게하자
+        
+
         //낙오 상태에서는 체력이 줄어 있는데 최대 체력이 되면 부활
         if(char_comp_->max_hit_point() - char_comp_->hit_point() < 1.0f) {
             ally_state_ = kAllyNormalState;

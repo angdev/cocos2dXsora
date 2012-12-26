@@ -49,6 +49,7 @@ void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnCollideBulletMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnDamageObjectMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCheckForcesNumberMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
 }
 
 void CharacterComponent::Destroy()
@@ -135,6 +136,15 @@ void CharacterComponent::OnCheckForcesNumberMessage(CheckForcesNumberMessage *ms
     if(msg->is_enemy == is_enemy_) {
         msg->forces_number++;
     }
+}
+
+void CharacterComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
+    HandleOutOfBound(msg);
+}
+
+void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg)
+{
+
 }
 
 //CharacterComponent

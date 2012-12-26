@@ -39,8 +39,9 @@ public:
     //쉴드는 캐릭터 컴포넌트를 상속받은 녀석이면 다 칠 수 있다고 가정
     //그렇지 않으면 나중에 분리.
     void OnCreateShieldMessage(CreateShieldMessage *msg);
-
     void OnCheckForcesNumberMessage(CheckForcesNumberMessage *msg);
+    //플레이어가 밖에 못 나가도록 막는다
+    void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
 public:
     void set_is_enemy(bool is_enemy) { is_enemy_ = is_enemy; }
@@ -55,6 +56,7 @@ public:
     CharacterFSM *char_fsm() { return char_fsm_.get(); }
 
 private:
+    virtual void HandleOutOfBound(OutOfBoundMessage *msg);
     virtual void AfterDestroy() = 0;
     void RequestRecovery();
 

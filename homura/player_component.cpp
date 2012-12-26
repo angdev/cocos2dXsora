@@ -36,7 +36,6 @@ void PlayerComponent::Update(float dt) {
 
 void PlayerComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
-    RegisterMsgFunc(this, &PlayerComponent::OnOutOfBoundMessage);
     RegisterMsgFunc(this, &PlayerComponent::OnRequestPlayerPositionMessage);
     RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
 }
@@ -121,7 +120,7 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
     }
 }
 
-void PlayerComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
+void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //이전 위치로 되돌림
     b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
     MoveMessage move_msg = MoveMessage::Create(-(pos_diff));

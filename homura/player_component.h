@@ -19,14 +19,13 @@ public:
     virtual void CollideBullet(CollideBulletMessage *msg);
     void OnRequestPlayerPositionMessage(RequestPlayerPositionMessage *msg);
     void OnRequestRecoveryMessage(RequestRecoveryMessage *msg); //일단 플레이어는 항상 아군이라고 가정.
-    //플레이어가 밖에 못 나가도록 막는다
-    void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
 
 public:
     virtual bool is_enemy() { return false; }
 private:
     void AfterDestroy();
+    void HandleOutOfBound(OutOfBoundMessage *msg);
 
 private:
     //반사 로직
