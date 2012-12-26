@@ -93,8 +93,8 @@ bool GameLayer::init() {
 }
 
 void GameLayer::update(float dt) {
+    
     world_->Update(dt);
-
 
     //TODO
     //스테이지 유효 체크
@@ -104,9 +104,10 @@ void GameLayer::update(float dt) {
     if(!player_->IsEnabled()) {
         cocos2d::CCLog("Player die");
         world_->RequestRemoveObject(world_->FindObject(player_->id()));
-        player_ = NULL;
 
-        set_player(CreatePlayer());
+        //player_ = CreatePlayer();
+        //world_->AddObject(player_);
+        //set_player(CreatePlayer());
     }
 
     //게임 클리어?
@@ -127,8 +128,10 @@ GameObject *GameLayer::player() {
 
 //이렇게 쓰는거 맞나..?
 void GameLayer::set_player(GameObject *player) {
+    /*
     if(player_ != NULL)
         world_->RequestRemoveObject(world_->FindObject(player_->id()));
+    */
     player_ = player;
     world_->AddObject(player_);
 }

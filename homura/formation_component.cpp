@@ -1,6 +1,10 @@
 ﻿// Ŭnicode please
 #include "stdafx.h"
 #include "formation_component.h"
+#include "game_object.h"
+#include "game_world.h"
+
+#include "sora/unit.h"
 
 FormationComponent::FormationComponent(GameObject *obj)
     : LogicComponent(obj), leader_id_(NO_LEADER) {
@@ -21,7 +25,10 @@ void FormationComponent::Update(float dt) {
     //일단 귀찮으니 걍 대충 움직인다
 
     for(auto member : member_set_) {
-        
+        GameObjectPtr obj_ptr = obj()->world()->FindObject(member);
+        b2Vec2 move_vec(-1.0f, 0);
+        MoveMessage move_msg = MoveMessage::Create(move_vec);
+        obj_ptr->OnMessage(&move_msg);
     }
 }
 
