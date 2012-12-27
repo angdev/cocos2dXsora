@@ -99,6 +99,7 @@ CreateObjectAction<T> *MakeCreateObjectAction(const T &header) {
 
 //액션이 빌더 역할을 해도 되는건가..
 //일단 여기서 생성.. 아ㅇ롷
+//체인으로 엮이는 애들은 팩토리의 Create(header, *parent)의 오버로딩만을 이용
 template <typename MasterType, typename SlaveType>
 class CreateObjectsWithChainAction : public GameAction {
 public:
@@ -109,12 +110,14 @@ public:
 private:
     void Run() {
         GameWorld *world = trigger()->stage()->world();
+        cocos2d::CCNode *parent = trigger()->stage()->layer();
+
         //마스터를 생성 -> 슬레이브 생성 -> 체인 생성
         GameObjectFactory factory(world);
-        GameObject *master_obj = factory.Create(master_header_);
+        GameObject *master_obj = factory.Create(master_header_, parent);
         world->AddObject(master_obj);
 
-        GameObject *slave_obj = factory.Create(slave_header_);
+        GameObject *slave_obj = factory.Create(slave_header_, parent);
         world->AddObject(slave_obj);
         
         ChainHeader chain_header;

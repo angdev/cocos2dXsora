@@ -40,6 +40,9 @@ bool GameStage::Init() {
     //Test
     
     //EventGroup #0
+
+    //Temp
+    //Chain Test
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
     CombatPlaneObjectHeader combat_header;
@@ -50,8 +53,10 @@ bool GameStage::Init() {
     combat_header.is_enemy = false;
     combat_header.sprite_name = "";
     combat_header.is_fall = true;
+    CombatPlaneObjectHeader combat_enemy_header = combat_header;
+    combat_enemy_header.is_enemy = true;
     GameTrigger *trg0 = new GameTrigger(this);
-    GameAction *act0 = MakeCreateObjectAction(combat_header);
+    GameAction *act0 = MakeCreateObjectsWithChainAction(combat_enemy_header, combat_header);
     trg0->set_action(act0);
     trg0->set_condition(new NullCondition);
     trg_hnd0->AddTrigger(trg0);
@@ -59,7 +64,10 @@ bool GameStage::Init() {
     NextTriggers *next_trigger_1 = new NextTriggers();
     next_trigger_1->push_back(2);
     world_->AddObject(factory_->Create(e_header, 1, next_trigger_1, GameTriggerHandlerPtr(trg_hnd0)));
-     
+    
+
+    
+
     //EventGroup #1
     GameTriggerHandler *trg_hnd1 = new GameTriggerHandler();
 

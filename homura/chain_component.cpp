@@ -15,7 +15,7 @@ CompType ChainComponent::type() const {
 }
 
 void ChainComponent::Update(float dt) {
-    
+    CCLOG("from chain");
 }
 
 void ChainComponent::InitMsgHandler() {
