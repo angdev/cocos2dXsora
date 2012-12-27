@@ -8,7 +8,7 @@
 //몸빵해주는 캐릭이라고 생각
 class ShieldComponent : public CharacterComponent {
 public:
-    ShieldComponent(GameObject *obj);
+    explicit ShieldComponent(GameObject *obj);
     virtual ~ShieldComponent();
 
 public:

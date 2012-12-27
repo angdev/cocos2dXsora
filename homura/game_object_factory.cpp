@@ -11,6 +11,7 @@
 #include "bullet_component.h"
 #include "shield_component.h"
 #include "formation_component.h"
+#include "chain_component.h"
 #include "game_trigger_component.h"
 #include "game_trigger_handler.h"
 #include "character_fsm.h"
@@ -129,6 +130,16 @@ GameObject *GameObjectFactory::Create(const ShieldHeader &header, cocos2d::CCNod
     return obj;
 }
 
+
+GameObject * GameObjectFactory::Create(const ChainHeader &header) {
+    GameObject *obj = new GameObject(world_);
+    ChainComponent *logic = new ChainComponent(obj);
+    logic->set_master_id(header.master_id);
+    logic->set_slave_id(header.slave_id);
+    obj->set_logic_comp(logic);
+
+    return obj;
+}
 
 
 //헤더는 의미없음. 그냥 넣어둔거.

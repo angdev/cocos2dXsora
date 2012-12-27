@@ -52,6 +52,11 @@ STRUCT_END()
 STRUCT_NEW_BEGIN(FormationHeader, 1)
 STRUCT_END()
 
+STRUCT_NEW_BEGIN(ChainHeader, 1)
+    STRUCT_VAR_INT(master_id)
+    STRUCT_VAR_INT(slave_id)
+STRUCT_END()
+
 //로직 객체들
 STRUCT_NEW_BEGIN(GameTriggerObjectHeader, 1)
 STRUCT_END()

@@ -18,7 +18,7 @@ class FormationComponent : public LogicComponent {
     };
 
 public:
-    FormationComponent(GameObject *obj);
+    explicit FormationComponent(GameObject *obj);
     virtual ~FormationComponent();
 
 public:

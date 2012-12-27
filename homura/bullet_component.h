@@ -6,7 +6,7 @@
 
 class BulletComponent : public LogicComponent {
 public:
-    BulletComponent(GameObject *obj);
+    explicit BulletComponent(GameObject *obj);
     virtual ~BulletComponent();
 
 public:

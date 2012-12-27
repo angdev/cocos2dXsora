@@ -8,7 +8,7 @@
 
 class CombatPlaneComponent : public CharacterComponent {
 public:
-    CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer);
+    explicit CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer);
     virtual ~CombatPlaneComponent();
 
 public:

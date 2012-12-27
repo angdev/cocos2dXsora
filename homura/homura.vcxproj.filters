@@ -103,6 +103,9 @@
     <ClCompile Include="formation_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
+    <ClCompile Include="chain_component.cpp">
+      <Filter>logic_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -214,6 +217,9 @@
       <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="formation_component.h">
+      <Filter>logic_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="chain_component.h">
       <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>

@@ -33,6 +33,7 @@ public:
     GameObject *Create(const ObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const ShieldHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const FormationHeader &header);
+    GameObject *Create(const ChainHeader &header);
 
     //가상의 게임 객체들 (로직)
     GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
