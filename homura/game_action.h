@@ -4,6 +4,10 @@
 
 #include "game_trigger.h"
 
+//temp
+#include "character_fsm.h"
+#include "character_component.h"
+
 typedef unsigned int TriggerID;
 typedef std::vector<TriggerID> NextTriggers;
 
@@ -117,7 +121,11 @@ private:
         GameObject *master_obj = factory.Create(master_header_, parent);
         world->AddObject(master_obj);
 
+        //슬레이브 state를 지정
+        //적, 아군 같은 스테이트를 지녀도 별 문제 없을 것 같긴 한데 =ㅅ=
         GameObject *slave_obj = factory.Create(slave_header_, parent);
+        //하드 코딩! 캐릭터 컴포넌트를 가진다고 가정
+        static_cast<CharacterComponent*>(slave_obj->logic_comp())->char_fsm()->set_ally_state(kAllyArrestState);
         world->AddObject(slave_obj);
         
         ChainHeader chain_header;

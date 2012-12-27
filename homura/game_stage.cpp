@@ -52,9 +52,13 @@ bool GameStage::Init() {
     combat_header.y = 200;
     combat_header.is_enemy = false;
     combat_header.sprite_name = "";
-    combat_header.is_fall = true;
+    combat_header.is_fall = false;
     CombatPlaneObjectHeader combat_enemy_header = combat_header;
     combat_enemy_header.is_enemy = true;
+    combat_enemy_header.angle = -M_PI_2;
+    combat_header.is_fall = false;
+    combat_enemy_header.x = 400;
+    combat_enemy_header.y = 500;
     GameTrigger *trg0 = new GameTrigger(this);
     GameAction *act0 = MakeCreateObjectsWithChainAction(combat_enemy_header, combat_header);
     trg0->set_action(act0);

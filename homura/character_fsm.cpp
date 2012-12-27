@@ -47,7 +47,20 @@ void CharacterFSM::AllyFSMUpdate(float dt) {
     }
 
     else if(ally_state_ == kAllyArrestState) {
-    //묶여있는 상태
+        //묶여있는 상태
+        //master가 죽었는지 확인 == 체인이 존재하는지 확인
+        CheckConnectedChainMessage check_msg = CheckConnectedChainMessage::Create(char_comp_->obj()->id());
+        char_comp_->obj()->world()->OnMessage(&check_msg);
+
+        //파괴되었으면 상태 전환
+        if(check_msg.checked == false) {
+
+            ally_state_ = kAllyNormalState;
+            
+            //편대에 가입
+            RequestJoinFormationMessage msg = RequestJoinFormationMessage::Create(char_comp_->obj()->id());
+            char_comp_->obj()->world()->OnMessage(&msg);
+        }
     }
     else if(ally_state_ == kAllyNormalState) {
         //이 상태에서는 그냥 편대 컴포넌트의 제어를 받는다

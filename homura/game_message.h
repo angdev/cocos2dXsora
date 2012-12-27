@@ -253,3 +253,17 @@ public:
 
     int id;
 };
+
+//체인 관련 메시지
+
+//캐릭터 객체와 연결된 체인이 있는지 확인
+struct CheckConnectedChainMessage : public GameMessage {
+private:
+    CheckConnectedChainMessage() {}
+public:
+    static CheckConnectedChainMessage Create(int id);
+    CheckConnectedChainMessage *Clone() const { return new CheckConnectedChainMessage(); }
+
+    int id;
+    bool checked;
+};

@@ -5,6 +5,14 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+CheckConnectedChainMessage CheckConnectedChainMessage::Create(int id) {
+    CheckConnectedChainMessage msg;
+    msg.id = id;
+    msg.checked = false;
+    return msg;
+}
+
+
 RequestJoinFormationMessage RequestJoinFormationMessage::Create(int id){
     RequestJoinFormationMessage msg;
     msg.id = id;

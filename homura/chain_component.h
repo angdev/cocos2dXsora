@@ -20,6 +20,12 @@ public:
     virtual void Update(float dt);
     virtual void InitMsgHandler();
 
+    void Destroy();
+
+public:
+    void OnDestroyMessage(DestroyMessage *msg);
+    void OnCheckConnectedChainMessage(CheckConnectedChainMessage *msg);
+
 public:
     void set_master_id(int master_id) { master_id_ = master_id; }
     void set_slave_id(int slave_id) { slave_id_ = slave_id; }
