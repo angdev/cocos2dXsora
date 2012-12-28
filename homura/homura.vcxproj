@@ -91,7 +91,6 @@
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="chain_component.cpp" />
     <ClCompile Include="character_component.cpp" />
-    <ClCompile Include="character_fsm.cpp" />
     <ClCompile Include="collision_handler.cpp" />
     <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
@@ -135,7 +134,6 @@
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="chain_component.h" />
     <ClInclude Include="character_component.h" />
-    <ClInclude Include="character_fsm.h" />
     <ClInclude Include="collision_handler.h" />
     <ClInclude Include="collision_manager.h" />
     <ClInclude Include="collision_tuple.h" />

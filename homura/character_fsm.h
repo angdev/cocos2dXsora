@@ -1,4 +1,5 @@
-﻿// Ŭnicode please
+﻿/*
+// Ŭnicode please
 #ifndef __CHARACTER_FSM_H__
 #define __CHARACTER_FSM_H__
 
@@ -41,3 +42,4 @@ private:
 };
 
 #endif
+*/

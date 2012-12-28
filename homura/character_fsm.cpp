@@ -1,6 +1,7 @@
 ﻿// Ŭnicode please
 #include "stdafx.h"
 #include "character_fsm.h"
+/*
 #include "character_component.h"
 #include "game_object.h"
 #include "game_message.h"
@@ -73,3 +74,4 @@ void CharacterFSM::AllyFSMUpdate(float dt) {
 void CharacterFSM::EnemyFSMUpdate(float dt) {
 
 }
+*/

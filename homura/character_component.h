@@ -44,8 +44,7 @@ public:
     void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
 public:
-    void set_is_enemy(bool is_enemy) { is_enemy_ = is_enemy; }
-    bool is_enemy() { return is_enemy_; }
+    bool is_enemy();
 
     cocos2d::CCNode *layer() { return layer_; }
     float hit_point() const { return hit_point_; }
@@ -58,17 +57,13 @@ public:
     float max_hit_point() { return max_hit_point_; }
     void set_max_hit_point(float max_hit_point) { max_hit_point_ = max_hit_point; }
 
-    CharacterFSM *char_fsm() { return char_fsm_.get(); }
-
 private:
     virtual void HandleOutOfBound(OutOfBoundMessage *msg);
     virtual void AfterDestroy() = 0;
     void RequestRecovery();
 
 private:
-    std::unique_ptr<CharacterFSM> char_fsm_;
-
-    bool is_enemy_;
+    
     float max_hit_point_;
     float hit_point_;
     cocos2d::CCNode *layer_;

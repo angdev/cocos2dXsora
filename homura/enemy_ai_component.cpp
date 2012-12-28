@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "enemy_ai_component.h"
 
-EnemyAIComponent::EnemyAIComponent(GameObject *obj) : AIComponent(obj) {
+EnemyAIComponent::EnemyAIComponent(GameObject *obj) : AIComponent(obj), state_(kEnemyNormalState) {
 
 }
 

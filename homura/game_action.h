@@ -7,6 +7,7 @@
 //temp
 #include "character_fsm.h"
 #include "character_component.h"
+#include "ally_ai_component.h"
 
 typedef unsigned int TriggerID;
 typedef std::vector<TriggerID> NextTriggers;
@@ -125,7 +126,7 @@ private:
         //적, 아군 같은 스테이트를 지녀도 별 문제 없을 것 같긴 한데 =ㅅ=
         GameObject *slave_obj = factory.Create(slave_header_, parent);
         //하드 코딩! 캐릭터 컴포넌트를 가진다고 가정
-        static_cast<CharacterComponent*>(slave_obj->logic_comp())->char_fsm()->set_ally_state(kAllyArrestState);
+        slave_obj->ai_comp()->set_state(kAllyArrestState);
         world->AddObject(slave_obj);
         
         ChainHeader chain_header;

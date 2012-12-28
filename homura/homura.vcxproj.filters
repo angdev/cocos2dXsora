@@ -97,9 +97,6 @@
     <ClCompile Include="shield_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
-    <ClCompile Include="character_fsm.cpp">
-      <Filter>logic_comp\character</Filter>
-    </ClCompile>
     <ClCompile Include="formation_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
@@ -221,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="shield_component.h">
       <Filter>logic_comp</Filter>
-    </ClInclude>
-    <ClInclude Include="character_fsm.h">
-      <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="formation_component.h">
       <Filter>logic_comp</Filter>
