@@ -105,6 +105,20 @@ public:
 
 //End Physics Component Messages
 
+//AI Component Messages
+
+struct IsEnemyMessage : public GameMessage {
+private:
+    IsEnemyMessage() {}
+public:
+    static IsEnemyMessage Create();
+    IsEnemyMessage *Clone() const { return new IsEnemyMessage(); }
+    
+    bool is_enemy;
+};
+
+//End AI Component Messages
+
 //Player Component Messages
 
 struct CollidePlaneMessage : public GameMessage {

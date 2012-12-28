@@ -106,6 +106,15 @@
     <ClCompile Include="chain_component.cpp">
       <Filter>logic_comp</Filter>
     </ClCompile>
+    <ClCompile Include="ai_component.cpp">
+      <Filter>ai_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="ally_ai_component.cpp">
+      <Filter>ai_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_ai_component.cpp">
+      <Filter>ai_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -222,6 +231,15 @@
     <ClInclude Include="chain_component.h">
       <Filter>logic_comp</Filter>
     </ClInclude>
+    <ClInclude Include="ai_component.h">
+      <Filter>ai_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="ally_ai_component.h">
+      <Filter>ai_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy_ai_component.h">
+      <Filter>ai_comp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cbes">
@@ -262,6 +280,9 @@
     </Filter>
     <Filter Include="trigger">
       <UniqueIdentifier>{90cbdac0-1937-4fea-8f0a-5fc7600f0dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ai_comp">
+      <UniqueIdentifier>{402d0d76-8a79-4374-b688-1f862b912e64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

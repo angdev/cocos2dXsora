@@ -5,6 +5,7 @@
 #include "drawable_component.h"
 #include "logic_component.h"
 #include "phy_component.h"
+#include "ai_component.h"
 
 #if SR_USE_PCH == 0
 #include <array>
@@ -30,9 +31,10 @@ void GameObject::Update(float dt) {
     
     //고정크기 배열, 혹은 그것과 유사한것을 배치해서 쓸데없는
     //malloc를 없애자
-    std::array<GameComponent*, 3> comp_arr = {
+    std::array<GameComponent*, 4> comp_arr = {
         phy_comp_.get(),
         logic_comp_.get(),
+        ai_comp_.get(),
         drawable_comp_.get(),
     };
     for(auto it = comp_arr.begin(), e = comp_arr.end() ; it != e ; ++it) {

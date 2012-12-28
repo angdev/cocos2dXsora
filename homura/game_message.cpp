@@ -5,6 +5,13 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+IsEnemyMessage IsEnemyMessage::Create() {
+    IsEnemyMessage msg;
+    msg.is_enemy = false;
+    return msg;
+}
+
+
 CheckConnectedChainMessage CheckConnectedChainMessage::Create(int id) {
     CheckConnectedChainMessage msg;
     msg.id = id;
