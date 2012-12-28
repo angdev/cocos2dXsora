@@ -17,7 +17,7 @@
 #endif
 
 CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
-    : LogicComponent(obj), layer_(layer) {
+    : LogicComponent(obj), layer_(layer), unbeatable_(false) {
 }
 
 CharacterComponent::~CharacterComponent() {
@@ -66,7 +66,7 @@ void CharacterComponent::OnCollideBulletMessage(CollideBulletMessage *msg) {
 void CharacterComponent::CollideBullet(CollideBulletMessage *msg) {
     if(msg->from_enemy == is_enemy())
         return;
-    hit_point_ -= msg->damage;
+    set_hit_point(hit_point_ - msg->damage);
     msg->applied = true;
     //cocos2d::CCLog("%f", hit_point_);
 
@@ -102,7 +102,7 @@ void CharacterComponent::RequestRecovery() {
 
 void CharacterComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
     CCLOG("%f", hit_point_);
-    hit_point_ -= msg->damage;
+    set_hit_point(hit_point_ - msg->damage);
 }
 
 void CharacterComponent::OnCreateShieldMessage(CreateShieldMessage *msg) {
@@ -152,6 +152,16 @@ bool CharacterComponent::is_enemy() {
     obj()->OnMessage(&msg);
 
     return msg.is_enemy;
+}
+
+void CharacterComponent::set_hit_point(float hit_point) {
+    if(unbeatable_)
+        return;
+        
+    if(hit_point <= max_hit_point_)
+        hit_point_ = hit_point;
+    else
+        hit_point_ = max_hit_point_;
 }
 
 //CharacterComponent
