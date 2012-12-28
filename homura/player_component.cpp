@@ -133,8 +133,25 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
     CharacterComponent *counter_char_comp = static_cast<CharacterComponent*>(msg->counter_obj->logic_comp());
     if(counter_char_comp->is_enemy() != is_enemy()) {
         //데미지를 주자
+        //set_hit_point가 있으니 써도 됨..
+        //왜 메시지로 만들었지?
         DamageObjectMessage damage_msg = DamageObjectMessage::Create(1.0f);
         msg->counter_obj->OnMessage(&damage_msg);
         obj()->OnMessage(&damage_msg);
+
+        //걍 적절히 민다
+        //음.. 이걸 터치 핸들러랑 적절히 엮어야할텐데.
+        //그리고 이렇게 밀면 너무 별로인듯?
+        b2Vec2 player_body_pos = obj()->phy_comp()->main_body()->GetPosition();
+        b2Vec2 counter_body_pos = msg->counter_obj->phy_comp()->main_body()->GetPosition();
+        b2Vec2 push_vec(counter_body_pos.x - player_body_pos.x, counter_body_pos.y - player_body_pos.y);
+        push_vec.Normalize();
+        push_vec *= 10;
+
+        MoveMessage move_msg = MoveMessage::Create(push_vec);
+        msg->counter_obj->OnMessage(&move_msg);
+        push_vec *= -1;
+        move_msg.vec = push_vec;
+        obj()->OnMessage(&move_msg);
     }
 }
