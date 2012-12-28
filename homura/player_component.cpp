@@ -38,6 +38,7 @@ void PlayerComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
     RegisterMsgFunc(this, &PlayerComponent::OnRequestPlayerPositionMessage);
     RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
+    RegisterMsgFunc(this, &PlayerComponent::OnCollidePlaneMessage);
 }
 
 void PlayerComponent::AfterDestroy() {

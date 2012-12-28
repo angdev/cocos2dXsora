@@ -78,7 +78,7 @@ bool GameStage::Init() {
     //Event 1
     combat_header.angle = -M_PI_2;
     combat_header.is_enemy = true;
-    combat_header.hit_point = 100;
+    combat_header.hit_point = 10;
     combat_header.x = 100;
     combat_header.y = 1000;
     combat_header.sprite_name = "";
