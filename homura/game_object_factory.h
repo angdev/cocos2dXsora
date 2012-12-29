@@ -27,10 +27,13 @@ public:
 public:
     //TODO
     //나중에 Create 오버로딩할 예정 (구조체 헤더 이용)
-    GameObject *Create(const TestPlayerObjectHeader &header, cocos2d::CCNode *parent);
-    GameObject *Create(const TestBulletObjectHeader &header, cocos2d::CCNode *parent);
-    GameObject *Create(const TestCombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
-    GameObject *Create(const DemoObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const PlayerObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const BulletObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const CombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const ObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const ShieldHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const FormationHeader &header);
+    GameObject *Create(const ChainHeader &header);
 
     //가상의 게임 객체들 (로직)
     GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 

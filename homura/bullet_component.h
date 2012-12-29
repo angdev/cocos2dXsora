@@ -6,7 +6,7 @@
 
 class BulletComponent : public LogicComponent {
 public:
-    BulletComponent(GameObject *obj);
+    explicit BulletComponent(GameObject *obj);
     virtual ~BulletComponent();
 
 public:
@@ -18,7 +18,7 @@ public:
     //메세지 처리 함수들
 public:
     void OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg);
-    void OnDestroyMessage(DestroyMessage *msg);
+    void Destroy();
     void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
     //get/setter

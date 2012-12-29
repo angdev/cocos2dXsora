@@ -21,7 +21,6 @@ BulletComponent::~BulletComponent() {
 
 void BulletComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &BulletComponent::OnBulletDamageObjectMessage);
-    RegisterMsgFunc(this, &BulletComponent::OnDestroyMessage);
     RegisterMsgFunc(this, &BulletComponent::OnOutOfBoundMessage);
 }
 
@@ -48,19 +47,23 @@ void BulletComponent::OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg
 
     //리턴값. 맞았는가에 대한 체크
     if(apply_msg.applied) {
-        DestroyMessage msg = DestroyMessage::Create(obj()->id());
-        OnMessage(&msg);
+        Destroy();
     }
 
 }
 
-void BulletComponent::OnDestroyMessage(DestroyMessage *msg) {
+void BulletComponent::Destroy()
+{
     GameWorld *world = obj()->world();
-    world->RequestRemoveObject(world->FindObject(msg->obj_id));
+    world->RequestRemoveObject(world->FindObject(obj()->id()));
+
+    //메시지를 월드에 뿌리는 이유는 월드에서 특정 객체가 파기되는 것을 체크하는 객체가 있을 수 있으므로
+    //다 이렇게 바꿔야 함
+    DestroyMessage msg = DestroyMessage::Create(obj()->id());
+    world->OnMessage(&msg);
 }
 
 void BulletComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
     //밖에 나가면 없애야지
-    DestroyMessage destroy_msg = DestroyMessage::Create(obj()->id());
-    obj()->OnMessage(&destroy_msg);
+    Destroy();
 }

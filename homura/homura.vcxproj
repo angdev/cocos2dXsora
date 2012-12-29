@@ -86,7 +86,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ai_component.cpp" />
+    <ClCompile Include="ally_ai_component.cpp" />
     <ClCompile Include="bullet_component.cpp" />
+    <ClCompile Include="chain_component.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_handler.cpp" />
     <ClCompile Include="collision_manager.cpp" />
@@ -94,6 +97,8 @@
     <ClCompile Include="combat_plane_component.cpp" />
     <ClCompile Include="debug_config.cpp" />
     <ClCompile Include="drawable_component.cpp" />
+    <ClCompile Include="enemy_ai_component.cpp" />
+    <ClCompile Include="formation_component.cpp" />
     <ClCompile Include="game_action.cpp" />
     <ClCompile Include="game_component.cpp" />
     <ClCompile Include="game_console.cpp" />
@@ -116,14 +121,18 @@
     <ClCompile Include="phy_world.cpp" />
     <ClCompile Include="player_component.cpp" />
     <ClCompile Include="game_trigger.cpp" />
+    <ClCompile Include="shield_component.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ai_component.h" />
+    <ClInclude Include="ally_ai_component.h" />
     <ClInclude Include="app_macros.h" />
     <ClInclude Include="bullet_component.h" />
+    <ClInclude Include="chain_component.h" />
     <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_handler.h" />
     <ClInclude Include="collision_manager.h" />
@@ -131,6 +140,8 @@
     <ClInclude Include="combat_plane_component.h" />
     <ClInclude Include="drawable_component.h" />
     <ClInclude Include="debug_config.h" />
+    <ClInclude Include="enemy_ai_component.h" />
+    <ClInclude Include="formation_component.h" />
     <ClInclude Include="game_action.h" />
     <ClInclude Include="game_trigger_component.h" />
     <ClInclude Include="game_trigger_handler.h" />
@@ -155,6 +166,7 @@
     <ClInclude Include="phy_world.h" />
     <ClInclude Include="player_component.h" />
     <ClInclude Include="game_trigger.h" />
+    <ClInclude Include="shield_component.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

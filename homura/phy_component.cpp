@@ -37,8 +37,9 @@ void SinglePhyComponent::Update(float dt) {
 
 void SinglePhyComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &SinglePhyComponent::OnMoveMessage);
-    RegisterMsgFunc(this, &SinglePhyComponent::OnGetPhyBodyInfoMessage);
+    RegisterMsgFunc(this, &SinglePhyComponent::OnRequestPhyBodyInfoMessage);
     RegisterMsgFunc(this, &SinglePhyComponent::OnSetAngleMessage);
+    RegisterMsgFunc(this, &SinglePhyComponent::OnSetPhyBodyInfoMessage);
 }
 
 void SinglePhyComponent::OnMoveMessage(MoveMessage *msg) {
@@ -64,7 +65,7 @@ void SinglePhyComponent::OnSetAngleMessage( SetAngleMessage *msg ) {
     body_->SetTransform(body_->GetPosition(), msg->angle);
 }
 
-void SinglePhyComponent::OnGetPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg) {
+void SinglePhyComponent::OnRequestPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg) {
     msg->phy_body_info->angle_rad = body_->GetAngle();
 
     b2Vec2 body_pos = body_->GetPosition();
@@ -73,6 +74,12 @@ void SinglePhyComponent::OnGetPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg)
     
     msg->is_ret = true;
 }
+
+
+void SinglePhyComponent::OnSetPhyBodyInfoMessage(SetPhyBodyInfoMessage *msg) {
+    body_->SetTransform(b2Vec2(msg->info->x, msg->info->y), msg->info->angle_rad);
+}
+
 
 void SinglePhyComponent::set_main_body(b2Body *body) {
     //remove prev

@@ -6,7 +6,7 @@
 
 class LaserPlaneComponent : public CharacterComponent {
 public:
-    LaserPlaneComponent(GameObject *obj);
+    explicit LaserPlaneComponent(GameObject *obj);
     virtual ~LaserPlaneComponent();
 
 public:

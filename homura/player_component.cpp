@@ -38,9 +38,10 @@ void PlayerComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
     RegisterMsgFunc(this, &PlayerComponent::OnRequestPlayerPositionMessage);
     RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
+    RegisterMsgFunc(this, &PlayerComponent::OnCollidePlaneMessage);
 }
 
-void PlayerComponent::Destroy() {
+void PlayerComponent::AfterDestroy() {
     obj()->Disable();
 }
 
@@ -117,5 +118,40 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
         //회복량 때려박음
         //CCLOG("[recover]%f", current_hit_point + 0.2);
         msg->char_comp->set_hit_point(current_hit_point + 0.2);
+    }
+}
+
+void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
+    //이전 위치로 되돌림
+    b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
+    MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
+    obj()->OnMessage(&move_msg);
+}
+
+void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
+    //일단 부딪힌 객체가 캐릭터 컴포넌트를 가지는게 보장되고 있음
+    CharacterComponent *counter_char_comp = static_cast<CharacterComponent*>(msg->counter_obj->logic_comp());
+    if(counter_char_comp->is_enemy() != is_enemy()) {
+        //데미지를 주자
+        //set_hit_point가 있으니 써도 됨..
+        //왜 메시지로 만들었지?
+        DamageObjectMessage damage_msg = DamageObjectMessage::Create(1.0f);
+        msg->counter_obj->OnMessage(&damage_msg);
+        obj()->OnMessage(&damage_msg);
+
+        //걍 적절히 민다
+        //음.. 이걸 터치 핸들러랑 적절히 엮어야할텐데.
+        //그리고 이렇게 밀면 너무 별로인듯?
+        b2Vec2 player_body_pos = obj()->phy_comp()->main_body()->GetPosition();
+        b2Vec2 counter_body_pos = msg->counter_obj->phy_comp()->main_body()->GetPosition();
+        b2Vec2 push_vec(counter_body_pos.x - player_body_pos.x, counter_body_pos.y - player_body_pos.y);
+        push_vec.Normalize();
+        push_vec *= 10;
+
+        MoveMessage move_msg = MoveMessage::Create(push_vec);
+        msg->counter_obj->OnMessage(&move_msg);
+        push_vec *= -1;
+        move_msg.vec = push_vec;
+        obj()->OnMessage(&move_msg);
     }
 }

@@ -5,6 +5,47 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+IsEnemyMessage IsEnemyMessage::Create() {
+    IsEnemyMessage msg;
+    msg.is_enemy = false;
+    return msg;
+}
+
+
+CheckConnectedChainMessage CheckConnectedChainMessage::Create(int id) {
+    CheckConnectedChainMessage msg;
+    msg.id = id;
+    msg.checked = false;
+    return msg;
+}
+
+
+RequestJoinFormationMessage RequestJoinFormationMessage::Create(int id){
+    RequestJoinFormationMessage msg;
+    msg.id = id;
+    return msg;
+}
+
+
+CheckForcesNumberMessage CheckForcesNumberMessage::Create(bool is_enemy) {
+    CheckForcesNumberMessage msg;
+    msg.is_enemy = is_enemy;
+    msg.forces_number = 0;
+    return msg;
+}
+
+CreateShieldMessage CreateShieldMessage::Create(bool from_enemy) {
+    CreateShieldMessage msg;
+    msg.from_enemy = from_enemy;
+    return msg;
+}
+
+SetPhyBodyInfoMessage SetPhyBodyInfoMessage::Create(PhyBodyInfo *info) {
+    SetPhyBodyInfoMessage msg;
+    msg.info = info;
+    return msg;
+}
+
 DamageObjectMessage DamageObjectMessage::Create(float damage) {
     DamageObjectMessage msg;
     msg.damage = damage;

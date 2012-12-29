@@ -20,6 +20,7 @@ class GameObject;
 class GameComponent;
 class DrawableComponent;
 class LogicComponent;
+class AIComponent;
 class PhyComponent;
 struct GameMessage;
 
@@ -55,6 +56,9 @@ public:
     void set_phy_comp(PhyComponent *comp);
     PhyComponent* phy_comp() { return phy_comp_.get(); }
 
+    void set_ai_comp(AIComponent *comp);
+    AIComponent* ai_comp() { return ai_comp_.get(); }
+
     int id() const { return id_; }
 
     ObjectType Type() const;
@@ -71,6 +75,7 @@ private:
     std::unique_ptr<DrawableComponent> drawable_comp_;
     std::unique_ptr<LogicComponent> logic_comp_;
     std::unique_ptr<PhyComponent> phy_comp_;
+    std::unique_ptr<AIComponent> ai_comp_;
 
 private:
     static int next_id_;

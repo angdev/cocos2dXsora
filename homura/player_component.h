@@ -19,12 +19,14 @@ public:
     virtual void CollideBullet(CollideBulletMessage *msg);
     void OnRequestPlayerPositionMessage(RequestPlayerPositionMessage *msg);
     void OnRequestRecoveryMessage(RequestRecoveryMessage *msg); //일단 플레이어는 항상 아군이라고 가정.
-    
+    void OnCollidePlaneMessage(CollidePlaneMessage *msg);   //박치기했을 때
+
 
 public:
     virtual bool is_enemy() { return false; }
 private:
-    void Destroy();
+    void AfterDestroy();
+    void HandleOutOfBound(OutOfBoundMessage *msg);
 
 private:
     //반사 로직
@@ -34,6 +36,9 @@ private:
     
     //회복 로직
     void RecoverAlly();
+
+    //TODO: 필살기 2 로직 구현하기
+    //그냥 쿨다운 로직이랑 메시지 브로드캐스팅만 하면 끝.
     
 private:
     //세부 로직을 아직은 분리하지 않는다.

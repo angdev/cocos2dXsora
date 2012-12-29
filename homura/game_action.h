@@ -4,6 +4,11 @@
 
 #include "game_trigger.h"
 
+//temp
+#include "character_fsm.h"
+#include "character_component.h"
+#include "ally_ai_component.h"
+
 typedef unsigned int TriggerID;
 typedef std::vector<TriggerID> NextTriggers;
 
@@ -66,7 +71,7 @@ template <typename T>
 class CreateObjectAction : public GameAction {
 public:
     CreateObjectAction(const T &header) 
-        : GameAction(), header_(header) {}
+        : header_(header) {}
 
     virtual ~CreateObjectAction() {}
 private:
@@ -97,6 +102,52 @@ CreateObjectAction<T> *MakeCreateObjectAction(const T &header) {
     return action;
 };
 
+//액션이 빌더 역할을 해도 되는건가..
+//일단 여기서 생성.. 아ㅇ롷
+//체인으로 엮이는 애들은 팩토리의 Create(header, *parent)의 오버로딩만을 이용
+template <typename MasterType, typename SlaveType>
+class CreateObjectsWithChainAction : public GameAction {
+public:
+    CreateObjectsWithChainAction(const MasterType &master_header, const SlaveType &slave_header)
+        : master_header_(master_header), slave_header_(slave_header) {}
+    virtual ~CreateObjectsWithChainAction() {}
+
+private:
+    void Run() {
+        GameWorld *world = trigger()->stage()->world();
+        cocos2d::CCNode *parent = trigger()->stage()->layer();
+
+        //마스터를 생성 -> 슬레이브 생성 -> 체인 생성
+        GameObjectFactory factory(world);
+        GameObject *master_obj = factory.Create(master_header_, parent);
+        world->AddObject(master_obj);
+
+        //슬레이브 state를 지정
+        //적, 아군 같은 스테이트를 지녀도 별 문제 없을 것 같긴 한데 =ㅅ=
+        GameObject *slave_obj = factory.Create(slave_header_, parent);
+        //하드 코딩! 캐릭터 컴포넌트를 가진다고 가정
+        slave_obj->ai_comp()->set_state(kAllyArrestState);
+        world->AddObject(slave_obj);
+        
+        ChainHeader chain_header;
+        chain_header.master_id = master_obj->id();
+        chain_header.slave_id = slave_obj->id();
+        GameObject *chain_obj = factory.Create(chain_header);
+        world->AddObject(chain_obj);
+
+        EndRun();
+    }
+
+private:
+    MasterType master_header_;
+    SlaveType slave_header_;
+};
+
+template <typename T1, typename T2>
+CreateObjectsWithChainAction<T1, T2> *MakeCreateObjectsWithChainAction(const T1 &master_header, const T2 &slave_header) {
+    CreateObjectsWithChainAction<T1, T2> *action = new CreateObjectsWithChainAction<T1, T2>(master_header, slave_header);
+    return action;
+}
 
 class VictoryAction : public GameAction {
 public:

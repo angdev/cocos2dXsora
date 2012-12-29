@@ -16,6 +16,7 @@ struct DelayedGameMessage;
 class GameObject;
 class GameObjectFactory;
 class PhyWorld;
+class GameStage;
 
 typedef std::shared_ptr<GameObject> GameObjectPtr;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
@@ -47,6 +48,8 @@ public:
     bool RemoveObject(GameObjectPtr obj);
     bool RequestRemoveObject(GameObjectPtr obj);
 
+    template<typename Functor>
+    GameObjectPtr FindObject(Functor func);
     template<typename Functor, typename Iter>
     GameObjectPtr FindObject(Iter begin, Iter end, Functor func);
     template<typename Functor, typename Iter>
@@ -65,11 +68,25 @@ private:
 public:
     b2World *b2_world();
     PhyWorld *phy_world() { return phy_world_.get(); }
+    void set_stage(GameStage *stage) { stage_ = stage; }
+    GameStage *stage() { return stage_; }
+
 private:
     std::unique_ptr<PhyWorld> phy_world_;
+    GameStage *stage_;
 };
 
 
+template<typename Functor>
+GameObjectPtr GameWorld::FindObject(Functor func) {
+    auto found = std::find_if(obj_table_.begin(), obj_table_.end(), func);
+    if(found != end) {
+        return found->second;
+    } else {
+        static GameObjectPtr empty;
+        return empty;
+    }
+}
 template<typename Functor, typename Iter>
 GameObjectPtr GameWorld::FindObject(Iter begin, Iter end, Functor func) {
     auto found = std::find_if(begin, end, func);

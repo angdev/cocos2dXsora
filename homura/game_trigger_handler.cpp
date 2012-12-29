@@ -12,7 +12,6 @@ GameTriggerHandler::~GameTriggerHandler() {
 }
 
 void GameTriggerHandler::AddTrigger(GameTrigger *trigger) {
-    //이벤트에 트리거, 액션 준비가 되어야 함.
     if(trigger->is_action_set() && trigger->is_condition_set()) {
         trigger->set_trigger_handler(this);
         triggers_.push_back(GameTriggerPtr(trigger));
@@ -20,8 +19,8 @@ void GameTriggerHandler::AddTrigger(GameTrigger *trigger) {
 }
 
 void GameTriggerHandler::Run(float elapsed_time) {
-    //이 중에 elapsed time때문에 실행되지 않는 이벤트가 있다면?
-    //그런 이벤트는 따로 빼야지
+    //이 중에 elapsed time때문에 실행되지 않는 트리거가 있다면?
+    //그런 트리거는 따로 빼야지
     all_executed_ = true;
     for(GameTriggerPtr trigger : triggers_) {
         if(trigger->IsRun())

@@ -90,8 +90,7 @@ const std::vector<CompTypeTuple> CollisionHandler_Player_Plane::GetCompTypeTuple
 }
 
 void CollisionHandler_Player_Plane::OnCollision(GameObject *player, GameObject *etc, CollisionTuple &collision) {
-    //박치기 데미지 (충돌 메시지를 만들어놓았지만 일단 바로 데미지 처리)
-    DamageObjectMessage msg = DamageObjectMessage::Create(10);
+    //플레이어로 메시지 보내고 -> 서로 데미지를 입음
+    CollidePlaneMessage msg = CollidePlaneMessage::Create(etc);
     player->OnMessage(&msg);
-    etc->OnMessage(&msg);
 }

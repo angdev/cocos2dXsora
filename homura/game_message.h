@@ -68,6 +68,9 @@ public:
     b2Vec2 vec;
 };
 
+
+//이거 쓰지 말고 아래거 쓰기
+//지울 예정
 struct SetAngleMessage : public GameMessage {
 private:
     SetAngleMessage() {}
@@ -76,6 +79,16 @@ public:
     SetAngleMessage *Clone() const { return new SetAngleMessage(); }
 
     float angle;
+};
+
+struct SetPhyBodyInfoMessage : public GameMessage {
+private:
+    SetPhyBodyInfoMessage() {}
+public:
+    static SetPhyBodyInfoMessage Create(PhyBodyInfo *info);
+    SetPhyBodyInfoMessage *Clone() const { return new SetPhyBodyInfoMessage(); }
+
+    PhyBodyInfo *info;
 };
 
 struct RequestPhyBodyInfoMessage : public GameMessage {
@@ -91,6 +104,20 @@ public:
 };
 
 //End Physics Component Messages
+
+//AI Component Messages
+
+struct IsEnemyMessage : public GameMessage {
+private:
+    IsEnemyMessage() {}
+public:
+    static IsEnemyMessage Create();
+    IsEnemyMessage *Clone() const { return new IsEnemyMessage(); }
+    
+    bool is_enemy;
+};
+
+//End AI Component Messages
 
 //Player Component Messages
 
@@ -139,6 +166,19 @@ public:
 
     CharacterComponent *char_comp;
 };
+
+//쉴드를 생성하라는 메시지
+struct CreateShieldMessage : public GameMessage {
+private:
+    CreateShieldMessage() {}
+public:
+    static CreateShieldMessage Create(bool from_enemy);
+    CreateShieldMessage *Clone() const { return new CreateShieldMessage(); }
+
+    //적도 필살기를 쓸 수 있지 않을까하는 가능성을 위해.
+    bool from_enemy;
+};
+
 //Character Component Messages
 
 
@@ -201,3 +241,43 @@ public:
 };
 
 //End Game Event Component Messages
+
+//아군 수 체크 메시지
+struct CheckForcesNumberMessage : public GameMessage {
+private:
+    CheckForcesNumberMessage() {}
+public:
+    static CheckForcesNumberMessage Create(bool is_enemy);
+    CheckForcesNumberMessage *Clone() const { return new CheckForcesNumberMessage(); }
+
+    //아군 수를 셀 때는 false, 적군 수를 셀 때는 true로 둔다
+    bool is_enemy;
+    int forces_number;
+};
+
+//편대 관련 메시지
+
+//편대에 가입 요청
+struct RequestJoinFormationMessage : public GameMessage {
+private:
+    RequestJoinFormationMessage() {}
+public:
+    static RequestJoinFormationMessage Create(int id);
+    RequestJoinFormationMessage *Clone() const { return new RequestJoinFormationMessage(); }
+
+    int id;
+};
+
+//체인 관련 메시지
+
+//캐릭터 객체와 연결된 체인이 있는지 확인
+struct CheckConnectedChainMessage : public GameMessage {
+private:
+    CheckConnectedChainMessage() {}
+public:
+    static CheckConnectedChainMessage Create(int id);
+    CheckConnectedChainMessage *Clone() const { return new CheckConnectedChainMessage(); }
+
+    int id;
+    bool checked;
+};

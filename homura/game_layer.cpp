@@ -78,6 +78,8 @@ bool GameLayer::init() {
         return false;
     }
 
+    world_->set_stage(stage_);
+
     this->addChild(stage_->layer());
 
     set_player(CreatePlayer());
@@ -91,8 +93,8 @@ bool GameLayer::init() {
 }
 
 void GameLayer::update(float dt) {
+    
     world_->Update(dt);
-
 
     //TODO
     //스테이지 유효 체크
@@ -102,13 +104,19 @@ void GameLayer::update(float dt) {
     if(!player_->IsEnabled()) {
         cocos2d::CCLog("Player die");
         world_->RequestRemoveObject(world_->FindObject(player_->id()));
-        player_ = NULL;
 
-        set_player(CreatePlayer());
+        //player_ = CreatePlayer();
+        //world_->AddObject(player_);
+        //set_player(CreatePlayer());
     }
 
     //게임 클리어?
     if(stage_->IsCleared()) {
+        EndStage();
+    }
+    //게임 오버?
+    else if(stage_->IsGameOver()) {
+        //일단 끝냄
         EndStage();
     }
 
@@ -120,8 +128,10 @@ GameObject *GameLayer::player() {
 
 //이렇게 쓰는거 맞나..?
 void GameLayer::set_player(GameObject *player) {
+    /*
     if(player_ != NULL)
         world_->RequestRemoveObject(world_->FindObject(player_->id()));
+    */
     player_ = player;
     world_->AddObject(player_);
 }
@@ -173,7 +183,7 @@ GameObject *GameLayer::CreatePlayer() {
     //set stage 함수를 두고 플레이어를 여기서 초기화.
     //플레이어 정보는 여기서 들고 있기 때문.
 
-    TestPlayerObjectHeader player_header;
+    PlayerObjectHeader player_header;
     player_header.angle_rad = M_PI_2;
     player_header.x = 350;
     player_header.y = 100;

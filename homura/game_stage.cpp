@@ -17,7 +17,7 @@
 USING_NS_CC;
 
 GameStage::GameStage(GameWorld *world)
-    : world_(world), elapsed_time_(0), layer_(0), is_cleared_(false) {
+    : world_(world), elapsed_time_(0), layer_(0), is_cleared_(false), is_game_over_(false) {
 
 }
 
@@ -32,21 +32,35 @@ bool GameStage::Init() {
         return false;
 
     factory_ = new GameObjectFactory(world_);
+    //편대 로직을 구현한 객체 삽입
+    FormationHeader formation_header;
+    GameObject *formation_obj = factory_->Create(formation_header);
+    world_->AddObject(formation_obj);
 
     //Test
     
     //EventGroup #0
+
+    //Temp
+    //Chain Test
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
-    TestCombatPlaneObjectHeader combat_header;
+    CombatPlaneObjectHeader combat_header;
     combat_header.angle = M_PI_2;
-    combat_header.hit_point = 200;
+    combat_header.hit_point = 100;
     combat_header.x = 100;
     combat_header.y = 200;
     combat_header.is_enemy = false;
     combat_header.sprite_name = "";
+    combat_header.is_fall = false;
+    CombatPlaneObjectHeader combat_enemy_header = combat_header;
+    combat_enemy_header.is_enemy = true;
+    combat_enemy_header.angle = -M_PI_2;
+    combat_header.is_fall = false;
+    combat_enemy_header.x = 400;
+    combat_enemy_header.y = 500;
     GameTrigger *trg0 = new GameTrigger(this);
-    GameAction *act0 = MakeCreateObjectAction(combat_header);
+    GameAction *act0 = MakeCreateObjectsWithChainAction(combat_enemy_header, combat_header);
     trg0->set_action(act0);
     trg0->set_condition(new NullCondition);
     trg_hnd0->AddTrigger(trg0);
@@ -54,14 +68,17 @@ bool GameStage::Init() {
     NextTriggers *next_trigger_1 = new NextTriggers();
     next_trigger_1->push_back(2);
     world_->AddObject(factory_->Create(e_header, 1, next_trigger_1, GameTriggerHandlerPtr(trg_hnd0)));
-     
+    
+
+    
+
     //EventGroup #1
     GameTriggerHandler *trg_hnd1 = new GameTriggerHandler();
 
     //Event 1
     combat_header.angle = -M_PI_2;
     combat_header.is_enemy = true;
-    combat_header.hit_point = 100;
+    combat_header.hit_point = 10;
     combat_header.x = 100;
     combat_header.y = 1000;
     combat_header.sprite_name = "";
@@ -118,5 +135,10 @@ bool GameStage::Init() {
 }
 
 void GameStage::Update(float dt) {
+    CheckForcesNumberMessage msg = CheckForcesNumberMessage::Create(false);
+    world_->OnMessage(&msg);
 
+    if(msg.forces_number == 0) {
+        is_game_over_ = true;
+    }
 }
