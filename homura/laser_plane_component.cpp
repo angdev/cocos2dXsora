@@ -18,11 +18,12 @@ LaserPlaneComponent::~LaserPlaneComponent() {
 };
 
 void LaserPlaneComponent::Update(float dt) {
+    CharacterComponent::Update(dt);
     Attack();
 }
 
 void LaserPlaneComponent::InitMsgHandler() {
-
+    CharacterComponent::InitMsgHandler();
 }
 
 void LaserPlaneComponent::Attack() {
@@ -70,6 +71,8 @@ float32 LaserPlaneComponent::RayCastCallback::ReportFixture(b2Fixture* fixture, 
 }
 
 void LaserPlaneComponent::RayCastCallback::AfterCallback() {
+    //현재 위치에서 point 까지 레이저 그리면 됨
+
     if(!is_hit_)
         return;
 

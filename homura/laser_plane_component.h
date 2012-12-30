@@ -4,6 +4,7 @@
 
 #include "character_component.h"
 
+//얘는 그냥 기체가 바라보는 방향으로 레이저 쏘는 놈
 class LaserPlaneComponent : public CharacterComponent {
 public:
     explicit LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer);

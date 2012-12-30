@@ -9,3 +9,11 @@ GuidedLaserPlaneComponent::GuidedLaserPlaneComponent(GameObject *obj, cocos2d::C
 GuidedLaserPlaneComponent::~GuidedLaserPlaneComponent() {
 
 }
+
+void GuidedLaserPlaneComponent::Update(float dt) {
+    CharacterComponent::Update(dt);
+}
+
+void GuidedLaserPlaneComponent::InitMsgHandler() {
+    CharacterComponent::InitMsgHandler();
+}
