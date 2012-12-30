@@ -21,12 +21,19 @@ public:
 
 private:
     int attack_target_id_;
-    float attack_cool_down_;
+    //이 쯤되면 정형화된 클래스 갖다두는 것도 괜찮겠다
+    //스킬 쿨다운 관리? 는 state
+    //공격을 멈추고 다음 공격까지 필요한 시간
+    const float attack_cool_down_;
+    //연속 공격이 가능한 시간
+    const float attack_keep_time_;
+    float attack_timer_;
     //ai 분리 이름이 잘못되었네
     //fsm이라고 해야 맞는 느낌인데
     //단순한 놈들은 상태 만들지 말고 그냥 플래그로 대충 관리.
     //공격 못하는 단계
     bool is_idle_state_;
+    bool now_attacking_;
 
 };
 
