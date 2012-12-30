@@ -30,6 +30,7 @@ public:
     GameObject *Create(const PlayerObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const BulletObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const CombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const LaserPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const ObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const ShieldHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const FormationHeader &header);

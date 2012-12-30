@@ -113,6 +113,7 @@
     <ClCompile Include="game_condition.cpp" />
     <ClCompile Include="game_world.cpp" />
     <ClCompile Include="GLES-Render.cpp" />
+    <ClCompile Include="guided_laser_plane_component.cpp" />
     <ClCompile Include="laser_plane_component.cpp" />
     <ClCompile Include="logic_component.cpp" />
     <ClCompile Include="main_menu_layer.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="game_condition.h" />
     <ClInclude Include="game_world.h" />
     <ClInclude Include="GLES-Render.h" />
+    <ClInclude Include="guided_laser_plane_component.h" />
     <ClInclude Include="laser_plane_component.h" />
     <ClInclude Include="logic_component.h" />
     <ClInclude Include="main_menu_layer.h" />

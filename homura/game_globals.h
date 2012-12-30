@@ -13,6 +13,7 @@ typedef enum {
     kCompEnemy,
     kCompCombatPlane,   //전투기
     kCompLaserPlane,
+    kCompGuidedLaserPlane,
     kCompShield,    //쉴드
     kCompFormation, //편대
     kCompChain,     //사슬

@@ -112,6 +112,9 @@
     <ClCompile Include="enemy_ai_component.cpp">
       <Filter>ai_comp</Filter>
     </ClCompile>
+    <ClCompile Include="guided_laser_plane_component.cpp">
+      <Filter>logic_comp\character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="enemy_ai_component.h">
       <Filter>ai_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="guided_laser_plane_component.h">
+      <Filter>logic_comp\character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

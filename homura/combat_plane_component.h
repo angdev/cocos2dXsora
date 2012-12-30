@@ -17,7 +17,8 @@ public:
 	virtual void InitMsgHandler();
 
 public:
-    
+    void Attack(float dt);
+
 private:
     void AfterDestroy();
 
@@ -26,7 +27,6 @@ private:
     void AIMove(float dt);
 
 private:
-    void Attack(float dt);
     //설정할 수 있도록 하자.
     const float attack_cool_down_;
     float attack_timer_;

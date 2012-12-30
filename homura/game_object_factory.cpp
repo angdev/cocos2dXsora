@@ -7,6 +7,7 @@
 #include "drawable_component.h"
 #include "phy_component.h"
 #include "combat_plane_component.h"
+#include "laser_plane_component.h"
 #include "player_component.h"
 #include "bullet_component.h"
 #include "shield_component.h"
@@ -125,6 +126,49 @@ GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, co
     return obj;
 }
 
+GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, cocos2d::CCNode *parent) {
+    //일단 복붙
+    //이후에 분리 예정
+
+    glm::vec2 obj_pos(header.x, header.y);
+
+    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+    //바라보는 방향 등 생성을 적절히 해야함
+    body->SetTransform(body->GetPosition(), header.angle);
+
+    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    sprite->setScale(0.1f);
+
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LaserPlaneComponent *logic = new LaserPlaneComponent(obj, parent);
+
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
+    logic->set_max_hit_point(header.hit_point);
+    //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
+    logic->set_hit_point(header.is_fall? header.hit_point * 0.3f : header.hit_point);
+
+    //AI!
+    AIComponent *ai;
+    if(header.is_enemy)
+        ai = new EnemyAIComponent(obj);
+    else {
+        ai = new AllyAIComponent(obj);
+        ai->set_state(header.is_fall? kAllyFallState : kAllyNormalState);
+    }
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+    obj->set_ai_comp(ai);
+
+    //world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
 GameObject *GameObjectFactory::Create(const ShieldHeader &header, cocos2d::CCNode *parent) {
 
     glm::vec2 body_pos(header.x, header.y);
@@ -195,6 +239,7 @@ GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, Tri
 
     return obj;
 }
+
 
 b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float half_width_px, float half_height_px) {
     // Define the dynamic body.
