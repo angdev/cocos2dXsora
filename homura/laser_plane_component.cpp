@@ -24,6 +24,7 @@ void LaserPlaneComponent::Update(float dt) {
 
 void LaserPlaneComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
+    RegisterMsgFunc(this, &LaserPlaneComponent::OnAttackMessage);
 }
 
 void LaserPlaneComponent::Attack() {
@@ -50,6 +51,10 @@ void LaserPlaneComponent::Attack() {
 
 void LaserPlaneComponent::AfterDestroy() {
 
+}
+
+void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
+    //TODO
 }
 
 

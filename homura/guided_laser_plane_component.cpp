@@ -16,4 +16,13 @@ void GuidedLaserPlaneComponent::Update(float dt) {
 
 void GuidedLaserPlaneComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
+    RegisterMsgFunc(this, &GuidedLaserPlaneComponent::OnAttackMessage);
+}
+
+void GuidedLaserPlaneComponent::Attack() {
+
+}
+
+void GuidedLaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
+    //TODO
 }

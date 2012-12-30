@@ -17,6 +17,7 @@ public:
 	virtual void InitMsgHandler();
 
 public:
+    void OnAttackMessage(AttackMessage *msg);
     void Attack(float dt);
 
 private:

@@ -15,6 +15,19 @@ public:
     virtual void Update(float dt);
     virtual void InitMsgHandler();
 
+public:
+    void OnAttackMessage(AttackMessage *msg);
+    void Attack();
+
+private:
+    int attack_target_id_;
+    float attack_cool_down_;
+    //ai 분리 이름이 잘못되었네
+    //fsm이라고 해야 맞는 느낌인데
+    //단순한 놈들은 상태 만들지 말고 그냥 플래그로 대충 관리.
+    //공격 못하는 단계
+    bool is_idle_state_;
+
 };
 
 #endif

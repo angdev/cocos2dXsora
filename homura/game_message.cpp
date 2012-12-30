@@ -5,6 +5,13 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+AttackMessage AttackMessage::Create(int target_id) {
+    AttackMessage msg;
+    msg.target_id = target_id;
+    return msg;
+}
+
+
 IsEnemyMessage IsEnemyMessage::Create() {
     IsEnemyMessage msg;
     msg.is_enemy = false;

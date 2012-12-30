@@ -181,6 +181,15 @@ public:
 
 //Character Component Messages
 
+struct AttackMessage : public GameMessage {
+private:
+    AttackMessage() {}
+public:
+    static AttackMessage Create(int target_id);
+    AttackMessage *Clone() const { return new AttackMessage(); }
+
+    int target_id;
+};
 
 struct CollideBulletMessage : public GameMessage {
 private:
