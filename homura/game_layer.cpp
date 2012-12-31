@@ -47,7 +47,7 @@ private:
 };
 
 GameLayer::GameLayer()
-: simple_layer_(NULL), player_(NULL) {
+: simple_layer_(NULL), player_(NULL), state_(kGameReadyState) {
 }
 
 GameLayer::~GameLayer() {
@@ -94,34 +94,54 @@ bool GameLayer::init() {
 
 void GameLayer::update(float dt) {
     
-    //TODO
-    //스테이지 유효 체크
-    stage_->Update(dt);
+    //State 패턴 같은걸 쓸 게 있나?
 
-    //플레이어 죽었나?
-    if(!player_->IsEnabled()) {
-        cocos2d::CCLog("Player die");
-        world_->RequestRemoveObject(world_->FindObject(player_->id()));
-        
-        //제거와 생성 하다가 2개가 생기는데 하나는 비활성화되니 문제 없을듯
-        set_player(CreatePlayer());
-
-        //player_ = CreatePlayer();
-        //world_->AddObject(player_);
-        //set_player(CreatePlayer());
+    if(state_ == kGameReadyState) {
+        //아직 아무 것도 없음
+        state_ = kGameProgressState;
     }
 
-    //게임 클리어?
-    if(stage_->IsCleared()) {
-        EndStage();
-    }
-    //게임 오버?
-    else if(stage_->IsGameOver()) {
-        //일단 끝냄
-        EndStage();
+    else if(state_ == kGameProgressState) {
+
+        //TODO
+        //스테이지 유효 체크
+        stage_->Update(dt);
+
+        //플레이어 죽었나?
+        if(!player_->IsEnabled()) {
+            cocos2d::CCLog("Player die");
+            world_->RequestRemoveObject(world_->FindObject(player_->id()));
+
+            //제거와 생성 하다가 2개가 생기는데 하나는 비활성화되니 문제 없을듯
+            set_player(CreatePlayer());
+
+            //player_ = CreatePlayer();
+            //world_->AddObject(player_);
+            //set_player(CreatePlayer());
+        }
+
+        //게임 클리어?
+        if(stage_->IsCleared()) {
+            state_ = kGameVictoryState;
+            EndStage();
+        }
+        //게임 오버?
+        else if(stage_->IsGameOver()) {
+            //일단 끝냄
+            state_ = kGameOverState;
+            EndStage();
+        }
+
+        world_->Update(dt);
     }
 
-    world_->Update(dt);
+    else if(state_ == kGameVictoryState) {
+
+    }
+
+    else if(state_ == kGameOverState) {
+
+    }
 
 }
 
@@ -198,5 +218,5 @@ GameObject *GameLayer::CreatePlayer() {
 }
 
 void GameLayer::EndStage() {
-    CCLOG("Stage Clear");
+    CCLOG("Game End");
 }

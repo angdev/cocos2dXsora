@@ -10,6 +10,16 @@ class GameStage;
 class GameObject;
 class GameObjectFactory;
 
+//게임 시작 누르면 뭐 스테이지 선택 이런 레이어로 넘어갔다가
+//선택하면 여기로 넘어옴
+//이 레이어는 게임 플레이 부분만 담당하니
+enum GameState {
+    kGameReadyState,
+    kGameProgressState,
+    kGameVictoryState,
+    kGameOverState,
+};
+
 class GameLayer : public cocos2d::CCLayer {
 public:
     GameLayer();
@@ -49,4 +59,5 @@ private:
 
     GameObjectFactory *factory_;
     GameStage *stage_;
+    GameState state_;
 };
