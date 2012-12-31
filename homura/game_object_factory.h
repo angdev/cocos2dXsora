@@ -41,7 +41,7 @@ public:
         GameTriggerHandlerPtr game_trigger_handler_);
 
 private:
-    b2Body *CreateCollisionBox(const glm::vec2 &ut_pos, float half_width, float half_height);
+    b2Body *CreateCollisionCircle(const glm::vec2 &ut_pos, float radius);
     GameWorld *world_;
 };
 

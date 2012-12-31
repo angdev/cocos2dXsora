@@ -44,6 +44,7 @@ void LaserPlaneComponent::Attack() {
     dir_vec *= sora::Unit::ToMeterFromUnit(800);
     dir_vec += obj_pos_vec;
     
+    //래핑하는거 만들자?
     ray_cast_callback_->Reset();
     obj()->world()->b2_world()->RayCast(ray_cast_callback_.get(), obj_pos_vec, dir_vec);
     ray_cast_callback_->AfterCallback();
