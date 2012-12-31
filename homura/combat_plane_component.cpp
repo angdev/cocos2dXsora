@@ -32,6 +32,7 @@ void CombatPlaneComponent::Update(float dt) {
 
 void CombatPlaneComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
+    RegisterMsgFunc(this, &CombatPlaneComponent::OnAttackMessage);
     //TODO
 }
 
@@ -84,4 +85,8 @@ void CombatPlaneComponent::AIMove( float dt )
     dir_y *= rand_engine() % 500;
     MoveMessage msg = MoveMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
     obj()->OnMessage(&msg);
+}
+
+void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {
+    //TODO
 }
