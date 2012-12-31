@@ -12,6 +12,7 @@ public:
 public:
     virtual CompType type() const { return kCompPlayer; }
 	virtual void Update(float dt);
+    virtual void Destroy();
     virtual void InitMsgHandler();
     
 public:
@@ -20,6 +21,8 @@ public:
     void OnRequestPlayerPositionMessage(RequestPlayerPositionMessage *msg);
     void OnRequestRecoveryMessage(RequestRecoveryMessage *msg); //일단 플레이어는 항상 아군이라고 가정.
     void OnCollidePlaneMessage(CollidePlaneMessage *msg);   //박치기했을 때
+    //초기화를 새로 해주자
+    void OnResetMessage(ResetMessage *msg);
 
 
 public:

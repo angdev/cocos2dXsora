@@ -41,7 +41,7 @@ private:
     //TODO
     //플레이어 정보를 따로 담습니다.
     GameObject *player_;
-
+    
     void MoveBodyByDelta(const float &dx, const float &dy);
 
     //이거 대신 스테이지가 들어감

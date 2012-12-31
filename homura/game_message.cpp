@@ -5,6 +5,12 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+ResetMessage ResetMessage::Create() {
+    ResetMessage msg;
+    return msg;
+}
+
+
 AttackMessage AttackMessage::Create(int target_id) {
     AttackMessage msg;
     msg.target_id = target_id;

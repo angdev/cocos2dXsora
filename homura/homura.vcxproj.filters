@@ -115,6 +115,9 @@
     <ClCompile Include="guided_laser_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
     </ClCompile>
+    <ClCompile Include="player_data.cpp">
+      <Filter>logic_comp\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -239,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="guided_laser_plane_component.h">
       <Filter>logic_comp\character</Filter>
+    </ClInclude>
+    <ClInclude Include="player_data.h">
+      <Filter>logic_comp\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

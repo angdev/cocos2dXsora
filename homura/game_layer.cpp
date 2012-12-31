@@ -94,8 +94,6 @@ bool GameLayer::init() {
 
 void GameLayer::update(float dt) {
     
-    world_->Update(dt);
-
     //TODO
     //스테이지 유효 체크
     stage_->Update(dt);
@@ -104,6 +102,9 @@ void GameLayer::update(float dt) {
     if(!player_->IsEnabled()) {
         cocos2d::CCLog("Player die");
         world_->RequestRemoveObject(world_->FindObject(player_->id()));
+        
+        //제거와 생성 하다가 2개가 생기는데 하나는 비활성화되니 문제 없을듯
+        set_player(CreatePlayer());
 
         //player_ = CreatePlayer();
         //world_->AddObject(player_);
@@ -119,6 +120,8 @@ void GameLayer::update(float dt) {
         //일단 끝냄
         EndStage();
     }
+
+    world_->Update(dt);
 
 }
 

@@ -42,7 +42,7 @@ void PlayerComponent::InitMsgHandler() {
 }
 
 void PlayerComponent::AfterDestroy() {
-    obj()->Disable();
+    
 }
 
 //반사 로직
@@ -154,4 +154,15 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         move_msg.vec = push_vec;
         obj()->OnMessage(&move_msg);
     }
+}
+
+void PlayerComponent::OnResetMessage(ResetMessage *msg) {
+
+}
+
+void PlayerComponent::Destroy() {
+    //플레이어는 여기서 안 없애고 비활성화 시킴
+    obj()->Disable();
+
+    AfterDestroy();
 }
