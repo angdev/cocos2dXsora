@@ -54,7 +54,8 @@ void SinglePhyComponent::OnMoveMessage(MoveMessage *msg) {
         || vec2.y > Unit::ToMeterFromUnit(win_size.height) || vec2.y < 0) {
         OutOfBoundMessage out_msg = OutOfBoundMessage::Create(body_->GetPosition(), vec2);
         obj()->OnMessage(&out_msg);
-        return;
+        //처리는 알아서 하게 해야지
+        //return;
     }
 
     body_->SetTransform(vec2, body_->GetAngle());

@@ -109,8 +109,10 @@ GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, co
     
     //AI!
     AIComponent *ai;
-    if(header.is_enemy)
+    if(header.is_enemy) {
         ai = new EnemyAIComponent(obj);
+        ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+    }
      else {
         ai = new AllyAIComponent(obj);
         ai->set_state(header.is_fall? kAllyFallState : kAllyNormalState);
@@ -152,8 +154,10 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
 
     //AI!
     AIComponent *ai;
-    if(header.is_enemy)
+    if(header.is_enemy) {
         ai = new EnemyAIComponent(obj);
+        ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+    }
     else {
         ai = new AllyAIComponent(obj);
         ai->set_state(header.is_fall? kAllyFallState : kAllyNormalState);

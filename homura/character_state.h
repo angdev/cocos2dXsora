@@ -5,13 +5,14 @@
 class CharacterFSM;
 
 enum CharacterStateType {
-
+    kCharacterNormalState,
 };
 
 class CharacterState {
 public:
     CharacterState(CharacterFSM *fsm) : fsm_(fsm) {}
     virtual ~CharacterState() {}
+
 public:
     virtual CharacterStateType type() = 0;
     virtual void Init() = 0;

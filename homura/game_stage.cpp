@@ -77,7 +77,7 @@ bool GameStage::Init() {
     laser_enemy_header.angle = -M_PI_2;
     laser_enemy_header.hit_point = 100;
     laser_enemy_header.x = 400;
-    laser_enemy_header.y = 500;
+    laser_enemy_header.y = 1300;
     laser_enemy_header.is_fall = false;
     laser_enemy_header.is_enemy = true;
     laser_enemy_header.sprite_name = "";
@@ -103,7 +103,7 @@ bool GameStage::Init() {
     combat_header.is_enemy = true;
     combat_header.hit_point = 10;
     combat_header.x = 100;
-    combat_header.y = 1000;
+    combat_header.y = 1300;
     combat_header.sprite_name = "";
     GameTrigger *trg1 = new GameTrigger(this);
     GameAction *act1 = MakeCreateObjectAction(combat_header);

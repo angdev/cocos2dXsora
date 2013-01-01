@@ -8,6 +8,10 @@
 //temp
 #include "bullet_component.h"
 
+#include "sora/unit.h"
+
+using namespace sora;
+
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer), reflect_timer_(0), reflecting_(false) {
 
@@ -123,9 +127,13 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
 
 void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //이전 위치로 되돌림
+    /*
     b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
+    pos_diff.x = Unit::ToUnitFromMeter(pos_diff.x);
+    pos_diff.y = Unit::ToUnitFromMeter(pos_diff.y);
     MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
     obj()->OnMessage(&move_msg);
+    */
 }
 
 void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {

@@ -5,6 +5,8 @@
 #include "game_world.h"
 #include "phy_component.h"
 #include "game_object_factory.h"
+#include "character_fsm.h"
+#include "character_normal_state.h"
 
 #include "sora/unit.h"
 
@@ -15,7 +17,8 @@ USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f) {
-
+        //상태 초기화 따로 빼야할듯?
+//        fsm()->InsertState(CharacterStatePtr(new CharacterNormalState(fsm())));
 }
 
 CombatPlaneComponent::~CombatPlaneComponent() {

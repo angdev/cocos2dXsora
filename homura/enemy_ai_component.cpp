@@ -19,6 +19,7 @@ EnemyAIComponent::~EnemyAIComponent() {
 void EnemyAIComponent::Update(float dt) {
     if(state_ == kEnemyAppearState) {
         //정해진 위치까지 이동
+        
         PhyBodyInfo body_info;
         RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
         obj()->OnMessage(&body_info_msg);
@@ -27,12 +28,12 @@ void EnemyAIComponent::Update(float dt) {
 
         b2Vec2 body_vec(body_info.x, body_info.y);
         b2Vec2 velocity_vec = start_position() - body_vec;
-        if(velocity_vec.Length() < Unit::ToMeterFromUnit(5)) {
+        if(velocity_vec.Length() < Unit::ToMeterFromUnit(10)) {
+            CCLOG("state changed");
             state_ = kEnemyNormalState;
         }
         
         else {
-            velocity_vec *= 0.01f;
 
             MoveMessage move_msg = MoveMessage::Create(velocity_vec);
             obj()->OnMessage(&move_msg);

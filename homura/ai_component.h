@@ -6,7 +6,7 @@
 
 class AIComponent : public GameComponent {
 public:
-    AIComponent(GameObject *obj) : GameComponent(obj) { }
+    AIComponent(GameObject *obj);
     virtual ~AIComponent() { }
 
 public:

@@ -56,7 +56,7 @@ public:
     
     void set_unbeatable(bool unbeatable) { unbeatable_ = unbeatable; }
 
-    CharacterFSM *fsm() { return fsm_.get(); }
+    //CharacterFSM *fsm() { return fsm_.get(); }
 
 private:
     virtual void HandleOutOfBound(OutOfBoundMessage *msg);
@@ -64,7 +64,7 @@ private:
     void RequestRecovery();
 
 private:
-    std::unique_ptr<CharacterFSM> fsm_;
+//    std::unique_ptr<CharacterFSM> fsm_;
     
     //무적 상태?
     bool unbeatable_;

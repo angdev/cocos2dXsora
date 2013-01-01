@@ -44,7 +44,7 @@ void LaserPlaneComponent::Attack() {
     b2Vec2 dir_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
     //월드 경계까지긴 한데 음.
     //미리 상수로 바꿔놔도 될듯
-    dir_vec *= sora::Unit::ToMeterFromUnit(800);
+    dir_vec *= sora::Unit::ToMeterFromUnit(1280);
     dir_vec += obj_pos_vec;
     
     //래핑하는거 만들자?
