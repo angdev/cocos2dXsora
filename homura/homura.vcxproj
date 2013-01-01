@@ -93,6 +93,8 @@
     <ClCompile Include="CCParallaxScrollOffset.cpp" />
     <ClCompile Include="chain_component.cpp" />
     <ClCompile Include="character_component.cpp" />
+    <ClCompile Include="character_fsm.cpp" />
+    <ClCompile Include="character_state.cpp" />
     <ClCompile Include="collision_handler.cpp" />
     <ClCompile Include="collision_manager.cpp" />
     <ClCompile Include="collision_tuple.cpp" />
@@ -140,6 +142,8 @@
     <ClInclude Include="CCParallaxScrollOffset.h" />
     <ClInclude Include="chain_component.h" />
     <ClInclude Include="character_component.h" />
+    <ClInclude Include="character_fsm.h" />
+    <ClInclude Include="character_state.h" />
     <ClInclude Include="collision_handler.h" />
     <ClInclude Include="collision_manager.h" />
     <ClInclude Include="collision_tuple.h" />

@@ -124,6 +124,12 @@
     <ClCompile Include="CCParallaxScrollOffset.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="character_state.cpp">
+      <Filter>logic_comp\character\state</Filter>
+    </ClCompile>
+    <ClCompile Include="character_fsm.cpp">
+      <Filter>logic_comp\character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -258,6 +264,12 @@
     <ClInclude Include="CCParallaxScrollOffset.h">
       <Filter>stage</Filter>
     </ClInclude>
+    <ClInclude Include="character_state.h">
+      <Filter>logic_comp\character\state</Filter>
+    </ClInclude>
+    <ClInclude Include="character_fsm.h">
+      <Filter>logic_comp\character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cbes">
@@ -301,6 +313,9 @@
     </Filter>
     <Filter Include="ai_comp">
       <UniqueIdentifier>{402d0d76-8a79-4374-b688-1f862b912e64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic_comp\character\state">
+      <UniqueIdentifier>{06f317ca-1364-46fa-8533-e0b9a87d9dbf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
