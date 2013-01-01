@@ -186,8 +186,8 @@ void Box2DTestLayer::addNewSpriteAtPosition(CCPoint p)
 #if CC_ENABLE_BOX2D_INTEGRATION
     CCPhysicsSprite *sprite = CCPhysicsSprite::createWithTexture(m_pSpriteTexture,CCRectMake(32 * idx,32 * idy,32,32));
     parent->addChild(sprite);
-    sprite->setBody(body);
-    sprite->setPTMRatio(PTM_RATIO);
+//    sprite->setBody(body);
+//    sprite->setPTMRatio(PTM_RATIO);
     sprite->setPosition( ccp( p.x, p.y) );
 #endif
 }

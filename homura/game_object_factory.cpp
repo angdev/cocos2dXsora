@@ -35,7 +35,7 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
     GameObject *obj = new GameObject(world_);
 
     glm::vec2 obj_pos(header.x, header.y);
-    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(2.0f), Unit::ToUnitFromMeter(2.0f));
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(2.0f));
 
     body->SetTransform(body->GetPosition(), header.angle_rad);
 
@@ -65,8 +65,8 @@ GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d
     sprite->setPosition(ccp(header.x, header.y));
     CCRect sprite_box = sprite->boundingBox();
 
-    b2Body *body = CreateCollisionBox(glm::vec2(header.x, header.y),
-        sprite_box.size.width / 2.0f, sprite_box.size.height / 2.0f);
+    b2Body *body = CreateCollisionCircle(glm::vec2(header.x, header.y),
+        sprite_box.size.width / 2.0f);
     body->SetTransform(body->GetPosition(), header.angle_rad);
 
     GameObject *obj = new GameObject(world_);
@@ -89,7 +89,7 @@ GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d
 GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, cocos2d::CCNode *parent ) {
     glm::vec2 obj_pos(header.x, header.y);
     
-    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
@@ -132,7 +132,7 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
 
     glm::vec2 obj_pos(header.x, header.y);
 
-    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
@@ -172,7 +172,7 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
 GameObject *GameObjectFactory::Create(const ShieldHeader &header, cocos2d::CCNode *parent) {
 
     glm::vec2 body_pos(header.x, header.y);
-    b2Body *body = CreateCollisionBox(body_pos, 50, 50);
+    b2Body *body = CreateCollisionCircle(body_pos, 50);
     
     GameObject *obj = new GameObject(world_);
     //Drawable은 아직 없음
@@ -199,7 +199,7 @@ GameObject * GameObjectFactory::Create(const ChainHeader &header) {
 //헤더는 의미없음. 그냥 넣어둔거.
 GameObject *GameObjectFactory::Create(const ObjectHeader &header, cocos2d::CCNode *parent) {
     glm::vec2 obj_pos(header.x, header.y);
-    b2Body *body = CreateCollisionBox(obj_pos, Unit::ToUnitFromMeter(1.0f), Unit::ToUnitFromMeter(1.0f));
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
 
     // 적절히 스프라이트 생성하기
     CCSprite *sprite = CCSprite::create("kyoko_icon.png");
@@ -241,7 +241,8 @@ GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, Tri
 }
 
 
-b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float half_width_px, float half_height_px) {
+b2Body * GameObjectFactory::CreateCollisionCircle(const glm::vec2 &ut_pos, float radius)
+{
     // Define the dynamic body.
     //Set up a 1m squared box in the physics world
     b2BodyDef bodyDef;
@@ -253,16 +254,17 @@ b2Body *GameObjectFactory::CreateCollisionBox(const glm::vec2 &ut_pos, float hal
     b2Body *body = b2_world->CreateBody(&bodyDef);
 
     // Define another box shape for our dynamic body.
-    b2PolygonShape dynamicBox;
-    //총알 크기만한 박스 생성
+    b2CircleShape circleBox;
+    //일단 이렇게 떼운다 =ㅅ=;;
+    circleBox.m_radius = Unit::ToMeterFromUnit(radius);
     //크기로 b2Body 만들어주는거 있어도 될듯.
-    dynamicBox.SetAsBox(Unit::ToMeterFromUnit(half_width_px), Unit::ToMeterFromUnit(half_height_px));//These are mid points for our 1m box
+    //dynamicBox.SetAsBox(Unit::ToMeterFromUnit(half_width_px), Unit::ToMeterFromUnit(half_height_px));//These are mid points for our 1m box
 
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
     // 충돌 체크용으로만 사용.
     fixtureDef.isSensor = true;
-    fixtureDef.shape = &dynamicBox;
+    fixtureDef.shape = &circleBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);

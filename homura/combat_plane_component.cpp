@@ -11,6 +11,7 @@
 #include <random>
 
 using namespace sora;
+USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f) {
@@ -72,6 +73,22 @@ void CombatPlaneComponent::Attack(float dt) {
 }
 
 void CombatPlaneComponent::AfterDestroy() {
+    //파티클을 터뜨리자
+    CCParticleSystem *emitter = new CCParticleSystemQuad();
+    //create 함수를 쓰니까 죽음
+    //왜?
+    emitter->initWithFile("particles/ExplodingRing.plist");
+    assert(emitter != NULL);
+    //아직 안 없어져있으니 괜찮음
+    PhyBodyInfo body_info;
+    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
+    obj()->OnMessage(&body_info_msg);
+
+    if(!body_info_msg.is_ret)
+        return;
+
+    emitter->setPosition(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
+    layer()->addChild(emitter, 10);
 }
 
 void CombatPlaneComponent::AIMove( float dt )

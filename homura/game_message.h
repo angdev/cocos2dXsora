@@ -54,6 +54,15 @@ public:
 	int obj_id;
 };
 
+//객체 초기화를 요청하는 메시지
+struct ResetMessage : public GameMessage {
+private:
+    ResetMessage() {}
+public:
+    static ResetMessage Create();
+    GameMessage *Clone() const { return new ResetMessage(); }
+};
+
 //Physics Component Messages
 
 //게임 객체를 이동시켜달라고 요청할 때 사용하는 메시지
@@ -63,7 +72,7 @@ private:
     MoveMessage() {}
 public:
     static MoveMessage Create(const b2Vec2 &vec);
-    MoveMessage *Clone() const { return new MoveMessage(); }
+    GameMessage *Clone() const { return new MoveMessage(); }
 
     b2Vec2 vec;
 };
@@ -76,7 +85,7 @@ private:
     SetAngleMessage() {}
 public:
     static SetAngleMessage Create(float angle);
-    SetAngleMessage *Clone() const { return new SetAngleMessage(); }
+    GameMessage *Clone() const { return new SetAngleMessage(); }
 
     float angle;
 };
@@ -86,7 +95,7 @@ private:
     SetPhyBodyInfoMessage() {}
 public:
     static SetPhyBodyInfoMessage Create(PhyBodyInfo *info);
-    SetPhyBodyInfoMessage *Clone() const { return new SetPhyBodyInfoMessage(); }
+    GameMessage *Clone() const { return new SetPhyBodyInfoMessage(); }
 
     PhyBodyInfo *info;
 };
@@ -96,7 +105,7 @@ private:
     RequestPhyBodyInfoMessage() {}
 public:
     static RequestPhyBodyInfoMessage Create(PhyBodyInfo *info);
-    RequestPhyBodyInfoMessage *Clone() const { return new RequestPhyBodyInfoMessage(); }
+    GameMessage *Clone() const { return new RequestPhyBodyInfoMessage(); }
 
     PhyBodyInfo *phy_body_info;
     //body_info가 제대로 들어갔는지 확인하기 위한 변수
@@ -112,7 +121,7 @@ private:
     IsEnemyMessage() {}
 public:
     static IsEnemyMessage Create();
-    IsEnemyMessage *Clone() const { return new IsEnemyMessage(); }
+    GameMessage *Clone() const { return new IsEnemyMessage(); }
     
     bool is_enemy;
 };
@@ -126,7 +135,7 @@ private:
     CollidePlaneMessage() {}
 public:
     static CollidePlaneMessage Create(GameObject *counter_obj);
-    CollidePlaneMessage *Clone() const { return new CollidePlaneMessage(); }
+    GameMessage *Clone() const { return new CollidePlaneMessage(); }
 
     GameObject *counter_obj;
 };
@@ -140,7 +149,7 @@ private:
     DamageObjectMessage() {}
 public:
     static DamageObjectMessage Create(float damage);
-    DamageObjectMessage *Clone() const { return new DamageObjectMessage(); }
+    GameMessage *Clone() const { return new DamageObjectMessage(); }
 
     float damage;
 };
@@ -151,7 +160,7 @@ private:
     RequestPlayerPositionMessage() {}
 public:
     static RequestPlayerPositionMessage Create(b2Vec2 *position);
-    RequestPlayerPositionMessage *Clone() const { return new RequestPlayerPositionMessage(); }
+    GameMessage *Clone() const { return new RequestPlayerPositionMessage(); }
 
     b2Vec2 *position;
     bool is_ret;
@@ -162,7 +171,7 @@ private:
     RequestRecoveryMessage() {}
 public:
     static RequestRecoveryMessage Create(CharacterComponent *char_comp);
-    RequestRecoveryMessage *Clone() const { return new RequestRecoveryMessage(); }
+    GameMessage *Clone() const { return new RequestRecoveryMessage(); }
 
     CharacterComponent *char_comp;
 };
@@ -173,7 +182,7 @@ private:
     CreateShieldMessage() {}
 public:
     static CreateShieldMessage Create(bool from_enemy);
-    CreateShieldMessage *Clone() const { return new CreateShieldMessage(); }
+    GameMessage *Clone() const { return new CreateShieldMessage(); }
 
     //적도 필살기를 쓸 수 있지 않을까하는 가능성을 위해.
     bool from_enemy;
@@ -186,7 +195,7 @@ private:
     AttackMessage() {}
 public:
     static AttackMessage Create(int target_id);
-    AttackMessage *Clone() const { return new AttackMessage(); }
+    GameMessage *Clone() const { return new AttackMessage(); }
 
     int target_id;
 };
@@ -196,7 +205,7 @@ private:
     CollideBulletMessage() {}
 public:
     static CollideBulletMessage Create(GameObject *bullet, float damage, bool from_enemy);
-    CollideBulletMessage *Clone() const { return new CollideBulletMessage(); }
+    GameMessage *Clone() const { return new CollideBulletMessage(); }
 
     GameObject *bullet;
     float damage;
@@ -214,7 +223,7 @@ private:
     BulletDamageObjectMessage() {}
 public:
     static BulletDamageObjectMessage Create(GameObject *obj);
-    BulletDamageObjectMessage *Clone() const { return new BulletDamageObjectMessage(); }
+    GameMessage *Clone() const { return new BulletDamageObjectMessage(); }
 
     GameObject *obj;
 };
@@ -229,7 +238,7 @@ private:
     OutOfBoundMessage() {}
 public:
     static OutOfBoundMessage Create(const b2Vec2 &prev_pos, const b2Vec2 &current_pos);
-    OutOfBoundMessage *Clone() const { return new OutOfBoundMessage(); }
+    GameMessage *Clone() const { return new OutOfBoundMessage(); }
 
     b2Vec2 prev_pos;
     b2Vec2 current_pos;
@@ -244,7 +253,7 @@ private:
     BeginTriggerMessage() {}
 public:
     static BeginTriggerMessage Create(int trigger_id);
-    BeginTriggerMessage *Clone() const { return new BeginTriggerMessage(); }
+    GameMessage *Clone() const { return new BeginTriggerMessage(); }
 
     int trigger_id;
 };
@@ -257,7 +266,7 @@ private:
     CheckForcesNumberMessage() {}
 public:
     static CheckForcesNumberMessage Create(bool is_enemy);
-    CheckForcesNumberMessage *Clone() const { return new CheckForcesNumberMessage(); }
+    GameMessage *Clone() const { return new CheckForcesNumberMessage(); }
 
     //아군 수를 셀 때는 false, 적군 수를 셀 때는 true로 둔다
     bool is_enemy;
@@ -272,7 +281,7 @@ private:
     RequestJoinFormationMessage() {}
 public:
     static RequestJoinFormationMessage Create(int id);
-    RequestJoinFormationMessage *Clone() const { return new RequestJoinFormationMessage(); }
+    GameMessage *Clone() const { return new RequestJoinFormationMessage(); }
 
     int id;
 };
@@ -285,7 +294,7 @@ private:
     CheckConnectedChainMessage() {}
 public:
     static CheckConnectedChainMessage Create(int id);
-    CheckConnectedChainMessage *Clone() const { return new CheckConnectedChainMessage(); }
+    GameMessage *Clone() const { return new CheckConnectedChainMessage(); }
 
     int id;
     bool checked;

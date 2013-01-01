@@ -8,6 +8,9 @@
 
 #include "sora/unit.h"
 
+USING_NS_CC;
+using namespace sora;
+
 LaserPlaneComponent::LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer) {
         ray_cast_callback_ = std::move(std::unique_ptr<RayCastCallback>(new RayCastCallback(this)));
@@ -44,13 +47,29 @@ void LaserPlaneComponent::Attack() {
     dir_vec *= sora::Unit::ToMeterFromUnit(800);
     dir_vec += obj_pos_vec;
     
+    //래핑하는거 만들자?
     ray_cast_callback_->Reset();
     obj()->world()->b2_world()->RayCast(ray_cast_callback_.get(), obj_pos_vec, dir_vec);
     ray_cast_callback_->AfterCallback();
 }
 
 void LaserPlaneComponent::AfterDestroy() {
+    //파티클을 터뜨리자
+    CCParticleSystem *emitter = new CCParticleSystemQuad();
+    //create 함수를 쓰니까 죽음
+    //왜?
+    emitter->initWithFile("particles/ExplodingRing.plist");
+    assert(emitter != NULL);
+    //아직 안 없어져있으니 괜찮음
+    PhyBodyInfo body_info;
+    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
+    obj()->OnMessage(&body_info_msg);
 
+    if(!body_info_msg.is_ret)
+        return;
+
+    emitter->setPosition(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
+    layer()->addChild(emitter, 10);
 }
 
 void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
