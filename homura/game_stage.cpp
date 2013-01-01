@@ -10,6 +10,8 @@
 
 #include "game_object_factory.h"
 
+#include "CCParallaxScrollNode.h"
+
 #if SR_USE_PCH == 0
 #include "cocos2d.h"
 #endif
@@ -30,6 +32,16 @@ bool GameStage::Init() {
 
     if(NULL == layer_)
         return false;
+
+    //parallax 초기화
+    //테스트 중
+    parallax_ = CCParallaxScrollNode::create();
+    parallax_->retain();
+    //아 변환해야지..
+    CCSprite *background_sprite1 = CCSprite::create("background.jpg");
+    CCSprite *background_sprite2 = CCSprite::create("background.jpg");
+    parallax_->addInfiniteScrollYWithZ(0, ccp(1, 1), ccp(0, 0), background_sprite1, background_sprite2, NULL);
+    layer_->addChild(parallax_);
 
     factory_ = new GameObjectFactory(world_);
     //편대 로직을 구현한 객체 삽입
@@ -146,6 +158,9 @@ bool GameStage::Init() {
 }
 
 void GameStage::Update(float dt) {
+
+    parallax_->updateWithVelocity(ccp(0, -2.0f), dt);
+
     CheckForcesNumberMessage msg = CheckForcesNumberMessage::Create(false);
     world_->OnMessage(&msg);
 

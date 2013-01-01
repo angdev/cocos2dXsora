@@ -89,6 +89,8 @@
     <ClCompile Include="ai_component.cpp" />
     <ClCompile Include="ally_ai_component.cpp" />
     <ClCompile Include="bullet_component.cpp" />
+    <ClCompile Include="CCParallaxScrollNode.cpp" />
+    <ClCompile Include="CCParallaxScrollOffset.cpp" />
     <ClCompile Include="chain_component.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_handler.cpp" />
@@ -134,6 +136,8 @@
     <ClInclude Include="ally_ai_component.h" />
     <ClInclude Include="app_macros.h" />
     <ClInclude Include="bullet_component.h" />
+    <ClInclude Include="CCParallaxScrollNode.h" />
+    <ClInclude Include="CCParallaxScrollOffset.h" />
     <ClInclude Include="chain_component.h" />
     <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_handler.h" />

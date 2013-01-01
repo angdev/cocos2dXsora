@@ -14,7 +14,7 @@ using namespace sora;
 GuidedLaserPlaneComponent::GuidedLaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer) 
     : CharacterComponent(obj, layer), attack_cool_down_(1.0f), attack_keep_time_(3.0f),
     is_idle_state_(true), now_attacking_(false), attack_timer_(0), attack_target_id_(0) {
-
+        
 }
 
 GuidedLaserPlaneComponent::~GuidedLaserPlaneComponent() {

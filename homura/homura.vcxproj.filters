@@ -118,6 +118,12 @@
     <ClCompile Include="player_data.cpp">
       <Filter>logic_comp\player</Filter>
     </ClCompile>
+    <ClCompile Include="CCParallaxScrollNode.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CCParallaxScrollOffset.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -245,6 +251,12 @@
     </ClInclude>
     <ClInclude Include="player_data.h">
       <Filter>logic_comp\player</Filter>
+    </ClInclude>
+    <ClInclude Include="CCParallaxScrollNode.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CCParallaxScrollOffset.h">
+      <Filter>stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
