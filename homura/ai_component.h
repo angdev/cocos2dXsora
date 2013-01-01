@@ -28,6 +28,11 @@ public:
     //ai 객체는 상속으로 해결하지 말고 state를 걍 따로 두고 해결해도 될텐데라는 생각도 들고.
     //일단 이렇게 분리하고 쓴다
     virtual void set_state(int state) = 0;
+
+private:
+    //객체 생성시 이 시작 위치를 기억했다가 적절히 화면 밖에서 등장
+    //실질적인 시작 위치
+    glm::vec2 start_position_;
 };
 
 #endif

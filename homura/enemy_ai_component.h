@@ -5,6 +5,7 @@
 #include "ai_component.h"
 
 enum EnemyAIState {
+    kEnemyAppearState,
     kEnemyNormalState,
 };
 

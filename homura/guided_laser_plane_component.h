@@ -20,6 +20,9 @@ public:
     void Attack();
 
 private:
+    void AfterDestroy();
+
+private:
     int attack_target_id_;
     //이 쯤되면 정형화된 클래스 갖다두는 것도 괜찮겠다
     //스킬 쿨다운 관리? 는 state
