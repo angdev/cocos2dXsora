@@ -92,6 +92,7 @@ void CombatPlaneComponent::AfterDestroy() {
 
     emitter->setPosition(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
     layer()->addChild(emitter, 10);
+    emitter->autorelease();
 }
 
 void CombatPlaneComponent::AIMove( float dt )

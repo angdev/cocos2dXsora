@@ -5,6 +5,19 @@
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
 
+StopRenderLaserMessage StopRenderLaserMessage::Create(int id) {
+    StopRenderLaserMessage msg;
+    msg.id = id;
+    return msg;
+}
+
+RequestRenderLaserMessage RequestRenderLaserMessage::Create(int id, const glm::vec2 &end_point) {
+    RequestRenderLaserMessage msg;
+    msg.id = id;
+    msg.end_point = end_point;
+    return msg;
+}
+
 ResetMessage ResetMessage::Create() {
     ResetMessage msg;
     return msg;
@@ -161,3 +174,4 @@ bool DelayedGameMessage::operator<(const DelayedGameMessage &o) const {
 void DelayedGameMessage::Update(float dt) {
     remain_time_ -= dt;
 }
+

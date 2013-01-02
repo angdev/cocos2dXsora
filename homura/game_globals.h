@@ -23,6 +23,9 @@ typedef enum {
     kCompAllyAI,
     kCompEnemyAI,
 
+    //Layer
+    kCompLaserLayer,
+
     //가상의 객체를 위한 컴포넌트
     kCompGameTrigger,
     kCompBoundCheck,

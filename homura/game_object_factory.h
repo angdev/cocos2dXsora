@@ -32,13 +32,15 @@ public:
     GameObject *Create(const CombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const LaserPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const ObjectHeader &header, cocos2d::CCNode *parent);
+
     GameObject *Create(const ShieldHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const FormationHeader &header);
     GameObject *Create(const ChainHeader &header);
-
+    
     //가상의 게임 객체들 (로직)
     GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
         GameTriggerHandlerPtr game_trigger_handler_);
+    GameObject *Create(const LaserLayerHeader &header, cocos2d::CCNode *parent);
 
 private:
     b2Body *CreateCollisionCircle(const glm::vec2 &ut_pos, float radius);

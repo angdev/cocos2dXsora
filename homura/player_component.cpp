@@ -155,8 +155,7 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         b2Vec2 push_vec(counter_body_pos.x - player_body_pos.x, counter_body_pos.y - player_body_pos.y);
         push_vec.Normalize();
         push_vec *= 10;
-
-        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(push_vec), 0.016f);
+        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(push_vec), 0.016);
         msg->counter_obj->OnMessage(&move_msg);
         push_vec *= -1;
         move_msg.vec = Unit::ToUnitFromMeter(push_vec);

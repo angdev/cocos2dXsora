@@ -40,7 +40,8 @@ void EnemyAIComponent::Update(float dt) {
         }
     }
     else if(state_ == kEnemyNormalState) {
-        
+        MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, -50), 0.5);
+        obj()->OnMessage(&move_msg);
     }
 }
 

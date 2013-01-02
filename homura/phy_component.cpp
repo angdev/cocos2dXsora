@@ -107,6 +107,7 @@ void SinglePhyComponent::OnRequestPhyBodyInfoMessage(RequestPhyBodyInfoMessage *
 
 void SinglePhyComponent::OnSetPhyBodyInfoMessage(SetPhyBodyInfoMessage *msg) {
     body_->SetTransform(b2Vec2(msg->info->x, msg->info->y), msg->info->angle_rad);
+    body_->SetLinearVelocity(b2Vec2_zero);
 }
 
 

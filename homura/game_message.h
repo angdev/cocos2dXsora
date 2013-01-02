@@ -15,6 +15,14 @@ class CharacterComponent;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 typedef std::shared_ptr<GameMessage> GameMessagePtr;
 
+#define GAME_MESSAGE_BEGIN(name) struct name : public GameMessage {\
+private:\
+    name () {}\
+public:\
+    GameMessage *Clone() const { return new name (); }
+
+#define GAME_MESSAGE_END };
+
 struct GameMessage {
     GameMessage() : valid(true) { }
 	virtual ~GameMessage() {}
@@ -312,3 +320,18 @@ public:
     int id;
     bool checked;
 };
+
+
+//레이저 레이어 메시지
+GAME_MESSAGE_BEGIN(RequestRenderLaserMessage)
+    static RequestRenderLaserMessage Create(int id, const glm::vec2 &end_point);
+    
+    glm::vec2 end_point;
+    int id;
+GAME_MESSAGE_END
+
+GAME_MESSAGE_BEGIN(StopRenderLaserMessage)
+    static StopRenderLaserMessage Create(int id);
+
+    int id;
+GAME_MESSAGE_END

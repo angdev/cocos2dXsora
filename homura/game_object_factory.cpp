@@ -15,6 +15,7 @@
 #include "chain_component.h"
 #include "ally_ai_component.h"
 #include "enemy_ai_component.h"
+#include "laser_layer.h"
 #include "game_trigger_component.h"
 #include "game_trigger_handler.h"
 #include "character_fsm.h"
@@ -239,6 +240,14 @@ GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, Tri
     game_trigger_handler_->set_next_triggers(next_triggers);
     game_trigger_handler_->set_trigger_id(trigger_id);
     GameTriggerComponent *logic = new GameTriggerComponent(obj, game_trigger_handler_);
+    obj->set_logic_comp(logic);
+
+    return obj;
+}
+
+GameObject * GameObjectFactory::Create(const LaserLayerHeader &header, cocos2d::CCNode *parent) {
+    GameObject *obj = new GameObject(world_);
+    LogicComponent *logic = new LaserLayer(obj, parent);
     obj->set_logic_comp(logic);
 
     return obj;

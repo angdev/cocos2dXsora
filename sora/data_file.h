@@ -70,3 +70,6 @@ STRUCT_END()
 //로직 객체들
 STRUCT_NEW_BEGIN(GameTriggerObjectHeader, 1)
 STRUCT_END()
+
+STRUCT_NEW_BEGIN(LaserLayerHeader, 1)
+STRUCT_END()

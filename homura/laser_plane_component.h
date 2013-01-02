@@ -39,6 +39,13 @@ private:
     std::unique_ptr<RayCastCallback> ray_cast_callback_;
 
     void AfterDestroy();
+
+private:
+    const float attack_keep_time_;
+    const float attack_cool_down_;
+    float attack_timer_;
+    bool now_cool_down_;
+    bool now_attacking_;
 };
 
 #endif
