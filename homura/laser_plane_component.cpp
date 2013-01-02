@@ -32,10 +32,11 @@ void LaserPlaneComponent::Update(float dt) {
             attack_timer_ = 0;
 
             //그리기 끝
-            //StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
-            //obj()->world()->OnMessage(&stop_msg);
+            StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
+            obj()->world()->OnMessage(&stop_msg);
         }
-        Attack();
+        else
+            Attack();
     }
     else {
         attack_timer_ += dt;
