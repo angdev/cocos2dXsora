@@ -5,6 +5,8 @@
 #include "game_world.h"
 #include "phy_component.h"
 #include "game_object_factory.h"
+#include "character_fsm.h"
+#include "character_normal_state.h"
 
 #include "sora/unit.h"
 
@@ -15,7 +17,8 @@ USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f) {
-
+        //상태 초기화 따로 빼야할듯?
+//        fsm()->InsertState(CharacterStatePtr(new CharacterNormalState(fsm())));
 }
 
 CombatPlaneComponent::~CombatPlaneComponent() {
@@ -89,10 +92,12 @@ void CombatPlaneComponent::AfterDestroy() {
 
     emitter->setPosition(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
     layer()->addChild(emitter, 10);
+    emitter->autorelease();
 }
 
 void CombatPlaneComponent::AIMove( float dt )
 {
+    /*
     static unsigned int temp_rnd_factor = 0;
     std::default_random_engine rand_engine((unsigned int)time(0) + temp_rnd_factor++);
     int dir_x = rand_engine() % 2 == 0? -1 : 1;
@@ -100,8 +105,9 @@ void CombatPlaneComponent::AIMove( float dt )
     rand_engine.seed((unsigned int)time(0) + temp_rnd_factor++);
     int dir_y = rand_engine() % 2 == 0? -1 : 1;
     dir_y *= rand_engine() % 500;
-    MoveMessage msg = MoveMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
+    MoveToMessage msg = MoveToMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
     obj()->OnMessage(&msg);
+    */
 }
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {

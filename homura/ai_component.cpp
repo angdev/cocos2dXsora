@@ -4,6 +4,10 @@
 #include "game_object.h"
 #include "character_component.h"
 
+AIComponent::AIComponent(GameObject *obj) : GameComponent(obj), start_position_() {
+
+}
+
 void AIComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &AIComponent::OnIsEnemyMessage);
 }

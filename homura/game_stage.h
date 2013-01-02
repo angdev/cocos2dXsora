@@ -10,6 +10,8 @@ class GameWorld;
 class GameTriggerHandler;
 typedef std::shared_ptr<GameTriggerHandler> GameTriggerHandlerPtr;
 
+class CCParallaxScrollNode;
+
 //Test
 class GameObjectFactory;
 
@@ -34,8 +36,11 @@ public:
 
 private:
     GameWorld *world_;
+    //게임 객체 추가되는 레이어
     cocos2d::CCLayer *layer_;
+    //움직이는 배경
     
+    CCParallaxScrollNode *parallax_;
     GameObjectFactory *factory_;
     
     float elapsed_time_;

@@ -104,19 +104,28 @@
       <Filter>logic_comp</Filter>
     </ClCompile>
     <ClCompile Include="ai_component.cpp">
-      <Filter>ai_comp</Filter>
+      <Filter>ai_comp//common state</Filter>
     </ClCompile>
     <ClCompile Include="ally_ai_component.cpp">
-      <Filter>ai_comp</Filter>
+      <Filter>ai_comp//common state</Filter>
     </ClCompile>
     <ClCompile Include="enemy_ai_component.cpp">
-      <Filter>ai_comp</Filter>
+      <Filter>ai_comp//common state</Filter>
     </ClCompile>
     <ClCompile Include="guided_laser_plane_component.cpp">
       <Filter>logic_comp\character</Filter>
     </ClCompile>
     <ClCompile Include="player_data.cpp">
       <Filter>logic_comp\player</Filter>
+    </ClCompile>
+    <ClCompile Include="CCParallaxScrollNode.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CCParallaxScrollOffset.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="laser_layer.cpp">
+      <Filter>logic_comp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,19 +241,28 @@
       <Filter>logic_comp</Filter>
     </ClInclude>
     <ClInclude Include="ai_component.h">
-      <Filter>ai_comp</Filter>
+      <Filter>ai_comp//common state</Filter>
     </ClInclude>
     <ClInclude Include="ally_ai_component.h">
-      <Filter>ai_comp</Filter>
+      <Filter>ai_comp//common state</Filter>
     </ClInclude>
     <ClInclude Include="enemy_ai_component.h">
-      <Filter>ai_comp</Filter>
+      <Filter>ai_comp//common state</Filter>
     </ClInclude>
     <ClInclude Include="guided_laser_plane_component.h">
       <Filter>logic_comp\character</Filter>
     </ClInclude>
     <ClInclude Include="player_data.h">
       <Filter>logic_comp\player</Filter>
+    </ClInclude>
+    <ClInclude Include="CCParallaxScrollNode.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CCParallaxScrollOffset.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="laser_layer.h">
+      <Filter>logic_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,7 +305,7 @@
     <Filter Include="trigger">
       <UniqueIdentifier>{90cbdac0-1937-4fea-8f0a-5fc7600f0dab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ai_comp">
+    <Filter Include="ai_comp//common state">
       <UniqueIdentifier>{402d0d76-8a79-4374-b688-1f862b912e64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

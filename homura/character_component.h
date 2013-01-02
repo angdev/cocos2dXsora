@@ -47,11 +47,16 @@ public:
     bool is_enemy();
 
     cocos2d::CCNode *layer() { return layer_; }
+    
     float hit_point() const { return hit_point_; }
     void set_hit_point(float hit_point);
+    
     float max_hit_point() { return max_hit_point_; }
     void set_max_hit_point(float max_hit_point) { max_hit_point_ = max_hit_point; }
+    
     void set_unbeatable(bool unbeatable) { unbeatable_ = unbeatable; }
+
+    //CharacterFSM *fsm() { return fsm_.get(); }
 
 private:
     virtual void HandleOutOfBound(OutOfBoundMessage *msg);
@@ -59,6 +64,7 @@ private:
     void RequestRecovery();
 
 private:
+//    std::unique_ptr<CharacterFSM> fsm_;
     
     //무적 상태?
     bool unbeatable_;

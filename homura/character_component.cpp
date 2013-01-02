@@ -7,7 +7,7 @@
 #include "game_world.h"
 #include "game_object_factory.h"
 #include "game_stage.h"
-#include "character_fsm.h"
+//#include "character_fsm.h"
 
 #include <random>
 #include "sora/unit.h"
@@ -18,6 +18,7 @@
 
 CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
     : LogicComponent(obj), layer_(layer), unbeatable_(false) {
+//    fsm_ = std::move(std::unique_ptr<CharacterFSM>(new CharacterFSM(this)));
 }
 
 CharacterComponent::~CharacterComponent() {
@@ -25,6 +26,10 @@ CharacterComponent::~CharacterComponent() {
 }
 
 void CharacterComponent::Update(float dt) {
+
+    //FSM 업데이트
+    //fsm_->Update(dt);
+
     //체력을 가지고 있으므로 이걸 처리
     if(hit_point_ <= 0) {
         //Destroy

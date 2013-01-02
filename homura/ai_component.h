@@ -6,7 +6,7 @@
 
 class AIComponent : public GameComponent {
 public:
-    AIComponent(GameObject *obj) : GameComponent(obj) { }
+    AIComponent(GameObject *obj);
     virtual ~AIComponent() { }
 
 public:
@@ -29,10 +29,13 @@ public:
     //일단 이렇게 분리하고 쓴다
     virtual void set_state(int state) = 0;
 
+    b2Vec2 start_position() { return start_position_; }
+    void set_start_position(const b2Vec2 &start_position) { start_position_ = start_position; }
+
 private:
     //객체 생성시 이 시작 위치를 기억했다가 적절히 화면 밖에서 등장
     //실질적인 시작 위치
-    glm::vec2 start_position_;
+    b2Vec2 start_position_;
 };
 
 #endif

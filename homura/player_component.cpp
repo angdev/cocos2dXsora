@@ -8,6 +8,10 @@
 //temp
 #include "bullet_component.h"
 
+#include "sora/unit.h"
+
+using namespace sora;
+
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer), reflect_timer_(0), reflecting_(false) {
 
@@ -123,9 +127,13 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
 
 void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //이전 위치로 되돌림
+    /*
     b2Vec2 pos_diff = msg->current_pos - msg->prev_pos;
+    pos_diff.x = Unit::ToUnitFromMeter(pos_diff.x);
+    pos_diff.y = Unit::ToUnitFromMeter(pos_diff.y);
     MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
     obj()->OnMessage(&move_msg);
+    */
 }
 
 void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
@@ -147,11 +155,10 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         b2Vec2 push_vec(counter_body_pos.x - player_body_pos.x, counter_body_pos.y - player_body_pos.y);
         push_vec.Normalize();
         push_vec *= 10;
-
-        MoveMessage move_msg = MoveMessage::Create(push_vec);
+        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(push_vec), 0.016);
         msg->counter_obj->OnMessage(&move_msg);
         push_vec *= -1;
-        move_msg.vec = push_vec;
+        move_msg.vec = Unit::ToUnitFromMeter(push_vec);
         obj()->OnMessage(&move_msg);
     }
 }

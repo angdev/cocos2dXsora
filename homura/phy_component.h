@@ -44,7 +44,8 @@ public:
     //메시지 함수들
 public:
     //2개 묶어서 SetPhyBodyInfo로 해도 될듯
-    void OnMoveMessage(MoveMessage *msg);
+    void OnMoveToMessage(MoveToMessage *msg);
+    void OnMoveByMessage(MoveByMessage *msg);
     void OnSetAngleMessage(SetAngleMessage *msg);
     void OnRequestPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg);
     void OnSetPhyBodyInfoMessage(SetPhyBodyInfoMessage *msg);
@@ -56,7 +57,8 @@ public:
     virtual void set_main_body(b2Body *body);
 private:
     b2Body *body_;
-    
+    //이동 목표 지점
+    b2Vec2 end_point_;
 };
 
 #endif

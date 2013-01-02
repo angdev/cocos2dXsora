@@ -188,8 +188,15 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
     
     //메시지 보내기
-    b2Vec2 vec2(dx, dy);
-    MoveMessage msg = MoveMessage::Create(vec2);
+    //이건 걍 set으로 해야 제대로 될듯?
+    PhyBodyInfo body_info;
+    b2Body *body = player_->phy_comp()->main_body();
+    b2Vec2 vec2 = body->GetPosition();
+    body_info.x = vec2.x + Unit::ToMeterFromUnit(dx);
+    body_info.y = vec2.y + Unit::ToMeterFromUnit(dy);
+    body_info.angle_rad = body->GetAngle();
+    SetPhyBodyInfoMessage msg = SetPhyBodyInfoMessage::Create(&body_info);
+    
     player_->OnMessage(&msg);
 
     /*

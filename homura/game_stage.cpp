@@ -10,6 +10,8 @@
 
 #include "game_object_factory.h"
 
+#include "CCParallaxScrollNode.h"
+
 #if SR_USE_PCH == 0
 #include "cocos2d.h"
 #endif
@@ -31,11 +33,25 @@ bool GameStage::Init() {
     if(NULL == layer_)
         return false;
 
+    //parallax 초기화
+    //테스트 중
+    parallax_ = CCParallaxScrollNode::create();
+    parallax_->retain();
+    //아 변환해야지..
+    CCSprite *background_sprite1 = CCSprite::create("background.jpg");
+    CCSprite *background_sprite2 = CCSprite::create("background.jpg");
+    parallax_->addInfiniteScrollYWithZ(0, ccp(1, 1), ccp(0, 0), background_sprite1, background_sprite2, NULL);
+    layer_->addChild(parallax_);
+
     factory_ = new GameObjectFactory(world_);
     //편대 로직을 구현한 객체 삽입
     FormationHeader formation_header;
     GameObject *formation_obj = factory_->Create(formation_header);
     world_->AddObject(formation_obj);
+
+    LaserLayerHeader laser_layer_header;
+    GameObject *laser_layer = factory_->Create(laser_layer_header, layer_);
+    world_->AddObject(laser_layer);
 
     //Test
     
@@ -65,7 +81,7 @@ bool GameStage::Init() {
     laser_enemy_header.angle = -M_PI_2;
     laser_enemy_header.hit_point = 100;
     laser_enemy_header.x = 400;
-    laser_enemy_header.y = 500;
+    laser_enemy_header.y = 1300;
     laser_enemy_header.is_fall = false;
     laser_enemy_header.is_enemy = true;
     laser_enemy_header.sprite_name = "";
@@ -91,7 +107,7 @@ bool GameStage::Init() {
     combat_header.is_enemy = true;
     combat_header.hit_point = 10;
     combat_header.x = 100;
-    combat_header.y = 1000;
+    combat_header.y = 1300;
     combat_header.sprite_name = "";
     GameTrigger *trg1 = new GameTrigger(this);
     GameAction *act1 = MakeCreateObjectAction(combat_header);
@@ -146,6 +162,9 @@ bool GameStage::Init() {
 }
 
 void GameStage::Update(float dt) {
+
+    parallax_->updateWithVelocity(ccp(0, -2.0f), dt);
+
     CheckForcesNumberMessage msg = CheckForcesNumberMessage::Create(false);
     world_->OnMessage(&msg);
 

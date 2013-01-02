@@ -15,6 +15,14 @@ class CharacterComponent;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 typedef std::shared_ptr<GameMessage> GameMessagePtr;
 
+#define GAME_MESSAGE_BEGIN(name) struct name : public GameMessage {\
+private:\
+    name () {}\
+public:\
+    GameMessage *Clone() const { return new name (); }
+
+#define GAME_MESSAGE_END };
+
 struct GameMessage {
     GameMessage() : valid(true) { }
 	virtual ~GameMessage() {}
@@ -65,16 +73,29 @@ public:
 
 //Physics Component Messages
 
-//게임 객체를 이동시켜달라고 요청할 때 사용하는 메시지
+//게임 객체를 특정 위치로 이동시켜달라고 요청할 때 사용하는 메시지
 //msg에 들어온 값만큼 이동시켜줌.
-struct MoveMessage : public GameMessage {
+struct MoveToMessage : public GameMessage {
 private:
-    MoveMessage() {}
+    MoveToMessage() {}
 public:
-    static MoveMessage Create(const b2Vec2 &vec);
-    GameMessage *Clone() const { return new MoveMessage(); }
+    static MoveToMessage Create(const glm::vec2 &vec, float duration);
+    GameMessage *Clone() const { return new MoveToMessage(); }
 
-    b2Vec2 vec;
+    glm::vec2 vec;
+    float duration;
+};
+
+//게임 객체를 delta값만큼 이동시켜달라고 요청
+struct MoveByMessage : public GameMessage {
+private:
+    MoveByMessage() {}
+public:
+    static MoveByMessage Create(const glm::vec2 &vec, float duration);
+    GameMessage *Clone() const { return new MoveByMessage(); }
+
+    glm::vec2 vec;
+    float duration;
 };
 
 
@@ -299,3 +320,18 @@ public:
     int id;
     bool checked;
 };
+
+
+//레이저 레이어 메시지
+GAME_MESSAGE_BEGIN(RequestRenderLaserMessage)
+    static RequestRenderLaserMessage Create(int id, const glm::vec2 &end_point);
+    
+    glm::vec2 end_point;
+    int id;
+GAME_MESSAGE_END
+
+GAME_MESSAGE_BEGIN(StopRenderLaserMessage)
+    static StopRenderLaserMessage Create(int id);
+
+    int id;
+GAME_MESSAGE_END

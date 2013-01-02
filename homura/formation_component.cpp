@@ -6,6 +6,8 @@
 
 #include "sora/unit.h"
 
+using namespace sora;
+
 FormationComponent::FormationComponent(GameObject *obj)
     : LogicComponent(obj), leader_id_(NO_LEADER) {
 
@@ -27,7 +29,7 @@ void FormationComponent::Update(float dt) {
     for(auto member : member_set_) {
         GameObjectPtr obj_ptr = obj()->world()->FindObject(member);
         b2Vec2 move_vec(-1.0f, 0);
-        MoveMessage move_msg = MoveMessage::Create(move_vec);
+        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(move_vec), 1);
         obj_ptr->OnMessage(&move_msg);
     }
 }

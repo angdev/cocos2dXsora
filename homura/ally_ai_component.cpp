@@ -8,6 +8,8 @@
 
 #include "sora/unit.h"
 
+using namespace sora;
+
 AllyAIComponent::AllyAIComponent(GameObject *obj) : AIComponent(obj), state_(kAllyNormalState) {
 
 }
@@ -20,7 +22,7 @@ void AllyAIComponent::Update(float dt) {
     if(state_ == kAllyFallState) {
         //Test Move
         b2Vec2 move_vec(sora::Unit::ToUnitFromMeter(0.1f), 0);
-        MoveMessage msg = MoveMessage::Create(move_vec);
+        MoveByMessage msg = MoveByMessage::Create(Unit::ToUnitFromMeter(move_vec), 1);
         obj()->OnMessage(&msg);
 
         CCLOG("%f", char_comp()->hit_point());
