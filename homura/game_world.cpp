@@ -6,6 +6,8 @@
 #include "game_message.h"
 #include "phy_world.h"
 
+#include "laser_layer.h"
+
 #if SR_USE_PCH == 0
 #include <algorithm>
 #include "cocos2d.h"
@@ -14,7 +16,8 @@
 using namespace std;
 using namespace cocos2d;
 
-GameWorld::GameWorld() {
+GameWorld::GameWorld()
+    : laser_layer(nullptr) {
     phy_world_ = std::move(unique_ptr<PhyWorld>(new PhyWorld(this)));
 }
 
@@ -44,6 +47,10 @@ void GameWorld::OnMessage(GameMessage *msg) {
     //TODO
     for(auto it : obj_table_) {
         it.second->OnMessage(msg);
+    }
+    //레이어에도 메세지 알리기
+    if(laser_layer != nullptr) {
+        laser_layer->OnMessage(msg);
     }
 }
 

@@ -245,14 +245,6 @@ GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, Tri
     return obj;
 }
 
-GameObject * GameObjectFactory::Create(const LaserLayerHeader &header, cocos2d::CCNode *parent) {
-    GameObject *obj = new GameObject(world_);
-    LogicComponent *logic = new LaserLayer(obj, parent);
-    obj->set_logic_comp(logic);
-
-    return obj;
-}
-
 
 b2Body * GameObjectFactory::CreateCollisionCircle(const glm::vec2 &ut_pos, float radius)
 {

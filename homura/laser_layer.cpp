@@ -7,112 +7,131 @@
 #include "game_stage.h"
 
 #include "phy_component.h"
+#include "character_component.h"
 
 #include "sora/unit.h"
 
 USING_NS_CC;
 using namespace sora;
 
-LaserLayer::LaserLayer(GameObject *obj, CCNode *parent) : LogicComponent(obj), parent_(parent) {
-
+LaserLayer::LaserLayer(GameWorld *world)
+: world_(world),
+friend_sprite_(nullptr),
+enemy_sprite_(nullptr) {
 }
-
 LaserLayer::~LaserLayer() {
-
 }
 
-CompType LaserLayer::type() const {
-    return kCompLaserLayer;
+void LaserLayer::OnMessage(const GameMessage *msg) {
+    msg_handler_.HandleMsg(msg);
 }
 
-void LaserLayer::Update(float dt) {
-    
-    for(auto iter : state_table_) {
-        if(!iter.second.now_rendering)
-            continue;
-        //적당히 end_point에 길이를 맞추고 위치도 적절히 이동
-        CCSprite *sprite = iter.second.sprite;
-        
-        PhyBodyInfo body_info;
-        RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
-
-        iter.second.obj->OnMessage(&body_info_msg);
-        assert(body_info_msg.is_ret && "laser layer body info error");
-        glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
-        sprite->setPosition(ccp(body_pos.x, body_pos.y));
-
-        //길이 조절?
-        CCSize sprite_size = sprite->getContentSize();
-        glm::vec2 diff_vec = (iter.second.end_point - body_pos);
-        sprite->setScaleY(glm::length((iter.second.end_point - body_pos)) / sprite_size.height);
+bool LaserLayer::init() {
+    if(!CCLayer::init()) {
+        return false;
     }
-    
-}
 
-void LaserLayer::InitMsgHandler() {
     RegisterMsgFunc(this, &LaserLayer::OnRequestRenderLaserMessage);
     RegisterMsgFunc(this, &LaserLayer::OnStopRenderLaserMessage);
     RegisterMsgFunc(this, &LaserLayer::OnDestroyMessage);
+
+    //텍스쳐로써 필요하다. 단순히 할당만해서 적저맇 잡고잇으면 된다
+    friend_sprite_ = CCSprite::create("laser_friend.png");
+    enemy_sprite_ = CCSprite::create("laser_enemy.png");
+    SR_ASSERT(friend_sprite_ != nullptr);
+    SR_ASSERT(enemy_sprite_ != nullptr);
+    this->addChild(friend_sprite_);
+    this->addChild(enemy_sprite_);
+    friend_sprite_->setVisible(false);
+    enemy_sprite_->setVisible(false);
+        
+
+    return true;
+}
+
+LaserRenderState *LaserLayer::GetLaserState(int obj_id) {
+    auto friend_found = friend_dict_.find(obj_id);
+    if(friend_found != friend_dict_.end()) {
+        return &friend_found->second;
+    }
+    auto enemy_found = enemy_dict_.find(obj_id);
+    if(enemy_found != enemy_dict_.find(obj_id)) {
+        return &enemy_found->second;
+    }
+    return nullptr;
 }
 
 void LaserLayer::OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg) {
     //자기도 그려달라 이런 식으로 요청하는 녀석들을 맵에 넣는다
-    auto found = state_table_.find(msg->id);
-    if(found != state_table_.end()) {
-        
-        found->second.now_rendering = true;
-        found->second.sprite->setVisible(true);
-        found->second.end_point = msg->end_point;
-       
-    }
-    else {
+    LaserRenderState *prev = GetLaserState(msg->id);
+    if(prev == nullptr) {
+        //없으면 생성
+        LaserStateDict *laser_dict = nullptr;
+        //적용인지 아군용인지 확인하기
+        GameObjectPtr obj = world_->FindObject(msg->id);
+        LogicComponent *logic_comp = obj->logic_comp();
+        SR_ASSERT(logic_comp->type() == kCompLaserPlane);
+        CharacterComponent *character = static_cast<CharacterComponent*>(logic_comp);
+
+        if(character->is_enemy()) {
+            laser_dict = &enemy_dict_;
+        } else {
+            laser_dict = &friend_dict_;
+        }
+
         LaserRenderState state;
-        state.now_rendering = true;
-
-        if(state.is_enemy_type) {
-            CCSprite *sprite = CCSprite::create("enemy_laser.png");
-            CCSize sprite_size = sprite->getContentSize();
-            sprite->setAnchorPoint(ccp(0.5, 0));
-            sprite->setRotation(180);
-            parent_->addChild(sprite);
-            
-            state.sprite = sprite;
-        }
-        else {
-            CCSprite *sprite = CCSprite::create("enemy_laser.png");
-            CCSize sprite_size = sprite->getContentSize();
-            sprite->setAnchorPoint(ccp(0.5, 1));
-            parent_->addChild(sprite);
-
-            state.sprite = sprite;
-        }
-        
+        state.obj = obj;
         state.end_point = msg->end_point;
+        (*laser_dict)[msg->id] = state;
 
-        state.obj = obj()->world()->FindObject(msg->id);
-        state_table_.insert(std::make_pair(msg->id, state));
-
+    } else {
+        //있으면 정보 갱신
+        prev->end_point = msg->end_point;
     }
 }
-
 void LaserLayer::OnStopRenderLaserMessage(StopRenderLaserMessage *msg) {
-    
-    auto found = state_table_.find(msg->id);
-    if(found != state_table_.end()) {
-        found->second.now_rendering = false;
-        found->second.sprite->setVisible(false);
-    }
-    
+    friend_dict_.erase(msg->id);
+    enemy_dict_.erase(msg->id);
 }
-
 void LaserLayer::OnDestroyMessage(DestroyMessage *msg) {
-    auto found = state_table_.find(msg->obj_id);
-    if(found != state_table_.end()) {
-        obj()->world()->stage()->layer()->removeChild(found->second.sprite);
-        state_table_.erase(found);
+    friend_dict_.erase(msg->obj_id);
+    enemy_dict_.erase(msg->obj_id);
+}
+
+void LaserLayer::draw() {
+    if(friend_dict_.empty() == false) {
+        vector<LaserLine> line_list = GetLaserLineList(friend_dict_);
+        DrawLaserList(friend_sprite_, line_list);
+    }
+    if(enemy_dict_.empty() == false) {
+        vector<LaserLine> line_list = GetLaserLineList(enemy_dict_);
+        DrawLaserList(enemy_sprite_, line_list);
     }
 }
 
-void LaserLayer::StartDraw() {
+glm::vec2 LaserLayer::GetObjectPosition(const LaserRenderState &state) const {
+    PhyBodyInfo body_info;
+    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
 
+    state.obj->OnMessage(&body_info_msg);
+    SR_ASSERT(body_info_msg.is_ret && "laser layer body info error");
+    glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
+    return body_pos;
+}
+
+void LaserLayer::DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list) {
+    printf("%d!!!!!!!\n", line_list.size());
+}
+
+std::vector<LaserLine> LaserLayer::GetLaserLineList(const LaserStateDict &dict) {
+    vector<LaserLine> retval;
+    retval.reserve(dict.size());
+
+    for(auto iter : dict) {
+        const LaserRenderState &state = iter.second;
+        glm::vec2 start_pos = GetObjectPosition(state);
+        glm::vec2 end_pos = state.end_point;
+        retval.push_back(LaserLine(start_pos, end_pos));
+    }
+    return retval;
 }

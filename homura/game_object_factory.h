@@ -40,7 +40,6 @@ public:
     //가상의 게임 객체들 (로직)
     GameObject *Create(const GameTriggerObjectHeader &header, TriggerID trigger_id, NextTriggers *next_triggers, 
         GameTriggerHandlerPtr game_trigger_handler_);
-    GameObject *Create(const LaserLayerHeader &header, cocos2d::CCNode *parent);
 
 private:
     b2Body *CreateCollisionCircle(const glm::vec2 &ut_pos, float radius);

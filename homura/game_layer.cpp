@@ -12,6 +12,7 @@
 #include "game_object_factory.h"
 
 #include "character_component.h"
+#include "laser_layer.h"
 
 using namespace std;
 using namespace sora;
@@ -88,6 +89,13 @@ bool GameLayer::init() {
     PhyDebugLayer *phy_debug_layer = new PhyDebugLayer(world_->b2_world());
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
+
+    //레이저 레이어
+    LaserLayer *laser_layer = new LaserLayer(world_.get());
+    laser_layer->init();
+    laser_layer->autorelease();
+    world_->laser_layer = laser_layer;
+    this->addChild(laser_layer);
     
     return true;
 }

@@ -125,7 +125,7 @@
       <Filter>stage</Filter>
     </ClCompile>
     <ClCompile Include="laser_layer.cpp">
-      <Filter>logic_comp</Filter>
+      <Filter>game_ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,7 +262,7 @@
       <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="laser_layer.h">
-      <Filter>logic_comp</Filter>
+      <Filter>game_ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
