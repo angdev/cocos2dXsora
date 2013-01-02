@@ -44,7 +44,10 @@ bool LaserLayer::init() {
     this->addChild(enemy_sprite_);
     friend_sprite_->setVisible(false);
     enemy_sprite_->setVisible(false);
-        
+    
+    //set shader
+    CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
+    this->setShaderProgram(prog);
 
     return true;
 }
@@ -99,13 +102,21 @@ void LaserLayer::OnDestroyMessage(DestroyMessage *msg) {
 }
 
 void LaserLayer::draw() {
+    if(friend_dict_.empty() && enemy_dict_.empty()) {
+        return;
+    }
+
+    CC_NODE_DRAW_SETUP();
+
     if(friend_dict_.empty() == false) {
         vector<LaserLine> line_list = GetLaserLineList(friend_dict_);
         DrawLaserList(friend_sprite_, line_list);
+        CC_INCREMENT_GL_DRAWS(1);
     }
     if(enemy_dict_.empty() == false) {
         vector<LaserLine> line_list = GetLaserLineList(enemy_dict_);
         DrawLaserList(enemy_sprite_, line_list);
+        CC_INCREMENT_GL_DRAWS(1);
     }
 }
 
@@ -120,7 +131,79 @@ glm::vec2 LaserLayer::GetObjectPosition(const LaserRenderState &state) const {
 }
 
 void LaserLayer::DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list) {
-    printf("%d!!!!!!!\n", line_list.size());
+    //라인 정보를 삼각형으로 변환
+    ccGLEnableVertexAttribs(kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords );
+
+    ccGLBindTexture2D( sprite->getTexture()->getName() );
+
+    //선1개 == 삼각형 2개
+    //점4개 + 인덱스 6개로  triangles를 구성하기
+    struct Vertex {
+        float x, y;
+        float s, t;
+    };
+    std::vector<Vertex> vert_list(4 * line_list.size());
+    std::vector<unsigned short> index_list(6 * line_list.size());
+
+    //3 2
+    //
+    //0 1
+
+    int tex_width = sprite->getTexture()->getContentSize().width;
+    int tex_height = sprite->getTexture()->getContentSize().height;
+
+    for(int i = 0 ; i < line_list.size() ; ++i) {
+        const LaserLine &line = line_list[i];
+        int base_idx = 4 * i;
+
+        Vertex &left_bottom = vert_list[base_idx + 0];
+        Vertex &right_bottom = vert_list[base_idx + 1];
+        Vertex &right_top = vert_list[base_idx + 2];
+        Vertex &left_top = vert_list[base_idx + 3];
+
+        float left = line.bottom.x - tex_width / 2.0f;
+        float right = line.bottom.x + tex_width / 2.0f;
+        float bottom = line.bottom.y;
+        float top = line.top.y;
+
+        left_bottom.x = left;
+        left_bottom.y = bottom;
+        left_bottom.s = 0;
+        left_bottom.t = 0;
+
+        right_bottom.x = right;
+        right_bottom.y = bottom;
+        right_bottom.s = 1;
+        right_bottom.t = 0;
+
+        left_top.x = left;
+        left_top.y = top;
+        left_top.s = 0;
+        left_top.t = 1;
+
+        right_top.x = right;
+        right_top.y = top;
+        right_top.s = 1;
+        right_top.t = 1;
+    }
+
+    for(int i = 0 ; i < line_list.size() ; ++i) {
+        int index_base_idx = 6 * i;
+        int vert_base_idx = 4 * i;
+
+        index_list[index_base_idx + 0] = vert_base_idx + 0;
+        index_list[index_base_idx + 1] = vert_base_idx + 1;
+        index_list[index_base_idx + 2] = vert_base_idx + 2;
+
+        index_list[index_base_idx + 3] = vert_base_idx + 0;
+        index_list[index_base_idx + 4] = vert_base_idx + 2;
+        index_list[index_base_idx + 5] = vert_base_idx + 3;
+    }
+
+    glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), &vert_list[0].x);
+    glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), &vert_list[0].s);
+
+    glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
 }
 
 std::vector<LaserLine> LaserLayer::GetLaserLineList(const LaserStateDict &dict) {
