@@ -4,6 +4,10 @@
 #include "game_object.h"
 #include "game_world.h"
 
+#include "sora/unit.h"
+
+using namespace sora;
+
 ChainComponent::ChainComponent(GameObject *obj) : LogicComponent(obj) {
 
 }
@@ -19,7 +23,7 @@ CompType ChainComponent::type() const {
 void ChainComponent::Update(float dt) {
     //테스트 움직임
     b2Vec2 move_vec(0.5f, 0);
-    MoveMessage move_msg = MoveMessage::Create(move_vec);
+    MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(move_vec), 0.1f);
 
     GameWorld *world = obj()->world();
     GameObjectPtr slave_ptr = world->FindObject(slave_id_);

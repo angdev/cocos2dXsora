@@ -96,6 +96,7 @@ void CombatPlaneComponent::AfterDestroy() {
 
 void CombatPlaneComponent::AIMove( float dt )
 {
+    /*
     static unsigned int temp_rnd_factor = 0;
     std::default_random_engine rand_engine((unsigned int)time(0) + temp_rnd_factor++);
     int dir_x = rand_engine() % 2 == 0? -1 : 1;
@@ -103,8 +104,9 @@ void CombatPlaneComponent::AIMove( float dt )
     rand_engine.seed((unsigned int)time(0) + temp_rnd_factor++);
     int dir_y = rand_engine() % 2 == 0? -1 : 1;
     dir_y *= rand_engine() % 500;
-    MoveMessage msg = MoveMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
+    MoveToMessage msg = MoveToMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
     obj()->OnMessage(&msg);
+    */
 }
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {

@@ -35,12 +35,12 @@ void EnemyAIComponent::Update(float dt) {
         
         else {
 
-            MoveMessage move_msg = MoveMessage::Create(velocity_vec);
+            MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(velocity_vec), 1);
             obj()->OnMessage(&move_msg);
         }
     }
     else if(state_ == kEnemyNormalState) {
-
+        
     }
 }
 

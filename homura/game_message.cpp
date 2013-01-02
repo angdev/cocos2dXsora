@@ -128,9 +128,19 @@ CollideBulletMessage CollideBulletMessage::Create(GameObject *bullet, float dama
     return msg;
 }
 
-MoveMessage MoveMessage::Create( const b2Vec2 &vec ) {
-    MoveMessage msg;
+
+MoveByMessage MoveByMessage::Create( const glm::vec2 &vec, float duration ) {
+    MoveByMessage msg;
     msg.vec = vec;
+    msg.duration = duration;
+    return msg;
+}
+
+
+MoveToMessage MoveToMessage::Create( const glm::vec2 &vec, float duration ) {
+    MoveToMessage msg;
+    msg.vec = vec;
+    msg.duration = duration;
     return msg;
 }
 

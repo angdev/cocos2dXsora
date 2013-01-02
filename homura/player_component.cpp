@@ -156,10 +156,10 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         push_vec.Normalize();
         push_vec *= 10;
 
-        MoveMessage move_msg = MoveMessage::Create(push_vec);
+        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(push_vec), 0.016f);
         msg->counter_obj->OnMessage(&move_msg);
         push_vec *= -1;
-        move_msg.vec = push_vec;
+        move_msg.vec = Unit::ToUnitFromMeter(push_vec);
         obj()->OnMessage(&move_msg);
     }
 }

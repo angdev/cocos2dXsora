@@ -36,7 +36,7 @@ void BulletComponent::Update(float dt) {
 
     b2Vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
     velocity_vec *= speed_;
-    MoveMessage move_msg = MoveMessage::Create(velocity_vec);
+    MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(velocity_vec), 0.016);
     obj()->OnMessage(&move_msg);
 }
 

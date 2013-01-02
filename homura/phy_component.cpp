@@ -33,34 +33,62 @@ SinglePhyComponent::~SinglePhyComponent() {
 }
 
 void SinglePhyComponent::Update(float dt) {
+    b2Vec2 body_pos = body_->GetPosition();
+    b2Vec2 pos_diff = end_point_ - body_pos;
+    if(pos_diff.Length() < 0.1f) {
+        //목표지 도착
+        body_->SetLinearVelocity(b2Vec2_zero);
+    }
+
+    //경계 체크
+    CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+    if(body_pos.x > Unit::ToMeterFromUnit(win_size.width) || body_pos.x < 0 
+        || body_pos.y > Unit::ToMeterFromUnit(win_size.height) || body_pos.y < 0) {
+        //이 부분 고쳐야 함. 이전 위치 정보를 어떻게 가져올 것인가?
+        OutOfBoundMessage out_msg = OutOfBoundMessage::Create(body_pos, body_pos);
+        obj()->OnMessage(&out_msg);
+        //처리는 알아서 하게 해야지
+        //return;
+    }
 }
 
 void SinglePhyComponent::InitMsgHandler() {
-    RegisterMsgFunc(this, &SinglePhyComponent::OnMoveMessage);
+    RegisterMsgFunc(this, &SinglePhyComponent::OnMoveToMessage);
+    RegisterMsgFunc(this, &SinglePhyComponent::OnMoveByMessage);
     RegisterMsgFunc(this, &SinglePhyComponent::OnRequestPhyBodyInfoMessage);
     RegisterMsgFunc(this, &SinglePhyComponent::OnSetAngleMessage);
     RegisterMsgFunc(this, &SinglePhyComponent::OnSetPhyBodyInfoMessage);
 }
 
-void SinglePhyComponent::OnMoveMessage(MoveMessage *msg) {
+void SinglePhyComponent::OnMoveToMessage(MoveToMessage *msg) {
     //msg에 들어오는 값은 px임.    
-    b2Vec2 vec2 = body_->GetPosition();
-    vec2.x += Unit::ToMeterFromUnit(msg->vec.x);
-    vec2.y += Unit::ToMeterFromUnit(msg->vec.y);
+    b2Vec2 body_pos = body_->GetPosition();
+    b2Vec2 end_pos = Unit::ToMeterFromUnit(msg->vec);
+    
+    end_point_ = end_pos;
 
-    //경계 체크
-    CCSize win_size = CCDirector::sharedDirector()->getWinSize();
-    if(vec2.x > Unit::ToMeterFromUnit(win_size.width) || vec2.x < 0 
-        || vec2.y > Unit::ToMeterFromUnit(win_size.height) || vec2.y < 0) {
-        OutOfBoundMessage out_msg = OutOfBoundMessage::Create(body_->GetPosition(), vec2);
-        obj()->OnMessage(&out_msg);
-        //처리는 알아서 하게 해야지
-        //return;
-    }
-
-    body_->SetTransform(vec2, body_->GetAngle());
+    b2Vec2 velocity_vec = end_pos - body_pos;
+    velocity_vec *= (1.0f / msg->duration);
+    
+    body_->SetLinearVelocity(velocity_vec);
+    //body_->SetTransform(vec2, body_->GetAngle());
     //body_->SetAwake(true);
 }
+
+
+void SinglePhyComponent::OnMoveByMessage(MoveByMessage *msg) {
+    b2Vec2 body_pos = body_->GetPosition();
+    b2Vec2 end_pos = body_pos + Unit::ToMeterFromUnit(msg->vec);
+
+    end_point_ = end_pos;
+
+    b2Vec2 velocity_vec = end_pos - body_pos;
+    
+    velocity_vec *= (1.0f / msg->duration);
+
+    body_->SetLinearVelocity(velocity_vec);
+}
+
 
 void SinglePhyComponent::OnSetAngleMessage( SetAngleMessage *msg ) {
     body_->SetTransform(body_->GetPosition(), msg->angle);

@@ -188,8 +188,9 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //플레이어가 없어지면? 어짜피 플레이어 다른데로 옮길거
     
     //메시지 보내기
-    b2Vec2 vec2(dx, dy);
-    MoveMessage msg = MoveMessage::Create(vec2);
+    glm::vec2 move_vec(dx, dy);
+    //이건 걍 set으로 해야 부드럽지 않나 싶다
+    MoveByMessage msg = MoveByMessage::Create(move_vec, 0.016);
     player_->OnMessage(&msg);
 
     /*
