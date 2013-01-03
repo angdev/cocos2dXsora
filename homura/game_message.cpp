@@ -11,9 +11,10 @@ StopRenderLaserMessage StopRenderLaserMessage::Create(int id) {
     return msg;
 }
 
-RequestRenderLaserMessage RequestRenderLaserMessage::Create(int id, const glm::vec2 &end_point) {
+RequestRenderLaserMessage RequestRenderLaserMessage::Create(int id, const glm::vec2 &start_point, const glm::vec2 &end_point) {
     RequestRenderLaserMessage msg;
     msg.id = id;
+    msg.start_point = start_point;
     msg.end_point = end_point;
     return msg;
 }

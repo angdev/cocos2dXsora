@@ -325,10 +325,11 @@ public:
 
 //레이저 레이어 메시지
 GAME_MESSAGE_BEGIN(RequestRenderLaserMessage)
-    static RequestRenderLaserMessage Create(int id, const glm::vec2 &end_point);
+    static RequestRenderLaserMessage Create(int id, const glm::vec2 &start_point, const glm::vec2 &end_point);
     
-    glm::vec2 end_point;
     int id;
+    glm::vec2 end_point;
+    glm::vec2 start_point;
 GAME_MESSAGE_END
 
 GAME_MESSAGE_BEGIN(StopRenderLaserMessage)

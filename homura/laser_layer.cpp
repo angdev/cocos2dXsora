@@ -86,11 +86,13 @@ void LaserLayer::OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg) {
 
         LaserRenderState state;
         state.obj_id = msg->id;
+        state.start_point = msg->start_point;
         state.end_point = msg->end_point;
         (*laser_dict)[msg->id] = state;
 
     } else {
         //있으면 정보 갱신
+        prev->start_point = msg->start_point;
         prev->end_point = msg->end_point;
     }
 }
@@ -122,6 +124,7 @@ void LaserLayer::draw() {
     }
 }
 
+/*
 glm::vec2 LaserLayer::GetObjectPosition(const LaserRenderState &state) const {
     PhyBodyInfo body_info;
     RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
@@ -132,6 +135,7 @@ glm::vec2 LaserLayer::GetObjectPosition(const LaserRenderState &state) const {
     glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
     return body_pos;
 }
+*/
 
 void LaserLayer::DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list) {
     //라인 정보를 삼각형으로 변환
@@ -215,7 +219,7 @@ std::vector<LaserLine> LaserLayer::GetLaserLineList(const LaserStateDict &dict) 
 
     for(auto iter : dict) {
         const LaserRenderState &state = iter.second;
-        glm::vec2 start_pos = GetObjectPosition(state);
+        glm::vec2 start_pos = state.start_point;
         glm::vec2 end_pos = state.end_point;
         retval.push_back(LaserLine(start_pos, end_pos));
     }
