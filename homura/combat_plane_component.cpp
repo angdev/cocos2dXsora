@@ -28,6 +28,11 @@ CombatPlaneComponent::~CombatPlaneComponent() {
 void CombatPlaneComponent::Update(float dt) {
     //TODO
     CharacterComponent::Update(dt);
+
+    if(!obj()->IsEnabled()) {
+        return;
+    }
+
     Attack(dt);
     
     //일단 편대로 움직임 제어를 넘긴다.

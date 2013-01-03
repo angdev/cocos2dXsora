@@ -23,6 +23,10 @@ LaserPlaneComponent::~LaserPlaneComponent() {
 void LaserPlaneComponent::Update(float dt) {
     CharacterComponent::Update(dt);
 
+    if(!obj()->IsEnabled()) {
+        return;
+    }
+
     //일단 지속적으로 공격하게 만들어둔다
     if(now_attacking_) {
         attack_timer_ += dt;
@@ -132,26 +136,25 @@ float32 LaserPlaneComponent::RayCastCallback::ReportFixture(b2Fixture* fixture, 
 void LaserPlaneComponent::RayCastCallback::AfterCallback() {
     //현재 위치에서 point 까지 레이저 그리면 됨
 
-    
+    PhyBodyInfo body_info;
+    RequestPhyBodyInfoMessage phy_body_msg = RequestPhyBodyInfoMessage::Create(&body_info);
+    owner_comp_->obj()->OnMessage(&phy_body_msg);
+    glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
+
+    assert(phy_body_msg.is_ret && "Raycast; req phy body error");
+
     if(!is_hit_) {
         //안 맞으면 화면 끝까지
-        PhyBodyInfo body_info;
-        RequestPhyBodyInfoMessage phy_body_msg = RequestPhyBodyInfoMessage::Create(&body_info);
-        owner_comp_->obj()->OnMessage(&phy_body_msg);
-
-        assert(phy_body_msg.is_ret && "Raycast; req phy body error");
-
         glm::vec2 dir_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
-        glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
         dir_vec *= 1280;    //일단 대충 떼움
 
-        RequestRenderLaserMessage render_msg = RequestRenderLaserMessage::Create(owner_comp_->obj()->id(), body_pos+dir_vec);
+        RequestRenderLaserMessage render_msg = RequestRenderLaserMessage::Create(owner_comp_->obj()->id(), body_pos, body_pos+dir_vec);
         owner_comp_->obj()->world()->OnMessage(&render_msg);
         return;
     }
 
     //레이저 그리자
-    RequestRenderLaserMessage render_msg = RequestRenderLaserMessage::Create(owner_comp_->obj()->id(), Unit::ToUnitFromMeter(point));
+    RequestRenderLaserMessage render_msg = RequestRenderLaserMessage::Create(owner_comp_->obj()->id(), body_pos, Unit::ToUnitFromMeter(point));
     owner_comp_->obj()->world()->OnMessage(&render_msg);
 
 

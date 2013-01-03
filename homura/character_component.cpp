@@ -57,6 +57,7 @@ void CharacterComponent::Destroy()
 {
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(obj()->id()));
+    obj()->ToggleEnable();
 
     DestroyMessage msg = DestroyMessage::Create(obj()->id());
     world->OnMessage(&msg);

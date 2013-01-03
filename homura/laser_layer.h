@@ -5,8 +5,9 @@
 #include "message_handler.h"
 
 struct LaserRenderState {
-    glm::vec2 end_point;
     int obj_id;
+    glm::vec2 start_point;
+    glm::vec2 end_point;
 };
 
 struct LaserLine {
@@ -59,7 +60,7 @@ private:
 
     std::vector<LaserLine> GetLaserLineList(const LaserStateDict &dict);
     void DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list);
-    glm::vec2 GetObjectPosition(const LaserRenderState &state) const;
+    //glm::vec2 GetObjectPosition(const LaserRenderState &state) const;
 
     
 };
