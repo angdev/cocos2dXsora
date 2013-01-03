@@ -4,6 +4,8 @@
 #include "game_object.h"
 #include "game_world.h"
 
+#include "phy_component.h"
+
 #include "sora/unit.h"
 
 using namespace sora;
@@ -22,6 +24,34 @@ CompType ChainComponent::type() const {
 
 void ChainComponent::Update(float dt) {
     //테스트 움직임
+
+    //slave는 master 와의 일정 거리를 유지하려 한다
+    GameWorld *world = obj()->world();
+    GameObjectPtr slave = world->FindObject(slave_id_);
+    GameObjectPtr master = world->FindObject(master_id_);
+
+    //아 귀찮다
+    if(slave == NULL || master == NULL)
+        return;
+
+    b2Vec2 slave_pos = slave->phy_comp()->main_body()->GetPosition();
+    b2Vec2 master_pos = master->phy_comp()->main_body()->GetPosition();
+    b2Vec2 pos_diff = master_pos - slave_pos;
+    
+    CCLOG("%f", pos_diff.Length());
+
+    //일정 거리 안에 있으면 그냥 리턴
+    if(pos_diff.Length() < 0.5)
+        return;
+
+    //속도는 어떻게 할까나
+    MoveToMessage msg = MoveToMessage::Create(Unit::ToUnitFromMeter(master_pos), 1);
+    slave->OnMessage(&msg);
+
+    return;
+
+
+    /*
     b2Vec2 move_vec(0.5f, 0);
     MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(move_vec), 0.1f);
 
@@ -30,6 +60,7 @@ void ChainComponent::Update(float dt) {
     if(slave_ptr != NULL) {
         slave_ptr->OnMessage(&move_msg);
     }
+    */
 }
 
 void ChainComponent::InitMsgHandler() {

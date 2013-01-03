@@ -33,8 +33,11 @@ void CombatPlaneComponent::Update(float dt) {
         return;
     }
 
-    Attack(dt);
-    
+    if(attack_timer_ < attack_cool_down_) {
+        attack_timer_ += dt;
+        return;
+    }
+
     //일단 편대로 움직임 제어를 넘긴다.
     //AIMove(dt);
 }
@@ -45,12 +48,7 @@ void CombatPlaneComponent::InitMsgHandler() {
     //TODO
 }
 
-void CombatPlaneComponent::Attack(float dt) {
-
-    if(attack_timer_ < attack_cool_down_) {
-        attack_timer_ += dt;
-        return;
-    }
+void CombatPlaneComponent::Attack() {
 
     attack_timer_ = 0;
 
@@ -117,4 +115,6 @@ void CombatPlaneComponent::AIMove( float dt )
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
+    if(attack_timer_ > attack_cool_down_)
+        Attack();
 }

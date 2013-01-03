@@ -39,7 +39,7 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
     b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(2.0f));
 
     body->SetTransform(body->GetPosition(), header.angle_rad);
-
+    
     CCSprite *sprite = CCSprite::create("dead_star.png");
     sprite->setScale(0.2f);
 
@@ -94,8 +94,15 @@ GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, co
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
-    CCSprite *sprite = CCSprite::create("dead_star.png");
-    sprite->setScale(0.1f);
+    CCSprite *sprite;
+    if(header.is_enemy) {
+        sprite = CCSprite::create("dead_star.png");
+        sprite->setScale(0.2f);
+    }
+    else {
+        sprite = CCSprite::create("ally_plane.png");
+        sprite->setScale(0.4f);
+    }
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
@@ -139,8 +146,15 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
-    CCSprite *sprite = CCSprite::create("dead_star.png");
-    sprite->setScale(0.1f);
+    CCSprite *sprite;
+    if(header.is_enemy) {
+        sprite = CCSprite::create("dead_star.png");
+        sprite->setScale(0.2f);
+    }
+    else {
+        sprite = CCSprite::create("ally_plane.png");
+        sprite->setScale(0.4f);
+    }
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);

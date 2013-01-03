@@ -28,7 +28,7 @@ void EnemyAIComponent::Update(float dt) {
 
         b2Vec2 body_vec(body_info.x, body_info.y);
         b2Vec2 velocity_vec = start_position() - body_vec;
-        if(velocity_vec.Length() < Unit::ToMeterFromUnit(10)) {
+        if(velocity_vec.Length() < Unit::ToMeterFromUnit(30)) {
             CCLOG("state changed");
             state_ = kEnemyNormalState;
         }
@@ -42,6 +42,8 @@ void EnemyAIComponent::Update(float dt) {
     else if(state_ == kEnemyNormalState) {
         MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, -50), 0.5);
         obj()->OnMessage(&move_msg);
+        AttackMessage atk_msg = AttackMessage::Create(0);
+        obj()->OnMessage(&atk_msg);
     }
 }
 
