@@ -40,7 +40,7 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
 
     body->SetTransform(body->GetPosition(), header.angle_rad);
 
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    CCSprite *sprite = CCSprite::create("dead_star.png");
     sprite->setScale(0.2f);
 
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
@@ -94,7 +94,7 @@ GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, co
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    CCSprite *sprite = CCSprite::create("dead_star.png");
     sprite->setScale(0.1f);
 
     GameObject *obj = new GameObject(world_);
@@ -139,7 +139,7 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), header.angle);
 
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    CCSprite *sprite = CCSprite::create("dead_star.png");
     sprite->setScale(0.1f);
 
     GameObject *obj = new GameObject(world_);
@@ -207,7 +207,7 @@ GameObject *GameObjectFactory::Create(const ObjectHeader &header, cocos2d::CCNod
     b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
 
     // 적절히 스프라이트 생성하기
-    CCSprite *sprite = CCSprite::create("kyoko_icon.png");
+    CCSprite *sprite = CCSprite::create("dead_star.png");
     sprite->setScale(0.2f);
 
     GameObject *obj = new GameObject(world_);
