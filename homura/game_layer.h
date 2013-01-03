@@ -10,6 +10,9 @@ class GameStage;
 class GameObject;
 class GameObjectFactory;
 
+#define PLAYER_START_POINT_X 350
+#define PLAYER_START_POINT_Y 100
+
 //게임 시작 누르면 뭐 스테이지 선택 이런 레이어로 넘어갔다가
 //선택하면 여기로 넘어옴
 //이 레이어는 게임 플레이 부분만 담당하니
@@ -35,7 +38,7 @@ public:
 
 public:
     GameObject *player();
-    void set_player(GameObject *player);
+    void ReadyPlayer(GameObject *player);
 
 public:
     virtual void ccTouchesEnded(cocos2d::CCSet *touches, cocos2d::CCEvent *event);

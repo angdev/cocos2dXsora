@@ -20,6 +20,8 @@ friend_sprite_(nullptr),
 enemy_sprite_(nullptr) {
 }
 LaserLayer::~LaserLayer() {
+    friend_dict_.clear();
+    enemy_dict_.clear();
 }
 
 void LaserLayer::OnMessage(const GameMessage *msg) {
@@ -83,7 +85,7 @@ void LaserLayer::OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg) {
         }
 
         LaserRenderState state;
-        state.obj = obj;
+        state.obj_id = msg->id;
         state.end_point = msg->end_point;
         (*laser_dict)[msg->id] = state;
 
@@ -124,7 +126,8 @@ glm::vec2 LaserLayer::GetObjectPosition(const LaserRenderState &state) const {
     PhyBodyInfo body_info;
     RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
 
-    state.obj->OnMessage(&body_info_msg);
+    GameObjectPtr obj = world_->FindObject(state.obj_id);
+    obj->OnMessage(&body_info_msg);
     SR_ASSERT(body_info_msg.is_ret && "laser layer body info error");
     glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
     return body_pos;

@@ -150,10 +150,6 @@ bool GameStage::Init() {
 
     world_->AddObject(factory_->Create(e_header, 4, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
 
-    //1번부터 시작하라는 메시지를 보냄.
-    BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(1);
-    world_->OnMessage(&begin_msg);
-    
     return true;
 }
 
@@ -167,4 +163,10 @@ void GameStage::Update(float dt) {
     if(msg.forces_number == 0) {
         is_game_over_ = true;
     }
+}
+
+void GameStage::Start() {
+    //1번부터 시작하라는 메시지를 보냄.
+    BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(1);
+    world_->OnMessage(&begin_msg);
 }
