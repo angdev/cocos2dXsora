@@ -127,6 +127,9 @@
     <ClCompile Include="laser_layer.cpp">
       <Filter>game_ui</Filter>
     </ClCompile>
+    <ClCompile Include="game_info_layer.cpp">
+      <Filter>game_ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -262,6 +265,9 @@
       <Filter>stage</Filter>
     </ClInclude>
     <ClInclude Include="laser_layer.h">
+      <Filter>game_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="game_info_layer.h">
       <Filter>game_ui</Filter>
     </ClInclude>
   </ItemGroup>

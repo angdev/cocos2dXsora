@@ -39,15 +39,11 @@ void LaserPlaneComponent::Update(float dt) {
             StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
             obj()->world()->OnMessage(&stop_msg);
         }
-        else
-            Attack();
     }
     else {
         attack_timer_ += dt;
         if(attack_timer_ > attack_cool_down_) {
             now_cool_down_ = false;
-            attack_timer_ = 0;
-            Attack();            
         }
     }
 
@@ -105,6 +101,9 @@ void LaserPlaneComponent::AfterDestroy() {
 
 void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
+    if(!now_cool_down_ && obj()->IsEnabled()) {
+        Attack();
+    }
 }
 
 

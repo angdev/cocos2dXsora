@@ -18,7 +18,7 @@ public:
 
 public:
     void OnAttackMessage(AttackMessage *msg);
-    void Attack(float dt);
+    void Attack();
 
 private:
     void AfterDestroy();

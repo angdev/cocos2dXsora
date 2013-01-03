@@ -43,6 +43,7 @@ void PlayerComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &PlayerComponent::OnRequestPlayerPositionMessage);
     RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
     RegisterMsgFunc(this, &PlayerComponent::OnCollidePlaneMessage);
+    RegisterMsgFunc(this, &PlayerComponent::OnIsEnemyMessage);
 }
 
 void PlayerComponent::AfterDestroy() {
@@ -172,4 +173,9 @@ void PlayerComponent::Destroy() {
     obj()->Disable();
 
     AfterDestroy();
+}
+
+void PlayerComponent::OnIsEnemyMessage( IsEnemyMessage *msg ) {
+    msg->is_ret = true;
+    msg->is_enemy = false;
 }

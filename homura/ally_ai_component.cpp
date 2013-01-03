@@ -56,7 +56,8 @@ void AllyAIComponent::Update(float dt) {
     }
 
     else if(state_ == kAllyNormalState) {
-
+        AttackMessage atk_msg = AttackMessage::Create(0);
+        obj()->OnMessage(&atk_msg);
     }
 
     else {

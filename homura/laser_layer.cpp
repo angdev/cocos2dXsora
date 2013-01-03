@@ -70,7 +70,7 @@ void LaserLayer::OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg) {
     //자기도 그려달라 이런 식으로 요청하는 녀석들을 맵에 넣는다
     LaserRenderState *prev = GetLaserState(msg->id);
     if(prev == nullptr) {
-        //없으면 생성
+        //없으면 생성    
         LaserStateDict *laser_dict = nullptr;
         //적용인지 아군용인지 확인하기
         GameObjectPtr obj = world_->FindObject(msg->id);

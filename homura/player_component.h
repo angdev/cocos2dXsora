@@ -23,6 +23,7 @@ public:
     void OnCollidePlaneMessage(CollidePlaneMessage *msg);   //박치기했을 때
     //초기화를 새로 해주자
     void OnResetMessage(ResetMessage *msg);
+    void OnIsEnemyMessage(IsEnemyMessage *msg);
 
 
 public:
