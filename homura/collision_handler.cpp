@@ -87,6 +87,7 @@ const std::vector<CompTypeTuple> CollisionHandler_Player_Plane::GetCompTypeTuple
     static vector<CompTypeTuple> tpl_list;
     if(tpl_list.empty()) {
         tpl_list.push_back(CompTypeTuple(kCompPlayer, kCompCombatPlane));
+        tpl_list.push_back(CompTypeTuple(kCompPlayer, kCompLaserPlane));
     }
     return tpl_list;
 }

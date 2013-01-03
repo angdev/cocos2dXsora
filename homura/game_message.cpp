@@ -34,6 +34,7 @@ AttackMessage AttackMessage::Create(int target_id) {
 IsEnemyMessage IsEnemyMessage::Create() {
     IsEnemyMessage msg;
     msg.is_enemy = false;
+    msg.is_ret = false;
     return msg;
 }
 

@@ -112,10 +112,18 @@ void LaserPlaneComponent::RayCastCallback::Reset() {
 float32 LaserPlaneComponent::RayCastCallback::ReportFixture(b2Fixture* fixture, const b2Vec2& point, const b2Vec2& normal, float32 fraction) {
     
     if(nearest_fraction_ > fraction) {
-        nearest_fraction_ = fraction;
-        this->point = point;
-        this->fixture = fixture;
-        is_hit_ = true;
+        //적군 기체가 부딪혔는지가 중요함
+        GameObject *obj = static_cast<GameObject*>(fixture->GetBody()->GetUserData());
+        IsEnemyMessage msg = IsEnemyMessage::Create();
+        obj->OnMessage(&msg);
+
+        if(msg.is_ret && owner_comp_->is_enemy() != msg.is_enemy) {
+            nearest_fraction_ = fraction;
+            this->point = point;
+            this->fixture = fixture;
+            is_hit_ = true;
+
+        }
     }
 
     return 1;
@@ -152,7 +160,7 @@ void LaserPlaneComponent::RayCastCallback::AfterCallback() {
     IsEnemyMessage enemy_msg = IsEnemyMessage::Create();
     counter_obj->OnMessage(&enemy_msg);
 
-    if(enemy_msg.is_enemy == owner_comp_->is_enemy())
+    if(enemy_msg.is_ret && enemy_msg.is_enemy == owner_comp_->is_enemy())
         return;
 
     DamageObjectMessage damage_msg = DamageObjectMessage::Create(0.1f);

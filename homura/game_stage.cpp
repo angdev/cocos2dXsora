@@ -53,6 +53,26 @@ bool GameStage::Init() {
     
     //EventGroup #0
 
+    //ally laser test
+    GameTriggerHandler *trg_hnd = new GameTriggerHandler();
+    LaserPlaneObjectHeader laser_ally_header;
+    laser_ally_header.angle = M_PI_2;
+    laser_ally_header.hit_point = 100;
+    laser_ally_header.x = 300;
+    laser_ally_header.y = 200;
+    laser_ally_header.is_fall = false;
+    laser_ally_header.is_enemy = false;
+    laser_ally_header.sprite_name = "";
+    GameTrigger *trg = new GameTrigger(this);
+    GameAction *act = MakeCreateObjectAction(laser_ally_header);
+    trg->set_action(act);
+    trg->set_condition(new NullCondition);
+    trg_hnd->AddTrigger(trg);
+    GameTriggerObjectHeader trg_header;
+    NextTriggers *next_trigger = new NextTriggers();
+    next_trigger->push_back(1);
+    world_->AddObject(factory_->Create(trg_header, 0, next_trigger, GameTriggerHandlerPtr(trg_hnd)));
+
     //Temp
     //Chain Test
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
@@ -155,7 +175,7 @@ bool GameStage::Init() {
 
 void GameStage::Update(float dt) {
 
-    parallax_->updateWithVelocity(ccp(0, -2.0f), dt);
+    parallax_->updateWithVelocity(ccp(0, -5.0f), dt);
 
     CheckForcesNumberMessage msg = CheckForcesNumberMessage::Create(false);
     world_->OnMessage(&msg);
@@ -166,7 +186,7 @@ void GameStage::Update(float dt) {
 }
 
 void GameStage::Start() {
-    //1번부터 시작하라는 메시지를 보냄.
-    BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(1);
+    //0번부터 시작하라는 메시지를 보냄.
+    BeginTriggerMessage begin_msg = BeginTriggerMessage::Create(0);
     world_->OnMessage(&begin_msg);
 }

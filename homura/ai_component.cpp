@@ -13,8 +13,11 @@ void AIComponent::InitMsgHandler() {
 }
 
 void AIComponent::OnIsEnemyMessage(IsEnemyMessage *msg) {
-    if(IsEnemy())
+    msg->is_ret = true;
+
+    if(IsEnemy()) {
         msg->is_enemy = true;
+    }
 }
 
 CharacterComponent* AIComponent::char_comp() {

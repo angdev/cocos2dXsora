@@ -145,6 +145,7 @@ public:
     GameMessage *Clone() const { return new IsEnemyMessage(); }
     
     bool is_enemy;
+    bool is_ret;
 };
 
 //End AI Component Messages
