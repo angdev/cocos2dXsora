@@ -49,10 +49,6 @@ bool GameStage::Init() {
     GameObject *formation_obj = factory_->Create(formation_header);
     world_->AddObject(formation_obj);
 
-    LaserLayerHeader laser_layer_header;
-    GameObject *laser_layer = factory_->Create(laser_layer_header, layer_);
-    world_->AddObject(laser_layer);
-
     //Test
     
     //EventGroup #0

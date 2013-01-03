@@ -33,3 +33,4 @@
 
 #include "tinyxml/tinyxml.h"
 #include "Box2D/Box2D.h"
+#include "cocos2d.h"

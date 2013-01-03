@@ -18,6 +18,8 @@ class GameObjectFactory;
 class PhyWorld;
 class GameStage;
 
+class LaserLayer;
+
 typedef std::shared_ptr<GameObject> GameObjectPtr;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
 
@@ -74,6 +76,11 @@ public:
 private:
     std::unique_ptr<PhyWorld> phy_world_;
     GameStage *stage_;
+
+    //render layer 
+public:
+    LaserLayer *laser_layer;
+
 };
 
 
