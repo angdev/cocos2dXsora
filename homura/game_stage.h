@@ -23,6 +23,8 @@ public:
 public:
     bool Init();
     void Update(float dt);
+    //여기서 시작 메시지
+    void Start();
 
 public:
     bool IsCleared() { return is_cleared_; }

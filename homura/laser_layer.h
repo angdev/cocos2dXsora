@@ -6,7 +6,7 @@
 
 struct LaserRenderState {
     glm::vec2 end_point;
-    GameObjectPtr obj;
+    int obj_id;
 };
 
 struct LaserLine {

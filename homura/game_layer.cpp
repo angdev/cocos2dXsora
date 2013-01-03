@@ -83,7 +83,7 @@ bool GameLayer::init() {
 
     this->addChild(stage_->layer());
 
-    set_player(CreatePlayer());
+    ReadyPlayer(CreatePlayer());
 
     //물리 디버깅용
     PhyDebugLayer *phy_debug_layer = new PhyDebugLayer(world_->b2_world());
@@ -104,24 +104,35 @@ void GameLayer::update(float dt) {
     
     //State 패턴 같은걸 쓸 게 있나?
 
+
+    //TODO
+    //스테이지 유효 체크
+    stage_->Update(dt);
+    world_->Update(dt);
+
     if(state_ == kGameReadyState) {
         //아직 아무 것도 없음
-        state_ = kGameProgressState;
+        
+        //위치를 적절히 가져와본다
+        b2Vec2 player_pos = player_->phy_comp()->main_body()->GetPosition();
+        float length = glm::length(glm::vec2(PLAYER_START_POINT_X, PLAYER_START_POINT_Y) - Unit::ToUnitFromMeter(player_pos));
+        
+        if(length < 0.1) {
+            state_ = kGameProgressState;
+            stage_->Start();
+        }
     }
 
     else if(state_ == kGameProgressState) {
 
-        //TODO
-        //스테이지 유효 체크
-        stage_->Update(dt);
-
+        
         //플레이어 죽었나?
         if(!player_->IsEnabled()) {
             cocos2d::CCLog("Player die");
             world_->RequestRemoveObject(world_->FindObject(player_->id()));
 
             //제거와 생성 하다가 2개가 생기는데 하나는 비활성화되니 문제 없을듯
-            set_player(CreatePlayer());
+            ReadyPlayer(CreatePlayer());
 
             //player_ = CreatePlayer();
             //world_->AddObject(player_);
@@ -139,8 +150,6 @@ void GameLayer::update(float dt) {
             state_ = kGameOverState;
             EndStage();
         }
-
-        world_->Update(dt);
     }
 
     else if(state_ == kGameVictoryState) {
@@ -158,13 +167,16 @@ GameObject *GameLayer::player() {
 }
 
 //이렇게 쓰는거 맞나..?
-void GameLayer::set_player(GameObject *player) {
+void GameLayer::ReadyPlayer(GameObject *player) {
     /*
     if(player_ != NULL)
         world_->RequestRemoveObject(world_->FindObject(player_->id()));
     */
     player_ = player;
     world_->AddObject(player_);
+    glm::vec2 move_vec(PLAYER_START_POINT_X, PLAYER_START_POINT_Y);
+    MoveToMessage msg = MoveToMessage::Create(move_vec, 1);
+    player_->OnMessage(&msg);
 }
 
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
@@ -185,7 +197,8 @@ void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
         CCPoint location = touch->getLocation();
         CCPoint prev_location = touch->getPreviousLocation();
         //CCLog("%f %f", location.x - prev_location.x, location.y - prev_location.y);
-        MoveBodyByDelta(location.x - prev_location.x, location.y - prev_location.y);
+        if(state_ != kGameReadyState)
+            MoveBodyByDelta(location.x - prev_location.x, location.y - prev_location.y);
     }
 }
 void GameLayer::ccTouchesCancelled(CCSet *touches, CCEvent *event) {
@@ -224,7 +237,7 @@ GameObject *GameLayer::CreatePlayer() {
     PlayerObjectHeader player_header;
     player_header.angle_rad = M_PI_2;
     player_header.x = 350;
-    player_header.y = 100;
+    player_header.y = -100;
     player_header.hit_point = 100;
     player_header.sprite_name = "";
     GameObject* init_player = factory_->Create(player_header, stage_->layer());

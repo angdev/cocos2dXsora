@@ -48,10 +48,12 @@ void GameWorld::OnMessage(GameMessage *msg) {
     for(auto it : obj_table_) {
         it.second->OnMessage(msg);
     }
+    
     //레이어에도 메세지 알리기
     if(laser_layer != nullptr) {
         laser_layer->OnMessage(msg);
     }
+    
 }
 
 void GameWorld::OnMessage(GameMessage *msg, float delay) {
