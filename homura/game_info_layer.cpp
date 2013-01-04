@@ -24,11 +24,18 @@ bool GameInfoLayer::init() {
     //메시지 핸들러 등록
     RegisterMsgFunc(this, &GameInfoLayer::OnDestroyMessage);
     
+    //score : 이거 초기화
     CCSize win_size = CCDirector::sharedDirector()->getWinSize();
-    CCLabelTTF *score_label = CCLabelTTF::create("Score : ", "Arial", 30);
-    score_label->setAnchorPoint(ccp(0, 0.5));
-    score_label->setPosition(ccp(20, win_size.height-50));
-    this->addChild(score_label);
+    CCLabelTTF *score_text_label = CCLabelTTF::create("Score : ", "Arial", 30);
+    score_text_label->setAnchorPoint(ccp(0, 0.5));
+    score_text_label->setPosition(ccp(20, win_size.height-50));
+    this->addChild(score_text_label);
+
+    //실제 점수 표시해주는 label 초기화
+    score_label_ = CCLabelTTF::create("0", "Arial", 30);
+    score_label_->setAnchorPoint(ccp(0, 0.5));
+    score_label_->setPosition(ccp(score_text_label->getContentSize().width + score_text_label->getPositionX(), win_size.height-50));
+    this->addChild(score_label_);
 
     return true;
 }
@@ -64,10 +71,13 @@ void GameInfoLayer::CalculateScore(CompType type) {
     }
 
     CCLOG("current score : %d", score_);
+    update();
 }
 
 //일단 매 프레임 업데이트가 되도록 만들긴 했는데
 //정보 수정이 들어올 때마다 업데이트하는게 적절할듯
-void GameInfoLayer::update(float dt) {
-    CCLOG("!");
+void GameInfoLayer::update() {
+    std::stringstream ss;
+    ss << score_;
+    score_label_->setString(ss.str().c_str());
 }
