@@ -38,7 +38,7 @@ void ChainComponent::Update(float dt) {
     b2Vec2 master_pos = master->phy_comp()->main_body()->GetPosition();
     b2Vec2 pos_diff = master_pos - slave_pos;
     
-    CCLOG("%f", pos_diff.Length());
+    //CCLOG("%f", pos_diff.Length());
 
     //일정 거리 안에 있으면 그냥 리턴
     if(pos_diff.Length() < 0.5)

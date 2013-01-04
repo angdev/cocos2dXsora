@@ -151,6 +151,10 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         //걍 적절히 민다
         //음.. 이걸 터치 핸들러랑 적절히 엮어야할텐데.
         //그리고 이렇게 밀면 너무 별로인듯?
+
+
+        //미는거 다시 제대로 구현하자
+        /*
         b2Vec2 player_body_pos = obj()->phy_comp()->main_body()->GetPosition();
         b2Vec2 counter_body_pos = msg->counter_obj->phy_comp()->main_body()->GetPosition();
         b2Vec2 push_vec(counter_body_pos.x - player_body_pos.x, counter_body_pos.y - player_body_pos.y);
@@ -161,6 +165,7 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         push_vec *= -1;
         move_msg.vec = Unit::ToUnitFromMeter(push_vec);
         obj()->OnMessage(&move_msg);
+        */
     }
 }
 

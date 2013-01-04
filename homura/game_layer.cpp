@@ -13,6 +13,7 @@
 
 #include "character_component.h"
 #include "laser_layer.h"
+#include "game_info_layer.h"
 
 using namespace std;
 using namespace sora;
@@ -48,7 +49,7 @@ private:
 };
 
 GameLayer::GameLayer()
-: simple_layer_(NULL), player_(NULL), state_(kGameReadyState) {
+: player_(NULL), state_(kGameReadyState) {
 }
 
 GameLayer::~GameLayer() {
@@ -97,6 +98,13 @@ bool GameLayer::init() {
     world_->laser_layer = laser_layer;
     this->addChild(laser_layer);
     
+    //게임 정보 레이어
+    GameInfoLayer *info_layer = new GameInfoLayer(world_.get());
+    info_layer->init();
+    info_layer->autorelease();
+    world_->game_info_layer = info_layer;
+    this->addChild(info_layer);
+
     return true;
 }
 

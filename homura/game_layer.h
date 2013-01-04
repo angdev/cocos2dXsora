@@ -9,6 +9,7 @@ class GameWorld;
 class GameStage;
 class GameObject;
 class GameObjectFactory;
+class GameInfoLayer;
 
 #define PLAYER_START_POINT_X 350
 #define PLAYER_START_POINT_Y 100
@@ -56,9 +57,6 @@ private:
     GameObject *player_;
     
     void MoveBodyByDelta(const float &dx, const float &dy);
-
-    //이거 대신 스테이지가 들어감
-    cocos2d::CCLayer *simple_layer_;
 
     GameObjectFactory *factory_;
     GameStage *stage_;
