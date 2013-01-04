@@ -107,7 +107,7 @@ void CharacterComponent::RequestRecovery() {
 }
 
 void CharacterComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
-    CCLOG("%f", hit_point_);
+    //CCLOG("%f", hit_point_);
     set_hit_point(hit_point_ - msg->damage);
 }
 

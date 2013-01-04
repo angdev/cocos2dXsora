@@ -25,7 +25,7 @@ void AllyAIComponent::Update(float dt) {
         MoveByMessage msg = MoveByMessage::Create(Unit::ToUnitFromMeter(move_vec), 1);
         obj()->OnMessage(&msg);
 
-        CCLOG("%f", char_comp()->hit_point());
+        //CCLOG("%f", char_comp()->hit_point());
         //낙오 상태에서는 체력이 줄어 있는데 최대 체력이 되면 부활
         if(char_comp()->max_hit_point() - char_comp()->hit_point() < 1.0f) {
             state_ = kAllyNormalState;

@@ -61,7 +61,7 @@ void SinglePhyComponent::InitMsgHandler() {
 }
 
 void SinglePhyComponent::OnMoveToMessage(MoveToMessage *msg) {
-    //msg에 들어오는 값은 px임.    
+    //msg에 들어오는 값은 px임
     b2Vec2 body_pos = body_->GetPosition();
     b2Vec2 end_pos = Unit::ToMeterFromUnit(msg->vec);
     
@@ -71,6 +71,7 @@ void SinglePhyComponent::OnMoveToMessage(MoveToMessage *msg) {
     velocity_vec *= (1.0f / msg->duration);
     
     body_->SetLinearVelocity(velocity_vec);
+    body_->SetTransform(body_->GetPosition(), std::atan2(velocity_vec.y, velocity_vec.x));
     //body_->SetTransform(vec2, body_->GetAngle());
     //body_->SetAwake(true);
 }
@@ -87,6 +88,7 @@ void SinglePhyComponent::OnMoveByMessage(MoveByMessage *msg) {
     velocity_vec *= (1.0f / msg->duration);
 
     body_->SetLinearVelocity(velocity_vec);
+    body_->SetTransform(body_->GetPosition(), std::atan2(velocity_vec.y, velocity_vec.x));
 }
 
 

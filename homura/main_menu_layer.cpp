@@ -28,7 +28,7 @@ bool MainMenuLayer::init() {
 
     //타이틀 로고 
     CCSize win_size = CCDirector::sharedDirector()->getVisibleSize();
-    CCSprite *logo = CCSprite::create("logo.png");
+    CCSprite *logo = CCSprite::create(/*"logo.png"*/);
     this->addChild(logo);
     float logo_y = win_size.height-logo->getContentSize().height/2.0f - 30;
     CCPoint logo_pos = ccp(win_size.width/2.0f, logo_y);

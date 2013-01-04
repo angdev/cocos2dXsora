@@ -7,6 +7,7 @@
 #include "phy_world.h"
 
 #include "laser_layer.h"
+#include "game_info_layer.h"
 
 #if SR_USE_PCH == 0
 #include <algorithm>
@@ -17,7 +18,7 @@ using namespace std;
 using namespace cocos2d;
 
 GameWorld::GameWorld()
-    : laser_layer(nullptr) {
+    : laser_layer(nullptr), game_info_layer(nullptr) {
     phy_world_ = std::move(unique_ptr<PhyWorld>(new PhyWorld(this)));
 }
 
@@ -52,6 +53,10 @@ void GameWorld::OnMessage(GameMessage *msg) {
     //레이어에도 메세지 알리기
     if(laser_layer != nullptr) {
         laser_layer->OnMessage(msg);
+    }
+
+    if(game_info_layer != nullptr) {
+        game_info_layer->OnMessage(msg);
     }
     
 }
