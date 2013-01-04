@@ -2,7 +2,7 @@
 #ifndef __LASER_LAYER_H__
 #define __LASER_LAYER_H__
 
-#include "message_handler.h"
+#include "message_handleable.h"
 
 struct LaserRenderState {
     int obj_id;
@@ -24,7 +24,7 @@ struct LaserLine {
     glm::vec2 bottom;
 };
 
-class LaserLayer : public cocos2d::CCLayer {
+class LaserLayer : public cocos2d::CCLayer, public MessageHandleable {
 public:
     LaserLayer(GameWorld *world);
     virtual ~LaserLayer();
@@ -32,8 +32,6 @@ public:
     bool init();
     void draw();
 
-    //message
-    void OnMessage(const GameMessage *msg);
 private:
     void OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg);
     void OnStopRenderLaserMessage(StopRenderLaserMessage *msg);
@@ -45,13 +43,7 @@ private:
     LaserStateDict enemy_dict_;
     LaserRenderState *GetLaserState(int obj_id);
 
-    MessageHandler msg_handler_;
     GameWorld *world_;
-
-    template<typename T, typename MsgT>
-	void RegisterMsgFunc(T *instance, void (T::*mem_fn)(MsgT*)) {
-		msg_handler_.RegisterMessageFunc(instance, mem_fn);
-	}
 
     //렌더링에 사용할 이미지 텍스쳐를 미리 잡아놓기
     //이거+썡 gl로 렌더링을 처리하자

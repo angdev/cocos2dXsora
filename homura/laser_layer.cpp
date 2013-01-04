@@ -24,9 +24,6 @@ LaserLayer::~LaserLayer() {
     enemy_dict_.clear();
 }
 
-void LaserLayer::OnMessage(const GameMessage *msg) {
-    msg_handler_.HandleMsg(msg);
-}
 
 bool LaserLayer::init() {
     if(!CCLayer::init()) {

@@ -2,7 +2,7 @@
 #ifndef __GAME_INFO_LAYER_H__
 #define __GAME_INFO_LAYER_H__
 
-#include "message_handler.h"
+#include "message_handleable.h"
 
 class GameWorld;
 
@@ -15,7 +15,7 @@ class GameWorld;
 //그나저나 게임 정보는 따로 분리하는게 좋으려나.
 //일단 내버려두자
 //월드에서 접근 가능하니 ㅇㅅㅇ
-class GameInfoLayer : public cocos2d::CCLayer {
+class GameInfoLayer : public cocos2d::CCLayer, public MessageHandleable {
 public:
     GameInfoLayer(GameWorld *world);
     virtual ~GameInfoLayer();
@@ -25,7 +25,6 @@ public:
 
 public:
     //message
-    void OnMessage(const GameMessage *msg);
     void OnDestroyMessage(DestroyMessage *msg);
 
 public:
@@ -34,16 +33,10 @@ public:
     void set_player_max_hit_point(float player_max_hit_point) { player_max_hit_point_ = player_max_hit_point; }
 
 private:
-    template<typename T, typename MsgT>
-    void RegisterMsgFunc(T *instance, void (T::*mem_fn)(MsgT*)) {
-        msg_handler_.RegisterMessageFunc(instance, mem_fn);
-    }
-
     void CalculateScore(CompType type);
     void DrawPlayerHitPointBar();
 
 private:
-    MessageHandler msg_handler_;
     GameWorld *world_;
 
     int score_;

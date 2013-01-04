@@ -130,6 +130,9 @@
     <ClCompile Include="game_info_layer.cpp">
       <Filter>game_ui</Filter>
     </ClCompile>
+    <ClCompile Include="shield_layer.cpp">
+      <Filter>game_ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -268,6 +271,12 @@
       <Filter>game_ui</Filter>
     </ClInclude>
     <ClInclude Include="game_info_layer.h">
+      <Filter>game_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="shield_layer.h">
+      <Filter>game_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="message_handleable.h">
       <Filter>game_ui</Filter>
     </ClInclude>
   </ItemGroup>
