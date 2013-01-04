@@ -66,7 +66,7 @@ void CombatPlaneComponent::Attack() {
     //cocos2dx랑 box2d 각도 기준점이 다름.
     header.angle_rad = body_info.angle_rad;
     //방향과 속력은 분리해야 함 - 총알도 돌려야 함.
-    header.speed = 30;
+    header.speed = 40;
     header.x = Unit::ToUnitFromMeter(body_info.x);
     header.y = Unit::ToUnitFromMeter(body_info.y);
 

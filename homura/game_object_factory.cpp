@@ -282,7 +282,7 @@ b2Body * GameObjectFactory::CreateCollisionCircle(const glm::vec2 &ut_pos, float
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
     // 충돌 체크용으로만 사용.
-    fixtureDef.isSensor = true;
+    //fixtureDef.isSensor = true;
     fixtureDef.shape = &circleBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;

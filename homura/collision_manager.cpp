@@ -94,7 +94,9 @@ std::vector<CollisionTuple> CollisionManager::GetCollisionList() {
 		b2Fixture *fixture_a = contact->GetFixtureA();
 		b2Fixture *fixture_b = contact->GetFixtureB();
 		b2WorldManifold manifold;
-		contact->GetWorldManifold(&manifold);
+        contact->GetWorldManifold(&manifold);
+        b2Manifold *m = contact->GetManifold();
+
 		CollisionTuple collision_t(
 			objptr_a, 
 			objptr_b, 

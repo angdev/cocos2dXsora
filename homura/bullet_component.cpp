@@ -20,7 +20,7 @@ BulletComponent::~BulletComponent() {
 }
 
 void BulletComponent::InitMsgHandler() {
-    RegisterMsgFunc(this, &BulletComponent::OnBulletDamageObjectMessage);
+    //RegisterMsgFunc(this, &BulletComponent::OnBulletDamageObjectMessage);
     RegisterMsgFunc(this, &BulletComponent::OnOutOfBoundMessage);
 }
 
@@ -36,10 +36,11 @@ void BulletComponent::Update(float dt) {
 
     b2Vec2 velocity_vec(glm::cos(body_info.angle_rad), glm::sin(body_info.angle_rad));
     velocity_vec *= speed_;
-    MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(velocity_vec), 0.016);
+    MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(velocity_vec), 1);
     obj()->OnMessage(&move_msg);
 }
 
+/*
 void BulletComponent::OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg) {
     
     CollideBulletMessage apply_msg = CollideBulletMessage::Create(obj(), damage_, from_enemy_);
@@ -51,6 +52,7 @@ void BulletComponent::OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg
     }
 
 }
+*/
 
 void BulletComponent::Destroy()
 {

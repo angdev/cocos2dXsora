@@ -71,8 +71,22 @@ const std::vector<CompTypeTuple> CollisionHandler_Bullet_PlayerPlane::GetCompTyp
 }
 
 void CollisionHandler_Bullet_PlayerPlane::OnCollision(GameObject *bullet, GameObject *etc, CollisionTuple &collision) {
+    /*
     BulletDamageObjectMessage msg = BulletDamageObjectMessage::Create(etc);
     bullet->OnMessage(&msg);
+    */
+
+    b2WorldManifold manifold = collision.world_manifold();
+    //fixtureA -> fixtureB 방향으로 normal vector가 생김
+    if(collision.obj_a()->Type() == kCompBullet) {
+        //A가 총알이면 normal vector 방향을 바꾼다
+        manifold.normal = -manifold.normal;
+    }
+
+    CollideBulletMessage msg = CollideBulletMessage::Create(bullet, manifold);
+    etc->OnMessage(&msg);
+
+    
 }
 
 //////////////////////////////////////////////////////////////////////////

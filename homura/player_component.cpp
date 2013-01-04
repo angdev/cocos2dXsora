@@ -84,7 +84,7 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         GameObject *bullet = msg->bullet;
         if(static_cast<BulletComponent*>(bullet->logic_comp())->from_enemy() == is_enemy())
             return;
-
+        /*
         PhyBodyInfo player_body_info;
         RequestPhyBodyInfoMessage player_body_msg = RequestPhyBodyInfoMessage::Create(&player_body_info);
         obj()->OnMessage(&player_body_msg);
@@ -94,14 +94,23 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         RequestPhyBodyInfoMessage bullet_body_msg = RequestPhyBodyInfoMessage::Create(&bullet_body_info);
         bullet->OnMessage(&bullet_body_msg);
         assert(bullet_body_msg.is_ret && "get bullet's body info failed.");
+        */
+
+        b2Body *bullet_body = bullet->phy_comp()->main_body();
 
         //TODO
         //총돌한 위치에서의 충돌 박스 면의 각도를 가져올 수 있나?
         // - world manifold 이용해서 충돌점과 normal vector 가져올 수 있음
-        //일단 충돌면이 항상 x축이라고 가정
-        float reflect_angle = (2 * M_PI - bullet_body_info.angle_rad + (player_body_info.angle_rad - M_PI_2));
-        //cocos2d::CCLog("%f / %f : %f", player_body_info.angle_rad, bullet_body_info.angle_rad, reflect_angle);
+        b2Vec2 bullet_dir_vec = bullet_body->GetLinearVelocity();
+        bullet_dir_vec.Normalize();
+        float cross_value = std::abs(b2Cross(msg->manifold.normal, -bullet_dir_vec));
+        float normal_vec_angle = std::atan2(msg->manifold.normal.y, msg->manifold.normal.x);
+        float between_angle = std::asin(cross_value);
+        if(normal_vec_angle < M_PI_2)
+            between_angle = -between_angle;
+        float reflect_angle = between_angle + normal_vec_angle;
 
+        
         SetAngleMessage angle_msg = SetAngleMessage::Create(reflect_angle);
         bullet->OnMessage(&angle_msg);
         static_cast<BulletComponent*>(bullet->logic_comp())->set_from_enemy(false);
