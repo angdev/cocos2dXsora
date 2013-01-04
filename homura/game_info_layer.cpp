@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-GameInfoLayer::GameInfoLayer(GameWorld *world) : world_(world), score_(0) {
+GameInfoLayer::GameInfoLayer(GameWorld *world) : world_(world), score_(0), player_hit_point_(0), player_max_hit_point_(100) {
 
 }
 
@@ -28,13 +28,14 @@ bool GameInfoLayer::init() {
     CCSize win_size = CCDirector::sharedDirector()->getWinSize();
     CCLabelTTF *score_text_label = CCLabelTTF::create("Score : ", "Arial", 30);
     score_text_label->setAnchorPoint(ccp(0, 0.5));
-    score_text_label->setPosition(ccp(20, win_size.height-50));
+    score_text_label->setPosition(ccp(20, win_size.height-GAME_INFO_UI_PADDING_Y));
     this->addChild(score_text_label);
 
     //실제 점수 표시해주는 label 초기화
-    score_label_ = CCLabelTTF::create("0", "Arial", 30);
+    //dimension 제대로 정의할 필요가 있음.
+    score_label_ = CCLabelTTF::create("0", "Arial", 30, CCSizeMake(200, 30), kCCTextAlignmentLeft);
     score_label_->setAnchorPoint(ccp(0, 0.5));
-    score_label_->setPosition(ccp(score_text_label->getContentSize().width + score_text_label->getPositionX(), win_size.height-50));
+    score_label_->setPosition(ccp(score_text_label->getContentSize().width + score_text_label->getPositionX(), win_size.height-GAME_INFO_UI_PADDING_Y));
     this->addChild(score_label_);
 
     return true;
@@ -71,13 +72,37 @@ void GameInfoLayer::CalculateScore(CompType type) {
     }
 
     CCLOG("current score : %d", score_);
-    update();
-}
 
-//일단 매 프레임 업데이트가 되도록 만들긴 했는데
-//정보 수정이 들어올 때마다 업데이트하는게 적절할듯
-void GameInfoLayer::update() {
+
+    //점수 업데이트
     std::stringstream ss;
     ss << score_;
     score_label_->setString(ss.str().c_str());
+}
+
+void GameInfoLayer::DrawPlayerHitPointBar() {
+    //glEnable(GL_LINE_SMOOTH);
+    //glColor4ub(0, 0, 0, 0xff);
+    glLineWidth(1.0f);
+
+    CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+    float vertex_start_x = score_label_->getPositionX() + score_label_->getDimensions().width;
+    //음.. 제대로 그려보고 수치 다 맞춰야할듯
+    //기획하는 양반들한테 미루자
+    float vertex_start_y  = win_size.height - GAME_INFO_UI_PADDING_Y + 10;
+
+    //애초에 UI 짤 때 화면 비율로 해야하는데 그냥 때려박자
+    float hp_bar_length = player_hit_point_ / player_max_hit_point_ * 350;
+    CCPoint vertices[] = {
+        ccp(vertex_start_x, vertex_start_y),
+        ccp(vertex_start_x + hp_bar_length, vertex_start_y),
+        ccp(vertex_start_x + hp_bar_length, vertex_start_y - 30),
+        ccp(vertex_start_x, vertex_start_y - 30)
+    };
+    ccDrawSolidPoly(vertices, 4, ccc4f(0, 1, 0, 1));
+}
+
+
+void GameInfoLayer::draw() {
+    DrawPlayerHitPointBar();
 }

@@ -4,6 +4,7 @@
 #include "player_component.h"
 #include "game_object.h"
 #include "game_world.h"
+#include "game_info_layer.h"
 
 //temp
 #include "bullet_component.h"
@@ -36,6 +37,10 @@ void PlayerComponent::Update(float dt) {
             reflecting_ = true;
         }
     }
+
+
+    //체력을 info_layer에 넘겨줌
+    obj()->world()->game_info_layer->set_player_hit_point(hit_point());
 }
 
 void PlayerComponent::InitMsgHandler() {
@@ -180,6 +185,7 @@ void PlayerComponent::Destroy() {
     AfterDestroy();
 }
 
+//player는 ai comp를 안 가져서 만들어줘야함
 void PlayerComponent::OnIsEnemyMessage( IsEnemyMessage *msg ) {
     msg->is_ret = true;
     msg->is_enemy = false;
