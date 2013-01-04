@@ -6,6 +6,8 @@
 
 class GameWorld;
 
+#define GAME_INFO_UI_PADDING_Y 50
+
 //메시지 처리하는 부분 따로 분리해서 상속을 받으면 깔끔하지 않을까?
 //아니면 매크로..
 //이런 레이어가 많이 지려나
@@ -19,7 +21,7 @@ public:
     virtual ~GameInfoLayer();
     bool init();
 
-    void update();
+    void draw();
 
 public:
     //message
@@ -28,6 +30,8 @@ public:
 
 public:
     int score() { return score_; }
+    void set_player_hit_point(float player_hit_point) { player_hit_point_ = player_hit_point; }
+    void set_player_max_hit_point(float player_max_hit_point) { player_max_hit_point_ = player_max_hit_point; }
 
 private:
     template<typename T, typename MsgT>
@@ -36,12 +40,15 @@ private:
     }
 
     void CalculateScore(CompType type);
+    void DrawPlayerHitPointBar();
 
 private:
     MessageHandler msg_handler_;
     GameWorld *world_;
 
     int score_;
+    float player_hit_point_;
+    float player_max_hit_point_;
 
     cocos2d::CCLabelTTF *score_label_;
 };

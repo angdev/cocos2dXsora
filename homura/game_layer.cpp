@@ -102,6 +102,11 @@ bool GameLayer::init() {
     GameInfoLayer *info_layer = new GameInfoLayer(world_.get());
     info_layer->init();
     info_layer->autorelease();
+    //CharacterComponent 얻어서 정보 레이어 초기화
+    //그냥 레이어가 플레이어를 가지고 있어도 되지 않을까 싶긴 한데
+    CharacterComponent *player_comp = static_cast<CharacterComponent*>(player_->logic_comp());
+    info_layer->set_player_max_hit_point(player_comp->max_hit_point());
+    info_layer->set_player_hit_point(player_comp->hit_point());
     world_->game_info_layer = info_layer;
     this->addChild(info_layer);
 
@@ -114,9 +119,10 @@ void GameLayer::update(float dt) {
 
 
     //TODO
-    //스테이지 유효 체크
+    //스테이지 유효 체크    
     stage_->Update(dt);
     world_->Update(dt);
+    
 
     if(state_ == kGameReadyState) {
         //아직 아무 것도 없음
@@ -125,7 +131,7 @@ void GameLayer::update(float dt) {
         b2Vec2 player_pos = player_->phy_comp()->main_body()->GetPosition();
         float length = glm::length(glm::vec2(PLAYER_START_POINT_X, PLAYER_START_POINT_Y) - Unit::ToUnitFromMeter(player_pos));
         
-        if(length < 0.1) {
+        if(length < 0.3) {
             state_ = kGameProgressState;
             stage_->Start();
         }
