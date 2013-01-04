@@ -41,10 +41,6 @@ bool GameInfoLayer::init() {
     return true;
 }
 
-void GameInfoLayer::OnMessage(const GameMessage *msg) {
-    msg_handler_.HandleMsg(msg);
-}
-
 void GameInfoLayer::OnDestroyMessage(DestroyMessage *msg) {
     //일단 기체가 죽을 때만 점수를 올리도록 하지만 어떻게 될지는 모른다
     

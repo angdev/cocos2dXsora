@@ -128,6 +128,7 @@
     <ClCompile Include="game_trigger.cpp" />
     <ClCompile Include="player_data.cpp" />
     <ClCompile Include="shield_component.cpp" />
+    <ClCompile Include="shield_layer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -171,6 +172,7 @@
     <ClInclude Include="laser_plane_component.h" />
     <ClInclude Include="logic_component.h" />
     <ClInclude Include="main_menu_layer.h" />
+    <ClInclude Include="message_handleable.h" />
     <ClInclude Include="message_handler.h" />
     <ClInclude Include="option_layer.h" />
     <ClInclude Include="phy_component.h" />
@@ -179,6 +181,7 @@
     <ClInclude Include="game_trigger.h" />
     <ClInclude Include="player_data.h" />
     <ClInclude Include="shield_component.h" />
+    <ClInclude Include="shield_layer.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
