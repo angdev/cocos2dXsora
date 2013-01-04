@@ -46,5 +46,5 @@ void ShieldLayer::DrawReflectionShield() {
     //둥근 원을 그려보자
     glLineWidth(2.0f);
     ccDrawColor4B(0xff, 0xff, 0xff, 0xff);
-    ccDrawCircle(ccp(Unit::ToUnitFromMeter(pos.x), Unit::ToUnitFromMeter(pos.y)), 80, 0, 50, false);
+    ccDrawCircle(ccp(Unit::ToUnitFromMeter(pos.x), Unit::ToUnitFromMeter(pos.y)), 60, 0, 50, false);
 }
