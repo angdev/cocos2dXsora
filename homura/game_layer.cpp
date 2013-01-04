@@ -14,6 +14,7 @@
 #include "character_component.h"
 #include "laser_layer.h"
 #include "game_info_layer.h"
+#include "shield_layer.h"
 
 using namespace std;
 using namespace sora;
@@ -109,6 +110,13 @@ bool GameLayer::init() {
     info_layer->set_player_hit_point(player_comp->hit_point());
     world_->game_info_layer = info_layer;
     this->addChild(info_layer);
+
+    //쉴드 레이어
+    ShieldLayer *shield_layer = new ShieldLayer(world_.get());
+    shield_layer->init();
+    shield_layer->autorelease();
+    world_->shield_layer = shield_layer;
+    this->addChild(shield_layer);
 
     return true;
 }

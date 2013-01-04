@@ -323,6 +323,8 @@ public:
 };
 
 
+//월드를 통해서 직접 접근해도 괜찮지 않나?
+//이건 놔두고 쉴드 레이어는 직접 접근해서 그려보자.
 //레이저 레이어 메시지
 GAME_MESSAGE_BEGIN(RequestRenderLaserMessage)
     static RequestRenderLaserMessage Create(int id, const glm::vec2 &start_point, const glm::vec2 &end_point);
