@@ -17,13 +17,14 @@ public:
 
     //메세지 처리 함수들
 public:
-    void OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg);
+    //void OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg);
     void Destroy();
     void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
     //get/setter
 public:
     //데미지 설정 함수. 일단 둔다.
+    float damage() { return damage_; }
     void set_damage(float damage) { damage_ = damage; }
 
     //속력 설정 함수.

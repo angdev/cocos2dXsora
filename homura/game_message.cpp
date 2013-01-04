@@ -134,12 +134,10 @@ BulletDamageObjectMessage BulletDamageObjectMessage::Create(GameObject *obj) {
     return msg;
 }
 
-CollideBulletMessage CollideBulletMessage::Create(GameObject *bullet, float damage, bool from_enemy) {
+CollideBulletMessage CollideBulletMessage::Create(GameObject *bullet, const b2WorldManifold &manifold) {
     CollideBulletMessage msg;
     msg.bullet = bullet;
-    msg.damage = damage;
-    msg.from_enemy = from_enemy;
-    msg.applied = false;
+    msg.manifold = manifold;
     return msg;
 }
 

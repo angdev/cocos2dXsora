@@ -39,6 +39,8 @@ void PhyWorld::Init() {
     //InitGround(b2_world());
     
     collision_mgr_.reset(new CollisionManager(game_world_, b2_world_.get()));
+    contact_listener_.reset(new ContactListener());
+    b2_world_->SetContactListener(contact_listener_.get());
 }
 
 void PhyWorld::InitDebug(b2World *world) {
@@ -100,7 +102,7 @@ void PhyWorld::Update(float dt) {
     //You need to make an informed choice, the following URL is useful
     //http://gafferongames.com/game-physics/fix-your-timestep/
     
-    int velocityIterations = 0; //8
+    int velocityIterations = 8; //8
     int positionIterations = 4; //1
 
     // Instruct the world to perform a single step of simulation. It is

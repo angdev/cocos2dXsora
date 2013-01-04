@@ -226,13 +226,11 @@ struct CollideBulletMessage : public GameMessage {
 private:
     CollideBulletMessage() {}
 public:
-    static CollideBulletMessage Create(GameObject *bullet, float damage, bool from_enemy);
+    static CollideBulletMessage Create(GameObject *bullet, const b2WorldManifold &manifold);
     GameMessage *Clone() const { return new CollideBulletMessage(); }
 
     GameObject *bullet;
-    float damage;
-    bool from_enemy;
-    bool applied;
+    b2WorldManifold manifold;
 };
 
 //End Character Component Messages
@@ -248,6 +246,7 @@ public:
     GameMessage *Clone() const { return new BulletDamageObjectMessage(); }
 
     GameObject *obj;
+    b2Manifold manifold_;
 };
 
 

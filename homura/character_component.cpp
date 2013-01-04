@@ -7,7 +7,7 @@
 #include "game_world.h"
 #include "game_object_factory.h"
 #include "game_stage.h"
-//#include "character_fsm.h"
+#include "bullet_component.h"
 
 #include <random>
 #include "sora/unit.h"
@@ -70,12 +70,14 @@ void CharacterComponent::OnCollideBulletMessage(CollideBulletMessage *msg) {
 }
 
 void CharacterComponent::CollideBullet(CollideBulletMessage *msg) {
-    if(msg->from_enemy == is_enemy())
+    GameObject *bullet = msg->bullet;
+    BulletComponent *comp = static_cast<BulletComponent*>(bullet->logic_comp());
+    if(comp->from_enemy() == is_enemy())
         return;
-    set_hit_point(hit_point_ - msg->damage);
-    msg->applied = true;
+    set_hit_point(hit_point_ - comp->damage());
+    
+    comp->Destroy();
     //cocos2d::CCLog("%f", hit_point_);
-
 }
 
 //플레이어에게 회복 요청
