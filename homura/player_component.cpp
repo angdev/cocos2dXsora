@@ -5,6 +5,7 @@
 #include "game_object.h"
 #include "game_world.h"
 #include "game_info_layer.h"
+#include "shield_layer.h"
 
 //temp
 #include "bullet_component.h"
@@ -38,7 +39,10 @@ void PlayerComponent::Update(float dt) {
         }
     }
 
-
+    //이 부분을 레이어 관련으로 묶자
+    //반사 쉴드 그리기
+    //크기는 어떻게 할까
+    obj()->world()->shield_layer->set_player_reflect_state(reflecting_);
     //체력을 info_layer에 넘겨줌
     obj()->world()->game_info_layer->set_player_hit_point(hit_point());
 }
