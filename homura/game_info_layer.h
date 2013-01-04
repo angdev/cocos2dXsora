@@ -19,7 +19,7 @@ public:
     virtual ~GameInfoLayer();
     bool init();
 
-    void update(float dt);
+    void update();
 
 public:
     //message
@@ -42,6 +42,8 @@ private:
     GameWorld *world_;
 
     int score_;
+
+    cocos2d::CCLabelTTF *score_label_;
 };
 
 #endif
