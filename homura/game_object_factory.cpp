@@ -68,6 +68,7 @@ GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d
 
     b2Body *body = CreateCollisionCircle(glm::vec2(header.x, header.y),
         sprite_box.size.width / 2.0f);
+    body->SetBullet(true);
     body->SetTransform(body->GetPosition(), header.angle_rad);
 
     GameObject *obj = new GameObject(world_);

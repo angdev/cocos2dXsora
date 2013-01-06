@@ -9,6 +9,7 @@
 #include "laser_layer.h"
 #include "game_info_layer.h"
 #include "shield_layer.h"
+#include "chain_layer.h"
 
 #if SR_USE_PCH == 0
 #include <algorithm>
@@ -19,7 +20,7 @@ using namespace std;
 using namespace cocos2d;
 
 GameWorld::GameWorld()
-    : laser_layer(nullptr), game_info_layer(nullptr), shield_layer(nullptr) {
+    : laser_layer(nullptr), game_info_layer(nullptr), shield_layer(nullptr), chain_layer(nullptr) {
     phy_world_ = std::move(unique_ptr<PhyWorld>(new PhyWorld(this)));
 }
 
@@ -64,6 +65,10 @@ void GameWorld::OnMessage(GameMessage *msg) {
 
     if(shield_layer != nullptr) {
         shield_layer->OnMessage(msg);
+    }
+
+    if(chain_layer != nullptr) {
+        chain_layer->OnMessage(msg);
     }
     
 }

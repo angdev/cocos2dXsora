@@ -3,6 +3,7 @@
 #include "chain_component.h"
 #include "game_object.h"
 #include "game_world.h"
+#include "chain_layer.h"
 
 #include "phy_component.h"
 
@@ -24,6 +25,8 @@ CompType ChainComponent::type() const {
 
 void ChainComponent::Update(float dt) {
     //테스트 움직임
+    if(!obj()->IsEnabled())
+        return;
 
     //slave는 master 와의 일정 거리를 유지하려 한다
     GameWorld *world = obj()->world();
@@ -36,10 +39,11 @@ void ChainComponent::Update(float dt) {
 
     b2Vec2 slave_pos = slave->phy_comp()->main_body()->GetPosition();
     b2Vec2 master_pos = master->phy_comp()->main_body()->GetPosition();
+    //그리기
+    obj()->world()->chain_layer->RequestDraw(obj()->id(), Unit::ToUnitFromMeter(slave_pos), Unit::ToUnitFromMeter(master_pos));
+
     b2Vec2 pos_diff = master_pos - slave_pos;
     
-    //CCLOG("%f", pos_diff.Length());
-
     //일정 거리 안에 있으면 그냥 리턴
     if(pos_diff.Length() < 0.5)
         return;
@@ -81,7 +85,12 @@ void ChainComponent::OnCheckConnectedChainMessage(CheckConnectedChainMessage *ms
 }
 
 void ChainComponent::Destroy() {
+    //disable 시키고
+    obj()->ToggleEnable();
+
     GameWorld *world = obj()->world();
     GameObjectPtr obj_ptr = world->FindObject(obj()->id());
     world->RequestRemoveObject(obj_ptr);
+    DestroyMessage msg = DestroyMessage::Create(obj()->id());
+    world->OnMessage(&msg);
 }

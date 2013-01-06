@@ -133,6 +133,9 @@
     <ClCompile Include="shield_layer.cpp">
       <Filter>game_ui</Filter>
     </ClCompile>
+    <ClCompile Include="chain_layer.cpp">
+      <Filter>game_ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -277,6 +280,9 @@
       <Filter>game_ui</Filter>
     </ClInclude>
     <ClInclude Include="message_handleable.h">
+      <Filter>game_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="chain_layer.h">
       <Filter>game_ui</Filter>
     </ClInclude>
   </ItemGroup>
