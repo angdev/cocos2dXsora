@@ -15,6 +15,7 @@
 #include "laser_layer.h"
 #include "game_info_layer.h"
 #include "shield_layer.h"
+#include "chain_layer.h"
 
 using namespace std;
 using namespace sora;
@@ -117,6 +118,13 @@ bool GameLayer::init() {
     shield_layer->autorelease();
     world_->shield_layer = shield_layer;
     this->addChild(shield_layer);
+
+    //체인 레이어
+    ChainLayer *chain_layer = new ChainLayer(world_.get());
+    chain_layer->init();
+    chain_layer->autorelease();
+    world_->chain_layer = chain_layer;
+    this->addChild(chain_layer);
 
     return true;
 }

@@ -6,6 +6,11 @@
 
 class GameWorld;
 
+struct ChainRenderState {
+    glm::vec2 slave_pos;
+    glm::vec2 master_pos;
+};
+
 class ChainLayer : public cocos2d::CCLayer, public MessageHandleable {
 public:
     ChainLayer(GameWorld *world);
@@ -14,6 +19,17 @@ public:
 public:
     bool init();
     void draw();
+
+    void RequestDraw(int id, const glm::vec2 &slave_pos, const glm::vec2 &master_pos);
+    void StopDraw(int id);
+
+    void OnDestroyMessage(DestroyMessage *msg);
+
+private:
+    GameWorld *world_;
+
+    typedef std::unordered_map<int, ChainRenderState> ChainStateDict;
+    ChainStateDict chain_dict_;
 };
 
 #endif

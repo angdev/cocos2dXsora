@@ -92,6 +92,7 @@
     <ClCompile Include="CCParallaxScrollNode.cpp" />
     <ClCompile Include="CCParallaxScrollOffset.cpp" />
     <ClCompile Include="chain_component.cpp" />
+    <ClCompile Include="chain_layer.cpp" />
     <ClCompile Include="character_component.cpp" />
     <ClCompile Include="collision_handler.cpp" />
     <ClCompile Include="collision_manager.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="CCParallaxScrollNode.h" />
     <ClInclude Include="CCParallaxScrollOffset.h" />
     <ClInclude Include="chain_component.h" />
+    <ClInclude Include="chain_layer.h" />
     <ClInclude Include="character_component.h" />
     <ClInclude Include="collision_handler.h" />
     <ClInclude Include="collision_manager.h" />
