@@ -8,6 +8,7 @@
 #include "game_object_factory.h"
 #include "game_stage.h"
 #include "bullet_component.h"
+#include "game_info_layer.h"
 
 #include <random>
 #include "sora/unit.h"
@@ -15,6 +16,8 @@
 #if SR_USE_PCH == 0
 #include "cocos2d.h"
 #endif
+
+using namespace sora;
 
 CharacterComponent::CharacterComponent(GameObject *obj, cocos2d::CCNode *layer) 
     : LogicComponent(obj), layer_(layer), unbeatable_(false) {
@@ -26,9 +29,11 @@ CharacterComponent::~CharacterComponent() {
 }
 
 void CharacterComponent::Update(float dt) {
+    
+    if(!obj()->IsEnabled())
+        return;
 
-    //FSM 업데이트
-    //fsm_->Update(dt);
+    DrawHitPointBar();
 
     //체력을 가지고 있으므로 이걸 처리
     if(hit_point_ <= 0) {
@@ -170,6 +175,14 @@ void CharacterComponent::set_hit_point(float hit_point) {
         hit_point_ = hit_point;
     else
         hit_point_ = max_hit_point_;
+}
+
+void CharacterComponent::DrawHitPointBar() {
+    if(!obj()->IsEnabled())
+        return;
+
+    glm::vec2 pos = Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition());
+    obj()->world()->game_info_layer->RequestRenderHitPointBar(obj()->id(), pos, hit_point_/max_hit_point_);
 }
 
 //CharacterComponent
