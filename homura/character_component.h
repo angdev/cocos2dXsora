@@ -62,6 +62,7 @@ private:
     virtual void HandleOutOfBound(OutOfBoundMessage *msg);
     virtual void AfterDestroy() = 0;
     void RequestRecovery();
+    void DrawHitPointBar();
 
 private:
 //    std::unique_ptr<CharacterFSM> fsm_;

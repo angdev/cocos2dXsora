@@ -160,6 +160,7 @@ void GameLayer::update(float dt) {
         if(!player_->IsEnabled()) {
             cocos2d::CCLog("Player die");
             world_->RequestRemoveObject(world_->FindObject(player_->id()));
+            world_->game_info_layer->StopRenderHitPointBar(player_->id());
 
             //제거와 생성 하다가 2개가 생기는데 하나는 비활성화되니 문제 없을듯
             ReadyPlayer(CreatePlayer());
