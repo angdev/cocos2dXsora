@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="ai_component.cpp" />
     <ClCompile Include="ally_ai_component.cpp" />
+    <ClCompile Include="aura_layer.cpp" />
     <ClCompile Include="bullet_component.cpp" />
     <ClCompile Include="CCParallaxScrollNode.cpp" />
     <ClCompile Include="CCParallaxScrollOffset.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="ai_component.h" />
     <ClInclude Include="ally_ai_component.h" />
     <ClInclude Include="app_macros.h" />
+    <ClInclude Include="aura_layer.h" />
     <ClInclude Include="bullet_component.h" />
     <ClInclude Include="CCParallaxScrollNode.h" />
     <ClInclude Include="CCParallaxScrollOffset.h" />

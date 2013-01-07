@@ -22,6 +22,7 @@ class LaserLayer;
 class GameInfoLayer;
 class ShieldLayer;
 class ChainLayer;
+class AuraLayer;
 
 typedef std::shared_ptr<GameObject> GameObjectPtr;
 typedef std::shared_ptr<DelayedGameMessage> DelayedGameMessagePtr;
@@ -86,6 +87,7 @@ public:
     GameInfoLayer *game_info_layer;
     ShieldLayer *shield_layer;
     ChainLayer *chain_layer;
+    AuraLayer *aura_layer;
 
 };
 
