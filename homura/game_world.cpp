@@ -10,6 +10,7 @@
 #include "game_info_layer.h"
 #include "shield_layer.h"
 #include "chain_layer.h"
+#include "aura_layer.h"
 
 #if SR_USE_PCH == 0
 #include <algorithm>
@@ -69,6 +70,10 @@ void GameWorld::OnMessage(GameMessage *msg) {
 
     if(chain_layer != nullptr) {
         chain_layer->OnMessage(msg);
+    }
+
+    if(aura_layer != nullptr) {
+        aura_layer->OnMessage(msg);
     }
     
 }
