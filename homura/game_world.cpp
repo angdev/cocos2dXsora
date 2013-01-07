@@ -20,7 +20,7 @@ using namespace std;
 using namespace cocos2d;
 
 GameWorld::GameWorld()
-    : laser_layer(nullptr), game_info_layer(nullptr), shield_layer(nullptr), chain_layer(nullptr) {
+    : laser_layer(nullptr), game_info_layer(nullptr), shield_layer(nullptr), chain_layer(nullptr), aura_layer(nullptr) {
     phy_world_ = std::move(unique_ptr<PhyWorld>(new PhyWorld(this)));
 }
 
