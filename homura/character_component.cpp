@@ -57,6 +57,7 @@ void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnDamageObjectMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCheckForcesNumberMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnCreateShieldMessage);
 }
 
 void CharacterComponent::Destroy()
@@ -125,25 +126,25 @@ void CharacterComponent::OnDamageObjectMessage(DamageObjectMessage *msg) {
 }
 
 void CharacterComponent::OnCreateShieldMessage(CreateShieldMessage *msg) {
-    if(is_enemy() == msg->from_enemy) {
+    if(is_enemy() == msg->from_enemy && type() != kCompShield) {
         //쉴드를 생성
         
         PhyBodyInfo body_info;
         RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
-        OnMessage(&body_info_msg);
+        obj()->OnMessage(&body_info_msg);
 
         assert(body_info_msg.is_ret);
 
         //팩토리를 가지고 메세지를 받아서 생성해주는 녀석으로 분리?
         GameObjectFactory factory(obj()->world());
         ShieldHeader header;
-        header.x = body_info_msg.phy_body_info->x;
-        header.y = body_info_msg.phy_body_info->y;
+        header.x = body_info.x;
+        header.y = body_info.y;
         header.hit_point = 100; //일단 고정
         header.target_id = obj()->id();
         header.duration = 15.0f;
         //너무 파고드는게 많은 것 같다
-        obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->layer()));
+        obj()->world()->AddObject(factory.Create(header, layer()));
 
     }
 }
