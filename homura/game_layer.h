@@ -49,6 +49,7 @@ public:
 
 private:
     GameObject *CreatePlayer();
+    void MoveBodyByDelta(const float &dx, const float &dy);
 
 private:
     std::unique_ptr<GameWorld> world_;
@@ -56,9 +57,11 @@ private:
     //플레이어 정보를 따로 담습니다.
     GameObject *player_;
     
-    void MoveBodyByDelta(const float &dx, const float &dy);
-
     GameObjectFactory *factory_;
     GameStage *stage_;
     GameState state_;
+
+    //임시로 버튼을 여기에 저장
+    //Touchable Sprite를 만들어봐야겠다
+    cocos2d::CCSprite *lethal_btn;
 };
