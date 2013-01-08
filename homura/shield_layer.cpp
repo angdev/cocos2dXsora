@@ -69,6 +69,7 @@ void ShieldLayer::RequestRenderShield(int id, const glm::vec2 &pos) {
     state.sprite = CCSprite::createWithTexture(shield_sprite_batch_->getTexture());
     state.sprite->setPosition(ccp(pos.x, pos.y));
     shield_sprite_batch_->addChild(state.sprite);
+    shield_dict_.insert(std::make_pair(id, state));
 }
 
 void ShieldLayer::StopRenderTokamakField(int id) {

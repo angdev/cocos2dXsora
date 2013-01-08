@@ -12,6 +12,7 @@
 #include "game_object_factory.h"
 
 #include "character_component.h"
+#include "player_component.h"
 #include "laser_layer.h"
 #include "game_info_layer.h"
 #include "shield_layer.h"
@@ -238,6 +239,8 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
         }
         CCPoint location = touch->getLocation();
         if(lethal_btn_box.containsPoint(location)) {
+            //파워 땜빵
+            static_cast<PlayerComponent*>(player_->logic_comp())->UseTokamakField();
             CCLOG("lethal1!");
         }
 

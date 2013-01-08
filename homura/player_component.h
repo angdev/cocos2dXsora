@@ -32,6 +32,7 @@ public:
 public:
     //필살기! 토카막 필드
     void UseTokamakField();
+    void EndTokamakField();
 
 
 private:
