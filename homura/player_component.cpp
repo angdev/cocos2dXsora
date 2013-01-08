@@ -56,6 +56,20 @@ void PlayerComponent::Update(float dt) {
         }
     }
 
+    //파워 쉴드
+    if(using_power_shield_) {
+        power_shield_timer_ += dt;
+        if(power_shield_timer_ > 15) {
+            EndPowerShield();
+        }
+    }
+    else {
+        power_shield_timer_ += dt;
+        if(power_shield_timer_ > 5) {
+            can_use_power_shield_ = true;
+        }
+    }
+
     //이 부분을 레이어 관련으로 묶자
     //반사 쉴드 그리기
     //크기는 어떻게 할까
@@ -237,4 +251,22 @@ void PlayerComponent::EndTokamakField() {
     tokamak_timer_ = 0;
     obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
     set_unbeatable(false);
+}
+
+void PlayerComponent::UsePowerShield() {
+    if(!can_use_power_shield_) {
+        return;
+    }
+
+    power_shield_timer_ = 0;
+    can_use_power_shield_ = false;
+    using_power_shield_ = true;
+
+    CreateShieldMessage msg = CreateShieldMessage::Create(false);
+    obj()->world()->OnMessage(&msg);
+}
+
+void PlayerComponent::EndPowerShield() {
+    using_power_shield_ = false;
+    power_shield_timer_ = 0;
 }
