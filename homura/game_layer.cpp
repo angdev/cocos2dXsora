@@ -250,8 +250,7 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
             CCLOG("lethal1!");
         } else if(lethal_btn2_box.containsPoint(location)) {
             //전체 쉴드
-            CreateShieldMessage msg = CreateShieldMessage::Create(false);
-            world_->OnMessage(&msg);
+            static_cast<PlayerComponent*>(player_->logic_comp())->UsePowerShield();
         }
 
     }

@@ -4,6 +4,7 @@
 
 #include "character_component.h"
 
+
 class PlayerComponent : public CharacterComponent {
 public:
     PlayerComponent(GameObject *obj, cocos2d::CCNode *layer);
@@ -34,6 +35,10 @@ public:
     void UseTokamakField();
     void EndTokamakField();
 
+    //전부 쉴드 주는 필살기
+    void UsePowerShield();
+    void EndPowerShield();
+
 
 private:
     void AfterDestroy();
@@ -62,6 +67,11 @@ private:
     float tokamak_timer_;
     bool using_tokamak_;
     bool can_use_tokamak_;
+
+    //파워 쉴드 타이머
+    float power_shield_timer_;
+    bool using_power_shield_;
+    bool can_use_power_shield_;
 };
 
 #endif
