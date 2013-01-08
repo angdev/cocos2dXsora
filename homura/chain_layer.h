@@ -30,6 +30,8 @@ private:
 
     typedef std::unordered_map<int, ChainRenderState> ChainStateDict;
     ChainStateDict chain_dict_;
+
+    cocos2d::CCTexture2D *chain_tex_;
 };
 
 #endif
