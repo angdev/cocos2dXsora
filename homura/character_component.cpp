@@ -9,6 +9,7 @@
 #include "game_stage.h"
 #include "bullet_component.h"
 #include "game_info_layer.h"
+#include "aura_layer.h"
 
 #include <random>
 #include "sora/unit.h"
@@ -104,11 +105,16 @@ void CharacterComponent::RequestRecovery() {
     //거리 계산
     float distance = glm::distance(glm::vec2(player_pos.x, player_pos.y), glm::vec2(obj_body_info.x, obj_body_info.y));
     if(distance > 3.0 /* 플레이어 정보 만들어야 함 */) { //단위는 미터
+        //그리기 그만 두기
+        obj()->world()->aura_layer->StopRenderAura(obj()->id());
+
         return;
     }
 
     RequestRecoveryMessage req_recovery_msg = RequestRecoveryMessage::Create(this);
     obj()->world()->OnMessage(&req_recovery_msg);
+
+    //그리기는 플레이어에 있음
     
     return;
 }
