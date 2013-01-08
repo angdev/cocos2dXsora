@@ -44,7 +44,7 @@ public:
     void OnOutOfBoundMessage(OutOfBoundMessage *msg);
 
 public:
-    bool is_enemy();
+    virtual bool is_enemy();
 
     cocos2d::CCNode *layer() { return layer_; }
     

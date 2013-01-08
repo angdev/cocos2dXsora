@@ -16,6 +16,8 @@ public:
     virtual void InitMsgHandler();
     virtual void Update(float dt);
     
+    virtual bool is_enemy() { return false; }
+
     //임시 set/getter
 public:
     void set_duration(float duration) { duration_ = duration; }

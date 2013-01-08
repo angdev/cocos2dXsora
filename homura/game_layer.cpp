@@ -143,6 +143,11 @@ bool GameLayer::init() {
     lethal_btn->setPosition(ccp(win_size.width - btn_size.width/2 * 0.5, btn_size.height/2 * 0.5));
     this->addChild(lethal_btn);
 
+    lethal_btn2 = CCSprite::create("power_shield.png");
+    lethal_btn2->setScale(0.5f);
+    lethal_btn2->setPosition(ccp(win_size.width - btn_size.width/2 * 0.5, btn_size.height/2 * 0.5 * 3));
+    this->addChild(lethal_btn2);
+
     return true;
 }
 
@@ -230,6 +235,7 @@ void GameLayer::ReadyPlayer(GameObject *player) {
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
     //여기서 버튼 클릭 여부를 확인하긴 함
     CCRect lethal_btn_box = lethal_btn->boundingBox();
+    CCRect lethal_btn2_box = lethal_btn2->boundingBox();
     CCSetIterator it;
     CCTouch *touch;
     for(it = touches->begin(); it != touches->end(); it++) {
@@ -242,6 +248,10 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
             //파워 땜빵
             static_cast<PlayerComponent*>(player_->logic_comp())->UseTokamakField();
             CCLOG("lethal1!");
+        } else if(lethal_btn2_box.containsPoint(location)) {
+            //전체 쉴드
+            CreateShieldMessage msg = CreateShieldMessage::Create(false);
+            world_->OnMessage(&msg);
         }
 
     }

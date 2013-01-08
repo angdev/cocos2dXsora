@@ -192,12 +192,16 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
 GameObject *GameObjectFactory::Create(const ShieldHeader &header, cocos2d::CCNode *parent) {
 
     glm::vec2 body_pos(header.x, header.y);
-    b2Body *body = CreateCollisionCircle(body_pos, 50);
+    b2Body *body = CreateCollisionCircle(body_pos, 100);
     
     GameObject *obj = new GameObject(world_);
     //Drawable은 아직 없음
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
-    LogicComponent *logic = new ShieldComponent(obj);
+    ShieldComponent *logic = new ShieldComponent(obj);
+    logic->set_max_hit_point(header.hit_point);
+    logic->set_hit_point(header.hit_point);
+    logic->set_duration(header.duration);
+    logic->set_target_id(header.target_id);
     obj->set_phy_comp(phy);
     obj->set_logic_comp(logic);
 
