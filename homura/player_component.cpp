@@ -6,6 +6,7 @@
 #include "game_world.h"
 #include "game_info_layer.h"
 #include "shield_layer.h"
+#include "aura_layer.h"
 
 //temp
 #include "bullet_component.h"
@@ -141,6 +142,10 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
         //회복량 때려박음
         //CCLOG("[recover]%f", current_hit_point + 0.2);
         msg->char_comp->set_hit_point(current_hit_point + 0.2);
+
+        glm::vec2 player_pos = Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition());
+        glm::vec2 obj_pos = Unit::ToUnitFromMeter(msg->char_comp->obj()->phy_comp()->main_body()->GetPosition());
+        obj()->world()->aura_layer->RequestRenderAura(msg->char_comp->obj()->id(), player_pos, obj_pos);
     }
 }
 
