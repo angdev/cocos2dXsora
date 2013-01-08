@@ -142,10 +142,13 @@ void CharacterComponent::OnCreateShieldMessage(CreateShieldMessage *msg) {
         header.y = body_info.y;
         header.hit_point = 100; //일단 고정
         header.target_id = obj()->id();
-        header.duration = 15.0f;
+        header.duration = 3.0f;
         //너무 파고드는게 많은 것 같다
         obj()->world()->AddObject(factory.Create(header, layer()));
 
+        //쉴드 생성하면 일단 쉴드 받는 놈은 무적 상태로 만들고
+        //쉴드 없어질 때 무적 해제
+        set_unbeatable(true);
     }
 }
 

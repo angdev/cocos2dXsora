@@ -4,6 +4,8 @@
 
 #include "character_component.h"
 
+//생각없이 만들었는데 왜 만들었나 싶다 아..
+
 //쉴드에 필요한거 - 체력, 지속 시간, 쉴드 대상
 //몸빵해주는 캐릭이라고 생각
 class ShieldComponent : public CharacterComponent {

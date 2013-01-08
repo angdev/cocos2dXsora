@@ -32,8 +32,9 @@ void ShieldComponent::Update(float dt) {
 
     //지속 시간 체크
     elapsed_time_ += dt;
-    if(elapsed_time_ > duration_)
+    if(elapsed_time_ > duration_) {
         Destroy();
+    }
 
     //쉴드는 타겟을 따라감
     GameObjectPtr target = obj()->world()->FindObject(target_id_);
@@ -52,9 +53,15 @@ void ShieldComponent::Update(float dt) {
     }
 
     //그리기
+    /*
     obj()->world()->shield_layer->RequestRenderShield(obj()->id(),
         Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition()));
+        */
 }
 
 void ShieldComponent::AfterDestroy() {
+    GameObjectPtr target = obj()->world()->FindObject(target_id_);
+    if(target != NULL) {
+        static_cast<CharacterComponent*>(target->logic_comp())->set_unbeatable(false);
+    }
 }
