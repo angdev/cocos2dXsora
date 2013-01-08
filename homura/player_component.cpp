@@ -46,9 +46,7 @@ void PlayerComponent::Update(float dt) {
             Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition()));
         tokamak_timer_ += dt;
         if(tokamak_timer_ > 5) {
-            using_tokamak_ = false;
-            tokamak_timer_ = 0;
-            obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
+            EndTokamakField();
         }
     }
     else {
@@ -232,4 +230,11 @@ void PlayerComponent::UseTokamakField() {
     using_tokamak_ = true;
     can_use_tokamak_ = false;
     tokamak_timer_ = 0;
+}
+
+void PlayerComponent::EndTokamakField() {
+    using_tokamak_ = false;
+    tokamak_timer_ = 0;
+    obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
+    set_unbeatable(false);
 }
