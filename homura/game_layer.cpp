@@ -169,7 +169,7 @@ void GameLayer::update(float dt) {
         b2Vec2 player_pos = player_->phy_comp()->main_body()->GetPosition();
         float length = glm::length(glm::vec2(PLAYER_START_POINT_X, PLAYER_START_POINT_Y) - Unit::ToUnitFromMeter(player_pos));
         
-        if(length < 0.3) {
+        if(length < 5) {
             state_ = kGameProgressState;
             stage_->Start();
         }
