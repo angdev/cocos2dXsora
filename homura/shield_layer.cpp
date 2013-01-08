@@ -22,15 +22,20 @@ bool ShieldLayer::init() {
         return false;
     }
 
+    shield_sprite_batch_ = CCSpriteBatchNode::create("power_shield.png");
+    this->addChild(shield_sprite_batch_);
+
+    RegisterMsgFunc(this, &ShieldLayer::OnDestroyMessage);
+
     return true;
 }
 
 void ShieldLayer::draw() {
     if(player_reflect_state_)
-        DrawReflectionShield();
+        RenderReflectionShield();
 }
 
-void ShieldLayer::DrawReflectionShield() {
+void ShieldLayer::RenderReflectionShield() {
     //쉴드 크기는 하드코딩으로 박아놓고 이후에 예쁘게 그리기를 시도하면서 고치자
 
     b2Vec2 pos;
@@ -47,4 +52,37 @@ void ShieldLayer::DrawReflectionShield() {
     glLineWidth(2.0f);
     ccDrawColor4B(0xff, 0xff, 0xff, 0xff);
     ccDrawCircle(ccp(Unit::ToUnitFromMeter(pos.x), Unit::ToUnitFromMeter(pos.y)), 60, 0, 50, false);
+}
+
+void ShieldLayer::RequestRenderTokamakField(int id, const glm::vec2 &pos) {
+    RequestRenderShield(id, pos);
+}
+
+void ShieldLayer::RequestRenderShield(int id, const glm::vec2 &pos) {
+    auto found = shield_dict_.find(id);
+    if(found != shield_dict_.end()) {
+        found->second.sprite->setPosition(ccp(pos.x, pos.y));
+        return;
+    }
+
+    ShieldRenderState state;
+    state.sprite = CCSprite::createWithTexture(shield_sprite_batch_->getTexture());
+    state.sprite->setPosition(ccp(pos.x, pos.y));
+    shield_sprite_batch_->addChild(state.sprite);
+}
+
+void ShieldLayer::StopRenderTokamakField(int id) {
+    StopRenderShield(id);
+}
+
+void ShieldLayer::StopRenderShield(int id) {
+    auto found = shield_dict_.find(id);
+    if(found != shield_dict_.end()) {
+        found->second.sprite->removeFromParent();
+        shield_dict_.erase(id);
+    }
+}
+
+void ShieldLayer::OnDestroyMessage(DestroyMessage *msg) {
+    StopRenderShield(msg->obj_id);
 }

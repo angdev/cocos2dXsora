@@ -134,6 +134,14 @@ bool GameLayer::init() {
     world_->aura_layer = aura_layer;
     this->addChild(aura_layer);
 
+    //필살기 버튼 초기화
+    CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+    lethal_btn = CCSprite::create("power_shield.png");
+    lethal_btn->setScale(0.5f);
+    CCSize btn_size = lethal_btn->getContentSize();
+    lethal_btn->setPosition(ccp(win_size.width - btn_size.width/2 * 0.5, btn_size.height/2 * 0.5));
+    this->addChild(lethal_btn);
+
     return true;
 }
 
@@ -219,10 +227,25 @@ void GameLayer::ReadyPlayer(GameObject *player) {
 }
 
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
+    //여기서 버튼 클릭 여부를 확인하긴 함
+    CCRect lethal_btn_box = lethal_btn->boundingBox();
+    CCSetIterator it;
+    CCTouch *touch;
+    for(it = touches->begin(); it != touches->end(); it++) {
+        touch = static_cast<CCTouch*>(*it);
+        if(!touch) {
+            break;
+        }
+        CCPoint location = touch->getLocation();
+        if(lethal_btn_box.containsPoint(location)) {
+            CCLOG("lethal1!");
+        }
 
+    }
 }
 
 void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
+
 }
 void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
     //객체 이동 테스트

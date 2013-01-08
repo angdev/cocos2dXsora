@@ -16,7 +16,7 @@
 using namespace sora;
 
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), reflect_timer_(0), reflecting_(false) {
+    : CharacterComponent(obj, layer), reflect_timer_(0), reflecting_(false), tokamak_timer_(0), using_tokamak_(false), can_use_tokamak_(true) {
 
 }
 
@@ -37,6 +37,24 @@ void PlayerComponent::Update(float dt) {
         reflect_timer_ += dt;
         if(reflect_timer_ > 1.0f) {
             reflecting_ = true;
+        }
+    }
+
+    //토카막 필드
+    if(using_tokamak_) {
+        obj()->world()->shield_layer->RequestRenderTokamakField(obj()->id(), 
+            Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition()));
+        tokamak_timer_ += dt;
+        if(tokamak_timer_ > 5) {
+            using_tokamak_ = false;
+            tokamak_timer_ = 0;
+            obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
+        }
+    }
+    else {
+        tokamak_timer_ += dt;
+        if(tokamak_timer_ > 60) {
+            can_use_tokamak_ = true;
         }
     }
 
@@ -207,4 +225,11 @@ void PlayerComponent::Destroy() {
 void PlayerComponent::OnIsEnemyMessage( IsEnemyMessage *msg ) {
     msg->is_ret = true;
     msg->is_enemy = false;
+}
+
+void PlayerComponent::UseTokamakField() {
+    set_unbeatable(true);
+    using_tokamak_ = true;
+    can_use_tokamak_ = false;
+    tokamak_timer_ = 0;
 }

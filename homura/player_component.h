@@ -28,6 +28,12 @@ public:
 
 public:
     virtual bool is_enemy() { return false; }
+
+public:
+    //필살기! 토카막 필드
+    void UseTokamakField();
+
+
 private:
     void AfterDestroy();
     void HandleOutOfBound(OutOfBoundMessage *msg);
@@ -46,8 +52,15 @@ private:
     
 private:
     //세부 로직을 아직은 분리하지 않는다.
+    //반사 타이머
     float reflect_timer_;
     bool reflecting_;
+
+    //토카막 타이머
+    //타이머 클래스 만들기
+    float tokamak_timer_;
+    bool using_tokamak_;
+    bool can_use_tokamak_;
 };
 
 #endif
