@@ -49,6 +49,8 @@ void EnemyAIComponent::Update(float dt) {
         world->OnMessage(&find_msg);
         
         if(find_msg.id == -1) {
+            AttackMessage msg = AttackMessage::Create(0);
+            obj()->OnMessage(&msg);
             return;
         }
 

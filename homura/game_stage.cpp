@@ -55,16 +55,13 @@ bool GameStage::Init() {
 
     //ally laser test
     GameTriggerHandler *trg_hnd = new GameTriggerHandler();
-    LaserPlaneObjectHeader laser_ally_header;
-    laser_ally_header.angle = M_PI_2;
-    laser_ally_header.hit_point = 10000;
-    laser_ally_header.x = 300;
-    laser_ally_header.y = 200;
-    laser_ally_header.is_fall = false;
-    laser_ally_header.is_enemy = false;
-    laser_ally_header.sprite_name = "";
+
+    AllyPlaneObjectHeader ally_header;
+    ally_header.x = 300;
+    ally_header.y = -100;
+    ally_header.is_fall = false;
     GameTrigger *trg = new GameTrigger(this);
-    GameAction *act = MakeCreateObjectAction(laser_ally_header);
+    GameAction *act = MakeCreateObjectAction(ally_header);
     trg->set_action(act);
     trg->set_condition(new NullCondition);
     trg_hnd->AddTrigger(trg);
@@ -77,14 +74,8 @@ bool GameStage::Init() {
     //Chain Test
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
-    CombatPlaneObjectHeader combat_header;
-    combat_header.angle = M_PI_2;
-    combat_header.hit_point = 1000;
-    combat_header.x = 100;
-    combat_header.y = 200;
-    combat_header.is_enemy = false;
-    combat_header.sprite_name = "";
-    combat_header.is_fall = false;
+    ally_header.x = 400;
+    ally_header.y = 1400;
     /*
     CombatPlaneObjectHeader combat_enemy_header = combat_header;
     combat_enemy_header.is_enemy = true;
@@ -93,17 +84,11 @@ bool GameStage::Init() {
     combat_enemy_header.x = 400;
     combat_enemy_header.y = 500;
     */
-    LaserPlaneObjectHeader laser_enemy_header;
-    laser_enemy_header.angle = -M_PI_2;
-    laser_enemy_header.hit_point = 100;
-    laser_enemy_header.x = 400;
-    laser_enemy_header.y = 1300;
-    laser_enemy_header.is_fall = false;
-    laser_enemy_header.is_enemy = true;
-    laser_enemy_header.sprite_name = "";
-
+    DeadstarPlaneObjectHeader deadstar_header;
+    deadstar_header.x = 400;
+    deadstar_header.y = 1300;
     GameTrigger *trg0 = new GameTrigger(this);
-    GameAction *act0 = MakeCreateObjectsWithChainAction(laser_enemy_header, combat_header);
+    GameAction *act0 = MakeCreateObjectsWithChainAction(deadstar_header, ally_header);
     trg0->set_action(act0);
     trg0->set_condition(new NullCondition);
     trg_hnd0->AddTrigger(trg0);

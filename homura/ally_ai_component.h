@@ -5,6 +5,7 @@
 #include "ai_component.h"
 
 enum AllyAIState {
+    kAllyAppearState,
     kAllyFallState,
     kAllyArrestState,
     kAllyNormalState,
