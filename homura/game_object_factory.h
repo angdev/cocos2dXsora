@@ -35,6 +35,8 @@ public:
     GameObject *Create(const LaserPlaneObjectHeader &header, cocos2d::CCNode *parent);
 
     //Preset이 있는 놈들
+    GameObject *Create(const AllyPlaneObjectHeader &header, cocos2d::CCNode *parent);
+    GameObject *Create(const EnemyCombatPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const CruiserPlaneObjectHeader &header, cocos2d::CCNode *parent);
     GameObject *Create(const DeadstarPlaneObjectHeader &header, cocos2d::CCNode *parent);
     

@@ -197,13 +197,93 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
 /* Preset 있는 기체들 (일단 하드코딩)                                   */
 /************************************************************************/
 
+//이건 아군기체 전용
+
+GameObject * GameObjectFactory::Create(const AllyPlaneObjectHeader &header, cocos2d::CCNode *parent) {
+    glm::vec2 obj_pos(header.x, header.y);
+
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
+    //바라보는 방향 등 생성을 적절히 해야함
+    body->SetTransform(body->GetPosition(), M_PI_2);
+
+    CCSprite *sprite = CCSprite::create("ally_plane.png");
+    sprite->setScale(0.8f);
+
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LaserPlaneComponent *logic = new LaserPlaneComponent(obj, parent);
+
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
+
+    logic->set_max_hit_point(100);
+    //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
+    logic->set_hit_point(header.is_fall? 30 : 100);
+
+    //AI!
+    AIComponent *ai = new AllyAIComponent(obj);
+    ai->set_state(header.is_fall? kAllyFallState : kAllyNormalState);
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+    obj->set_ai_comp(ai);
+
+    //world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
+
 //이건 적기체 전용
+
+
+GameObject * GameObjectFactory::Create(const EnemyCombatPlaneObjectHeader &header, cocos2d::CCNode *parent) {
+    glm::vec2 obj_pos(header.x, header.y);
+
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
+    //바라보는 방향 등 생성을 적절히 해야함
+    body->SetTransform(body->GetPosition(), -M_PI_2);
+
+    CCSprite *sprite = CCSprite::create("suicide_bomber.png");
+    sprite->setScale(0.8f);
+
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    CombatPlaneComponent *logic = new CombatPlaneComponent(obj, parent);
+
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
+
+    logic->set_max_hit_point(30);
+    //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
+    logic->set_hit_point(30);
+    logic->set_bullet_damage(5);
+    logic->set_available_suicide(true);
+
+    //AI!
+    AIComponent *ai = new EnemyAIComponent(obj);
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+    obj->set_ai_comp(ai);
+
+    //world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
+
 GameObject *GameObjectFactory::Create(const CruiserPlaneObjectHeader &header, cocos2d::CCNode *parent) {
     glm::vec2 obj_pos(header.x, header.y);
 
     b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
     //바라보는 방향 등 생성을 적절히 해야함
-    body->SetTransform(body->GetPosition(), header.angle);
+    body->SetTransform(body->GetPosition(), -M_PI_2);
 
     CCSprite *sprite = CCSprite::create("cruiser.png");
     sprite->setScale(0.8f);
@@ -220,6 +300,7 @@ GameObject *GameObjectFactory::Create(const CruiserPlaneObjectHeader &header, co
     //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
     logic->set_hit_point(150);
     logic->set_bullet_damage(20);
+    logic->set_available_suicide(false);
 
     //AI!
     AIComponent *ai = new EnemyAIComponent(obj);
@@ -241,7 +322,7 @@ GameObject *GameObjectFactory::Create(const DeadstarPlaneObjectHeader &header, c
 
     b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
     //바라보는 방향 등 생성을 적절히 해야함
-    body->SetTransform(body->GetPosition(), header.angle);
+    body->SetTransform(body->GetPosition(), -M_PI_2);
 
     CCSprite *sprite = CCSprite::create("dead_star.png");
     sprite->setScale(0.8f);

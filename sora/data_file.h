@@ -35,20 +35,6 @@ STRUCT_NEW_BEGIN(CombatPlaneObjectHeader, 1)
     STRUCT_VAR_BOOL(is_fall)    //낙오 상태로 등장하는가? 이 부분을 어떻게 분리하지..
 STRUCT_END()    
 
-STRUCT_NEW_BEGIN(CruiserPlaneObjectHeader, 1)
-    STRUCT_VAR_FLOAT(angle)
-    STRUCT_VAR_FLOAT(x)
-    STRUCT_VAR_FLOAT(y)
-    STRUCT_VAR_STRING(sprite_name)
-STRUCT_END()
-
-STRUCT_NEW_BEGIN(DeadstarPlaneObjectHeader, 1)
-    STRUCT_VAR_FLOAT(angle)
-    STRUCT_VAR_FLOAT(x)
-    STRUCT_VAR_FLOAT(y)
-    STRUCT_VAR_STRING(sprite_name)
-STRUCT_END()
-
 STRUCT_NEW_BEGIN(LaserPlaneObjectHeader, 1)
     STRUCT_VAR_BOOL(is_enemy)
     STRUCT_VAR_FLOAT(angle)
@@ -57,6 +43,27 @@ STRUCT_NEW_BEGIN(LaserPlaneObjectHeader, 1)
     STRUCT_VAR_FLOAT(hit_point)
     STRUCT_VAR_STRING(sprite_name)
     STRUCT_VAR_BOOL(is_fall) 
+STRUCT_END()
+
+STRUCT_NEW_BEGIN(AllyPlaneObjectHeader, 1)
+    STRUCT_VAR_FLOAT(x)
+    STRUCT_VAR_FLOAT(y)
+    STRUCT_VAR_BOOL(is_fall)
+STRUCT_END()
+
+STRUCT_NEW_BEGIN(EnemyCombatPlaneObjectHeader, 1)
+    STRUCT_VAR_FLOAT(x)
+    STRUCT_VAR_FLOAT(y)
+STRUCT_END()
+
+STRUCT_NEW_BEGIN(CruiserPlaneObjectHeader, 1)
+    STRUCT_VAR_FLOAT(x)
+    STRUCT_VAR_FLOAT(y)
+STRUCT_END()
+
+STRUCT_NEW_BEGIN(DeadstarPlaneObjectHeader, 1)
+    STRUCT_VAR_FLOAT(x)
+    STRUCT_VAR_FLOAT(y)
 STRUCT_END()
 
 STRUCT_NEW_BEGIN(ObjectHeader, 1)

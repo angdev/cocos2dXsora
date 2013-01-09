@@ -17,7 +17,7 @@ using namespace sora;
 USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f), suicide_flag_(false) {
+    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f), suicide_flag_(false), available_suicide_(false) {
         //상태 초기화 따로 빼야할듯?
 //        fsm()->InsertState(CharacterStatePtr(new CharacterNormalState(fsm())));
 }
@@ -128,7 +128,7 @@ void CombatPlaneComponent::AIMove( float dt )
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
-    if(!suicide_flag_ && hit_point() < max_hit_point() * 0.4f) {
+    if(available_suicide_ && !suicide_flag_ && hit_point() < max_hit_point() * 0.4f) {
         GameObjectPtr target = obj()->world()->FindObject(msg->target_id);
         if(target == NULL) {
             Attack();

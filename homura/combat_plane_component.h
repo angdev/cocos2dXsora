@@ -24,6 +24,7 @@ public:
 public:
     void set_bullet_damage(float bullet_damage) { bullet_damage_ = bullet_damage; }
     bool suicide_flag() { return suicide_flag_; }
+    void set_available_suicide(bool available_suicide) { available_suicide_ = available_suicide; }
 
 private:
     void AfterDestroy();
@@ -39,6 +40,7 @@ private:
 
     float bullet_damage_;
 
+    bool available_suicide_;
     //자폭 플래그
     bool suicide_flag_;
     //날아가는 속도 벡터
