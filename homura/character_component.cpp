@@ -58,6 +58,7 @@ void CharacterComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &CharacterComponent::OnCheckForcesNumberMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnOutOfBoundMessage);
     RegisterMsgFunc(this, &CharacterComponent::OnCreateShieldMessage);
+    RegisterMsgFunc(this, &CharacterComponent::OnFindNearestEnemyMessage);
 }
 
 void CharacterComponent::Destroy()
@@ -201,6 +202,19 @@ void CharacterComponent::DrawHitPointBar() {
 
     glm::vec2 pos = Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition());
     obj()->world()->game_info_layer->RequestRenderHitPointBar(obj()->id(), pos, hit_point_/max_hit_point_);
+}
+
+void CharacterComponent::OnFindNearestEnemyMessage(FindNearestEnemyMessage *msg) {
+    if(msg->is_enemy == is_enemy()) {
+        return;
+    }
+
+    b2Vec2 pos = obj()->phy_comp()->main_body()->GetPosition();
+    float distance = (msg->ori_pos - pos).Length();
+    if(distance < msg->min_distance) {
+        msg->min_distance = distance;
+        msg->id = obj()->id();
+    }
 }
 
 //CharacterComponent

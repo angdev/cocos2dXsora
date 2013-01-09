@@ -42,6 +42,8 @@ public:
     void OnCheckForcesNumberMessage(CheckForcesNumberMessage *msg);
     //플레이어가 밖에 못 나가도록 막는다
     void OnOutOfBoundMessage(OutOfBoundMessage *msg);
+    //거리 계산에 응한다
+    void OnFindNearestEnemyMessage(FindNearestEnemyMessage *msg);
 
 public:
     virtual bool is_enemy();

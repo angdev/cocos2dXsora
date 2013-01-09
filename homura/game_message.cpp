@@ -4,6 +4,17 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+
+FindNearestEnemyMessage FindNearestEnemyMessage::Create(const b2Vec2& ori_pos, bool is_enemy) {
+    FindNearestEnemyMessage msg;
+    msg.ori_pos = ori_pos;
+    msg.is_enemy = is_enemy;
+    msg.id = -1;
+    msg.min_distance = 1000000;
+    return msg;
+}
+
+
 RemoveChainPartnerMessage RemoveChainPartnerMessage::Create(int id) {
     RemoveChainPartnerMessage msg;
     msg.id = id;

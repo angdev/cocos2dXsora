@@ -13,7 +13,7 @@ using namespace sora;
 
 LaserPlaneComponent::LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
     : CharacterComponent(obj, layer), attack_cool_down_(2.0f), attack_keep_time_(3.0f), attack_timer_(0), now_attacking_(false), now_cool_down_(true),
-laser_damage_(1.0f) {
+laser_damage_(50.0f) {
         ray_cast_callback_ = std::move(std::unique_ptr<RayCastCallback>(new RayCastCallback(this)));
 }
 

@@ -29,10 +29,6 @@ void AllyAIComponent::Update(float dt) {
         //낙오 상태에서는 체력이 줄어 있는데 최대 체력이 되면 부활
         if(char_comp()->max_hit_point() - char_comp()->hit_point() < 1.0f) {
             state_ = kAllyNormalState;
-
-            //편대에 가입
-            RequestJoinFormationMessage msg = RequestJoinFormationMessage::Create(char_comp()->obj()->id());
-            obj()->world()->OnMessage(&msg);
         }
 
         //TODO: 천천히 이동
@@ -49,15 +45,22 @@ void AllyAIComponent::Update(float dt) {
 
             state_ = kAllyNormalState;
 
-            //편대에 가입
-            RequestJoinFormationMessage msg = RequestJoinFormationMessage::Create(obj()->id());
-            obj()->world()->OnMessage(&msg);
         }
     }
 
     else if(state_ == kAllyNormalState) {
+        /*
         AttackMessage atk_msg = AttackMessage::Create(0);
         obj()->OnMessage(&atk_msg);
+        */
+        //편대에 가입
+        RequestJoinFormationMessage msg = RequestJoinFormationMessage::Create(obj()->id());
+        obj()->world()->OnMessage(&msg);
+        state_ = kAllyFormationState;
+    }
+
+    else if(state_ == kAllyFormationState) {
+
     }
 
     else {

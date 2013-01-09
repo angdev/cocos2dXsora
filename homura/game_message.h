@@ -307,6 +307,18 @@ public:
     int id;
 };
 
+
+//가까운 위치에 있는 적을 찾는다
+GAME_MESSAGE_BEGIN(FindNearestEnemyMessage)
+    static FindNearestEnemyMessage Create(const b2Vec2& ori_pos, bool is_enemy);
+
+    b2Vec2 ori_pos;
+    bool is_enemy;
+    float min_distance;
+    int id;
+GAME_MESSAGE_END
+
+
 //체인 관련 메시지
 
 //캐릭터 객체와 연결된 체인이 있는지 확인
@@ -327,6 +339,8 @@ GAME_MESSAGE_BEGIN(RemoveChainPartnerMessage)
 
     int id;
 GAME_MESSAGE_END
+
+
 
 
 //월드를 통해서 직접 접근해도 괜찮지 않나?

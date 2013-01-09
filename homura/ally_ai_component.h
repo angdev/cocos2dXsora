@@ -8,6 +8,7 @@ enum AllyAIState {
     kAllyFallState,
     kAllyArrestState,
     kAllyNormalState,
+    kAllyFormationState,    //편대에 속해있는 상태
 };
 
 class AllyAIComponent : public AIComponent {

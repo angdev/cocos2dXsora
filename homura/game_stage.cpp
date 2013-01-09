@@ -57,7 +57,7 @@ bool GameStage::Init() {
     GameTriggerHandler *trg_hnd = new GameTriggerHandler();
     LaserPlaneObjectHeader laser_ally_header;
     laser_ally_header.angle = M_PI_2;
-    laser_ally_header.hit_point = 100;
+    laser_ally_header.hit_point = 10000;
     laser_ally_header.x = 300;
     laser_ally_header.y = 200;
     laser_ally_header.is_fall = false;
@@ -79,7 +79,7 @@ bool GameStage::Init() {
 
     CombatPlaneObjectHeader combat_header;
     combat_header.angle = M_PI_2;
-    combat_header.hit_point = 100;
+    combat_header.hit_point = 1000;
     combat_header.x = 100;
     combat_header.y = 200;
     combat_header.is_enemy = false;
