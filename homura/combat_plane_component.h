@@ -19,9 +19,11 @@ public:
 public:
     void OnAttackMessage(AttackMessage *msg);
     void Attack();
+    void SuicideAttack(const b2Vec2 &object_pos);
 
 public:
     void set_bullet_damage(float bullet_damage) { bullet_damage_ = bullet_damage; }
+    bool suicide_flag() { return suicide_flag_; }
 
 private:
     void AfterDestroy();
@@ -36,6 +38,11 @@ private:
     float attack_timer_;
 
     float bullet_damage_;
+
+    //자폭 플래그
+    bool suicide_flag_;
+    //날아가는 속도 벡터
+    b2Vec2 suicide_vec;
 };
 
 #endif

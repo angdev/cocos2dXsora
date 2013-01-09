@@ -55,3 +55,13 @@ public:
     virtual const std::vector<CompTypeTuple> GetCompTypeTupleList() const;
     virtual void OnCollision(GameObject *player, GameObject *etc, CollisionTuple &collision);
 };
+
+//자폭기와 다른 기체들간의 충돌 처리
+class CollisionHandler_Suicider_Plane : public CollisionHandler_Object_Object {
+public:
+    CollisionHandler_Suicider_Plane();
+    virtual ~CollisionHandler_Suicider_Plane();
+
+    virtual const std::vector<CompTypeTuple> GetCompTypeTupleList() const;
+    virtual void OnCollision(GameObject *suicider, GameObject *etc, CollisionTuple &collision);
+};

@@ -16,7 +16,7 @@ using namespace sora;
 USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f) {
+    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f), suicide_flag_(false) {
         //상태 초기화 따로 빼야할듯?
 //        fsm()->InsertState(CharacterStatePtr(new CharacterNormalState(fsm())));
 }
@@ -30,6 +30,13 @@ void CombatPlaneComponent::Update(float dt) {
     CharacterComponent::Update(dt);
 
     if(!obj()->IsEnabled()) {
+        return;
+    }
+
+    if(suicide_flag_) {
+        //이동만 슈웅 한다
+        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(suicide_vec), 1.0f/60);
+        obj()->OnMessage(&move_msg);
         return;
     }
 
@@ -117,4 +124,16 @@ void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
     if(attack_timer_ > attack_cool_down_)
         Attack();
+}
+
+void CombatPlaneComponent::SuicideAttack(const b2Vec2 &object_pos) {
+    if(!suicide_flag_) {
+        suicide_flag_ = true;
+        
+        b2Vec2 current_pos = obj()->phy_comp()->main_body()->GetPosition();
+        b2Vec2 diff_pos = object_pos - current_pos;
+        diff_pos *= 0.1f;
+
+        suicide_vec = diff_pos;
+    }
 }

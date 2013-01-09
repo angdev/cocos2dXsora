@@ -6,6 +6,8 @@
 #include "game_message.h"
 #include "game_object.h"
 
+#include "combat_plane_component.h"
+
 using namespace std;
 
 CompTypeTuple::CompTypeTuple(CompType a, CompType b)
@@ -111,4 +113,36 @@ void CollisionHandler_Player_Plane::OnCollision(GameObject *player, GameObject *
     //플레이어로 메시지 보내고 -> 서로 데미지를 입음
     CollidePlaneMessage msg = CollidePlaneMessage::Create(etc);
     player->OnMessage(&msg);
+}
+
+
+//////////////////////////////////////////////////////////////////////////
+CollisionHandler_Suicider_Plane::CollisionHandler_Suicider_Plane() {
+
+}
+
+CollisionHandler_Suicider_Plane::~CollisionHandler_Suicider_Plane() {
+
+}
+
+const std::vector<CompTypeTuple> CollisionHandler_Suicider_Plane::GetCompTypeTupleList() const {
+    static vector<CompTypeTuple> tpl_list;
+    if(tpl_list.empty()) {
+        tpl_list.push_back(CompTypeTuple(kCompCombatPlane, kCompCombatPlane));
+        tpl_list.push_back(CompTypeTuple(kCompCombatPlane, kCompLaserPlane));
+        tpl_list.push_back(CompTypeTuple(kCompCombatPlane, kCompPlayer));
+        tpl_list.push_back(CompTypeTuple(kCompCombatPlane, kCompShield));
+    }
+    return tpl_list;
+}
+
+void CollisionHandler_Suicider_Plane::OnCollision(GameObject *suicider, GameObject *etc, CollisionTuple &collision) {
+    CombatPlaneComponent *comp = static_cast<CombatPlaneComponent*>(suicider->logic_comp());
+    if(!comp->suicide_flag()) {
+        return;
+    }
+    comp->Destroy();
+    //핸들링을 자폭기로 넘겨야하지만 일단 여기서 처리해보자
+    DamageObjectMessage msg = DamageObjectMessage::Create(30);
+    etc->OnMessage(&msg);
 }
