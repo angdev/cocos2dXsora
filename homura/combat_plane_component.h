@@ -20,6 +20,9 @@ public:
     void OnAttackMessage(AttackMessage *msg);
     void Attack();
 
+public:
+    void set_bullet_damage(float bullet_damage) { bullet_damage_ = bullet_damage; }
+
 private:
     void AfterDestroy();
 
@@ -32,6 +35,7 @@ private:
     const float attack_cool_down_;
     float attack_timer_;
 
+    float bullet_damage_;
 };
 
 #endif

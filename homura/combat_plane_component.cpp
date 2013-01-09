@@ -16,7 +16,7 @@ using namespace sora;
 USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f) {
+    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f) {
         //상태 초기화 따로 빼야할듯?
 //        fsm()->InsertState(CharacterStatePtr(new CharacterNormalState(fsm())));
 }
@@ -70,7 +70,7 @@ void CombatPlaneComponent::Attack() {
     header.x = Unit::ToUnitFromMeter(body_info.x);
     header.y = Unit::ToUnitFromMeter(body_info.y);
 
-    header.damage = 10;
+    header.damage = bullet_damage_;
     header.from_enemy = is_enemy();  //IsEnemy 필요없을지도?
     header.sprite_name = "";
     

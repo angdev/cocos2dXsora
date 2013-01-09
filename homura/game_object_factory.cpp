@@ -88,6 +88,10 @@ GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d
     return obj;
 }
 
+/************************************************************************/
+/* 마음대로 설정 집어넣어서 만들 수 있는 기체들                         */
+/************************************************************************/
+
 GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, cocos2d::CCNode *parent ) {
     glm::vec2 obj_pos(header.x, header.y);
     
@@ -102,7 +106,7 @@ GameObject *GameObjectFactory::Create( const CombatPlaneObjectHeader &header, co
     }
     else {
         sprite = CCSprite::create("ally_plane.png");
-        sprite->setScale(0.4f);
+        sprite->setScale(0.8f);
     }
 
     GameObject *obj = new GameObject(world_);
@@ -154,7 +158,7 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
     }
     else {
         sprite = CCSprite::create("ally_plane.png");
-        sprite->setScale(0.4f);
+        sprite->setScale(0.8f);
     }
 
     GameObject *obj = new GameObject(world_);
@@ -188,6 +192,87 @@ GameObject * GameObjectFactory::Create(const LaserPlaneObjectHeader &header, coc
 
     return obj;
 }
+
+/************************************************************************/
+/* Preset 있는 기체들 (일단 하드코딩)                                   */
+/************************************************************************/
+
+//이건 적기체 전용
+GameObject *GameObjectFactory::Create(const CruiserPlaneObjectHeader &header, cocos2d::CCNode *parent) {
+    glm::vec2 obj_pos(header.x, header.y);
+
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
+    //바라보는 방향 등 생성을 적절히 해야함
+    body->SetTransform(body->GetPosition(), header.angle);
+
+    CCSprite *sprite = CCSprite::create("cruiser.png");
+    sprite->setScale(0.8f);
+
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    CombatPlaneComponent *logic = new CombatPlaneComponent(obj, parent);
+
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
+
+    logic->set_max_hit_point(150);
+    //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
+    logic->set_hit_point(150);
+    logic->set_bullet_damage(20);
+
+    //AI!
+    AIComponent *ai = new EnemyAIComponent(obj);
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+    obj->set_ai_comp(ai);
+
+    //world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
+
+GameObject *GameObjectFactory::Create(const DeadstarPlaneObjectHeader &header, cocos2d::CCNode *parent) {
+    glm::vec2 obj_pos(header.x, header.y);
+
+    b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(1.0f));
+    //바라보는 방향 등 생성을 적절히 해야함
+    body->SetTransform(body->GetPosition(), header.angle);
+
+    CCSprite *sprite = CCSprite::create("dead_star.png");
+    sprite->setScale(0.8f);
+
+    GameObject *obj = new GameObject(world_);
+    DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
+    PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
+    LaserPlaneComponent *logic = new LaserPlaneComponent(obj, parent);
+
+    //temp
+    //객체 마다 header로 걍 초기화하는거 넣을 것.
+
+    logic->set_max_hit_point(20);
+    //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
+    logic->set_hit_point(20);
+
+    //AI!
+    AIComponent *ai = new EnemyAIComponent(obj);
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+
+    obj->set_drawable_comp(drawable);
+    obj->set_phy_comp(phy);
+    obj->set_logic_comp(logic);
+    obj->set_ai_comp(ai);
+
+    //world_->AddObject(obj, obj->Type());
+
+    return obj;
+}
+
+
 
 GameObject *GameObjectFactory::Create(const ShieldHeader &header, cocos2d::CCNode *parent) {
 

@@ -12,7 +12,8 @@ USING_NS_CC;
 using namespace sora;
 
 LaserPlaneComponent::LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_cool_down_(2.0f), attack_keep_time_(3.0f), attack_timer_(0), now_attacking_(false), now_cool_down_(true) {
+    : CharacterComponent(obj, layer), attack_cool_down_(2.0f), attack_keep_time_(3.0f), attack_timer_(0), now_attacking_(false), now_cool_down_(true),
+laser_damage_(1.0f) {
         ray_cast_callback_ = std::move(std::unique_ptr<RayCastCallback>(new RayCastCallback(this)));
 }
 
@@ -165,6 +166,6 @@ void LaserPlaneComponent::RayCastCallback::AfterCallback() {
     if(enemy_msg.is_ret && enemy_msg.is_enemy == owner_comp_->is_enemy())
         return;
 
-    DamageObjectMessage damage_msg = DamageObjectMessage::Create(0.1f);
+    DamageObjectMessage damage_msg = DamageObjectMessage::Create(owner_comp_->laser_damage() * (1/60.0f));
     counter_obj->OnMessage(&damage_msg);
 }

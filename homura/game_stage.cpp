@@ -119,22 +119,21 @@ bool GameStage::Init() {
     GameTriggerHandler *trg_hnd1 = new GameTriggerHandler();
 
     //Event 1
-    combat_header.angle = -M_PI_2;
-    combat_header.is_enemy = true;
-    combat_header.hit_point = 10;
-    combat_header.x = 100;
-    combat_header.y = 1300;
-    combat_header.sprite_name = "";
+    CruiserPlaneObjectHeader cruiser_header;
+    cruiser_header.angle = -M_PI_2;
+    cruiser_header.x = 100;
+    cruiser_header.y = 1300;
+    cruiser_header.sprite_name = "";
     GameTrigger *trg1 = new GameTrigger(this);
-    GameAction *act1 = MakeCreateObjectAction(combat_header);
+    GameAction *act1 = MakeCreateObjectAction(cruiser_header);
     trg1->set_action(act1);
     trg1->set_condition(new SpecificDestroyCondition);
     trg_hnd1->AddTrigger(trg1);
     
-    combat_header.x = 300;
+    cruiser_header.x = 300;
     //Event 2
     GameTrigger *trg2 = new GameTrigger(this);
-    GameAction *act2 = MakeCreateObjectAction(combat_header);
+    GameAction *act2 = MakeCreateObjectAction(cruiser_header);
     trg2->set_action(act2);
     trg2->set_condition(new SpecificDestroyCondition);
     trg_hnd1->AddTrigger(trg2);

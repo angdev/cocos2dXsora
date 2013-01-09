@@ -19,10 +19,14 @@ public:
     void OnAttackMessage(AttackMessage *msg);
     void Attack();
 
+public:
+    float laser_damage() { return laser_damage_; }
+    void set_laser_damage(float laser_damage) { laser_damage_ = laser_damage; }
+
 private:
     class RayCastCallback : public b2RayCastCallback {
     public:
-        RayCastCallback(CharacterComponent *owner_comp) : owner_comp_(owner_comp) {}
+        RayCastCallback(LaserPlaneComponent *owner_comp) : owner_comp_(owner_comp) {}
     
     public:
         void Reset();
@@ -34,7 +38,7 @@ private:
         b2Fixture *fixture;
         b2Vec2 point;
 
-        CharacterComponent *owner_comp_;
+        LaserPlaneComponent *owner_comp_;
     };
     std::unique_ptr<RayCastCallback> ray_cast_callback_;
 
@@ -46,6 +50,9 @@ private:
     float attack_timer_;
     bool now_cool_down_;
     bool now_attacking_;
+
+    //per sec
+    float laser_damage_;
 };
 
 #endif
