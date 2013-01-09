@@ -19,6 +19,8 @@
 #include "chain_layer.h"
 #include "aura_layer.h"
 
+#include "CCParallaxScrollNode.h"
+
 using namespace std;
 using namespace sora;
 using namespace cocos2d;
@@ -86,7 +88,8 @@ bool GameLayer::init() {
 
     world_->set_stage(stage_);
 
-    this->addChild(stage_->layer());
+    //스테이지 레이어
+    this->addChild(stage_->layer(), 2);
 
     ReadyPlayer(CreatePlayer());
 
@@ -95,12 +98,15 @@ bool GameLayer::init() {
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
 
+    //스테이지 배경
+    this->addChild(stage_->parallax(), 0);
+
     //레이저 레이어
     LaserLayer *laser_layer = new LaserLayer(world_.get());
     laser_layer->init();
     laser_layer->autorelease();
     world_->laser_layer = laser_layer;
-    this->addChild(laser_layer);
+    this->addChild(laser_layer, 1);
     
     //게임 정보 레이어
     GameInfoLayer *info_layer = new GameInfoLayer(world_.get());
@@ -112,21 +118,21 @@ bool GameLayer::init() {
     info_layer->set_player_max_hit_point(player_comp->max_hit_point());
     info_layer->set_player_hit_point(player_comp->hit_point());
     world_->game_info_layer = info_layer;
-    this->addChild(info_layer);
+    this->addChild(info_layer, 200);
 
     //쉴드 레이어
     ShieldLayer *shield_layer = new ShieldLayer(world_.get());
     shield_layer->init();
     shield_layer->autorelease();
     world_->shield_layer = shield_layer;
-    this->addChild(shield_layer);
+    this->addChild(shield_layer, 1);
 
     //체인 레이어
     ChainLayer *chain_layer = new ChainLayer(world_.get());
     chain_layer->init();
     chain_layer->autorelease();
     world_->chain_layer = chain_layer;
-    this->addChild(chain_layer);
+    this->addChild(chain_layer, 1);
 
     //오라 레이어
     AuraLayer *aura_layer = new AuraLayer(world_.get());

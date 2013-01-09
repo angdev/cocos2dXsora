@@ -30,7 +30,7 @@ public:
     bool IsCleared() { return is_cleared_; }
     void set_is_cleared(bool is_cleared) { is_cleared_ = is_cleared; }
     bool IsGameOver() { return is_game_over_; }
-    
+    CCParallaxScrollNode *parallax() { return parallax_; }
 
 public:
     cocos2d::CCLayer *layer() { return layer_; }

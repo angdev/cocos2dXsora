@@ -41,7 +41,8 @@ bool GameStage::Init() {
     CCSprite *background_sprite1 = CCSprite::create("background.jpg");
     CCSprite *background_sprite2 = CCSprite::create("background.jpg");
     parallax_->addInfiniteScrollYWithZ(0, ccp(1, 1), ccp(0, 0), background_sprite1, background_sprite2, NULL);
-    layer_->addChild(parallax_);
+    //추가하지 말고 게임 레이어에서 그리도록 일단 변경
+    //layer_->addChild(parallax_);
 
     factory_ = new GameObjectFactory(world_);
     //편대 로직을 구현한 객체 삽입
