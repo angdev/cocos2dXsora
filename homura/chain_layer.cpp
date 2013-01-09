@@ -33,6 +33,9 @@ bool ChainLayer::init() {
         GL_REPEAT
     };
     chain_tex_->setTexParameters(&tex_param);
+
+    tie_sprite_batch_ = CCSpriteBatchNode::create("bdsm_tie.png");
+    this->addChild(tie_sprite_batch_);
     
     CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
     this->setShaderProgram(prog);
@@ -136,17 +139,28 @@ void ChainLayer::RequestDraw(int id, const glm::vec2 &slave_pos, const glm::vec2
     if(found != chain_dict_.end()) {
         found->second.master_pos = master_pos;
         found->second.slave_pos = slave_pos;
+        found->second.tie_sprite_->setPosition(ccp(slave_pos.x, slave_pos.y));
         return;
     }
 
     ChainRenderState state;
     state.master_pos = master_pos;
     state.slave_pos = slave_pos;
+    state.tie_sprite_ = CCSprite::createWithTexture(tie_sprite_batch_->getTexture());
+    state.tie_sprite_->setPosition(ccp(slave_pos.x, slave_pos.y));
+    //기체 크기에 맞춰서 그려야 함
+    state.tie_sprite_->setScale(0.25f);
+    tie_sprite_batch_->addChild(state.tie_sprite_);
+
     chain_dict_.insert(std::make_pair(id, state));
 }
 
 void ChainLayer::StopDraw(int id) {
-    chain_dict_.erase(id);
+    auto found = chain_dict_.find(id);
+    if(found != chain_dict_.end()) {
+        found->second.tie_sprite_->removeFromParent();
+        chain_dict_.erase(id);
+    }
 }
 
 void ChainLayer::OnDestroyMessage(DestroyMessage *msg) {

@@ -7,6 +7,8 @@
 class GameWorld;
 
 struct ChainRenderState {
+    //묶인 체인 스프라이트 - slave 위에 그리기
+    cocos2d::CCSprite *tie_sprite_;
     glm::vec2 slave_pos;
     glm::vec2 master_pos;
 };
@@ -31,6 +33,7 @@ private:
     typedef std::unordered_map<int, ChainRenderState> ChainStateDict;
     ChainStateDict chain_dict_;
 
+    cocos2d::CCSpriteBatchNode *tie_sprite_batch_;
     cocos2d::CCTexture2D *chain_tex_;
 };
 
