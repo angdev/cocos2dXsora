@@ -57,6 +57,8 @@ public:
     virtual void set_main_body(b2Body *body);
 private:
     b2Body *body_;
+
+    b2Vec2 prev_pos_;
     //이동 목표 지점
     b2Vec2 end_point_;
 };

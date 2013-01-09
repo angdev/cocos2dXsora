@@ -22,6 +22,7 @@ SinglePhyComponent::SinglePhyComponent(GameObject *obj, b2Body *body)
 : PhyComponent(obj),
 body_(body) {
     body->SetUserData(reinterpret_cast<void*>(obj));
+    prev_pos_ = body->GetPosition();
 }
 
 SinglePhyComponent::~SinglePhyComponent() {
@@ -41,15 +42,21 @@ void SinglePhyComponent::Update(float dt) {
     }
 
     //경계 체크
+    //이 부분 고쳐야 함. 이전 위치 정보를 어떻게 가져올 것인가?
+    //바깥쪽으로 속도 벡터 같은게 향하고 있으면 나가는 걸로 처리
+    //들어오는 놈은 안 막고 나가는 놈은 막는다
     CCSize win_size = CCDirector::sharedDirector()->getWinSize();
-    if(body_pos.x > Unit::ToMeterFromUnit(win_size.width) || body_pos.x < 0 
-        || body_pos.y > Unit::ToMeterFromUnit(win_size.height) || body_pos.y < 0) {
-        //이 부분 고쳐야 함. 이전 위치 정보를 어떻게 가져올 것인가?
-        OutOfBoundMessage out_msg = OutOfBoundMessage::Create(body_pos, body_pos);
-        obj()->OnMessage(&out_msg);
-        //처리는 알아서 하게 해야지
-        //return;
+    b2Vec2 velocity = body_->GetLinearVelocity();
+    glm::vec2 body_pos_px = Unit::ToUnitFromMeter(body_pos);
+    if( (body_pos_px.x > win_size.width && velocity.x > 0)
+        || (body_pos_px.x < 0 && velocity.x < 0)
+        || (body_pos_px.y > win_size.height && velocity.y > 0)
+        || (body_pos_px.y < 0 && velocity.y < 0) ) {
+            OutOfBoundMessage msg = OutOfBoundMessage::Create(prev_pos_, body_pos);
+            obj()->OnMessage(&msg);
     }
+
+    prev_pos_ = body_pos;
 }
 
 void SinglePhyComponent::InitMsgHandler() {

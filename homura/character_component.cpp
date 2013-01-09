@@ -163,9 +163,10 @@ void CharacterComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
     HandleOutOfBound(msg);
 }
 
-void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg)
-{
-
+void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
+    //기본적으로는 파괴한다
+    //근데 그냥 조용히 없애야함 ㅋ
+    Destroy();
 }
 
 
