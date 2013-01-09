@@ -70,6 +70,7 @@ void ChainComponent::Update(float dt) {
 void ChainComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &ChainComponent::OnDestroyMessage);
     RegisterMsgFunc(this, &ChainComponent::OnCheckConnectedChainMessage);
+    RegisterMsgFunc(this, &ChainComponent::OnRemoveChainPartnerMessage);
 }
 
 void ChainComponent::OnDestroyMessage(DestroyMessage *msg) {
@@ -93,4 +94,16 @@ void ChainComponent::Destroy() {
     world->RequestRemoveObject(obj_ptr);
     DestroyMessage msg = DestroyMessage::Create(obj()->id());
     world->OnMessage(&msg);
+}
+
+//아군만 없애는게 맞는 것 같다
+void ChainComponent::OnRemoveChainPartnerMessage(RemoveChainPartnerMessage *msg) {
+    if(msg->id == master_id_) {
+        GameWorld *world = obj()->world();
+        GameObjectPtr partner_obj = world->FindObject(slave_id_);
+        world->RequestRemoveObject(partner_obj);
+        DestroyMessage destroy_msg = DestroyMessage::Create(slave_id_);
+        world->OnMessage(&destroy_msg);
+        Destroy();
+    }
 }

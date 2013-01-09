@@ -4,6 +4,12 @@
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 
+RemoveChainPartnerMessage RemoveChainPartnerMessage::Create(int id) {
+    RemoveChainPartnerMessage msg;
+    msg.id = id;
+    return msg;
+}
+
 
 StopRenderLaserMessage StopRenderLaserMessage::Create(int id) {
     StopRenderLaserMessage msg;
@@ -174,4 +180,3 @@ bool DelayedGameMessage::operator<(const DelayedGameMessage &o) const {
 void DelayedGameMessage::Update(float dt) {
     remain_time_ -= dt;
 }
-

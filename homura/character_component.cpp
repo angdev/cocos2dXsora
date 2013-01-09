@@ -165,8 +165,15 @@ void CharacterComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
 
 void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //기본적으로는 파괴한다
-    //근데 그냥 조용히 없애야함 ㅋ
-    Destroy();
+    //근데 Destroy 호출하면 요란하게 죽으니까 그냥 조용히 제거한다
+    GameWorld *world = obj()->world();
+    world->RequestRemoveObject(world->FindObject(obj()->id()));
+    DestroyMessage destroy_msg = DestroyMessage::Create(obj()->id());
+    world->OnMessage(&destroy_msg);
+
+    //혹시 체인에 연결되어 있으면 상대도 같이 없앤다
+    RemoveChainPartnerMessage remove_msg = RemoveChainPartnerMessage::Create(obj()->id());
+    world->OnMessage(&remove_msg);
 }
 
 

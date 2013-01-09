@@ -321,6 +321,13 @@ public:
     bool checked;
 };
 
+//체인에 연결된 상대를 제거
+GAME_MESSAGE_BEGIN(RemoveChainPartnerMessage)
+    static RemoveChainPartnerMessage Create(int id);
+
+    int id;
+GAME_MESSAGE_END
+
 
 //월드를 통해서 직접 접근해도 괜찮지 않나?
 //이건 놔두고 쉴드 레이어는 직접 접근해서 그려보자.

@@ -25,6 +25,7 @@ public:
 public:
     void OnDestroyMessage(DestroyMessage *msg);
     void OnCheckConnectedChainMessage(CheckConnectedChainMessage *msg);
+    void OnRemoveChainPartnerMessage(RemoveChainPartnerMessage *msg);
 
 public:
     void set_master_id(int master_id) { master_id_ = master_id; }
