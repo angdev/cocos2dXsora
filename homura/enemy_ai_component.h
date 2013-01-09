@@ -7,6 +7,7 @@
 enum EnemyAIState {
     kEnemyAppearState,
     kEnemyNormalState,
+    kEnemyOutOfControlState,
 };
 
 class EnemyAIComponent : public AIComponent {

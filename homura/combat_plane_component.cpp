@@ -7,6 +7,7 @@
 #include "game_object_factory.h"
 #include "character_fsm.h"
 #include "character_normal_state.h"
+#include "enemy_ai_component.h"
 
 #include "sora/unit.h"
 
@@ -35,7 +36,8 @@ void CombatPlaneComponent::Update(float dt) {
 
     if(suicide_flag_) {
         //이동만 슈웅 한다
-        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(suicide_vec), 1.0f/60);
+        MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(suicide_vec), 0.2f);
+        CCLOG("move %f %f", suicide_vec.x, suicide_vec.y);
         obj()->OnMessage(&move_msg);
         return;
     }
@@ -56,6 +58,10 @@ void CombatPlaneComponent::InitMsgHandler() {
 }
 
 void CombatPlaneComponent::Attack() {
+
+    if(!(attack_timer_ > attack_cool_down_)) {
+        return;
+    }
 
     attack_timer_ = 0;
 
@@ -122,8 +128,18 @@ void CombatPlaneComponent::AIMove( float dt )
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
-    if(attack_timer_ > attack_cool_down_)
+    if(!suicide_flag_ && hit_point() < max_hit_point() * 0.4f) {
+        GameObjectPtr target = obj()->world()->FindObject(msg->target_id);
+        if(target == NULL) {
+            Attack();
+            return;
+        }
+        b2Vec2 target_pos = target->phy_comp()->main_body()->GetPosition();
+        SuicideAttack(target_pos);
+    } 
+    else if(!suicide_flag_) {
         Attack();
+    }
 }
 
 void CombatPlaneComponent::SuicideAttack(const b2Vec2 &object_pos) {
@@ -132,8 +148,10 @@ void CombatPlaneComponent::SuicideAttack(const b2Vec2 &object_pos) {
         
         b2Vec2 current_pos = obj()->phy_comp()->main_body()->GetPosition();
         b2Vec2 diff_pos = object_pos - current_pos;
-        diff_pos *= 0.1f;
+        diff_pos *= 0.2f;
 
         suicide_vec = diff_pos;
+        
+        obj()->ai_comp()->set_state(kEnemyOutOfControlState);
     }
 }

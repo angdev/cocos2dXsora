@@ -205,7 +205,7 @@ void CharacterComponent::DrawHitPointBar() {
 }
 
 void CharacterComponent::OnFindNearestEnemyMessage(FindNearestEnemyMessage *msg) {
-    if(msg->is_enemy == is_enemy()) {
+    if(msg->is_enemy == is_enemy() || obj()->Type() == kCompPlayer) {
         return;
     }
 

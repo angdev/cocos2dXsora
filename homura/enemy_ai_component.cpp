@@ -3,6 +3,7 @@
 #include "enemy_ai_component.h"
 #include "game_object.h"
 #include "phy_component.h"
+#include "game_world.h"
 
 #include "sora/unit.h"
 
@@ -40,10 +41,35 @@ void EnemyAIComponent::Update(float dt) {
         }
     }
     else if(state_ == kEnemyNormalState) {
-        MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, -50), 0.5);
-        obj()->OnMessage(&move_msg);
-        AttackMessage atk_msg = AttackMessage::Create(0);
-        obj()->OnMessage(&atk_msg);
+        //얘네들은 자기 맘대로 돌아다님
+        GameWorld *world = obj()->world();
+        b2Body *body = obj()->phy_comp()->main_body();
+        b2Vec2 body_pos = body->GetPosition();
+        FindNearestEnemyMessage find_msg = FindNearestEnemyMessage::Create(body_pos, true);
+        world->OnMessage(&find_msg);
+        
+        if(find_msg.id == -1) {
+            return;
+        }
+
+        GameObjectPtr found_enemy = world->FindObject(find_msg.id);
+        b2Vec2 enemy_pos = found_enemy->phy_comp()->main_body()->GetPosition();
+        
+        float x_diff = enemy_pos.x - body_pos.x;
+        if(glm::abs(x_diff) > 5.0f) {
+            glm::vec2 vec(Unit::ToUnitFromMeter(x_diff), 0);
+            MoveByMessage move_msg = MoveByMessage::Create(vec, 1.0f);
+            obj()->OnMessage(&move_msg);
+        }
+        else {
+            MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, -0.001), 1.0f/60);
+            obj()->OnMessage(&move_msg);
+            AttackMessage msg = AttackMessage::Create(find_msg.id);
+            obj()->OnMessage(&msg);
+        }
+    }
+    else if(state_ == kEnemyOutOfControlState) {
+        //제어권을 벗어남
     }
 }
 

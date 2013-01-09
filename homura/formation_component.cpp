@@ -55,7 +55,6 @@ void FormationComponent::Update(float dt) {
 
     //리더와의 거리차를 계산해보자 (x축 상의)
     float x_diff = glm::abs(enemy_pos.x - leader_pos.x);
-    CCLOG("%f", x_diff);
     if(x_diff > 0.3f) {
         glm::vec2 vec(Unit::ToUnitFromMeter(enemy_pos.x), Unit::ToUnitFromMeter(leader_pos.y));
         MoveToMessage move_msg = MoveToMessage::Create(vec, 0.5f);
@@ -64,7 +63,8 @@ void FormationComponent::Update(float dt) {
     }
     else {
         //그냥 각도 돌려버린다
-        leader_body->SetTransform(leader_pos, M_PI_2);
+        MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, 1), 1);
+        leader->OnMessage(&move_msg);
         AttackMessage msg = AttackMessage::Create(0);
         leader->OnMessage(&msg);
         is_leader_attacking = true;
