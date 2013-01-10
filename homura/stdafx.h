@@ -21,6 +21,7 @@
 
 #include "cocos2d.h"
 #include "Box2D/Box2D.h"
+#include "CocosDenshion/include/SimpleAudioEngine.h"
 //#include "sora/sora.h"
 #include <glm/glm.hpp>
 

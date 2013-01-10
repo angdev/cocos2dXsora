@@ -154,6 +154,11 @@ bool GameLayer::init() {
     lethal_btn2->setPosition(ccp(win_size.width - btn_size.width/2 * 0.5, btn_size.height/2 * 0.5 * 3));
     this->addChild(lethal_btn2);
 
+    //배경음악 재생
+    CocosDenshion::SimpleAudioEngine *engine = CocosDenshion::SimpleAudioEngine::sharedEngine();
+    engine->setBackgroundMusicVolume(1.0);
+    engine->playBackgroundMusic("sound/homurabgm.mp3", true);
+
     return true;
 }
 
