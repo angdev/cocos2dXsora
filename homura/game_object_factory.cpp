@@ -21,6 +21,8 @@
 #include "character_fsm.h"
 #include "sora/unit.h"
 
+#include <random>
+
 #include "data_define.h"
 
 #if SR_USE_PCH == 0
@@ -46,8 +48,8 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);
     PlayerComponent *logic = new PlayerComponent(obj, parent);
-    logic->set_max_hit_point(header.hit_point);
-    logic->set_hit_point(header.hit_point);
+    logic->set_max_hit_point(1000);
+    logic->set_hit_point(1000);
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
@@ -206,8 +208,12 @@ GameObject * GameObjectFactory::Create(const AllyPlaneObjectHeader &header, coco
     //바라보는 방향 등 생성을 적절히 해야함
     body->SetTransform(body->GetPosition(), M_PI_2);
 
-    CCSprite *sprite = CCSprite::create("ally_plane.png");
-    sprite->setScale(0.8f);
+    std::string sprite_name = "ally_plane";
+    int rand_num = (std::default_random_engine((unsigned int)time(0))() % 3);
+    sprite_name += static_cast<char>(rand_num + '0');
+    sprite_name += ".png";
+    CCSprite *sprite = CCSprite::create(sprite_name.c_str());
+    sprite->setScale(0.6f);
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
@@ -248,7 +254,7 @@ GameObject * GameObjectFactory::Create(const EnemyCombatPlaneObjectHeader &heade
     body->SetTransform(body->GetPosition(), -M_PI_2);
 
     CCSprite *sprite = CCSprite::create("suicide_bomber.png");
-    sprite->setScale(0.8f);
+    sprite->setScale(0.4f);
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
@@ -287,7 +293,7 @@ GameObject *GameObjectFactory::Create(const CruiserPlaneObjectHeader &header, co
     body->SetTransform(body->GetPosition(), -M_PI_2);
 
     CCSprite *sprite = CCSprite::create("cruiser.png");
-    sprite->setScale(0.8f);
+    sprite->setScale(1.0f);
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
@@ -326,7 +332,7 @@ GameObject *GameObjectFactory::Create(const DeadstarPlaneObjectHeader &header, c
     body->SetTransform(body->GetPosition(), -M_PI_2);
 
     CCSprite *sprite = CCSprite::create("dead_star.png");
-    sprite->setScale(0.8f);
+    sprite->setScale(0.3f);
 
     GameObject *obj = new GameObject(world_);
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);

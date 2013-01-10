@@ -38,8 +38,8 @@ bool GameStage::Init() {
     parallax_ = CCParallaxScrollNode::create();
     parallax_->retain();
     //아 변환해야지..
-    CCSprite *background_sprite1 = CCSprite::create("background.jpg");
-    CCSprite *background_sprite2 = CCSprite::create("background.jpg");
+    CCSprite *background_sprite1 = CCSprite::create("background.png");
+    CCSprite *background_sprite2 = CCSprite::create("background.png");
     parallax_->addInfiniteScrollYWithZ(0, ccp(1, 1), ccp(0, 0), background_sprite1, background_sprite2, NULL);
     //추가하지 말고 게임 레이어에서 그리도록 일단 변경
     //layer_->addChild(parallax_);
