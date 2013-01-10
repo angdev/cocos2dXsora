@@ -167,6 +167,7 @@ void CharacterComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
 void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //기본적으로는 파괴한다
     //근데 Destroy 호출하면 요란하게 죽으니까 그냥 조용히 제거한다
+    obj()->set_enable(false);
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(obj()->id()));
     DestroyMessage destroy_msg = DestroyMessage::Create(obj()->id());
