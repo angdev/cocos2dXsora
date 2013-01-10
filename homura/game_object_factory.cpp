@@ -210,8 +210,10 @@ GameObject * GameObjectFactory::Create(const AllyPlaneObjectHeader &header, coco
     body->SetTransform(body->GetPosition(), M_PI_2);
 
     std::string sprite_name = "ally_plane";
-    int rand_num = (std::default_random_engine((unsigned int)time(0))() % 3);
-    sprite_name += static_cast<char>(rand_num + '0');
+    static int sprite_numbering = 0;
+    sprite_numbering += 1;
+    sprite_numbering %= 3;
+    sprite_name += static_cast<char>(sprite_numbering + '0');
     sprite_name += ".png";
     CCSprite *sprite = CCSprite::create(sprite_name.c_str());
     sprite->setScale(0.6f);

@@ -34,6 +34,7 @@ void ShieldComponent::Update(float dt) {
     elapsed_time_ += dt;
     if(elapsed_time_ > duration_) {
         Destroy();
+        return;
     }
 
     //쉴드는 타겟을 따라감
@@ -53,10 +54,10 @@ void ShieldComponent::Update(float dt) {
     }
 
     //그리기
-    /*
+    
     obj()->world()->shield_layer->RequestRenderShield(obj()->id(),
         Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition()));
-        */
+        
 }
 
 void ShieldComponent::AfterDestroy() {
@@ -64,4 +65,5 @@ void ShieldComponent::AfterDestroy() {
     if(target != NULL) {
         static_cast<CharacterComponent*>(target->logic_comp())->set_unbeatable(false);
     }
+    //obj()->world()->shield_layer->StopRenderShield(obj()->id());
 }

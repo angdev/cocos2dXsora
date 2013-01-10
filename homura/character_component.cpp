@@ -65,7 +65,7 @@ void CharacterComponent::Destroy()
 {
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(obj()->id()));
-    obj()->ToggleEnable();
+    obj()->set_enable(false);
 
     DestroyMessage msg = DestroyMessage::Create(obj()->id());
     world->OnMessage(&msg);
@@ -141,9 +141,9 @@ void CharacterComponent::OnCreateShieldMessage(CreateShieldMessage *msg) {
         ShieldHeader header;
         header.x = body_info.x;
         header.y = body_info.y;
-        header.hit_point = 100; //일단 고정
+        header.hit_point = max_hit_point(); //일단 고정
         header.target_id = obj()->id();
-        header.duration = 3.0f;
+        header.duration = 15.0f;
         //너무 파고드는게 많은 것 같다
         obj()->world()->AddObject(factory.Create(header, layer()));
 

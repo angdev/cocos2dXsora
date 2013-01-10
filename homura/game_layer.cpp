@@ -125,7 +125,7 @@ bool GameLayer::init() {
     shield_layer->init();
     shield_layer->autorelease();
     world_->shield_layer = shield_layer;
-    this->addChild(shield_layer, 1);
+    this->addChild(shield_layer, 3);
 
     //체인 레이어
     ChainLayer *chain_layer = new ChainLayer(world_.get());

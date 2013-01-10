@@ -128,7 +128,7 @@ void CombatPlaneComponent::AIMove( float dt )
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
-    if(available_suicide_ && !suicide_flag_ && hit_point() < max_hit_point() * 0.4f) {
+    if(available_suicide_ && !suicide_flag_ && hit_point() < max_hit_point() * 0.7f) {
         GameObjectPtr target = obj()->world()->FindObject(msg->target_id);
         if(target == NULL) {
             Attack();
