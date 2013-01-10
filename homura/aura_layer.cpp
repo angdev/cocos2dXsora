@@ -5,7 +5,10 @@
 #include "game_world.h"
 #include "game_object.h"
 
+#include "sora/unit.h"
+
 USING_NS_CC;
+using namespace sora;
 
 AuraLayer::AuraLayer(GameWorld *world) : world_(world) {
 
@@ -21,41 +24,49 @@ bool AuraLayer::init() {
 
     RegisterMsgFunc(this, &AuraLayer::OnDestroyMessage);
 
-    aura_sprite_ = CCSprite::create("laser_friend.png");
-    SR_ASSERT(aura_sprite_ != nullptr);
-    this->addChild(aura_sprite_);
-    aura_sprite_->setVisible(false);
-
-    //set shader
-    CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
-    this->setShaderProgram(prog);
+    //파티클 배치 노드 초기화
+    /*
+    particle_node_ = new CCParticleBatchNode();
+    particle_node_->initWithFile("particles/BoilingFoam.plist", 10);
+    particle_node_->autorelease();
+    this->addChild(particle_node_);
+    */
 
     return true;
 }
 
 void AuraLayer::draw() {
-    for(auto value : aura_dict_) {
-        const AuraRenderState& s = value.second;
-        ccDrawLine(ccp(s.start_pos.x, s.start_pos.y), ccp(s.end_pos.x, s.end_pos.y));
-    }
+
 }
 
-void AuraLayer::RequestRenderAura(int id, const glm::vec2 &start_pos, const glm::vec2 &end_pos) {
+void AuraLayer::RequestRenderAura(int id, const glm::vec2& pos) {
     auto found = aura_dict_.find(id);
     if(found != aura_dict_.end()) {
-        found->second.start_pos = start_pos;
-        found->second.end_pos = end_pos;
+        found->second.particle->setPosition(pos.x, pos.y);
         return;
     }
 
     AuraRenderState state;
-    state.start_pos = start_pos;
-    state.end_pos = end_pos;
+
+    CCParticleSystem *emitter = new CCParticleSystemQuad();
+    emitter->initWithFile("particles/BoilingFoam.plist");
+    assert(emitter != NULL);
+    
+    emitter->setPosition(pos.x, pos.y);
+    this->addChild(emitter);
+    emitter->autorelease();
+
+    state.particle = emitter;
+
     aura_dict_.insert(std::make_pair(id, state));
 }
 
 void AuraLayer::StopRenderAura(int id) {
-    aura_dict_.erase(id);
+    auto found = aura_dict_.find(id);
+    if(found != aura_dict_.end()) {
+        found->second.particle->removeFromParent();
+        aura_dict_.erase(id);
+    }
 }
 
 void AuraLayer::OnDestroyMessage(DestroyMessage *msg) {

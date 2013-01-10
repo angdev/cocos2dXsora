@@ -7,8 +7,7 @@
 class GameWorld;
 
 struct AuraRenderState {
-    glm::vec2 start_pos;
-    glm::vec2 end_pos;
+    cocos2d::CCParticleSystem *particle;
 };
 
 class AuraLayer : public cocos2d::CCLayer, public MessageHandleable {
@@ -24,13 +23,13 @@ public:
     void OnDestroyMessage(DestroyMessage *msg);
 
 public:
-    void RequestRenderAura(int id, const glm::vec2 &start_pos, const glm::vec2 &end_pos);
+    void RequestRenderAura(int id, const glm::vec2 &pos);
     void StopRenderAura(int id);
 
 private:
     GameWorld *world_;
 
-    cocos2d::CCSprite *aura_sprite_;
+    cocos2d::CCParticleBatchNode *particle_node_;
     //회복을 받는 대상의 id가 key.
     typedef std::unordered_map<int, AuraRenderState> AuraStateDict;
     AuraStateDict aura_dict_;

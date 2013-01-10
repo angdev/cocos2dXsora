@@ -39,7 +39,6 @@ public:
     void UsePowerShield();
     void EndPowerShield();
 
-
 private:
     void AfterDestroy();
     void HandleOutOfBound(OutOfBoundMessage *msg);
@@ -55,6 +54,8 @@ private:
 
     //TODO: 필살기 2 로직 구현하기
     //그냥 쿨다운 로직이랑 메시지 브로드캐스팅만 하면 끝.
+    //대충 구현되어 있음
+
     
 private:
     //세부 로직을 아직은 분리하지 않는다.

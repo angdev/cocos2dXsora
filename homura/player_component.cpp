@@ -13,6 +13,7 @@
 
 #include "sora/unit.h"
 
+USING_NS_CC;
 using namespace sora;
 
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
@@ -167,15 +168,14 @@ void PlayerComponent::OnRequestPlayerPositionMessage( RequestPlayerPositionMessa
 }
 
 void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
-    if(msg->char_comp->is_enemy() == is_enemy()) {
+    if(msg->char_comp->is_enemy() == is_enemy() && msg->char_comp->obj()->IsEnabled()) {
         float current_hit_point = msg->char_comp->hit_point();
         //회복량 때려박음
         //CCLOG("[recover]%f", current_hit_point + 0.2);
         msg->char_comp->set_hit_point(current_hit_point + 0.2);
 
-        glm::vec2 player_pos = Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition());
         glm::vec2 obj_pos = Unit::ToUnitFromMeter(msg->char_comp->obj()->phy_comp()->main_body()->GetPosition());
-        obj()->world()->aura_layer->RequestRenderAura(msg->char_comp->obj()->id(), player_pos, obj_pos);
+        obj()->world()->aura_layer->RequestRenderAura(msg->char_comp->obj()->id(), obj_pos);
     }
 }
 
