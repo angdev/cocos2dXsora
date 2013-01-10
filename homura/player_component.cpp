@@ -201,8 +201,16 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         msg->counter_obj->OnMessage(&damage_msg);
         obj()->OnMessage(&damage_msg);
 
+        b2Body *player_body = obj()->phy_comp()->main_body();
+        b2Vec2 player_velocity = player_body->GetLinearVelocity();
         b2Body *counter_body = msg->counter_obj->phy_comp()->main_body();
-       
+        b2Vec2 pos_diff = counter_body->GetPosition() - player_body->GetPosition();
+        pos_diff.Normalize();
+        player_velocity.Normalize();
+        b2Vec2 force_vec = pos_diff + player_velocity;
+        force_vec.Normalize();
+        force_vec *= 1000;
+        counter_body->ApplyForceToCenter(force_vec);
 
         //미는거 다시 제대로 구현하자
         /*

@@ -39,6 +39,7 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
 
     glm::vec2 obj_pos(header.x, header.y);
     b2Body *body = CreateCollisionCircle(obj_pos, Unit::ToUnitFromMeter(2.0f));
+    body->SetBullet(true);
 
     body->SetTransform(body->GetPosition(), header.angle_rad);
     
