@@ -106,7 +106,7 @@ void CharacterComponent::RequestRecovery() {
 
     //거리 계산
     float distance = glm::distance(glm::vec2(player_pos.x, player_pos.y), glm::vec2(obj_body_info.x, obj_body_info.y));
-    if(distance > 3.0 /* 플레이어 정보 만들어야 함 */) { //단위는 미터
+    if(distance > 8.0 /* 플레이어 정보 만들어야 함 */) { //단위는 미터
         //그리기 그만 두기
         obj()->world()->aura_layer->StopRenderAura(obj()->id());
 

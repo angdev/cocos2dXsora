@@ -76,7 +76,7 @@ bool GameStage::Init() {
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
     ally_header.x = 400;
-    ally_header.y = 1400;
+    ally_header.y = 100;
     /*
     CombatPlaneObjectHeader combat_enemy_header = combat_header;
     combat_enemy_header.is_enemy = true;

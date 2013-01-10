@@ -201,10 +201,8 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         msg->counter_obj->OnMessage(&damage_msg);
         obj()->OnMessage(&damage_msg);
 
-        //걍 적절히 민다
-        //음.. 이걸 터치 핸들러랑 적절히 엮어야할텐데.
-        //그리고 이렇게 밀면 너무 별로인듯?
-
+        b2Body *counter_body = msg->counter_obj->phy_comp()->main_body();
+       
 
         //미는거 다시 제대로 구현하자
         /*

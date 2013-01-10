@@ -290,23 +290,11 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     
     //메시지 보내기
     //이건 걍 set으로 해야 제대로 될듯?
-    PhyBodyInfo body_info;
+    glm::vec2 move_vec(dx, dy);
+    MoveByMessage move_msg = MoveByMessage::Create(move_vec, 1.0f/60);
+    player_->OnMessage(&move_msg);
     b2Body *body = player_->phy_comp()->main_body();
-    b2Vec2 vec2 = body->GetPosition();
-    body_info.x = vec2.x + Unit::ToMeterFromUnit(dx);
-    body_info.y = vec2.y + Unit::ToMeterFromUnit(dy);
-    body_info.angle_rad = body->GetAngle();
-    SetPhyBodyInfoMessage msg = SetPhyBodyInfoMessage::Create(&body_info);
-    
-    player_->OnMessage(&msg);
-
-    /*
-    b2Body *player_body = player_->phy_comp()->main_body();
-    b2Vec2 player_position = player_body->GetPosition() + b2Vec2(Unit::ToMeterFromUnit(dx), Unit::ToMeterFromUnit(dy));
-    player_body->SetTransform(player_position, player_body->GetAngle());
-    //계속 awake 꺼지는거 신경 쓰여서 걍 추가해둠. 필요는 없지만 =ㅅ=
-    player_body->SetAwake(true);
-    */
+    body->SetTransform(body->GetPosition(), M_PI_2);
 }
 
 GameObject *GameLayer::CreatePlayer() {
