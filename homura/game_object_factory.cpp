@@ -441,6 +441,7 @@ GameObject *GameObjectFactory::Create(const GameTriggerObjectHeader &header, Tri
 }
 
 
+//둘 다 px
 b2Body * GameObjectFactory::CreateCollisionCircle(const glm::vec2 &ut_pos, float radius)
 {
     // Define the dynamic body.
@@ -454,17 +455,22 @@ b2Body * GameObjectFactory::CreateCollisionCircle(const glm::vec2 &ut_pos, float
     b2Body *body = b2_world->CreateBody(&bodyDef);
 
     // Define another box shape for our dynamic body.
+    
+    b2PolygonShape boxShape;
+    boxShape.SetAsBox(Unit::ToMeterFromUnit(radius), Unit::ToMeterFromUnit(radius));
+    /*
     b2CircleShape circleBox;
     //일단 이렇게 떼운다 =ㅅ=;;
     circleBox.m_radius = Unit::ToMeterFromUnit(radius);
     //크기로 b2Body 만들어주는거 있어도 될듯.
     //dynamicBox.SetAsBox(Unit::ToMeterFromUnit(half_width_px), Unit::ToMeterFromUnit(half_height_px));//These are mid points for our 1m box
+    */
 
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
     // 충돌 체크용으로만 사용.
     //fixtureDef.isSensor = true;
-    fixtureDef.shape = &circleBox;
+    fixtureDef.shape = &boxShape;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);

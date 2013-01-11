@@ -209,7 +209,7 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         player_velocity.Normalize();
         b2Vec2 force_vec = pos_diff + player_velocity;
         force_vec.Normalize();
-        force_vec *= 100;
+        force_vec *= 2000;
         counter_body->ApplyForceToCenter(force_vec);
 
         //플레이어도 밀려야 함
