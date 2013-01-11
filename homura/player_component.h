@@ -34,6 +34,7 @@ public:
     //필살기! 토카막 필드
     void UseTokamakField();
     void EndTokamakField();
+    bool can_use_tokamak() { return can_use_tokamak_; }
 
     //전부 쉴드 주는 필살기
     void UsePowerShield();

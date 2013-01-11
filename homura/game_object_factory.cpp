@@ -237,7 +237,7 @@ GameObject * GameObjectFactory::Create(const AllyPlaneObjectHeader &header, coco
 
     //AI!
     AIComponent *ai = new AllyAIComponent(obj);
-    ai->set_state(header.is_fall? kAllyFallState : kAllyAppearState);
+    ai->set_state(/*header.is_fall? kAllyFallState : */kAllyAppearState);
     ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.start_x), Unit::ToMeterFromUnit(header.start_y)));
 
     obj->set_drawable_comp(drawable);

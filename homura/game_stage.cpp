@@ -60,7 +60,14 @@ bool GameStage::Init() {
     EnemyCombatPlaneObjectHeader e0;
     CruiserPlaneObjectHeader c0;
     DeadstarPlaneObjectHeader d0;
+    AllyPlaneObjectHeader a0;
     GameTriggerObjectHeader t0;
+
+    MakeObjectHeader(a0, 100, -100, 100, 200);
+    world_->AddObject(MakeCreateObjectTriggerObject(a0, 0, current_id++));
+
+    MakeObjectHeader(a0, 800, -100, 650, 200);
+    world_->AddObject(MakeCreateObjectTriggerObject(a0, 0.5, current_id++));
 
     MakeObjectHeader(e0, -240, 1707, 120, 1066);
     world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));

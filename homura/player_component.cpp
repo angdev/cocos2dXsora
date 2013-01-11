@@ -71,7 +71,7 @@ void PlayerComponent::Update(float dt) {
     }
     else {
         tokamak_timer_ += dt;
-        if(tokamak_timer_ > 60) {
+        if(tokamak_timer_ > 30) {
             can_use_tokamak_ = true;
         }
     }
@@ -313,10 +313,12 @@ void PlayerComponent::OnIsEnemyMessage( IsEnemyMessage *msg ) {
 }
 
 void PlayerComponent::UseTokamakField() {
-    set_unbeatable(true);
-    using_tokamak_ = true;
-    can_use_tokamak_ = false;
-    tokamak_timer_ = 0;
+    if(can_use_tokamak_) {
+        set_unbeatable(true);
+        using_tokamak_ = true;
+        can_use_tokamak_ = false;
+        tokamak_timer_ = 0;
+    }
 }
 
 void PlayerComponent::EndTokamakField() {

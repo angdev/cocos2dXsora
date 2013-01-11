@@ -115,10 +115,18 @@ void FormationComponent::Update(float dt) {
 void FormationComponent::OnRequestJoinFormationMessage(RequestJoinFormationMessage *msg) {
     member_set_.insert(msg->id);
 
+    GameObjectPtr ptr = obj()->world()->FindObject(msg->id);
     if(leader_id_ == NO_LEADER) {
         leader_id_ = msg->id;
+        if(ptr != NULL) {
+            MoveToMessage move_msg = MoveToMessage::Create(glm::vec2(360, 300), 1);
+            ptr->OnMessage(&move_msg);
+        }
     }
 
+    if(ptr != NULL) {
+        static_cast<CharacterComponent*>(ptr->logic_comp())->set_unbeatable(false);
+    }
     CCLOG("formation: %d joined", msg->id);
 }
 

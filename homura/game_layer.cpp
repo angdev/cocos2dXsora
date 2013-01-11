@@ -170,7 +170,6 @@ void GameLayer::update(float dt) {
     
     //State 패턴 같은걸 쓸 게 있나?
 
-
     //TODO
     //스테이지 유효 체크    
     stage_->Update(dt);
@@ -229,6 +228,10 @@ void GameLayer::update(float dt) {
 
     else if(state_ == kGameOverState) {
 
+    }
+
+    if(player_ != NULL) {
+        lethal_btn->setVisible(static_cast<PlayerComponent*>(player_->logic_comp())->can_use_tokamak());
     }
 
 }

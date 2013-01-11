@@ -101,7 +101,11 @@ void ChainComponent::OnRemoveChainPartnerMessage(RemoveChainPartnerMessage *msg)
     if(msg->id == master_id_) {
         GameWorld *world = obj()->world();
         GameObjectPtr partner_obj = world->FindObject(slave_id_);
+        if(partner_obj == NULL) {
+            return;
+        }
         world->RequestRemoveObject(partner_obj);
+        partner_obj->Disable();
         DestroyMessage destroy_msg = DestroyMessage::Create(slave_id_);
         world->OnMessage(&destroy_msg);
         Destroy();

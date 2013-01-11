@@ -127,6 +127,7 @@ private:
         GameObject *slave_obj = factory.Create(slave_header_, parent);
         //하드 코딩! 캐릭터 컴포넌트를 가진다고 가정
         slave_obj->ai_comp()->set_state(kAllyArrestState);
+        static_cast<CharacterComponent*>(slave_obj->logic_comp())->set_unbeatable(true);
         world->AddObject(slave_obj);
         
         ChainHeader chain_header;
