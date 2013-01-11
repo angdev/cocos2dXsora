@@ -3,6 +3,7 @@
 #include "combat_plane_component.h"
 #include "game_object.h"
 #include "game_world.h"
+#include "game_stage.h"
 #include "phy_component.h"
 #include "game_object_factory.h"
 #include "character_fsm.h"
@@ -90,7 +91,7 @@ void CombatPlaneComponent::Attack() {
         header.from_enemy = is_enemy();
         header.sprite_name = "";
 
-        obj()->world()->AddObject(factory.Create(header, layer()));
+        obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->bullet0_node()));
     }
     //패턴 1
     else if(attack_count_ <= 1) {
@@ -102,11 +103,11 @@ void CombatPlaneComponent::Attack() {
         header.from_enemy = is_enemy();
         header.sprite_name = "";
 
-        obj()->world()->AddObject(factory.Create(header, layer()));
+        obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->bullet0_node()));
         header.angle_rad -= kmDegreesToRadians(30);
-        obj()->world()->AddObject(factory.Create(header, layer()));
+        obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->bullet0_node()));
         header.angle_rad += kmDegreesToRadians(60);
-        obj()->world()->AddObject(factory.Create(header, layer()));
+        obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->bullet0_node()));
     }
     //패턴 2
     else {
@@ -118,7 +119,7 @@ void CombatPlaneComponent::Attack() {
         header.from_enemy = is_enemy();
         header.sprite_name = "";
 
-        obj()->world()->AddObject(factory.Create(header, layer()));
+        obj()->world()->AddObject(factory.Create(header, obj()->world()->stage()->bullet0_node()));
     }
     attack_count_ = (attack_count_ + 1) % 3;
 

@@ -4,6 +4,7 @@
 
 #include "game_world.h"
 #include "game_object.h"
+#include "game_stage.h"
 #include "drawable_component.h"
 #include "phy_component.h"
 #include "combat_plane_component.h"
@@ -65,11 +66,12 @@ GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
     //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
     
-    
+    /*
     std::string sprite_name = "bullet";
     sprite_name += (char)('0' + std::default_random_engine((unsigned int)time(0))() % 3);
     sprite_name += ".png";
-    CCSprite *sprite = CCSprite::create(sprite_name.c_str());
+    */
+    CCSprite *sprite = CCSprite::createWithTexture(world_->stage()->bullet0_node()->getTexture());
     sprite->setScale(0.5f);
     sprite->setPosition(ccp(header.x, header.y));
     CCRect sprite_box = sprite->boundingBox();

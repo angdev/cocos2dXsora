@@ -33,6 +33,9 @@ bool GameStage::Init() {
     if(NULL == layer_)
         return false;
 
+    bullet0_node_ = CCSpriteBatchNode::create("bullet0.png");
+    layer_->addChild(bullet0_node_);
+
     //parallax 초기화
     //테스트 중
     parallax_ = CCParallaxScrollNode::create();

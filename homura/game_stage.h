@@ -35,6 +35,7 @@ public:
 public:
     cocos2d::CCLayer *layer() { return layer_; }
     GameWorld *world() { return world_; }
+    cocos2d::CCSpriteBatchNode *bullet0_node() { return bullet0_node_; }
     
     template <typename T>
     T& MakeObjectHeader(T &header, float x, float y, float start_x, float start_y) {
@@ -77,6 +78,11 @@ private:
     //움직이는 배경
     
     CCParallaxScrollNode *parallax_;
+
+    //그리기 최적화
+    cocos2d::CCSpriteBatchNode *bullet0_node_;;
+
+
     GameObjectFactory *factory_;
     
     float elapsed_time_;
