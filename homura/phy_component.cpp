@@ -37,6 +37,10 @@ SinglePhyComponent::~SinglePhyComponent() {
 void SinglePhyComponent::Update(float dt) {
 
     b2Vec2 body_pos = body_->GetPosition();
+    if(obj()->Type() == kCompPlayer) {
+        //방향 돌림
+        body_->SetTransform(body_pos, M_PI_2);
+    }
 
     if(is_moving_) {
         b2Vec2 pos_diff = end_point_ - body_pos;
@@ -47,10 +51,6 @@ void SinglePhyComponent::Update(float dt) {
             //목표지 도착
             body_->SetLinearVelocity(b2Vec2_zero);
             is_arrived_ = true;
-            if(obj()->Type() == kCompPlayer) {
-                //방향 돌림
-                body_->SetTransform(body_pos, M_PI_2);
-            }
         }
         else if(distance < 10.0f) {
             pos_diff *= (distance);

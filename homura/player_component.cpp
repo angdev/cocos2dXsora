@@ -27,6 +27,10 @@ PlayerComponent::~PlayerComponent() {
 
 void PlayerComponent::Update(float dt) {
     CharacterComponent::Update(dt);
+
+    if(!obj()->IsEnabled()) {
+        return;
+    }
     
     //반사 로직
     //일단 하드 코딩으로 때려박음
@@ -95,7 +99,7 @@ void PlayerComponent::InitMsgHandler() {
 }
 
 void PlayerComponent::AfterDestroy() {
-    
+    obj()->world()->aura_layer->StopRenderAura(obj()->id());
 }
 
 //반사 로직
@@ -225,6 +229,9 @@ void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     MoveMessage move_msg = MoveMessage::Create(-(pos_diff));
     obj()->OnMessage(&move_msg);
     */
+    b2Body *body = obj()->phy_comp()->main_body();
+    body->SetTransform(msg->prev_pos, body->GetAngle());
+    body->SetLinearVelocity(b2Vec2_zero);
 }
 
 void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {

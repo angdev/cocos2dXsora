@@ -127,7 +127,9 @@ void CombatPlaneComponent::Attack() {
     std::string file_path = "sound/fire";
     file_path += sound_rand;
     file_path += ".mp3";
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(file_path.c_str());
+    
+    CocosDenshion::SimpleAudioEngine *engine = CocosDenshion::SimpleAudioEngine::sharedEngine();
+    engine->playEffect(file_path.c_str());
 
 }
 

@@ -317,10 +317,7 @@ void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
         }
         CCPoint location = touch->getLocation();
         CCPoint prev_location = touch->getPreviousLocation();
-        //CCLog("%f %f", location.x - prev_location.x, location.y - prev_location.y);
-        if(state_ != kGameReadyState) {
-            MoveBodyByDelta(location.x - prev_location.x, location.y - prev_location.y);
-        }
+        MoveBodyByDelta(location.x - prev_location.x, location.y - prev_location.y);
     }
 }
 void GameLayer::ccTouchesCancelled(CCSet *touches, CCEvent *event) {
@@ -332,11 +329,22 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     
     //메시지 보내기
     //이건 걍 set으로 해야 제대로 될듯?
-    glm::vec2 move_vec(dx, dy);
-    MoveByMessage move_msg = MoveByMessage::Create(move_vec, 1.0f/20);
-    player_->OnMessage(&move_msg);
+    b2Vec2 move_vec(Unit::ToMeterFromUnit(glm::vec2(dx, dy)));
     b2Body *body = player_->phy_comp()->main_body();
-    body->SetTransform(body->GetPosition(), M_PI_2);
+    float touch_speed = move_vec.Length() * 60;
+    if(touch_speed > 20) {
+        move_vec.Normalize();
+        move_vec *= (20.0f / 60);
+    }
+    move_vec += body->GetPosition();
+    glm::vec2 moved_pos = Unit::ToUnitFromMeter(move_vec);
+    CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+    if(moved_pos.x > win_size.width || moved_pos.x < 0 || moved_pos.y > win_size.height || moved_pos.y < 0) {
+        return;
+    }
+
+    body->SetTransform(move_vec, M_PI_2);
+    body->SetLinearVelocity(b2Vec2_zero);
 }
 
 GameObject *GameLayer::CreatePlayer() {
