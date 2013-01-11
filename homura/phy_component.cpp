@@ -81,6 +81,7 @@ void SinglePhyComponent::OnMoveToMessage(MoveToMessage *msg) {
     body_->SetTransform(body_->GetPosition(), std::atan2(velocity_vec.y, velocity_vec.x));
     //body_->SetTransform(vec2, body_->GetAngle());
     //body_->SetAwake(true);
+
 }
 
 
@@ -96,6 +97,7 @@ void SinglePhyComponent::OnMoveByMessage(MoveByMessage *msg) {
 
     body_->SetLinearVelocity(velocity_vec);
     body_->SetTransform(body_->GetPosition(), std::atan2(velocity_vec.y, velocity_vec.x));
+
 }
 
 

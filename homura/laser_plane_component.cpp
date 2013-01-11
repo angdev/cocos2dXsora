@@ -12,7 +12,7 @@ USING_NS_CC;
 using namespace sora;
 
 LaserPlaneComponent::LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_cool_down_(2.0f), attack_keep_time_(3.0f), attack_timer_(0), now_attacking_(false), now_cool_down_(true),
+    : CharacterComponent(obj, layer), attack_cool_down_(2.0f), attack_keep_time_(8.0f), attack_timer_(0), now_attacking_(false), now_cool_down_(true),
 laser_damage_(50.0f) {
         ray_cast_callback_ = std::move(std::unique_ptr<RayCastCallback>(new RayCastCallback(this)));
 }
@@ -32,14 +32,9 @@ void LaserPlaneComponent::Update(float dt) {
     if(now_attacking_) {
         attack_timer_ += dt;
         if(attack_timer_ > attack_keep_time_) {
-            now_attacking_ = false;
-            now_cool_down_ = true;
-            attack_timer_ = 0;
-
-            //그리기 끝
-            StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
-            obj()->world()->OnMessage(&stop_msg);
+            StopAttack();
         }
+        Attack();
     }
     else {
         attack_timer_ += dt;
@@ -79,6 +74,16 @@ void LaserPlaneComponent::Attack() {
     ray_cast_callback_->Reset();
     obj()->world()->b2_world()->RayCast(ray_cast_callback_.get(), obj_pos_vec, dir_vec);
     ray_cast_callback_->AfterCallback();
+
+    /*
+    //소리 재생
+    char sound_rand = '0' + std::default_random_engine((unsigned int)time(0))() % 2;
+    std::string file_path = "sound/laser";
+    file_path += sound_rand;
+    file_path += ".mp3";
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(file_path.c_str());
+    */
+
 }
 
 void LaserPlaneComponent::AfterDestroy() {
@@ -105,6 +110,16 @@ void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     if(!now_cool_down_ && obj()->IsEnabled()) {
         Attack();
     }
+}
+
+void LaserPlaneComponent::StopAttack() {
+    now_attacking_ = false;
+    now_cool_down_ = true;
+    attack_timer_ = 0;
+
+    //그리기 끝
+    StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
+    obj()->world()->OnMessage(&stop_msg);
 }
 
 

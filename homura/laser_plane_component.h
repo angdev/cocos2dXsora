@@ -17,7 +17,9 @@ public:
 
 public:
     void OnAttackMessage(AttackMessage *msg);
+    
     void Attack();
+    void StopAttack();
 
 public:
     float laser_damage() { return laser_damage_; }

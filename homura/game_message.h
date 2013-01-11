@@ -222,6 +222,11 @@ public:
     int target_id;
 };
 
+//공격을 멈추도록 지시하는 메시지
+GAME_MESSAGE_BEGIN(StopAttackMessage)
+    static StopAttackMessage Create();
+GAME_MESSAGE_END
+
 struct CollideBulletMessage : public GameMessage {
 private:
     CollideBulletMessage() {}

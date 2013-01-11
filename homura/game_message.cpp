@@ -3,7 +3,10 @@
 #include "game_message.h"
 
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
-
+StopAttackMessage StopAttackMessage::Create() {
+    StopAttackMessage msg;
+    return msg;
+}
 
 FindNearestEnemyMessage FindNearestEnemyMessage::Create(const b2Vec2& ori_pos, bool is_enemy) {
     FindNearestEnemyMessage msg;

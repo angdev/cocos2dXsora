@@ -63,6 +63,13 @@ void CharacterComponent::InitMsgHandler() {
 
 void CharacterComponent::Destroy()
 {
+    //소리 재생
+    char sound_rand = '0' + std::default_random_engine((unsigned int)time(0))() % 2;
+    std::string file_path = "sound/boom";
+    file_path += sound_rand;
+    file_path += ".mp3";
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(file_path.c_str());
+
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(obj()->id()));
     obj()->set_enable(false);
