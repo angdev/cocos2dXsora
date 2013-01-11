@@ -16,7 +16,8 @@ using namespace sora;
 
 const float kLaserBeginInterval = 0.3f;
 const float kLaserEndInterval = 0.1f;
-const float kLaserDestroyInterval = 0.1f;
+//일단 무조건 같아야 제대로 돌아감
+const float kLaserDestroyInterval = kLaserEndInterval;
 
 LaserLayer::LaserLayer(GameWorld *world)
 : world_(world),
@@ -164,6 +165,8 @@ void LaserLayer::Update(float dt, LaserStateDict &laser_state_dict) {
 	auto end = laser_state_dict.end();
 	for( ; it != end ; ++it) {
 		LaserRenderState &state = it->second;
+		//printf("-->%d: %f\n", state.obj_id, state.elapsed_time);
+
 		state.remain_time -= dt;
 		state.elapsed_time += dt;
 
@@ -201,20 +204,41 @@ void LaserLayer::DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<Lase
     //
     //0 1
 
-    int tex_width = sprite->getTexture()->getContentSize().width;
-    int tex_height = sprite->getTexture()->getContentSize().height;
+    float tex_width = sprite->getTexture()->getContentSize().width;
+    float tex_height = sprite->getTexture()->getContentSize().height;
 
     for(int i = 0 ; i < line_list.size() ; ++i) {
         const LaserLine &line = line_list[i];
         int base_idx = 4 * i;
+		
+		float laser_width = tex_width;
+		
+		if(line.state.remain_time > 100) {
+			//레이저가 얇은상태에서 굵어지는 과정인 경우
+			float s = line.state.elapsed_time / kLaserBeginInterval;
+			if(s > 1) {
+				s = 1;
+			}
+			//printf("%d: %f\n", line.state.obj_id, s);
+			laser_width *= s;
+		} else {
+			//레이저가 굵은상태에서 얇아지는 과정인 경우 
+			float s = line.state.remain_time / kLaserEndInterval;
+			if(s < 0) {
+				s = 0;
+			}
+			//printf("%d: %f\n", line.state.obj_id, s);
+			laser_width *= s;
+		}
+		
 
         Vertex &left_bottom = vert_list[base_idx + 0];
         Vertex &right_bottom = vert_list[base_idx + 1];
         Vertex &right_top = vert_list[base_idx + 2];
         Vertex &left_top = vert_list[base_idx + 3];
 
-        float left = line.bottom.x - tex_width / 2.0f;
-        float right = line.bottom.x + tex_width / 2.0f;
+        float left = line.bottom.x - laser_width / 2.0f;
+        float right = line.bottom.x + laser_width / 2.0f;
         float bottom = line.bottom.y;
         float top = line.top.y;
 
@@ -266,7 +290,10 @@ std::vector<LaserLine> LaserLayer::GetLaserLineList(const LaserStateDict &dict) 
         const LaserRenderState &state = iter.second;
         glm::vec2 start_pos = state.start_point;
         glm::vec2 end_pos = state.end_point;
-        retval.push_back(LaserLine(start_pos, end_pos));
+
+		auto line = LaserLine(start_pos, end_pos);
+		line.state = state;
+		retval.push_back(line);
     }
     return retval;
 }

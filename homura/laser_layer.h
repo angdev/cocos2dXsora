@@ -28,6 +28,8 @@ struct LaserLine {
     }
     glm::vec2 top;
     glm::vec2 bottom;
+
+	LaserRenderState state;
 };
 
 class LaserLayer : public cocos2d::CCLayer, public MessageHandleable {
