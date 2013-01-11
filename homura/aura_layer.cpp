@@ -105,11 +105,13 @@ void AuraLayer::RequestRenderPlayerAura(int id, const glm::vec2 &pos) {
     CCParticleSystem *emitter = CCParticleGalaxy::create();
     emitter->retain();
     this->addChild(emitter);
-    emitter->setLife(2.5);
+    emitter->setLife(3);
     emitter->setTotalParticles(200);
-    emitter->setStartColor(ccc4f(1.0f, 1.0f, 0.5f, 1.0f));
+    emitter->setStartColor(ccc4f(1.0f, 1.0f, 0.5f, 0.0f));
     emitter->setEndColorVar(ccc4f(0.5f, 1.0f, 0.5f, 1.0f));
     emitter->setEndColor(ccc4f(0, 1, 0 ,1));
+    emitter->setSpeed(100);
+    emitter->setStartSize(20);
     emitter->setTexture( CCTextureCache::sharedTextureCache()->addImage("particles/fire.png") );
     emitter->setPosition(pos.x, pos.y);
 

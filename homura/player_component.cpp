@@ -166,7 +166,7 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         float half_width = glm::abs((right_top.x - left_bottom.x) / 2.0f);
         
         float reflect_angle = 0;
-        float collide_pos = msg->manifold.points[0].x;
+        float collide_pos = msg->manifold.points[1].x;
         //왼쪽
         CCLOG("%f %f %f", collide_pos, player_pos.x, half_width);
         if(collide_pos < player_pos.x - half_width/4) {
