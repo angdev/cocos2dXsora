@@ -64,7 +64,9 @@ void AuraLayer::RequestRenderAura(int id, const glm::vec2& pos) {
 void AuraLayer::StopRenderAura(int id) {
     auto found = aura_dict_.find(id);
     if(found != aura_dict_.end()) {
-        found->second.particle->removeFromParent();
+        found->second.particle->setDuration(0.1);
+        found->second.particle->setAutoRemoveOnFinish(true);
+        //found->second.particle->removeFromParent();
         aura_dict_.erase(id);
     }
 }

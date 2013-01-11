@@ -77,6 +77,9 @@ void PlayerComponent::Update(float dt) {
     obj()->world()->shield_layer->set_player_reflect_state(reflecting_);
     //체력을 info_layer에 넘겨줌
     obj()->world()->game_info_layer->set_player_hit_point(hit_point());
+
+    //조금씩 체력 상승
+    set_hit_point(hit_point() + 0.2);
 }
 
 void PlayerComponent::InitMsgHandler() {
