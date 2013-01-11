@@ -277,10 +277,12 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
     if(player_ == NULL) {
         return;
     }
+    /*
     CCPoint end_point = touch->getLocation();
     glm::vec2 move_delta(end_point.x - touch_start_.x, end_point.y - touch_start_.y);
     MoveByMessage msg = MoveByMessage::Create(move_delta, 2);
     player_->OnMessage(&msg);
+    */
 }
 
 void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
@@ -288,7 +290,7 @@ void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
     if(state_ == kGameReadyState) {
         return;
     }
-
+    /*
     CCSetIterator it;
     CCTouch *touch;
     for( it = touches->begin(); it != touches->end(); it++) {
@@ -300,6 +302,7 @@ void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
         touch_start_ = location;
         break;
     }
+    */
 }
 void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
 

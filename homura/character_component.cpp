@@ -195,13 +195,16 @@ bool CharacterComponent::is_enemy() {
 }
 
 void CharacterComponent::set_hit_point(float hit_point) {
-    if(unbeatable_)
+    if(unbeatable_ && hit_point - hit_point_ < 0) {
         return;
+    }
         
-    if(hit_point <= max_hit_point_)
+    if(hit_point <= max_hit_point_) {
         hit_point_ = hit_point;
-    else
+    }
+    else {
         hit_point_ = max_hit_point_;
+    }
 }
 
 void CharacterComponent::DrawHitPointBar() {

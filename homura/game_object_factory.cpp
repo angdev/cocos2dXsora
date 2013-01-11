@@ -311,10 +311,10 @@ GameObject *GameObjectFactory::Create(const CruiserPlaneObjectHeader &header, co
     //temp
     //객체 마다 header로 걍 초기화하는거 넣을 것.
 
-    logic->set_max_hit_point(150);
+    logic->set_max_hit_point(100);
     //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
-    logic->set_hit_point(150);
-    logic->set_bullet_damage(20);
+    logic->set_hit_point(100);
+    logic->set_bullet_damage(13);
     logic->set_available_suicide(false);
 
     //AI!

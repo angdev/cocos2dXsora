@@ -10,6 +10,7 @@
 
 //temp
 #include "bullet_component.h"
+#include "drawable_component.h"
 
 #include "sora/unit.h"
 
@@ -47,10 +48,24 @@ void PlayerComponent::Update(float dt) {
 
     //토카막 필드
     if(using_tokamak_) {
-        obj()->world()->shield_layer->RequestRenderTokamakField(obj()->id(), 
-            Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition()));
+        //obj()->world()->shield_layer->RequestRenderTokamakField(obj()->id(), 
+        //    Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition()));
+        //추가 회복
+        set_hit_point(hit_point() + 0.3);
+
         tokamak_timer_ += dt;
+        CCNode *sprite = static_cast<NodeDrawableComponent*>(obj()->drawable_comp())->node();
+
+        if(tokamak_timer_ < 0.2) {
+            static_cast<CCSprite*>(sprite)->setColor(ccc3(255, 255-tokamak_timer_*500, 255-tokamak_timer_*500));
+        }
+        else if(tokamak_timer_ > 4.8) {
+            ccColor3B color = static_cast<CCSprite*>(sprite)->getColor();
+            static_cast<CCSprite*>(sprite)->setColor(ccc3(255, color.g+dt*500, color.b+dt*500));
+        }
+
         if(tokamak_timer_ > 5) {
+            static_cast<CCSprite*>(sprite)->setColor(ccc3(255, 255, 255));
             EndTokamakField();
         }
     }
@@ -307,7 +322,7 @@ void PlayerComponent::UseTokamakField() {
 void PlayerComponent::EndTokamakField() {
     using_tokamak_ = false;
     tokamak_timer_ = 0;
-    obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
+    //obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
     set_unbeatable(false);
 }
 

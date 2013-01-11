@@ -33,6 +33,8 @@ public:
     virtual void Update(float dt);
     virtual void InitMsgHandler();
 
+    cocos2d::CCNode *node() { return node_; }
+
 private:
     cocos2d::CCNode *node_;
 };

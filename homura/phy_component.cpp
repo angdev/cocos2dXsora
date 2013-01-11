@@ -42,7 +42,7 @@ void SinglePhyComponent::Update(float dt) {
         body_->SetTransform(body_pos, M_PI_2);
     }
 
-    if(is_moving_) {
+    if(is_moving_ && !is_arrived_) {
         b2Vec2 pos_diff = end_point_ - body_pos;
         float distance = pos_diff.Length();
         pos_diff.Normalize();
