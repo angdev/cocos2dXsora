@@ -17,7 +17,10 @@ public:
 
 public:
     void OnAttackMessage(AttackMessage *msg);
-    
+    void OnMoveToMessage(MoveToMessage *msg);
+    void OnMoveByMessage(MoveByMessage *msg);
+
+
     void Attack();
     void StopAttack();
 
@@ -52,6 +55,8 @@ private:
     float attack_timer_;
     bool now_cool_down_;
     bool now_attacking_;
+    int laser_sound_id_;
+
 
     //per sec
     float laser_damage_;
