@@ -102,9 +102,16 @@ void LaserPlaneComponent::AfterDestroy() {
 
 void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
-    if(!now_cool_down_ && obj()->IsEnabled()) {
-        Attack();
+    if(!now_cool_down_ && obj()->IsEnabled() && !now_attacking_) {
+        //소리 재생
         
+        char sound_rand = '0' + std::default_random_engine((unsigned int)time(0))() % 2;
+        std::string file_path = "sound/laser";
+        file_path += sound_rand;
+        file_path += ".mp3";
+        laser_sound_id_ = CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(file_path.c_str());
+        
+        Attack();
     }
 }
 

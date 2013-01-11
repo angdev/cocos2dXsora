@@ -56,8 +56,7 @@ private:
     bool now_cool_down_;
     bool now_attacking_;
     int laser_sound_id_;
-
-
+    
     //per sec
     float laser_damage_;
 };
