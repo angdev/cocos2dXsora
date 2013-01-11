@@ -37,7 +37,7 @@ void CombatPlaneComponent::Update(float dt) {
     if(suicide_flag_) {
         //이동만 슈웅 한다
         MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(suicide_vec), 0.2f);
-        CCLOG("move %f %f", suicide_vec.x, suicide_vec.y);
+        //CCLOG("move %f %f", suicide_vec.x, suicide_vec.y);
         obj()->OnMessage(&move_msg);
         return;
     }

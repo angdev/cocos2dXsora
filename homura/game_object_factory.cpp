@@ -43,8 +43,8 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
 
     body->SetTransform(body->GetPosition(), header.angle_rad);
     
-    CCSprite *sprite = CCSprite::create("dead_star.png");
-    sprite->setScale(0.2f);
+    CCSprite *sprite = CCSprite::create("player.png");
+    sprite->setScale(1.0f);
 
     DrawableComponent *drawable = new NodeDrawableComponent(obj, parent, sprite);
     PhyComponent *phy = PhyComponent::SinglePhy(obj, body);

@@ -136,7 +136,11 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         //TODO
         //총돌한 위치에서의 충돌 박스 면의 각도를 가져올 수 있나?
         // - world manifold 이용해서 충돌점과 normal vector 가져올 수 있음
+        b2Body *player_body = obj()->phy_comp()->main_body();
+        b2Vec2 player_pos = player_body->GetPosition();
         b2Vec2 bullet_dir_vec = bullet_body->GetLinearVelocity();
+        //일반적인 면에 대한 반사 로직
+        /*
         bullet_dir_vec.Normalize();
         float cross_value = std::abs(b2Cross(msg->manifold.normal, -bullet_dir_vec));
         float normal_vec_angle = std::atan2(msg->manifold.normal.y, msg->manifold.normal.x);
@@ -149,6 +153,32 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         SetAngleMessage angle_msg = SetAngleMessage::Create(reflect_angle);
         bullet->OnMessage(&angle_msg);
         static_cast<BulletComponent*>(bullet->logic_comp())->set_from_enemy(false);
+        */
+        
+        //새로 짠 로직 (적당히 반사 해줌)
+        b2PolygonShape *body_shape = static_cast<b2PolygonShape*>(player_body->GetFixtureList()->GetShape());
+        b2Vec2 left_bottom = body_shape->GetVertex(0);
+        b2Vec2 right_top = body_shape->GetVertex(2);
+        float half_width = glm::abs((right_top.x - left_bottom.x) / 2.0f);
+        
+        float reflect_angle = 0;
+        float collide_pos = msg->manifold.points[0].x;
+        //왼쪽
+        CCLOG("%f %f %f", collide_pos, player_pos.x, half_width);
+        if(collide_pos < player_pos.x - half_width/4) {
+            reflect_angle = M_PI_2 + kmDegreesToRadians(30) * (player_pos.x - collide_pos) / (half_width);
+        }
+        //오른쪽
+        else if(collide_pos > player_pos.x + half_width/4) {
+            reflect_angle = M_PI_2 - kmDegreesToRadians(30) * (collide_pos - player_pos.x) / (half_width);
+        }
+        //가운데
+        else {
+            reflect_angle = M_PI_2;
+        }
+        static_cast<BulletComponent*>(bullet->logic_comp())->set_from_enemy(false);
+        bullet_body->SetTransform(bullet_body->GetPosition(), reflect_angle);
+
     }
     else {
         CharacterComponent::CollideBullet(msg);
