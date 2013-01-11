@@ -9,7 +9,7 @@
 
 using namespace sora;
 
-EnemyAIComponent::EnemyAIComponent(GameObject *obj) : AIComponent(obj), state_(kEnemyAppearState) {
+EnemyAIComponent::EnemyAIComponent(GameObject *obj) : AIComponent(obj), state_(kEnemyAppearState), elapsed_time_(0) {
 
 }
 
@@ -48,8 +48,24 @@ void EnemyAIComponent::Update(float dt) {
         world->OnMessage(&find_msg);
         
         if(find_msg.id == -1) {
-            AttackMessage msg = AttackMessage::Create(0);
-            obj()->OnMessage(&msg);
+            if(static_cast<SinglePhyComponent*>(obj()->phy_comp())->IsArrived() || !moved_) {
+                static int seed = 0;
+                MoveToMessage msg = MoveToMessage::Create(glm::vec2(std::default_random_engine((unsigned int)time(0) + seed++)() % 720, 
+                    Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition().y)), 1);
+                obj()->OnMessage(&msg);
+                moved_ = true;
+            }
+            if(moved_) {
+                SetAngleMessage ang_msg = SetAngleMessage::Create(-M_PI_2);
+                obj()->OnMessage(&ang_msg);
+                AttackMessage msg = AttackMessage::Create(0);
+                obj()->OnMessage(&msg);
+                elapsed_time_ += 1.0/60;
+                if(elapsed_time_ > 3) {
+                    elapsed_time_ = 0;
+                    moved_ = false;
+                }
+            }
             return;
         }
 

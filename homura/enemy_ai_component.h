@@ -25,6 +25,8 @@ public:
     virtual void set_state(int state) { state_ = static_cast<EnemyAIState>(state); }
 
 private:
+    bool moved_;
+    float elapsed_time_;
     EnemyAIState state_;
 };
 

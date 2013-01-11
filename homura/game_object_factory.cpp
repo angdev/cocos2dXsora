@@ -238,7 +238,7 @@ GameObject * GameObjectFactory::Create(const AllyPlaneObjectHeader &header, coco
     //AI!
     AIComponent *ai = new AllyAIComponent(obj);
     ai->set_state(header.is_fall? kAllyFallState : kAllyAppearState);
-    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y + 300)));
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.start_x), Unit::ToMeterFromUnit(header.start_y)));
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
@@ -280,7 +280,7 @@ GameObject * GameObjectFactory::Create(const EnemyCombatPlaneObjectHeader &heade
 
     //AI!
     AIComponent *ai = new EnemyAIComponent(obj);
-    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.start_x), Unit::ToMeterFromUnit(header.start_y)));
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
@@ -319,7 +319,7 @@ GameObject *GameObjectFactory::Create(const CruiserPlaneObjectHeader &header, co
 
     //AI!
     AIComponent *ai = new EnemyAIComponent(obj);
-    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.start_x), Unit::ToMeterFromUnit(header.start_y)));
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);
@@ -356,7 +356,7 @@ GameObject *GameObjectFactory::Create(const DeadstarPlaneObjectHeader &header, c
 
     //AI!
     AIComponent *ai = new EnemyAIComponent(obj);
-    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.x), Unit::ToMeterFromUnit(header.y - 300)));
+    ai->set_start_position(b2Vec2(Unit::ToMeterFromUnit(header.start_x), Unit::ToMeterFromUnit(header.start_y)));
 
     obj->set_drawable_comp(drawable);
     obj->set_phy_comp(phy);

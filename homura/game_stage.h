@@ -35,6 +35,40 @@ public:
 public:
     cocos2d::CCLayer *layer() { return layer_; }
     GameWorld *world() { return world_; }
+    
+    template <typename T>
+    T& MakeObjectHeader(T &header, float x, float y, float start_x, float start_y) {
+        header.x = x;
+        header.y = y;
+        header.start_x = start_x;
+        header.start_y = start_y;
+        return header;
+    }
+
+    template <typename T>
+    GameObject *MakeCreateObjectTriggerObject(const T &header, float timer, int current_id, bool with_ally = false) {
+        static AllyPlaneObjectHeader ally_header;
+        GameTriggerHandler *trg_hnd = new GameTriggerHandler();
+        GameTrigger *trg = new GameTrigger(this);
+        GameAction *act;
+        if(with_ally) {
+            ally_header.x = header.x+1;
+            ally_header.y = header.y+1;
+            ally_header.start_x = header.start_x+1;
+            ally_header.start_y = header.start_y+1;
+            act = MakeCreateObjectsWithChainAction(header, ally_header);
+        }
+        else {
+            act = MakeCreateObjectAction(header);
+        }
+        trg->set_action(act);
+        trg->set_condition(new TimerCondition(timer));
+        trg_hnd->AddTrigger(trg);
+        GameTriggerObjectHeader trg_header;
+        NextTriggers *next_trgs = new NextTriggers();
+        next_trgs->push_back(current_id+1);
+        return factory_->Create(trg_header, current_id, next_trgs, GameTriggerHandlerPtr(trg_hnd));
+    }
 
 private:
     GameWorld *world_;

@@ -188,7 +188,7 @@ void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
         float reflect_angle = 0;
         float collide_pos = msg->manifold.points[1].x;
         //왼쪽
-        CCLOG("%f %f %f", collide_pos, player_pos.x, half_width);
+        //CCLOG("%f %f %f", collide_pos, player_pos.x, half_width);
         if(collide_pos < player_pos.x - half_width/4) {
             reflect_angle = M_PI_2 + kmDegreesToRadians(30) * (player_pos.x - collide_pos) / (half_width);
         }
@@ -269,7 +269,7 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         player_velocity.Normalize();
         b2Vec2 force_vec = pos_diff + player_velocity;
         force_vec.Normalize();
-        force_vec *= 20000;
+        force_vec *= 2000;
         counter_body->ApplyForceToCenter(force_vec);
 
         //플레이어도 밀려야 함
@@ -277,7 +277,7 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         b2Vec2 force = force_vec;
         force *= (-10);
         player_body->ApplyForceToCenter(force);
-
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/collide.mp3");
 
         //미는거 다시 제대로 구현하자
         /*

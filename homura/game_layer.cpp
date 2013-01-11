@@ -94,9 +94,11 @@ bool GameLayer::init() {
     ReadyPlayer(CreatePlayer());
 
     //물리 디버깅용
+    /*
     PhyDebugLayer *phy_debug_layer = new PhyDebugLayer(world_->b2_world());
     phy_debug_layer->autorelease();
     this->addChild(phy_debug_layer, 100);
+    */
 
     //스테이지 배경
     this->addChild(stage_->parallax(), 0);
@@ -143,16 +145,18 @@ bool GameLayer::init() {
 
     //필살기 버튼 초기화
     CCSize win_size = CCDirector::sharedDirector()->getWinSize();
-    lethal_btn = CCSprite::create("power_shield.png");
+    lethal_btn = CCSprite::create("power_btn.png");
     lethal_btn->setScale(0.5f);
     CCSize btn_size = lethal_btn->getContentSize();
     lethal_btn->setPosition(ccp(win_size.width - btn_size.width/2 * 0.5, btn_size.height/2 * 0.5));
     this->addChild(lethal_btn);
 
+    /*
     lethal_btn2 = CCSprite::create("power_shield.png");
     lethal_btn2->setScale(0.5f);
     lethal_btn2->setPosition(ccp(win_size.width - btn_size.width/2 * 0.5, btn_size.height/2 * 0.5 * 3));
     this->addChild(lethal_btn2);
+    */
 
     //배경음악 재생
     CocosDenshion::SimpleAudioEngine *engine = CocosDenshion::SimpleAudioEngine::sharedEngine();
@@ -254,7 +258,7 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
 
     //여기서 버튼 클릭 여부를 확인하긴 함
     CCRect lethal_btn_box = lethal_btn->boundingBox();
-    CCRect lethal_btn2_box = lethal_btn2->boundingBox();
+//    CCRect lethal_btn2_box = lethal_btn2->boundingBox();
     CCSetIterator it;
     CCTouch *touch;
     for(it = touches->begin(); it != touches->end(); it++) {
@@ -267,10 +271,13 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
             //파워 땜빵
             static_cast<PlayerComponent*>(player_->logic_comp())->UseTokamakField();
             CCLOG("lethal1!");
-        } else if(lethal_btn2_box.containsPoint(location)) {
+        } 
+        /*
+        else if(lethal_btn2_box.containsPoint(location)) {
             //전체 쉴드
             static_cast<PlayerComponent*>(player_->logic_comp())->UsePowerShield();
         }
+        */
 
     }
 

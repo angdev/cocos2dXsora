@@ -50,10 +50,249 @@ bool GameStage::Init() {
     GameObject *formation_obj = factory_->Create(formation_header);
     world_->AddObject(formation_obj);
 
-    //Test
     
-    //EventGroup #0
+    //////////////////////////////////////////////////////////////////////////
+    //여기서부터 스테이지 구성 시작
+    //////////////////////////////////////////////////////////////////////////
 
+    int current_id = 0;
+    //2
+    EnemyCombatPlaneObjectHeader e0;
+    CruiserPlaneObjectHeader c0;
+    DeadstarPlaneObjectHeader d0;
+    GameTriggerObjectHeader t0;
+
+    MakeObjectHeader(e0, -240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //3
+    MakeObjectHeader(e0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //4
+    MakeObjectHeader(e0, 120, 1466, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //5
+    MakeObjectHeader(e0, -240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //6
+    MakeObjectHeader(e0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 1, current_id++));
+
+    //7
+    MakeObjectHeader(e0, 600, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //8
+    MakeObjectHeader(e0, 960, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //9
+    MakeObjectHeader(e0, 960, 1066, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //10
+    MakeObjectHeader(e0, 600, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //11
+    MakeObjectHeader(e0, 120, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 5, current_id++));
+
+    //12
+    MakeObjectHeader(c0, 600, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 0, current_id++, true));
+
+    //13
+    MakeObjectHeader(c0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 1, current_id++, true));
+
+    //14
+    MakeObjectHeader(e0, 120, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //15
+    MakeObjectHeader(e0, 120, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //16
+    MakeObjectHeader(e0, -240, 640, 120, 640);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //17
+    MakeObjectHeader(e0, 960, 640, 600, 600);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //18
+    MakeObjectHeader(d0, -240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(d0, 0, current_id++, true));
+
+    //19
+    MakeObjectHeader(d0, 960, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(d0, 3, current_id++, true));
+
+    //20
+    MakeObjectHeader(e0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //21
+    MakeObjectHeader(e0, -240, 1066, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //22
+    MakeObjectHeader(e0, 960, 1066, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //23
+    MakeObjectHeader(e0, 600, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 4.5, current_id++));
+
+    //24
+    MakeObjectHeader(e0, -240, 640, 120, 640);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //25
+    MakeObjectHeader(e0, -240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //26
+    MakeObjectHeader(e0, -360, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //27
+    MakeObjectHeader(e0, 960, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //28
+    MakeObjectHeader(e0, 960, 640, 600, 640);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 2, current_id++));
+
+    //29
+    MakeObjectHeader(c0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 3, current_id++, true));
+
+    //30
+    MakeObjectHeader(c0, 960, 1066, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 3, current_id++));
+
+    //31
+    MakeObjectHeader(c0, 240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 3, current_id++, true));
+
+    //32
+    MakeObjectHeader(c0, 600, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 8, current_id++));
+
+    //33
+    MakeObjectHeader(d0, -240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(d0, 0, current_id++));
+
+    //34
+    MakeObjectHeader(d0, 960, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(d0, 5, current_id++));
+
+    //35
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //36
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //37
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //38
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //39
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 3, current_id++));
+
+    //40
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //41
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //42
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //43
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    //44
+    MakeObjectHeader(c0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 0, current_id++));
+
+    //45
+    MakeObjectHeader(d0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(d0, 0, current_id++, true));
+
+    //46
+    MakeObjectHeader(c0, 960, 1066, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 1, current_id++));
+
+    //47
+    MakeObjectHeader(e0, -240, 640, 120, 640);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //48
+    MakeObjectHeader(e0, 960, 640, 600, 640);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 2, current_id++));
+
+    //49
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //50
+    MakeObjectHeader(e0, 600, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 5, current_id++));
+
+    //51
+    MakeObjectHeader(c0, -240, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 0, current_id++));
+
+    //52
+    MakeObjectHeader(c0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 0, current_id++, true));
+
+    //53
+    MakeObjectHeader(c0, 960, 1707, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(c0, 5, current_id++, true));
+
+    //54
+    MakeObjectHeader(e0, 120, 1707, 120, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //55
+    MakeObjectHeader(e0, 360, 1707, 360, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0, current_id++));
+
+    //56
+    MakeObjectHeader(e0, 960, 1066, 600, 1066);
+    world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
+
+    GameTrigger *trg4 = new GameTrigger(this);
+    GameAction *act4 = new VictoryAction();
+    trg4->set_action(act4);
+    trg4->set_condition(new NullCondition);
+    GameTriggerHandler *trg_hnd3 = new GameTriggerHandler();
+    trg_hnd3->AddTrigger(trg4);
+    NextTriggers *next_trigger_4 = new NextTriggers();
+
+    world_->AddObject(factory_->Create(t0, current_id, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
+
+
+    /*
     //ally laser test
     GameTriggerHandler *trg_hnd = new GameTriggerHandler();
 
@@ -64,15 +303,16 @@ bool GameStage::Init() {
     GameTrigger *trg = new GameTrigger(this);
     GameAction *act = MakeCreateObjectAction(ally_header);
     trg->set_action(act);
-    trg->set_condition(new NullCondition);
+    trg->set_condition(new TimerCondition(5));
     trg_hnd->AddTrigger(trg);
     GameTriggerObjectHeader trg_header;
     NextTriggers *next_trigger = new NextTriggers();
-    next_trigger->push_back(1);
-    world_->AddObject(factory_->Create(trg_header, 0, next_trigger, GameTriggerHandlerPtr(trg_hnd)));
+    next_trigger->push_back(2);
+    world_->AddObject(factory_->Create(trg_header, 1, next_trigger, GameTriggerHandlerPtr(trg_hnd)));
 
     //Temp
     //Chain Test
+    
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
 
     ally_header.x = 400;
@@ -84,7 +324,7 @@ bool GameStage::Init() {
     combat_header.is_fall = false;
     combat_enemy_header.x = 400;
     combat_enemy_header.y = 500;
-    */
+    
     DeadstarPlaneObjectHeader deadstar_header;
     deadstar_header.x = 400;
     deadstar_header.y = 1300;
@@ -97,10 +337,10 @@ bool GameStage::Init() {
     NextTriggers *next_trigger_1 = new NextTriggers();
     next_trigger_1->push_back(2);
     world_->AddObject(factory_->Create(e_header, 1, next_trigger_1, GameTriggerHandlerPtr(trg_hnd0)));
-    
+    */
 
     
-
+    /*
     //EventGroup #1
     GameTriggerHandler *trg_hnd1 = new GameTriggerHandler();
 
@@ -141,7 +381,7 @@ bool GameStage::Init() {
     NextTriggers *next_trigger_3 = new NextTriggers();
     next_trigger_3->push_back(2);
     world_->AddObject(factory_->Create(e_header, 3, next_trigger_3, GameTriggerHandlerPtr(trg_hnd2)));
-
+    
     //EventGroup #3
     //Victory
 
@@ -154,7 +394,7 @@ bool GameStage::Init() {
     NextTriggers *next_trigger_4 = new NextTriggers();
 
     world_->AddObject(factory_->Create(e_header, 4, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
-
+    */
     return true;
 }
 

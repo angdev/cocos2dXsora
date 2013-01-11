@@ -56,3 +56,16 @@ void SpecificDestroyCondition::SetParams(GameObject *obj) {
     world_ = obj->world();
     id_ = obj->id();
 }
+
+bool TimerCondition::CheckFunc() {
+    if(elapsed_time_ > time_) {
+        return true;
+    }
+    //dt를 가져와야하는데 흠..
+    elapsed_time_ += 1.0/60;
+    return false;
+}
+
+ConditionType TimerCondition::Type() {
+    return kConditionTimer;
+}

@@ -51,4 +51,16 @@ public:
 
 };
 
+//일정 시간이 지났는지 확인
+struct TimerCondition : public GameCondition {
+public:
+    TimerCondition(float time) : time_(time), elapsed_time_(0) {}
+private:
+    virtual bool CheckFunc();
+    virtual ConditionType Type();
+
+    float elapsed_time_;
+    float time_;    
+};
+
 #endif
