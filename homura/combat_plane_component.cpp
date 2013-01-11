@@ -17,7 +17,8 @@ using namespace sora;
 USING_NS_CC;
 
 CombatPlaneComponent::CombatPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f), suicide_flag_(false), available_suicide_(false) {
+    : CharacterComponent(obj, layer), attack_timer_(0), attack_cool_down_(0.3f), bullet_damage_(1.0f), suicide_flag_(false), available_suicide_(false),
+attack_count_(0) {
         //상태 초기화 따로 빼야할듯?
 //        fsm()->InsertState(CharacterStatePtr(new CharacterNormalState(fsm())));
 }
@@ -59,6 +60,10 @@ void CombatPlaneComponent::InitMsgHandler() {
 
 void CombatPlaneComponent::Attack() {
 
+    //크루저랑 일반 전투기 걍 분리하거나
+    //총알 패턴을 가지고 있는걸 잘 구조화하거나
+    //일단은 시간이 없으니 자폭 가능 여부로 둘을 구분한다
+
     if(!(attack_timer_ > attack_cool_down_)) {
         return;
     }
@@ -69,26 +74,53 @@ void CombatPlaneComponent::Attack() {
     RequestPhyBodyInfoMessage msg = RequestPhyBodyInfoMessage::Create(&body_info);
     obj()->OnMessage(&msg);
 
-    if(!msg.is_ret)
+    if(!msg.is_ret) {
         return;
-        
+    }
+
+    GameObjectFactory factory(obj()->world());
     BulletObjectHeader header;
 
-    float look_angle = body_info.angle_rad;
-    //각도로부터 벡터 만들기
-    //cocos2dx랑 box2d 각도 기준점이 다름.
-    header.angle_rad = body_info.angle_rad;
-    //방향과 속력은 분리해야 함 - 총알도 돌려야 함.
-    header.speed = 60;
-    header.x = Unit::ToUnitFromMeter(body_info.x);
-    header.y = Unit::ToUnitFromMeter(body_info.y);
+    if(available_suicide_ || !is_enemy()) {
+        header.angle_rad = body_info.angle_rad;
+        header.speed = 30;
+        header.x = Unit::ToUnitFromMeter(body_info.x);
+        header.y = Unit::ToUnitFromMeter(body_info.y);
+        header.damage = bullet_damage_;
+        header.from_enemy = is_enemy();
+        header.sprite_name = "";
 
-    header.damage = bullet_damage_;
-    header.from_enemy = is_enemy();  //IsEnemy 필요없을지도?
-    header.sprite_name = "";
-    
-    GameObjectFactory factory(obj()->world());
-    obj()->world()->AddObject(factory.Create(header, layer()));
+        obj()->world()->AddObject(factory.Create(header, layer()));
+    }
+    //패턴 1
+    else if(attack_count_ <= 1) {
+        header.angle_rad = body_info.angle_rad;
+        header.speed = 42;
+        header.x = Unit::ToUnitFromMeter(body_info.x);
+        header.y = Unit::ToUnitFromMeter(body_info.y);
+        header.damage = bullet_damage_;
+        header.from_enemy = is_enemy();
+        header.sprite_name = "";
+
+        obj()->world()->AddObject(factory.Create(header, layer()));
+        header.angle_rad -= kmDegreesToRadians(30);
+        obj()->world()->AddObject(factory.Create(header, layer()));
+        header.angle_rad += kmDegreesToRadians(60);
+        obj()->world()->AddObject(factory.Create(header, layer()));
+    }
+    //패턴 2
+    else {
+        header.angle_rad = body_info.angle_rad;
+        header.speed = 18;
+        header.x = Unit::ToUnitFromMeter(body_info.x);
+        header.y = Unit::ToUnitFromMeter(body_info.y);
+        header.damage = bullet_damage_ * 5;
+        header.from_enemy = is_enemy();
+        header.sprite_name = "";
+
+        obj()->world()->AddObject(factory.Create(header, layer()));
+    }
+    attack_count_ = (attack_count_ + 1) % 3;
 
     //소리 재생
     char sound_rand = '0' + std::default_random_engine((unsigned int)time(0))() % 2;

@@ -20,11 +20,11 @@ public:
     void OnAttackMessage(AttackMessage *msg);
     void Attack();
     void SuicideAttack(const b2Vec2 &object_pos);
-
+    
 public:
     void set_bullet_damage(float bullet_damage) { bullet_damage_ = bullet_damage; }
     bool suicide_flag() { return suicide_flag_; }
-    void set_available_suicide(bool available_suicide) { available_suicide_ = available_suicide; }
+    void set_available_suicide(bool available_suicide) { cocos2d::CCLog("!"); available_suicide_ = available_suicide; }
 
 private:
     void AfterDestroy();
@@ -37,6 +37,7 @@ private:
     //설정할 수 있도록 하자.
     const float attack_cool_down_;
     float attack_timer_;
+    int attack_count_;//공격 횟수를 적절히 세서 패턴 변경에 이용
 
     float bullet_damage_;
 
