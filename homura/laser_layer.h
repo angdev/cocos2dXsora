@@ -6,7 +6,8 @@
 
 struct LaserRenderState {
 	LaserRenderState():
-		obj_id(0), elapsed_time(0), remain_time(9999999) {}
+		obj_id(0), elapsed_time(0), remain_time(9999999) {
+	}
 
     int obj_id;
     glm::vec2 start_point;
@@ -66,7 +67,7 @@ private:
     //glm::vec2 GetObjectPosition(const LaserRenderState &state) const;
 
 private:
-	void Update(float dt, LaserStateDict &laser_state_dict);
+	void Update(float dt, LaserStateDict *laser_state_dict);
   
 };
 

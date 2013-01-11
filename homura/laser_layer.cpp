@@ -15,7 +15,7 @@ USING_NS_CC;
 using namespace sora;
 
 const float kLaserBeginInterval = 0.3f;
-const float kLaserEndInterval = 0.1f;
+const float kLaserEndInterval = 0.2f;
 //일단 무조건 같아야 제대로 돌아감
 const float kLaserDestroyInterval = kLaserEndInterval;
 
@@ -64,7 +64,7 @@ LaserRenderState *LaserLayer::GetLaserState(int obj_id) {
         return &friend_found->second;
     }
     auto enemy_found = enemy_dict_.find(obj_id);
-    if(enemy_found != enemy_dict_.find(obj_id)) {
+    if(enemy_found != enemy_dict_.end()) {
         return &enemy_found->second;
     }
     return nullptr;
@@ -133,7 +133,7 @@ void LaserLayer::draw() {
     }
 
     CC_NODE_DRAW_SETUP();
-
+	
     if(friend_dict_.empty() == false) {
         vector<LaserLine> line_list = GetLaserLineList(friend_dict_);
         DrawLaserList(friend_sprite_, line_list);
@@ -146,7 +146,7 @@ void LaserLayer::draw() {
     }
 }
 
-void LaserLayer::Update(float dt, LaserStateDict &laser_state_dict) {
+void LaserLayer::Update(float dt, LaserStateDict *laser_state_dict) {
 	//남은시간이 0이하면 삭제
 	vector<int> dead_key_list;
 
@@ -161,8 +161,8 @@ void LaserLayer::Update(float dt, LaserStateDict &laser_state_dict) {
 		}
 	}
 	*/
-	auto it = laser_state_dict.begin();
-	auto end = laser_state_dict.end();
+	auto it = laser_state_dict->begin();
+	auto end = laser_state_dict->end();
 	for( ; it != end ; ++it) {
 		LaserRenderState &state = it->second;
 		//printf("-->%d: %f\n", state.obj_id, state.elapsed_time);
@@ -170,19 +170,21 @@ void LaserLayer::Update(float dt, LaserStateDict &laser_state_dict) {
 		state.remain_time -= dt;
 		state.elapsed_time += dt;
 
+		//printf("%f\n", state.elapsed_time);
+
 		if(state.remain_time <= 0) {
 			dead_key_list.push_back(it->first);
 		}
 	}
 
 	for(int key : dead_key_list) {
-		laser_state_dict.erase(key);
+		laser_state_dict->erase(key);
 		//printf("layser destroy :%d\n", key);
 	}
 }
 void LaserLayer::update(float dt) {
-	Update(dt, enemy_dict_);
-	Update(dt, friend_dict_);
+	Update(dt, &enemy_dict_);
+	Update(dt, &friend_dict_);
 }
 
 void LaserLayer::DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list) {
