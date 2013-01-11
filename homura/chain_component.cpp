@@ -48,6 +48,7 @@ void ChainComponent::Update(float dt) {
     if(pos_diff.Length() < 0.5)
         return;
 
+    master_pos.y += 50;
     //속도는 어떻게 할까나
     MoveToMessage msg = MoveToMessage::Create(Unit::ToUnitFromMeter(master_pos), 1);
     slave->OnMessage(&msg);

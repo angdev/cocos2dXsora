@@ -37,6 +37,9 @@ void GameTriggerComponent::Update(float dt) {
         //종료
         is_flag_on_ = false;
         //삭제는 보류
+        //삭제 시키자
+        //반복 안 쓰니까
+        obj()->world()->RequestRemoveObject(obj()->world()->FindObject(obj()->id()));
     }
 }
 

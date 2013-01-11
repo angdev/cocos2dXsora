@@ -53,10 +53,10 @@ public:
         GameTrigger *trg = new GameTrigger(this);
         GameAction *act;
         if(with_ally) {
-            ally_header.x = header.x+1;
-            ally_header.y = header.y+1;
-            ally_header.start_x = header.start_x+1;
-            ally_header.start_y = header.start_y+1;
+            ally_header.x = header.x;
+            ally_header.y = header.y+300;
+            ally_header.start_x = header.start_x;
+            ally_header.start_y = header.start_y+300;
             act = MakeCreateObjectsWithChainAction(header, ally_header);
         }
         else {

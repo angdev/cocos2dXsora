@@ -8,6 +8,7 @@
 #include "sora/unit.h"
 
 using namespace sora;
+USING_NS_CC;
 
 EnemyAIComponent::EnemyAIComponent(GameObject *obj) : AIComponent(obj), state_(kEnemyAppearState), elapsed_time_(0) {
 
@@ -26,7 +27,8 @@ void EnemyAIComponent::Update(float dt) {
         obj()->OnMessage(&body_info_msg);
 
         assert(body_info_msg.is_ret && "enemy ai body info error");
-
+        
+            
         b2Vec2 body_vec(body_info.x, body_info.y);
         b2Vec2 velocity_vec = start_position() - body_vec;
         if(static_cast<SinglePhyComponent*>(obj()->phy_comp())->IsArrived()) {
@@ -42,14 +44,26 @@ void EnemyAIComponent::Update(float dt) {
     else if(state_ == kEnemyNormalState) {
         //얘네들은 자기 맘대로 돌아다님
         GameWorld *world = obj()->world();
+        static int seed = 0;
         b2Body *body = obj()->phy_comp()->main_body();
         b2Vec2 body_pos = body->GetPosition();
+        
+        CCSize win_size = CCDirector::sharedDirector()->getWinSize();
+        float x_px = Unit::ToUnitFromMeter(body_pos.x), y_px = Unit::ToUnitFromMeter(body_pos.y);
+        if(x_px < 0 || x_px > win_size.width || y_px < 0 || y_px > win_size.height) {
+            MoveToMessage msg = MoveToMessage::Create(glm::vec2(std::default_random_engine((unsigned int)time(0) + seed++)() % 720, 
+                1000), 1);
+            obj()->OnMessage(&msg);
+            moved_ = true;
+            return;
+        }
+        
         FindNearestEnemyMessage find_msg = FindNearestEnemyMessage::Create(body_pos, true);
         world->OnMessage(&find_msg);
         
+
         if(find_msg.id == -1) {
             if(static_cast<SinglePhyComponent*>(obj()->phy_comp())->IsArrived() || !moved_) {
-                static int seed = 0;
                 MoveToMessage msg = MoveToMessage::Create(glm::vec2(std::default_random_engine((unsigned int)time(0) + seed++)() % 720, 
                     Unit::ToUnitFromMeter(obj()->phy_comp()->main_body()->GetPosition().y)), 1);
                 obj()->OnMessage(&msg);

@@ -33,6 +33,7 @@ public:
 public:
     std::set<int> member_set_;
     int leader_id_;
+    bool new_leader_;
 };
 
 #endif

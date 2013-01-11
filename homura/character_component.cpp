@@ -10,6 +10,7 @@
 #include "bullet_component.h"
 #include "game_info_layer.h"
 #include "aura_layer.h"
+#include "ally_ai_component.h"
 
 #include <random>
 #include "sora/unit.h"
@@ -174,6 +175,7 @@ void CharacterComponent::OnOutOfBoundMessage(OutOfBoundMessage *msg) {
 void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //기본적으로는 파괴한다
     //근데 Destroy 호출하면 요란하게 죽으니까 그냥 조용히 제거한다
+    /*
     obj()->set_enable(false);
     GameWorld *world = obj()->world();
     world->RequestRemoveObject(world->FindObject(obj()->id()));
@@ -183,6 +185,7 @@ void CharacterComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
     //혹시 체인에 연결되어 있으면 상대도 같이 없앤다
     RemoveChainPartnerMessage remove_msg = RemoveChainPartnerMessage::Create(obj()->id());
     world->OnMessage(&remove_msg);
+    */
 }
 
 
@@ -217,6 +220,10 @@ void CharacterComponent::DrawHitPointBar() {
 
 void CharacterComponent::OnFindNearestEnemyMessage(FindNearestEnemyMessage *msg) {
     if(msg->is_enemy == is_enemy() || obj()->Type() == kCompPlayer) {
+        return;
+    }
+
+    if(obj()->ai_comp()->type() == kCompAllyAI && static_cast<AllyAIComponent*>(obj()->ai_comp())->state() == kAllyArrestState) {
         return;
     }
 

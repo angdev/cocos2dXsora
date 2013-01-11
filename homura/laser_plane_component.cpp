@@ -87,6 +87,7 @@ void LaserPlaneComponent::AfterDestroy() {
     //create 함수를 쓰니까 죽음
     //왜?
     emitter->initWithFile("particles/ExplodingRing.plist");
+    emitter->setTotalParticles(30);
     assert(emitter != NULL);
     //아직 안 없어져있으니 괜찮음
     PhyBodyInfo body_info;

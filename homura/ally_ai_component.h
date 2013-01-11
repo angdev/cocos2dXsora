@@ -24,6 +24,7 @@ public:
 
 public:
     virtual bool IsEnemy() { return false; }
+    AllyAIState state() { return state_; }
     virtual void set_state(int state) { state_ = static_cast<AllyAIState>(state); }
 
 private:

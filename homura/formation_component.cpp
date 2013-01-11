@@ -11,7 +11,7 @@
 using namespace sora;
 
 FormationComponent::FormationComponent(GameObject *obj)
-    : LogicComponent(obj), leader_id_(NO_LEADER) {
+    : LogicComponent(obj), leader_id_(NO_LEADER), new_leader_(false) {
 
 }
 
@@ -37,6 +37,11 @@ void FormationComponent::Update(float dt) {
     SR_ASSERT(leader != NULL && "leader error?");
 
     //가까운 적을 찾는다
+    if(!static_cast<SinglePhyComponent*>(leader->phy_comp())->IsArrived() && new_leader_) {
+        return;
+    }
+    new_leader_ = false;
+
     b2Body *leader_body = leader->phy_comp()->main_body();
     b2Vec2 leader_pos = leader_body->GetPosition();
     FindNearestEnemyMessage find_msg = FindNearestEnemyMessage::Create(leader_pos, 
@@ -93,7 +98,7 @@ void FormationComponent::Update(float dt) {
         b2Vec2 member_pos = member_body->GetPosition();
         b2Vec2 pos_diff = leader_pos - member_pos;
         float distance = pos_diff.Length();
-        if(distance > 4.0f) {
+        if(distance > 8.0f) {
             //리더 주변으로 오도록
             MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(pos_diff), 1);
             member_obj->OnMessage(&move_msg);
@@ -118,10 +123,12 @@ void FormationComponent::OnRequestJoinFormationMessage(RequestJoinFormationMessa
     GameObjectPtr ptr = obj()->world()->FindObject(msg->id);
     if(leader_id_ == NO_LEADER) {
         leader_id_ = msg->id;
+
         if(ptr != NULL) {
-            MoveToMessage move_msg = MoveToMessage::Create(glm::vec2(360, 300), 1);
+            MoveToMessage move_msg = MoveToMessage::Create(glm::vec2(360, 200), 1);
             ptr->OnMessage(&move_msg);
         }
+        new_leader_ = true;
     }
 
     if(ptr != NULL) {
