@@ -5,9 +5,15 @@
 #include "message_handleable.h"
 
 struct LaserRenderState {
+	LaserRenderState():
+		obj_id(0), elapsed_time(0), remain_time(9999999) {}
+
     int obj_id;
     glm::vec2 start_point;
     glm::vec2 end_point;
+
+	float elapsed_time;
+	float remain_time;
 };
 
 struct LaserLine {
@@ -22,15 +28,21 @@ struct LaserLine {
     }
     glm::vec2 top;
     glm::vec2 bottom;
+
+	LaserRenderState state;
 };
 
 class LaserLayer : public cocos2d::CCLayer, public MessageHandleable {
+public:
+	typedef std::unordered_map<int, LaserRenderState> LaserStateDict;
 public:
     LaserLayer(GameWorld *world);
     virtual ~LaserLayer();
 
     bool init();
     void draw();
+	void update(float dt);
+
 
 private:
     void OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg);
@@ -38,7 +50,6 @@ private:
     void OnDestroyMessage(DestroyMessage *msg);
     
 private:
-    typedef std::unordered_map<int, LaserRenderState> LaserStateDict;
     LaserStateDict friend_dict_;
     LaserStateDict enemy_dict_;
     LaserRenderState *GetLaserState(int obj_id);
@@ -54,7 +65,9 @@ private:
     void DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list);
     //glm::vec2 GetObjectPosition(const LaserRenderState &state) const;
 
-    
+private:
+	void Update(float dt, LaserStateDict &laser_state_dict);
+  
 };
 
 #endif
