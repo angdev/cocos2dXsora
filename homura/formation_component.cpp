@@ -86,6 +86,9 @@ void FormationComponent::Update(float dt) {
         }
 
         GameObjectPtr member_obj = world->FindObject(member);
+        if(member_obj == NULL) {
+            continue;
+        }
         b2Body *member_body = member_obj->phy_comp()->main_body();
         b2Vec2 member_pos = member_body->GetPosition();
         b2Vec2 pos_diff = leader_pos - member_pos;
