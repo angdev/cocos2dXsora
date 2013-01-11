@@ -14,6 +14,10 @@
 USING_NS_CC;
 using namespace sora;
 
+const float kLaserBeginInterval = 0.3f;
+const float kLaserEndInterval = 0.1f;
+const float kLaserDestroyInterval = 0.1f;
+
 LaserLayer::LaserLayer(GameWorld *world)
 : world_(world),
 friend_sprite_(nullptr),
@@ -29,6 +33,8 @@ bool LaserLayer::init() {
     if(!CCLayer::init()) {
         return false;
     }
+
+	scheduleUpdate();
 
     RegisterMsgFunc(this, &LaserLayer::OnRequestRenderLaserMessage);
     RegisterMsgFunc(this, &LaserLayer::OnStopRenderLaserMessage);
@@ -93,13 +99,31 @@ void LaserLayer::OnRequestRenderLaserMessage(RequestRenderLaserMessage *msg) {
         prev->end_point = msg->end_point;
     }
 }
-void LaserLayer::OnStopRenderLaserMessage(StopRenderLaserMessage *msg) {
-    friend_dict_.erase(msg->id);
-    enemy_dict_.erase(msg->id);
+
+void ProcessStopRenderLaserMessage(StopRenderLaserMessage *msg, LaserLayer::LaserStateDict &dict) {
+	auto found = dict.find(msg->id);
+	if(found != dict.end()) {
+		if(found->second.remain_time > kLaserEndInterval) {
+			found->second.remain_time = kLaserEndInterval;
+		}
+	}
 }
+void LaserLayer::OnStopRenderLaserMessage(StopRenderLaserMessage *msg) {
+	ProcessStopRenderLaserMessage(msg, friend_dict_);
+	ProcessStopRenderLaserMessage(msg, enemy_dict_);
+}
+void ProcessDestroyMessage(DestroyMessage *msg, LaserLayer::LaserStateDict &dict) {
+	auto found = dict.find(msg->obj_id);
+	if(found != dict.end()) {
+		if(found->second.remain_time > kLaserDestroyInterval) {
+			found->second.remain_time = kLaserDestroyInterval;
+		}
+	}
+}
+
 void LaserLayer::OnDestroyMessage(DestroyMessage *msg) {
-    friend_dict_.erase(msg->obj_id);
-    enemy_dict_.erase(msg->obj_id);
+	ProcessDestroyMessage(msg, friend_dict_);
+	ProcessDestroyMessage(msg, enemy_dict_);
 }
 
 void LaserLayer::draw() {
@@ -121,18 +145,42 @@ void LaserLayer::draw() {
     }
 }
 
-/*
-glm::vec2 LaserLayer::GetObjectPosition(const LaserRenderState &state) const {
-    PhyBodyInfo body_info;
-    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
+void LaserLayer::Update(float dt, LaserStateDict &laser_state_dict) {
+	//남은시간이 0이하면 삭제
+	vector<int> dead_key_list;
 
-    GameObjectPtr obj = world_->FindObject(state.obj_id);
-    obj->OnMessage(&body_info_msg);
-    SR_ASSERT(body_info_msg.is_ret && "laser layer body info error");
-    glm::vec2 body_pos(Unit::ToUnitFromMeter(body_info.x), Unit::ToUnitFromMeter(body_info.y));
-    return body_pos;
+	/*
+	for(auto it : laser_state_dict) {
+		LaserRenderState &state = it.second;
+		state.remain_time -= dt;
+		state.elapsed_time += dt;
+
+		if(state.remain_time <= 0) {
+			dead_key_list.push_back(it.first);
+		}
+	}
+	*/
+	auto it = laser_state_dict.begin();
+	auto end = laser_state_dict.end();
+	for( ; it != end ; ++it) {
+		LaserRenderState &state = it->second;
+		state.remain_time -= dt;
+		state.elapsed_time += dt;
+
+		if(state.remain_time <= 0) {
+			dead_key_list.push_back(it->first);
+		}
+	}
+
+	for(int key : dead_key_list) {
+		laser_state_dict.erase(key);
+		//printf("layser destroy :%d\n", key);
+	}
 }
-*/
+void LaserLayer::update(float dt) {
+	Update(dt, enemy_dict_);
+	Update(dt, friend_dict_);
+}
 
 void LaserLayer::DrawLaserList(cocos2d::CCSprite *sprite, const std::vector<LaserLine> &line_list) {
     //라인 정보를 삼각형으로 변환
