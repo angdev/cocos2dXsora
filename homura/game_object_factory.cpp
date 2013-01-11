@@ -64,8 +64,13 @@ GameObject *GameObjectFactory::Create( const PlayerObjectHeader &header, cocos2d
 GameObject *GameObjectFactory::Create( const BulletObjectHeader &header, cocos2d::CCNode *parent ) {
     //충돌 박스를 스프라이트로부터 끌어낸다. (함수 만들자)
     //스프라이트는 헤더에 있는 것과 관계없이 그냥 생성
-    CCSprite *sprite = CCSprite::create("circle_bullet.png");
-    sprite->setScale(0.1f);
+    
+    
+    std::string sprite_name = "bullet";
+    sprite_name += (char)('0' + std::default_random_engine((unsigned int)time(0))() % 3);
+    sprite_name += ".png";
+    CCSprite *sprite = CCSprite::create(sprite_name.c_str());
+    sprite->setScale(0.5f);
     sprite->setPosition(ccp(header.x, header.y));
     CCRect sprite_box = sprite->boundingBox();
 

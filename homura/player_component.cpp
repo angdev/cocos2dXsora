@@ -100,6 +100,7 @@ void PlayerComponent::InitMsgHandler() {
 
 void PlayerComponent::AfterDestroy() {
     obj()->world()->aura_layer->StopRenderAura(obj()->id());
+    obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
 }
 
 //반사 로직
@@ -253,11 +254,14 @@ void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
         player_velocity.Normalize();
         b2Vec2 force_vec = pos_diff + player_velocity;
         force_vec.Normalize();
-        force_vec *= 2000;
+        force_vec *= 20000;
         counter_body->ApplyForceToCenter(force_vec);
 
         //플레이어도 밀려야 함
-        player_body->ApplyForce(-force_vec, player_body->GetWorldCenter());
+        player_body->SetLinearVelocity(b2Vec2_zero);
+        b2Vec2 force = force_vec;
+        force *= (-10);
+        player_body->ApplyForceToCenter(force);
 
 
         //미는거 다시 제대로 구현하자
