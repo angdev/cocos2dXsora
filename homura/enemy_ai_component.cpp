@@ -29,13 +29,12 @@ void EnemyAIComponent::Update(float dt) {
 
         b2Vec2 body_vec(body_info.x, body_info.y);
         b2Vec2 velocity_vec = start_position() - body_vec;
-        if(velocity_vec.Length() < Unit::ToMeterFromUnit(30)) {
+        if(static_cast<SinglePhyComponent*>(obj()->phy_comp())->IsArrived()) {
             CCLOG("state changed");
             state_ = kEnemyNormalState;
         }
         
         else {
-
             MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(velocity_vec), 1);
             obj()->OnMessage(&move_msg);
         }

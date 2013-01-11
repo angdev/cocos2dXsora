@@ -65,4 +65,6 @@ private:
     //Touchable Sprite를 만들어봐야겠다
     cocos2d::CCSprite *lethal_btn;
     cocos2d::CCSprite *lethal_btn2;
+
+    cocos2d::CCPoint touch_start_;
 };

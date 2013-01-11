@@ -177,10 +177,13 @@ void GameLayer::update(float dt) {
         //아직 아무 것도 없음
         
         //위치를 적절히 가져와본다
+        /*
         b2Vec2 player_pos = player_->phy_comp()->main_body()->GetPosition();
         float length = glm::length(glm::vec2(PLAYER_START_POINT_X, PLAYER_START_POINT_Y) - Unit::ToUnitFromMeter(player_pos));
-        
-        if(length < 5) {
+        */
+
+        SR_ASSERT(player_ != NULL);
+        if(static_cast<SinglePhyComponent*>(player_->phy_comp())->IsArrived()) {
             state_ = kGameProgressState;
             stage_->Start();
         }
@@ -244,6 +247,11 @@ void GameLayer::ReadyPlayer(GameObject *player) {
 }
 
 void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
+
+    if(state_ == kGameReadyState) {
+        return;
+    }
+
     //여기서 버튼 클릭 여부를 확인하긴 함
     CCRect lethal_btn_box = lethal_btn->boundingBox();
     CCRect lethal_btn2_box = lethal_btn2->boundingBox();
@@ -265,12 +273,40 @@ void GameLayer::ccTouchesEnded(CCSet *touches, CCEvent *event) {
         }
 
     }
+
+    if(player_ == NULL) {
+        return;
+    }
+    CCPoint end_point = touch->getLocation();
+    glm::vec2 move_delta(end_point.x - touch_start_.x, end_point.y - touch_start_.y);
+    MoveByMessage msg = MoveByMessage::Create(move_delta, 2);
+    player_->OnMessage(&msg);
 }
 
 void GameLayer::ccTouchesBegan(CCSet *touches, CCEvent *event) {
 
+    if(state_ == kGameReadyState) {
+        return;
+    }
+
+    CCSetIterator it;
+    CCTouch *touch;
+    for( it = touches->begin(); it != touches->end(); it++) {
+        touch = static_cast<CCTouch*>(*it);
+        if(!touch) {
+            break;
+        }
+        CCPoint location = touch->getLocation();
+        touch_start_ = location;
+        break;
+    }
 }
 void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
+
+    if(state_ == kGameReadyState) {
+        return;
+    }
+
     //객체 이동 테스트
     CCSetIterator it;
     CCTouch *touch;
@@ -282,8 +318,9 @@ void GameLayer::ccTouchesMoved(CCSet *touches, CCEvent *event) {
         CCPoint location = touch->getLocation();
         CCPoint prev_location = touch->getPreviousLocation();
         //CCLog("%f %f", location.x - prev_location.x, location.y - prev_location.y);
-        if(state_ != kGameReadyState)
+        if(state_ != kGameReadyState) {
             MoveBodyByDelta(location.x - prev_location.x, location.y - prev_location.y);
+        }
     }
 }
 void GameLayer::ccTouchesCancelled(CCSet *touches, CCEvent *event) {
@@ -296,7 +333,7 @@ void GameLayer::MoveBodyByDelta(const float &dx, const float &dy) {
     //메시지 보내기
     //이건 걍 set으로 해야 제대로 될듯?
     glm::vec2 move_vec(dx, dy);
-    MoveByMessage move_msg = MoveByMessage::Create(move_vec, 1.0f/60);
+    MoveByMessage move_msg = MoveByMessage::Create(move_vec, 1.0f/20);
     player_->OnMessage(&move_msg);
     b2Body *body = player_->phy_comp()->main_body();
     body->SetTransform(body->GetPosition(), M_PI_2);

@@ -46,6 +46,8 @@ public:
     //2개 묶어서 SetPhyBodyInfo로 해도 될듯
     void OnMoveToMessage(MoveToMessage *msg);
     void OnMoveByMessage(MoveByMessage *msg);
+    //도착점 주면 적절히 최대속도로 가다가 점점 느려지는 움직임
+    void OnArrivingMoveMessage(ArrivingMoveMessage *msg);
     void OnSetAngleMessage(SetAngleMessage *msg);
     void OnRequestPhyBodyInfoMessage(RequestPhyBodyInfoMessage *msg);
     void OnSetPhyBodyInfoMessage(SetPhyBodyInfoMessage *msg);
@@ -55,12 +57,19 @@ public:
     virtual CompType type() const { return kCompSinglePhy; }
     virtual b2Body *main_body() { return body_; }
     virtual void set_main_body(b2Body *body);
+
+    bool IsArrived() { return is_arrived_; }
+
 private:
     b2Body *body_;
 
+    //이동 후 도착하였는지
+    bool is_moving_;
+    bool is_arrived_;
     b2Vec2 prev_pos_;
     //이동 목표 지점
     b2Vec2 end_point_;
+    float max_speed_;
 };
 
 #endif

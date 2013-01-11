@@ -98,6 +98,12 @@ public:
     float duration;
 };
 
+GAME_MESSAGE_BEGIN(ArrivingMoveMessage)
+    static ArrivingMoveMessage Create(const glm::vec2 &vec);
+    
+    glm::vec2 vec;
+GAME_MESSAGE_END
+
 
 //이거 쓰지 말고 아래거 쓰기
 //지울 예정

@@ -19,10 +19,11 @@ SinglePhyComponent *PhyComponent::SinglePhy(GameObject *obj, b2Body *body) {
 
 ////////////////////////////////////////
 SinglePhyComponent::SinglePhyComponent(GameObject *obj, b2Body *body)
-: PhyComponent(obj),
+: PhyComponent(obj), max_speed_(20.0f), is_arrived_(false), is_moving_(false),
 body_(body) {
     body->SetUserData(reinterpret_cast<void*>(obj));
     prev_pos_ = body->GetPosition();
+    end_point_ = prev_pos_;
 }
 
 SinglePhyComponent::~SinglePhyComponent() {
@@ -34,12 +35,33 @@ SinglePhyComponent::~SinglePhyComponent() {
 }
 
 void SinglePhyComponent::Update(float dt) {
+
     b2Vec2 body_pos = body_->GetPosition();
-    b2Vec2 pos_diff = end_point_ - body_pos;
-    if(pos_diff.Length() < 0.1f) {
-        //목표지 도착
-        body_->SetLinearVelocity(b2Vec2_zero);
+
+    if(is_moving_) {
+        b2Vec2 pos_diff = end_point_ - body_pos;
+        float distance = pos_diff.Length();
+        pos_diff.Normalize();
+    
+        if(distance < 1.0f) {
+            //목표지 도착
+            body_->SetLinearVelocity(b2Vec2_zero);
+            is_arrived_ = true;
+            if(obj()->Type() == kCompPlayer) {
+                //방향 돌림
+                body_->SetTransform(body_pos, M_PI_2);
+            }
+        }
+        else if(distance < 10.0f) {
+            pos_diff *= (distance);
+            body_->SetLinearVelocity(pos_diff);
+        }
+        else {
+            pos_diff *= max_speed_;
+            body_->SetLinearVelocity(pos_diff);
+        }
     }
+    //CCLOG("%f %f", pos_diff.x, pos_diff.y);
 
     //경계 체크
     //이 부분 고쳐야 함. 이전 위치 정보를 어떻게 가져올 것인가?
@@ -67,6 +89,8 @@ void SinglePhyComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &SinglePhyComponent::OnSetPhyBodyInfoMessage);
 }
 
+//메시지에 포함된 시간은 쓰지 말자
+//지울 예정!
 void SinglePhyComponent::OnMoveToMessage(MoveToMessage *msg) {
     //msg에 들어오는 값은 px임
     b2Vec2 body_pos = body_->GetPosition();
@@ -75,12 +99,14 @@ void SinglePhyComponent::OnMoveToMessage(MoveToMessage *msg) {
     end_point_ = end_pos;
 
     b2Vec2 velocity_vec = end_pos - body_pos;
-    velocity_vec *= (1.0f / msg->duration);
+    //velocity_vec *= (1.0f / msg->duration);
     
-    body_->SetLinearVelocity(velocity_vec);
+    //body_->SetLinearVelocity(velocity_vec);
     body_->SetTransform(body_->GetPosition(), std::atan2(velocity_vec.y, velocity_vec.x));
     //body_->SetTransform(vec2, body_->GetAngle());
     //body_->SetAwake(true);
+    is_arrived_ = false;
+    is_moving_ = true;
 
 }
 
@@ -93,11 +119,12 @@ void SinglePhyComponent::OnMoveByMessage(MoveByMessage *msg) {
 
     b2Vec2 velocity_vec = end_pos - body_pos;
     
-    velocity_vec *= (1.0f / msg->duration);
+    //velocity_vec *= (1.0f / msg->duration);
 
-    body_->SetLinearVelocity(velocity_vec);
+    //body_->SetLinearVelocity(velocity_vec);
     body_->SetTransform(body_->GetPosition(), std::atan2(velocity_vec.y, velocity_vec.x));
-
+    is_arrived_ = false;
+    is_moving_ = true;
 }
 
 
@@ -132,4 +159,21 @@ void SinglePhyComponent::set_main_body(b2Body *body) {
 
     body_ = body;
     body_->SetUserData(obj());
+}
+
+//안 쓰는 코드 잠시 보관
+void SinglePhyComponent::OnArrivingMoveMessage(ArrivingMoveMessage *msg) {
+    b2Vec2 current_pos = body_->GetPosition();
+    b2Vec2 target_pos = Unit::ToMeterFromUnit(msg->vec);
+
+    b2Vec2 desired_vec = target_pos - current_pos;
+    float distance = desired_vec.Length();
+    desired_vec.Normalize();
+
+    if(distance < 5.0f) {
+        
+    }
+    else {
+        desired_vec *= max_speed_;
+    }
 }

@@ -58,7 +58,7 @@ void FormationComponent::Update(float dt) {
 
     //리더와의 거리차를 계산해보자 (x축 상의)
     float x_diff = glm::abs(enemy_pos.x - leader_pos.x);
-    if(x_diff > 0.3f) {
+    if(x_diff > 1.0f) {
         glm::vec2 vec(Unit::ToUnitFromMeter(enemy_pos.x), Unit::ToUnitFromMeter(leader_pos.y));
         MoveToMessage move_msg = MoveToMessage::Create(vec, 0.5f);
         leader->OnMessage(&move_msg);

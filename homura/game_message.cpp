@@ -2,6 +2,12 @@
 #include "stdafx.h"
 #include "game_message.h"
 
+ArrivingMoveMessage ArrivingMoveMessage::Create(const glm::vec2 &vec) {
+    ArrivingMoveMessage msg;
+    msg.vec = vec;
+    return msg;
+}
+
 // 메세지 구현체가 생기면 여기에 하나씩 추가하기
 StopAttackMessage StopAttackMessage::Create() {
     StopAttackMessage msg;
@@ -194,3 +200,5 @@ bool DelayedGameMessage::operator<(const DelayedGameMessage &o) const {
 void DelayedGameMessage::Update(float dt) {
     remain_time_ -= dt;
 }
+
+
