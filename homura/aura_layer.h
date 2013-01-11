@@ -23,6 +23,7 @@ public:
     void OnDestroyMessage(DestroyMessage *msg);
 
 public:
+    void RequestRenderPlayerAura(int id, const glm::vec2 &pos);
     void RequestRenderAura(int id, const glm::vec2 &pos);
     void StopRenderAura(int id);
 

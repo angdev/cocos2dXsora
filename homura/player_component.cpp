@@ -80,6 +80,10 @@ void PlayerComponent::Update(float dt) {
 
     //조금씩 체력 상승
     set_hit_point(hit_point() + 0.2);
+
+    //파티클 그리기 요청
+    b2Vec2 pos = obj()->phy_comp()->main_body()->GetPosition();
+    obj()->world()->aura_layer->RequestRenderPlayerAura(obj()->id(), Unit::ToUnitFromMeter(pos));
 }
 
 void PlayerComponent::InitMsgHandler() {

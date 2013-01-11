@@ -48,13 +48,26 @@ void AuraLayer::RequestRenderAura(int id, const glm::vec2& pos) {
 
     AuraRenderState state;
 
-    CCParticleSystem *emitter = new CCParticleSystemQuad();
+    CCParticleSystem *emitter = CCParticleGalaxy::create();
+    emitter->retain();
+    this->addChild(emitter);
+    emitter->setLife(0.5);
+    emitter->setTotalParticles(50);
+    emitter->setStartColor(ccc4f(1.0f, 1.0f, 0.5f, 1.0f));
+    emitter->setEndColorVar(ccc4f(0, 0, 0, 1));
+    emitter->setEndColor(ccc4f(0.5, 1, 0.5 ,1));
+    emitter->setTexture( CCTextureCache::sharedTextureCache()->addImage("particles/fire.png") );
+    emitter->setPosition(pos.x, pos.y);
+
+    /*
     emitter->initWithFile("particles/BoilingFoam.plist");
     assert(emitter != NULL);
     
     emitter->setPosition(pos.x, pos.y);
     this->addChild(emitter);
     emitter->autorelease();
+    */
+
 
     state.particle = emitter;
 
@@ -78,4 +91,29 @@ void AuraLayer::OnDestroyMessage(DestroyMessage *msg) {
         return;
     }
     StopRenderAura(msg->obj_id);
+}
+
+void AuraLayer::RequestRenderPlayerAura(int id, const glm::vec2 &pos) {
+    auto found = aura_dict_.find(id);
+    if(found != aura_dict_.end()) {
+        found->second.particle->setPosition(pos.x, pos.y);
+        return;
+    }
+
+    AuraRenderState state;
+
+    CCParticleSystem *emitter = CCParticleGalaxy::create();
+    emitter->retain();
+    this->addChild(emitter);
+    emitter->setLife(2.5);
+    emitter->setTotalParticles(200);
+    emitter->setStartColor(ccc4f(1.0f, 1.0f, 0.5f, 1.0f));
+    emitter->setEndColorVar(ccc4f(0.5f, 1.0f, 0.5f, 1.0f));
+    emitter->setEndColor(ccc4f(0, 1, 0 ,1));
+    emitter->setTexture( CCTextureCache::sharedTextureCache()->addImage("particles/fire.png") );
+    emitter->setPosition(pos.x, pos.y);
+
+    state.particle = emitter;
+
+    aura_dict_.insert(std::make_pair(id, state));
 }
