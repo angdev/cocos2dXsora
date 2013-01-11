@@ -49,7 +49,7 @@ bool GameStage::Init() {
     FormationHeader formation_header;
     GameObject *formation_obj = factory_->Create(formation_header);
     world_->AddObject(formation_obj);
-
+    
     //Test
     
     //EventGroup #0
@@ -70,7 +70,7 @@ bool GameStage::Init() {
     NextTriggers *next_trigger = new NextTriggers();
     next_trigger->push_back(1);
     world_->AddObject(factory_->Create(trg_header, 0, next_trigger, GameTriggerHandlerPtr(trg_hnd)));
-
+    /*
     //Temp
     //Chain Test
     GameTriggerHandler *trg_hnd0 = new GameTriggerHandler();
@@ -84,7 +84,7 @@ bool GameStage::Init() {
     combat_header.is_fall = false;
     combat_enemy_header.x = 400;
     combat_enemy_header.y = 500;
-    */
+    
     DeadstarPlaneObjectHeader deadstar_header;
     deadstar_header.x = 400;
     deadstar_header.y = 1300;
@@ -152,9 +152,9 @@ bool GameStage::Init() {
     GameTriggerHandler *trg_hnd3 = new GameTriggerHandler();
     trg_hnd3->AddTrigger(trg4);
     NextTriggers *next_trigger_4 = new NextTriggers();
-
+    
     world_->AddObject(factory_->Create(e_header, 4, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
-
+    */
     return true;
 }
 

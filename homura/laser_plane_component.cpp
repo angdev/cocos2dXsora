@@ -28,13 +28,16 @@ void LaserPlaneComponent::Update(float dt) {
         return;
     }
 
+
     //일단 지속적으로 공격하게 만들어둔다
     if(now_attacking_) {
         attack_timer_ += dt;
         if(attack_timer_ > attack_keep_time_) {
             StopAttack();
         }
-        Attack();
+        else {
+            Attack();
+        }
     }
     else {
         attack_timer_ += dt;
@@ -48,10 +51,11 @@ void LaserPlaneComponent::Update(float dt) {
 void LaserPlaneComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
     RegisterMsgFunc(this, &LaserPlaneComponent::OnAttackMessage);
+    RegisterMsgFunc(this, &LaserPlaneComponent::OnMoveByMessage);
+    RegisterMsgFunc(this, &LaserPlaneComponent::OnMoveToMessage);
 }
 
 void LaserPlaneComponent::Attack() {
-
     now_attacking_ = true;
 
     //보이지 않는 레이저를 쏩니다?
@@ -74,15 +78,6 @@ void LaserPlaneComponent::Attack() {
     ray_cast_callback_->Reset();
     obj()->world()->b2_world()->RayCast(ray_cast_callback_.get(), obj_pos_vec, dir_vec);
     ray_cast_callback_->AfterCallback();
-
-    /*
-    //소리 재생
-    char sound_rand = '0' + std::default_random_engine((unsigned int)time(0))() % 2;
-    std::string file_path = "sound/laser";
-    file_path += sound_rand;
-    file_path += ".mp3";
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(file_path.c_str());
-    */
 
 }
 
@@ -109,6 +104,7 @@ void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
     if(!now_cool_down_ && obj()->IsEnabled()) {
         Attack();
+        
     }
 }
 
@@ -120,6 +116,16 @@ void LaserPlaneComponent::StopAttack() {
     //그리기 끝
     StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
     obj()->world()->OnMessage(&stop_msg);
+
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->stopEffect(laser_sound_id_);
+}
+
+void LaserPlaneComponent::OnMoveToMessage(MoveToMessage *msg) {
+    StopAttack();
+}
+
+void LaserPlaneComponent::OnMoveByMessage(MoveByMessage *msg) {
+    StopAttack();
 }
 
 

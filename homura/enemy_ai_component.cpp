@@ -64,8 +64,10 @@ void EnemyAIComponent::Update(float dt) {
             obj()->OnMessage(&move_msg);
         }
         else {
+            SetAngleMessage ang_msg = SetAngleMessage::Create(-M_PI_2);
+            obj()->OnMessage(&ang_msg);
             MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, -0.001), 1.0f/60);
-            obj()->OnMessage(&move_msg);
+            //obj()->OnMessage(&move_msg);
             AttackMessage msg = AttackMessage::Create(find_msg.id);
             obj()->OnMessage(&msg);
         }

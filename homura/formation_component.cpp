@@ -45,6 +45,9 @@ void FormationComponent::Update(float dt) {
 
     //못 찾으면 걍 가만히 있어본다
     if(find_msg.id == -1) {
+        //걍 공격
+        AttackMessage msg = AttackMessage::Create(0);
+        leader->OnMessage(&msg);
         return;
     }
 
@@ -63,8 +66,13 @@ void FormationComponent::Update(float dt) {
     }
     else {
         //그냥 각도 돌려버린다
+        /*
         MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, 1), 1);
         leader->OnMessage(&move_msg);
+        */
+
+        SetAngleMessage ang_msg = SetAngleMessage::Create(M_PI_2);
+        leader->OnMessage(&ang_msg);
         AttackMessage msg = AttackMessage::Create(0);
         leader->OnMessage(&msg);
         is_leader_attacking = true;
@@ -88,8 +96,12 @@ void FormationComponent::Update(float dt) {
             member_obj->OnMessage(&move_msg);
         }
         else if(is_leader_attacking) {
+            /*
             MoveByMessage move_msg = MoveByMessage::Create(glm::vec2(0, 0.0001), 1.0f/60);
             member_obj->OnMessage(&move_msg);
+            */
+            SetAngleMessage ang_msg = SetAngleMessage::Create(M_PI_2);
+            member_obj->OnMessage(&ang_msg);
             AttackMessage msg = AttackMessage::Create(0);
             member_obj->OnMessage(&msg);
         }
