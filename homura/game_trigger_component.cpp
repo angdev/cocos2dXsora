@@ -23,6 +23,10 @@ void GameTriggerComponent::Update(float dt) {
     if(!is_flag_on_)
         return;
 
+    if(!obj()->IsEnabled()) {
+        return;
+    }
+
     elapsed_time_ += dt;
     if(!game_trigger_handler_->all_executed()) {
         game_trigger_handler_->Run(elapsed_time_);
@@ -39,6 +43,7 @@ void GameTriggerComponent::Update(float dt) {
         //삭제는 보류
         //삭제 시키자
         //반복 안 쓰니까
+        obj()->Disable();
         obj()->world()->RequestRemoveObject(obj()->world()->FindObject(obj()->id()));
     }
 }

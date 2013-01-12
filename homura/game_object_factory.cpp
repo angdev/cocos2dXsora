@@ -235,7 +235,7 @@ GameObject * GameObjectFactory::Create(const AllyPlaneObjectHeader &header, coco
 
     logic->set_max_hit_point(100);
     //maxHP 받는 부분 넣어야하나. 비율은 적절히 랜덤으로 조정하면 될 것 같은데
-    logic->set_hit_point(header.is_fall? 30 : 100);
+    logic->set_hit_point(/*header.is_fall? 30 : */100);
 
     //AI!
     AIComponent *ai = new AllyAIComponent(obj);
