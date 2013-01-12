@@ -291,6 +291,7 @@ bool GameStage::Init() {
     MakeObjectHeader(e0, 960, 1066, 600, 1066);
     world_->AddObject(MakeCreateObjectTriggerObject(e0, 0.5, current_id++));
 
+    /*
     GameTrigger *trg4 = new GameTrigger(this);
     GameAction *act4 = new VictoryAction();
     trg4->set_action(act4);
@@ -300,7 +301,7 @@ bool GameStage::Init() {
     NextTriggers *next_trigger_4 = new NextTriggers();
 
     world_->AddObject(factory_->Create(t0, current_id, next_trigger_4, GameTriggerHandlerPtr(trg_hnd3)));
-
+    */
 
     /*
     //ally laser test

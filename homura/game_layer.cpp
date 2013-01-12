@@ -227,7 +227,7 @@ void GameLayer::update(float dt) {
     }
 
     else if(state_ == kGameOverState) {
-
+        
     }
 
     if(player_ != NULL) {

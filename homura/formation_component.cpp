@@ -151,6 +151,7 @@ void FormationComponent::OnDestroyMessage(DestroyMessage *msg) {
             }
             else {
                 leader_id_ = NO_LEADER;
+                new_leader_ = true;
             }
         }
     }
