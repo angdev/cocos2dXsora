@@ -285,14 +285,10 @@ void PlayerComponent::OnIsEnemyMessage( IsEnemyMessage *msg ) {
 
 void PlayerComponent::UseTokamakField() {
 
-#ifdef _REFACTORING
     if(tokamak_timer_->IsAvailable()) {
         set_unbeatable(true);
         tokamak_timer_->Action();
     }
-#else
-
-#endif
 }
 
 void PlayerComponent::EndTokamakField() {
