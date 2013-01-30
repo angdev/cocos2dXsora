@@ -6,20 +6,34 @@
 #include "game_world.h"
 #include "phy_component.h"
 
+#include "action_timer.h"
+
 #include "sora/unit.h"
 
 USING_NS_CC;
 using namespace sora;
 
 LaserPlaneComponent::LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer)
-    : CharacterComponent(obj, layer), attack_cool_down_(2.0f), attack_keep_time_(8.0f), attack_timer_(0), now_attacking_(false), now_cool_down_(true),
-laser_damage_(50.0f) {
+    : 
+    CharacterComponent(obj, layer),
+    laser_damage_(50.0f) {
+        attack_timer_.reset(new ActionTimer(2.0f, 8.0f));
         ray_cast_callback_ = std::move(std::unique_ptr<RayCastCallback>(new RayCastCallback(this)));
 }
 
 LaserPlaneComponent::~LaserPlaneComponent() {
 
 };
+
+void LaserPlaneComponent::UpdateAttackLogic(float dt) {
+    attack_timer_->Update(dt);
+    if(attack_timer_->IsInactive()) {
+        StopAttack();
+    }
+    else if(attack_timer_->IsActive()) {
+        Attack();
+    }
+}
 
 void LaserPlaneComponent::Update(float dt) {
     CharacterComponent::Update(dt);
@@ -28,24 +42,7 @@ void LaserPlaneComponent::Update(float dt) {
         return;
     }
 
-
-    //일단 지속적으로 공격하게 만들어둔다
-    if(now_attacking_) {
-        attack_timer_ += dt;
-        if(attack_timer_ > attack_keep_time_) {
-            StopAttack();
-        }
-        else {
-            Attack();
-        }
-    }
-    else {
-        attack_timer_ += dt;
-        if(attack_timer_ > attack_cool_down_) {
-            now_cool_down_ = false;
-        }
-    }
-
+    UpdateAttackLogic(dt);
 }
 
 void LaserPlaneComponent::InitMsgHandler() {
@@ -55,11 +52,7 @@ void LaserPlaneComponent::InitMsgHandler() {
     RegisterMsgFunc(this, &LaserPlaneComponent::OnMoveToMessage);
 }
 
-void LaserPlaneComponent::Attack() {
-    now_attacking_ = true;
-
-    //보이지 않는 레이저를 쏩니다?
-    
+void LaserPlaneComponent::Attack() {   
     //body를 얻어와서
     PhyBodyInfo body_info;
     RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
@@ -78,7 +71,6 @@ void LaserPlaneComponent::Attack() {
     ray_cast_callback_->Reset();
     obj()->world()->b2_world()->RayCast(ray_cast_callback_.get(), obj_pos_vec, dir_vec);
     ray_cast_callback_->AfterCallback();
-
 }
 
 void LaserPlaneComponent::AfterDestroy() {
@@ -103,7 +95,7 @@ void LaserPlaneComponent::AfterDestroy() {
 
 void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
     //TODO
-    if(!now_cool_down_ && obj()->IsEnabled() && !now_attacking_) {
+    if(obj()->IsEnabled() && attack_timer_->IsAvailable()) {
         //소리 재생
         
         char sound_rand = '0' + std::default_random_engine((unsigned int)time(0))() % 2;
@@ -112,15 +104,12 @@ void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
         file_path += ".mp3";
         laser_sound_id_ = CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(file_path.c_str());
         
-        Attack();
+        attack_timer_->Action();
     }
 }
 
 void LaserPlaneComponent::StopAttack() {
-    now_attacking_ = false;
-    now_cool_down_ = true;
-    attack_timer_ = 0;
-
+    attack_timer_->SetInactive();
     //그리기 끝
     StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
     obj()->world()->OnMessage(&stop_msg);

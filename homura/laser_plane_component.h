@@ -4,6 +4,9 @@
 
 #include "character_component.h"
 
+class ActionTimer;
+typedef std::unique_ptr<ActionTimer> ActionTimerPtr;
+
 //얘는 그냥 기체가 바라보는 방향으로 레이저 쏘는 놈
 class LaserPlaneComponent : public CharacterComponent {
 public:
@@ -20,7 +23,7 @@ public:
     void OnMoveToMessage(MoveToMessage *msg);
     void OnMoveByMessage(MoveByMessage *msg);
 
-
+    void UpdateAttackLogic(float dt);
     void Attack();
     void StopAttack();
 
@@ -50,11 +53,7 @@ private:
     void AfterDestroy();
 
 private:
-    const float attack_keep_time_;
-    const float attack_cool_down_;
-    float attack_timer_;
-    bool now_cool_down_;
-    bool now_attacking_;
+    ActionTimerPtr attack_timer_;
     int laser_sound_id_;
     
     //per sec
