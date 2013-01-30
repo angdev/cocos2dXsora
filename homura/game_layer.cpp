@@ -231,7 +231,7 @@ void GameLayer::update(float dt) {
     }
 
     if(player_ != NULL) {
-        lethal_btn->setVisible(static_cast<PlayerComponent*>(player_->logic_comp())->can_use_tokamak());
+        lethal_btn->setVisible(static_cast<PlayerComponent*>(player_->logic_comp())->IsAvailableTokamak());
     }
 
 }

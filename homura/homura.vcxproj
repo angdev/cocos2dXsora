@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="action_timer.cpp" />
     <ClCompile Include="ai_component.cpp" />
     <ClCompile Include="ally_ai_component.cpp" />
     <ClCompile Include="aura_layer.cpp" />
@@ -137,6 +138,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="action_timer.h" />
     <ClInclude Include="ai_component.h" />
     <ClInclude Include="ally_ai_component.h" />
     <ClInclude Include="app_macros.h" />

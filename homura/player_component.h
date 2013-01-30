@@ -4,6 +4,8 @@
 
 #include "character_component.h"
 
+class ActionTimer;
+typedef std::unique_ptr<ActionTimer> ActionTimerPtr;
 
 class PlayerComponent : public CharacterComponent {
 public:
@@ -31,14 +33,21 @@ public:
     virtual bool is_enemy() { return false; }
 
 public:
+
     //필살기! 토카막 필드
     void UseTokamakField();
     void EndTokamakField();
-    bool can_use_tokamak() { return can_use_tokamak_; }
+
+    bool IsAvailableTokamak();
+    bool IsAvailablePowerShield();
 
     //전부 쉴드 주는 필살기
     void UsePowerShield();
     void EndPowerShield();
+
+    void TokamakFieldUpdate(float dt);
+    void PowerShieldUpdate(float dt);
+    void ReflectShieldUpdate(float dt);
 
 private:
     void AfterDestroy();
@@ -59,21 +68,9 @@ private:
 
     
 private:
-    //세부 로직을 아직은 분리하지 않는다.
-    //반사 타이머
-    float reflect_timer_;
-    bool reflecting_;
-
-    //토카막 타이머
-    //타이머 클래스 만들기
-    float tokamak_timer_;
-    bool using_tokamak_;
-    bool can_use_tokamak_;
-
-    //파워 쉴드 타이머
-    float power_shield_timer_;
-    bool using_power_shield_;
-    bool can_use_power_shield_;
+    ActionTimerPtr tokamak_timer_;
+    ActionTimerPtr power_shield_timer_;
+    ActionTimerPtr reflect_timer_;
 };
 
 #endif

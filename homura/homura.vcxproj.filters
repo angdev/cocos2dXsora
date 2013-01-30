@@ -139,6 +139,7 @@
     <ClCompile Include="aura_layer.cpp">
       <Filter>game_ui</Filter>
     </ClCompile>
+    <ClCompile Include="action_timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app_macros.h">
@@ -291,6 +292,7 @@
     <ClInclude Include="aura_layer.h">
       <Filter>game_ui</Filter>
     </ClInclude>
+    <ClInclude Include="action_timer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="cbes">
