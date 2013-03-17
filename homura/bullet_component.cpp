@@ -27,14 +27,6 @@ void BulletComponent::InitMsgHandler() {
 void BulletComponent::Update(float dt) {
     //TODO
     //일단 방향 정해진대로 날아가도록만 하였다
-    /*
-    PhyBodyInfo body_info;
-    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
-    obj()->OnMessage(&body_info_msg);
-
-    if(!body_info_msg.is_ret)
-        return;
-    */
 
     float angle = obj()->phy_comp()->main_body()->GetAngle();
     b2Vec2 velocity_vec(glm::cos(angle), glm::sin(angle));
@@ -42,20 +34,6 @@ void BulletComponent::Update(float dt) {
     MoveByMessage move_msg = MoveByMessage::Create(Unit::ToUnitFromMeter(velocity_vec), 1);
     obj()->OnMessage(&move_msg);
 }
-
-/*
-void BulletComponent::OnBulletDamageObjectMessage(BulletDamageObjectMessage *msg) {
-    
-    CollideBulletMessage apply_msg = CollideBulletMessage::Create(obj(), damage_, from_enemy_);
-    msg->obj->OnMessage(&apply_msg);
-
-    //리턴값. 맞았는가에 대한 체크
-    if(apply_msg.applied) {
-        Destroy();
-    }
-
-}
-*/
 
 void BulletComponent::Destroy()
 {

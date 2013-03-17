@@ -28,10 +28,8 @@ CombatPlaneComponent::~CombatPlaneComponent() {
 
 }
 
-void CombatPlaneComponent::Update(float dt) {
+void CombatPlaneComponent::DerivedUpdate(float dt) {
     //TODO
-    CharacterComponent::Update(dt);
-
     if(!obj()->IsEnabled()) {
         return;
     }
@@ -50,7 +48,6 @@ void CombatPlaneComponent::Update(float dt) {
     }
 
     //일단 편대로 움직임 제어를 넘긴다.
-    //AIMove(dt);
 }
 
 void CombatPlaneComponent::InitMsgHandler() {
@@ -155,21 +152,6 @@ void CombatPlaneComponent::AfterDestroy() {
     layer()->addChild(emitter, 10);
     emitter->autorelease();
     
-}
-
-void CombatPlaneComponent::AIMove( float dt )
-{
-    /*
-    static unsigned int temp_rnd_factor = 0;
-    std::default_random_engine rand_engine((unsigned int)time(0) + temp_rnd_factor++);
-    int dir_x = rand_engine() % 2 == 0? -1 : 1;
-    dir_x *= rand_engine() % 500;
-    rand_engine.seed((unsigned int)time(0) + temp_rnd_factor++);
-    int dir_y = rand_engine() % 2 == 0? -1 : 1;
-    dir_y *= rand_engine() % 500;
-    MoveToMessage msg = MoveToMessage::Create(b2Vec2(dir_x * dt, dir_y * dt));
-    obj()->OnMessage(&msg);
-    */
 }
 
 void CombatPlaneComponent::OnAttackMessage(AttackMessage *msg) {

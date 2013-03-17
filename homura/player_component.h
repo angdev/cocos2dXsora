@@ -14,7 +14,7 @@ public:
 
 public:
     virtual CompType type() const { return kCompPlayer; }
-	virtual void Update(float dt);
+	virtual void DerivedUpdate(float dt);
     virtual void Destroy();
     virtual void InitMsgHandler();
     

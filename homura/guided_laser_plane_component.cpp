@@ -21,9 +21,8 @@ GuidedLaserPlaneComponent::~GuidedLaserPlaneComponent() {
 
 }
 
-void GuidedLaserPlaneComponent::Update(float dt) {
-    CharacterComponent::Update(dt);
-
+void GuidedLaserPlaneComponent::DerivedUpdate(float dt) {
+    
     if(is_idle_state_) {
         attack_timer_ += dt;
         if(attack_timer_ > attack_cool_down_) {

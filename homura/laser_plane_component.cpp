@@ -35,9 +35,8 @@ void LaserPlaneComponent::UpdateAttackLogic(float dt) {
     }
 }
 
-void LaserPlaneComponent::Update(float dt) {
-    CharacterComponent::Update(dt);
-
+void LaserPlaneComponent::DerivedUpdate(float dt) {
+    
     if(!obj()->IsEnabled()) {
         return;
     }

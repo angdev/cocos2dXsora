@@ -15,7 +15,7 @@ public:
 
 public:
     virtual CompType type() const { return kCompLaserPlane; }
-    virtual void Update(float dt);
+    virtual void DerivedUpdate(float dt);
     virtual void InitMsgHandler();
 
 public:

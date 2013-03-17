@@ -23,9 +23,8 @@ void ShieldComponent::InitMsgHandler() {
     CharacterComponent::InitMsgHandler();
 }
 
-void ShieldComponent::Update(float dt) {
-    CharacterComponent::Update(dt);
-
+void ShieldComponent::DerivedUpdate(float dt) {
+    
     if(!obj()->IsEnabled()) {
         return;
     }

@@ -16,7 +16,7 @@ public:
 public:
     virtual CompType type() const { return kCompShield; }
     virtual void InitMsgHandler();
-    virtual void Update(float dt);
+    virtual void DerivedUpdate(float dt);
     
     virtual bool is_enemy() { return false; }
 

@@ -30,7 +30,7 @@ CharacterComponent::~CharacterComponent() {
 
 }
 
-void CharacterComponent::Update(float dt) {
+void CharacterComponent::BaseUpdate(float dt) {
     
     if(!obj()->IsEnabled())
         return;
@@ -233,6 +233,11 @@ void CharacterComponent::OnFindNearestEnemyMessage(FindNearestEnemyMessage *msg)
         msg->min_distance = distance;
         msg->id = obj()->id();
     }
+}
+
+void CharacterComponent::Update(float dt) {
+    CharacterComponent::BaseUpdate(dt);
+    DerivedUpdate(dt);
 }
 
 //CharacterComponent

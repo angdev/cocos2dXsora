@@ -13,7 +13,7 @@ public:
 
 public:
     virtual CompType type() const { return kCompCombatPlane; }
-	virtual void Update(float dt);
+	virtual void DerivedUpdate(float dt);
 	virtual void InitMsgHandler();
 
 public:
@@ -28,10 +28,6 @@ public:
 
 private:
     void AfterDestroy();
-
-    //TEMP
-    //일단 막 움직임
-    void AIMove(float dt);
 
 private:
     //설정할 수 있도록 하자.

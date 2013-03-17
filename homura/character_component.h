@@ -24,6 +24,8 @@ public:
     //Character 공통의 Update 처리
     //하위 녀석들은 이 함수를 호출한다.
     virtual void Update(float dt);
+    void BaseUpdate(float dt);
+    virtual void DerivedUpdate(float dt) = 0;
     virtual void Destroy();
 
     //데미지 처리

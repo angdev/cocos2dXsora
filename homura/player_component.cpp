@@ -81,9 +81,8 @@ void PlayerComponent::ReflectShieldUpdate(float dt) {
 }
 
 
-void PlayerComponent::Update(float dt) {
-    CharacterComponent::Update(dt);
-
+void PlayerComponent::DerivedUpdate(float dt) {
+    
     if(!obj()->IsEnabled()) {
         return;
     }
