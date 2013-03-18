@@ -86,7 +86,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="action_timer.cpp" />
     <ClCompile Include="ai_component.cpp" />
     <ClCompile Include="ally_ai_component.cpp" />
     <ClCompile Include="aura_layer.cpp" />

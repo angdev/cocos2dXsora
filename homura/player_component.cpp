@@ -22,67 +22,32 @@ using namespace sora;
 PlayerComponent::PlayerComponent(GameObject *obj, cocos2d::CCNode *layer)
     : 
     CharacterComponent(obj, layer) {
-    tokamak_timer_.reset(new ActionTimer(30, 5));
-    power_shield_timer_.reset(new ActionTimer(15, 5));
-    reflect_timer_.reset(new ActionTimer(1, -1));
+    tokamak_timer_.reset(new ActionTimer<PlayerComponent>(this, 30, 5));
+    tokamak_timer_->RegisterBeginAction(&PlayerComponent::BeginTokamakField);
+    tokamak_timer_->RegisterActiveAction(&PlayerComponent::ActiveTokamakField);
+    tokamak_timer_->RegisterEndAction(&PlayerComponent::EndTokamakField);
+
+    power_shield_timer_.reset(new ActionTimer<PlayerComponent>(this, 15, 5));
+    tokamak_timer_->RegisterBeginAction(&PlayerComponent::BeginPowerShield);
+    tokamak_timer_->RegisterEndAction(&PlayerComponent::EndPowerShield);
+
+    reflect_timer_.reset(new ActionTimer<PlayerComponent>(this, 1, -1));
 }
 
 PlayerComponent::~PlayerComponent() {
 
 }
 
-void PlayerComponent::TokamakFieldUpdate(float dt) {
-    tokamak_timer_->Update(dt);
-    if(tokamak_timer_->IsActive()) {
-        set_hit_point(hit_point() + 0.3);
-
-        float time = tokamak_timer_->GetTime();
-
-        if(time < 0.2f) {
-            CCNode *sprite = static_cast<NodeDrawableComponent*>(obj()->drawable_comp())->node();
-            static_cast<CCSprite*>(sprite)->setColor(ccc3(255, 255-time*500, 255-time*500));
-        }
-        else if(time > 4.8f) {
-            CCNode *sprite = static_cast<NodeDrawableComponent*>(obj()->drawable_comp())->node();
-            ccColor3B color = static_cast<CCSprite*>(sprite)->getColor();
-            static_cast<CCSprite*>(sprite)->setColor(ccc3(255, color.g+dt*500, color.b+dt*500));
-        }
-
-        return;
-    }
-    else if(tokamak_timer_->IsInactive()) {
-        EndTokamakField();
-    }
+void PlayerComponent::InitMsgHandler() {
+    CharacterComponent::InitMsgHandler();
+    RegisterMsgFunc(this, &PlayerComponent::OnRequestPlayerPositionMessage);
+    RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
+    RegisterMsgFunc(this, &PlayerComponent::OnCollidePlaneMessage);
+    RegisterMsgFunc(this, &PlayerComponent::OnIsEnemyMessage);
 }
-
-bool PlayerComponent::IsAvailableTokamak() {
-    return tokamak_timer_->IsAvailable();
-}
-
-void PlayerComponent::PowerShieldUpdate(float dt) {
-    power_shield_timer_->Update(dt);
-    if(power_shield_timer_->IsInactive()) {
-        EndPowerShield();
-    }
-}
-
-bool PlayerComponent::IsAvailablePowerShield() {
-    return power_shield_timer_->IsAvailable();
-}
-
-void PlayerComponent::ReflectShieldUpdate(float dt) {
-    reflect_timer_->Update(dt);
-    if(reflect_timer_->IsAvailable()) {
-        reflect_timer_->Action();
-    }
-    if(reflect_timer_->IsActive() && IsMoved()) {
-        reflect_timer_->SetInactive();
-    }
-}
-
 
 void PlayerComponent::DerivedUpdate(float dt) {
-    
+
     if(!obj()->IsEnabled()) {
         return;
     }
@@ -107,12 +72,11 @@ void PlayerComponent::DerivedUpdate(float dt) {
     obj()->world()->aura_layer->RequestRenderPlayerAura(obj()->id(), Unit::ToUnitFromMeter(pos));
 }
 
-void PlayerComponent::InitMsgHandler() {
-    CharacterComponent::InitMsgHandler();
-    RegisterMsgFunc(this, &PlayerComponent::OnRequestPlayerPositionMessage);
-    RegisterMsgFunc(this, &PlayerComponent::OnRequestRecoveryMessage);
-    RegisterMsgFunc(this, &PlayerComponent::OnCollidePlaneMessage);
-    RegisterMsgFunc(this, &PlayerComponent::OnIsEnemyMessage);
+void PlayerComponent::Destroy() {
+    //플레이어는 여기서 안 없애고 비활성화 시킴
+    obj()->Disable();
+
+    AfterDestroy();
 }
 
 void PlayerComponent::AfterDestroy() {
@@ -120,24 +84,16 @@ void PlayerComponent::AfterDestroy() {
     obj()->world()->shield_layer->StopRenderTokamakField(obj()->id());
 }
 
-//반사 로직
+/************************************************************************/
+/* Message Handling                                                     */
+/************************************************************************/
 
-bool PlayerComponent::IsMoved() {
-    PhyBodyInfo body_info;
-    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
-    obj()->OnMessage(&body_info_msg);
+void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
 
-    assert(body_info_msg.is_ret && "body_info is not returned.");
-
-    if(glm::abs(prev_body_pos.x - body_info.x) < 0.001 && glm::abs(prev_body_pos.y - body_info.y) < 0.001) {
-        return false;
-    }
-    else {
-        prev_body_pos = b2Vec2(body_info.x, body_info.y);
-        return true;
-    }
+    b2Body *body = obj()->phy_comp()->main_body();
+    body->SetTransform(msg->prev_pos, body->GetAngle());
+    body->SetLinearVelocity(b2Vec2_zero);
 }
-
 
 //반사 로직 포함된 충돌 처리 로직
 void PlayerComponent::CollideBullet( CollideBulletMessage *msg ) {
@@ -227,20 +183,11 @@ void PlayerComponent::OnRequestRecoveryMessage( RequestRecoveryMessage *msg ) {
     }
 }
 
-void PlayerComponent::HandleOutOfBound(OutOfBoundMessage *msg) {
-
-    b2Body *body = obj()->phy_comp()->main_body();
-    body->SetTransform(msg->prev_pos, body->GetAngle());
-    body->SetLinearVelocity(b2Vec2_zero);
-}
-
 void PlayerComponent::OnCollidePlaneMessage(CollidePlaneMessage *msg) {
     //일단 부딪힌 객체가 캐릭터 컴포넌트를 가지는게 보장되고 있음
     CharacterComponent *counter_char_comp = static_cast<CharacterComponent*>(msg->counter_obj->logic_comp());
     if(counter_char_comp->is_enemy() != is_enemy()) {
-        //데미지를 주자
-        //set_hit_point가 있으니 써도 됨..
-        //왜 메시지로 만들었지?
+
         DamageObjectMessage damage_msg = DamageObjectMessage::Create(1.0f);
         msg->counter_obj->OnMessage(&damage_msg);
         obj()->OnMessage(&damage_msg);
@@ -269,25 +216,86 @@ void PlayerComponent::OnResetMessage(ResetMessage *msg) {
 
 }
 
-void PlayerComponent::Destroy() {
-    //플레이어는 여기서 안 없애고 비활성화 시킴
-    obj()->Disable();
-
-    AfterDestroy();
-}
-
 //player는 ai comp를 안 가져서 만들어줘야함
-void PlayerComponent::OnIsEnemyMessage( IsEnemyMessage *msg ) {
+void PlayerComponent::OnIsEnemyMessage(IsEnemyMessage *msg) {
     msg->is_ret = true;
     msg->is_enemy = false;
 }
 
-void PlayerComponent::UseTokamakField() {
+/************************************************************************/
+/* Reflect                                                              */
+/************************************************************************/
 
-    if(tokamak_timer_->IsAvailable()) {
-        set_unbeatable(true);
-        tokamak_timer_->Action();
+void PlayerComponent::ReflectShieldUpdate(float dt) {
+    reflect_timer_->Update(dt);
+    if(reflect_timer_->IsAvailable()) {
+        reflect_timer_->Action();
     }
+    if(reflect_timer_->IsActive() && IsMoved()) {
+        reflect_timer_->SetInactive();
+    }
+}
+
+bool PlayerComponent::IsMoved() {
+    PhyBodyInfo body_info;
+    RequestPhyBodyInfoMessage body_info_msg = RequestPhyBodyInfoMessage::Create(&body_info);
+    obj()->OnMessage(&body_info_msg);
+
+    assert(body_info_msg.is_ret && "body_info is not returned.");
+
+    if(glm::abs(prev_body_pos.x - body_info.x) < 0.001 && glm::abs(prev_body_pos.y - body_info.y) < 0.001) {
+        return false;
+    }
+    else {
+        prev_body_pos = b2Vec2(body_info.x, body_info.y);
+        return true;
+    }
+}
+
+/************************************************************************/
+/* Use Skill (Public)                                                   */
+/************************************************************************/
+
+void PlayerComponent::UseTokamakField() {
+    tokamak_timer_->Action();
+}
+
+void PlayerComponent::UsePowerShield() {
+    power_shield_timer_->Action();
+}
+
+/************************************************************************/
+/* TokamakField                                                         */
+/************************************************************************/
+
+void PlayerComponent::TokamakFieldUpdate(float dt) {
+    tokamak_timer_->Update(dt);
+}
+
+bool PlayerComponent::IsAvailableTokamak() {
+    return tokamak_timer_->IsAvailable();
+}
+
+void PlayerComponent::BeginTokamakField() {
+    set_unbeatable(true);
+}
+
+void PlayerComponent::ActiveTokamakField(float dt) {
+    set_hit_point(hit_point() + 0.3);
+
+    float time = tokamak_timer_->GetTime();
+
+    if(time < 0.2f) {
+        CCNode *sprite = static_cast<NodeDrawableComponent*>(obj()->drawable_comp())->node();
+        static_cast<CCSprite*>(sprite)->setColor(ccc3(255, 255-time*500, 255-time*500));
+    }
+    else if(time > 4.8f) {
+        CCNode *sprite = static_cast<NodeDrawableComponent*>(obj()->drawable_comp())->node();
+        ccColor3B color = static_cast<CCSprite*>(sprite)->getColor();
+        static_cast<CCSprite*>(sprite)->setColor(ccc3(255, color.g+dt*500, color.b+dt*500));
+    }
+
+    return;
 }
 
 void PlayerComponent::EndTokamakField() {
@@ -296,13 +304,24 @@ void PlayerComponent::EndTokamakField() {
     set_unbeatable(false);
 }
 
-void PlayerComponent::UsePowerShield() {
-    if(power_shield_timer_->IsAvailable()) {
-        CreateShieldMessage msg = CreateShieldMessage::Create(false);
-        obj()->world()->OnMessage(&msg);
-        power_shield_timer_->Action();
-    }
+
+/************************************************************************/
+/* PowerShield                                                          */
+/************************************************************************/
+
+void PlayerComponent::PowerShieldUpdate(float dt) {
+    power_shield_timer_->Update(dt);
 }
+
+bool PlayerComponent::IsAvailablePowerShield() {
+    return power_shield_timer_->IsAvailable();
+}
+
+void PlayerComponent::BeginPowerShield() {
+    CreateShieldMessage msg = CreateShieldMessage::Create(false);
+    obj()->world()->OnMessage(&msg);
+}
+
 
 void PlayerComponent::EndPowerShield() {
 

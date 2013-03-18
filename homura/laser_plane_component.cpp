@@ -17,7 +17,8 @@ LaserPlaneComponent::LaserPlaneComponent(GameObject *obj, cocos2d::CCNode *layer
     : 
     CharacterComponent(obj, layer),
     laser_damage_(50.0f) {
-        attack_timer_.reset(new ActionTimer(2.0f, 8.0f));
+        attack_timer_.reset(new ActionTimer<LaserPlaneComponent>(this, 2.0f, 8.0f));
+        attack_timer_->RegisterEndAction(&LaserPlaneComponent::StopAttack);
         ray_cast_callback_ = std::move(std::unique_ptr<RayCastCallback>(new RayCastCallback(this)));
 }
 
@@ -27,10 +28,12 @@ LaserPlaneComponent::~LaserPlaneComponent() {
 
 void LaserPlaneComponent::UpdateAttackLogic(float dt) {
     attack_timer_->Update(dt);
+    /*
     if(attack_timer_->IsInactive()) {
         StopAttack();
     }
-    else if(attack_timer_->IsActive()) {
+    */
+    if(attack_timer_->IsActive()) {
         Attack();
     }
 }
@@ -108,12 +111,14 @@ void LaserPlaneComponent::OnAttackMessage(AttackMessage *msg) {
 }
 
 void LaserPlaneComponent::StopAttack() {
-    attack_timer_->SetInactive();
+
     //그리기 끝
     StopRenderLaserMessage stop_msg = StopRenderLaserMessage::Create(obj()->id());
     obj()->world()->OnMessage(&stop_msg);
 
     CocosDenshion::SimpleAudioEngine::sharedEngine()->stopEffect(laser_sound_id_);
+
+    attack_timer_->SetInactive();
 }
 
 void LaserPlaneComponent::OnMoveToMessage(MoveToMessage *msg) {

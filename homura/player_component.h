@@ -3,9 +3,7 @@
 #define __PLAYER_COMPONENT_H__
 
 #include "character_component.h"
-
-class ActionTimer;
-typedef std::unique_ptr<ActionTimer> ActionTimerPtr;
+#include "action_timer.h"
 
 class PlayerComponent : public CharacterComponent {
 public:
@@ -36,15 +34,12 @@ public:
 
     //필살기! 토카막 필드
     void UseTokamakField();
-    void EndTokamakField();
-
     bool IsAvailableTokamak();
-    bool IsAvailablePowerShield();
 
     //전부 쉴드 주는 필살기
     void UsePowerShield();
-    void EndPowerShield();
-
+    bool IsAvailablePowerShield();
+    
     void TokamakFieldUpdate(float dt);
     void PowerShieldUpdate(float dt);
     void ReflectShieldUpdate(float dt);
@@ -52,6 +47,15 @@ public:
 private:
     void AfterDestroy();
     void HandleOutOfBound(OutOfBoundMessage *msg);
+
+private:
+    void BeginTokamakField();
+    void ActiveTokamakField(float dt);
+    void EndTokamakField();
+
+    void BeginPowerShield();
+    void EndPowerShield();
+
 
 private:
     //반사 로직
@@ -68,9 +72,9 @@ private:
 
     
 private:
-    ActionTimerPtr tokamak_timer_;
-    ActionTimerPtr power_shield_timer_;
-    ActionTimerPtr reflect_timer_;
+    std::unique_ptr< ActionTimer<PlayerComponent> > tokamak_timer_;
+    std::unique_ptr< ActionTimer<PlayerComponent> > power_shield_timer_;
+    std::unique_ptr< ActionTimer<PlayerComponent> > reflect_timer_;
 };
 
 #endif

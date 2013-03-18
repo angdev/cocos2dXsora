@@ -3,9 +3,7 @@
 #define __LASER_PLANE_COMPONENT_H__
 
 #include "character_component.h"
-
-class ActionTimer;
-typedef std::unique_ptr<ActionTimer> ActionTimerPtr;
+#include "action_timer.h"
 
 //얘는 그냥 기체가 바라보는 방향으로 레이저 쏘는 놈
 class LaserPlaneComponent : public CharacterComponent {
@@ -53,7 +51,7 @@ private:
     void AfterDestroy();
 
 private:
-    ActionTimerPtr attack_timer_;
+    std::unique_ptr< ActionTimer<LaserPlaneComponent> > attack_timer_;
     int laser_sound_id_;
     
     //per sec
